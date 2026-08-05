@@ -8,7 +8,7 @@ from fastapi.responses import HTMLResponse
 
 app = FastAPI(title="FleetParts AI - Universal Heavy Duty Master Engine")
 
-# API Anahtarı (Render ortamından veya doğrudan)
+# API Anahtarı / Token (Render ortamından çeker)
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "AQ.Ab8RN6IPhISGbVUlc0GZ_I28dwWjGZSNV37AjFt9gx-EvAVjAQ")
 
 UPLOAD_DIR = "temp_images"
@@ -56,7 +56,7 @@ def load_catalog():
         return []
 
 def call_gemini_api(prompt: str, image_path: str = None) -> str:
-    """Dünyanın en gelişmiş Google Gemini modelleriyle kesintisiz REST API iletişimi"""
+    """OAuth Token ve Standart API Key destekli evrensel bağlantı yöneticisi"""
     models_to_try = ["gemini-1.5-pro", "gemini-2.0-flash", "gemini-1.5-flash"]
     parts = [{"text": prompt}]
     
@@ -70,9 +70,17 @@ def call_gemini_api(prompt: str, image_path: str = None) -> str:
     payload = {"contents": [{"parts": parts}]}
     headers = {"Content-Type": "application/json"}
     
+    # Kimlik Doğrulama Türünü Otomatik Algıla (API Key vs OAuth Bearer Token)
+    if GEMINI_API_KEY.startswith("AIza"):
+        url_template = "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key=" + GEMINI_API_KEY
+    else:
+        # OAuth / Bearer Token desteği (AQ... vb.)
+        headers["Authorization"] = f"Bearer {GEMINI_API_KEY}"
+        url_template = "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
+
     last_error = ""
     for model in models_to_try:
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={GEMINI_API_KEY}"
+        url = url_template.format(model=model)
         try:
             res = requests.post(url, json=payload, headers=headers, timeout=50)
             if res.status_code == 200:
