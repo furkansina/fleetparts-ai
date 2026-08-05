@@ -5,11 +5,10 @@ import base64
 import requests
 from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.responses import HTMLResponse
-from PIL import Image
 
-app = FastAPI(title="FleetParts AI - Heavy Duty Agent System")
+app = FastAPI(title="FleetParts AI - Universal Heavy Duty Master Engine")
 
-# API Anahtarı (Ortam değişkeninden okunur, yoksa koddaki atanır)
+# API Anahtarı (Render ortamından veya doğrudan)
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "AQ.Ab8RN6IPhISGbVUlc0GZ_I28dwWjGZSNV37AjFt9gx-EvAVjAQ")
 
 UPLOAD_DIR = "temp_images"
@@ -19,7 +18,7 @@ CATALOG_FILE = "catalog.json"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 os.makedirs(CATALOG_DIR, exist_ok=True)
 
-# Varsayılan Katalog Oluşturma
+# Başlangıç Evrensel Katalog Veritabanı
 if not os.path.exists(CATALOG_FILE):
     with open(CATALOG_FILE, "w", encoding="utf-8") as f:
         json.dump([
@@ -28,16 +27,24 @@ if not os.path.exists(CATALOG_FILE):
                 "oem": "1505234", 
                 "name": "Disk Fren Balatası Heavy", 
                 "brand": "Orijinal Kalite", 
-                "specs": "Kalınlık: 25mm, Renk: Siyah, Ölçü: 247x110mm", 
-                "stock": 30
+                "specs": "Döküm arka plaka, 247x110mm, çift kulaklı bağlantı noktası, kalınlık 25mm, aşınma sensör yuvalı.", 
+                "stock": 45
             },
             {
-                "id": "FLT-002", 
-                "oem": "21707134", 
-                "name": "Hava Filtresi Süper Ağır Vasıta", 
-                "brand": "FleetGuard", 
-                "specs": "Çap: 280mm, Yükseklik: 450mm", 
+                "id": "VLF-102", 
+                "oem": "4324102227", 
+                "name": "Hava Kurutucu Dağıtıcı Valf (4 Yollu)", 
+                "brand": "Wabco Tipi", 
+                "specs": "Alüminyum döküm gövde, 4 adet M22 hava basınç portu, alt kısımda 7 pin elektronik soket, silindirik üst hazne.", 
                 "stock": 15
+            },
+            {
+                "id": "FLT-303", 
+                "oem": "21707134", 
+                "name": "Ana Yakıt ve Su Ayırıcı Filtre", 
+                "brand": "FleetGuard", 
+                "specs": "Silindirik kağıt filtre elemanı, üst conta çapı 90mm, tahliye musluklu metal dış gövde.", 
+                "stock": 60
             }
         ], f, ensure_ascii=False, indent=4)
 
@@ -49,61 +56,60 @@ def load_catalog():
         return []
 
 def call_gemini_api(prompt: str, image_path: str = None) -> str:
-    """
-    Google Gemini REST API'ye doğrudan HTTP isteği atar.
-    SDK bağımlılıklarını ve 401/404 yetkilendirme hatalarını tamamen çözer.
-    """
-    models_to_try = ["gemini-1.5-flash", "gemini-2.0-flash"]
-    
+    """Dünyanın en gelişmiş Google Gemini modelleriyle kesintisiz REST API iletişimi"""
+    models_to_try = ["gemini-1.5-pro", "gemini-2.0-flash", "gemini-1.5-flash"]
     parts = [{"text": prompt}]
     
     if image_path and os.path.exists(image_path):
         with open(image_path, "rb") as img_f:
             b64_img = base64.b64encode(img_f.read()).decode("utf-8")
-        
         ext = image_path.split('.')[-1].lower()
         mime_type = "image/png" if ext == "png" else "image/jpeg"
+        parts.append({"inline_data": {"mime_type": mime_type, "data": b64_img}})
         
-        parts.append({
-            "inline_data": {
-                "mime_type": mime_type,
-                "data": b64_img
-            }
-        })
-        
-    payload = {
-        "contents": [{"parts": parts}]
-    }
-    
+    payload = {"contents": [{"parts": parts}]}
     headers = {"Content-Type": "application/json"}
     
+    last_error = ""
     for model in models_to_try:
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={GEMINI_API_KEY}"
         try:
-            res = requests.post(url, json=payload, headers=headers, timeout=30)
+            res = requests.post(url, json=payload, headers=headers, timeout=50)
             if res.status_code == 200:
                 data = res.json()
                 return data['candidates'][0]['content']['parts'][0]['text']
-        except Exception:
+            else:
+                last_error = f"HTTP {res.status_code}: {res.text}"
+        except Exception as e:
+            last_error = str(e)
             continue
             
-    raise Exception("Gemini API bağlantısı sağlanamadı. Lütfen API anahtarınızı kontrol edin.")
+    raise Exception(f"Universal API Kritik Bağlantı Hatası: {last_error}")
 
 # ---------------------------------------------------------
-# AJAN 1: GÖRSEL ANALİZ AJANI (Vision Agent)
+# EVRENSEL AJAN 1: UNIVERSAL INDUSTRIAL SCANNER & OCR
 # ---------------------------------------------------------
 def vision_agent(image_path: str) -> dict:
     prompt = """
-    Sen uzman bir ağır vasıta (tır, kamyon, otobüs) yedek parça eksperisin.
-    Görseldeki yedek parçayı detaylıca analiz et.
-    Çıktıyı SADECE geçerli bir JSON objesi olarak ver:
+    Sen ağır vasıta, tır, kamyon, iş makinesi ve otobüslere ait KÜRESEL ÇAPTAKİ TÜM YEDEK PARÇALARI (Fren, Havalı Sistem, Filtreler, Süspansiyon, Sensörler, Dişliler, Valfler, Pompalar vb.) kusursuz tanıyan evrensel bir yapay zeka mühendisisin.
+    Görseldeki parça ne kadar kirli, paslı, yağlı veya kötü açıyla çekilmiş olursa olsun odaklan ve şu teknik verileri çıkar:
+
+    1. OCR Optik Karakter Taraması: Parça üzerindeki döküm yazılarını, OEM numaralarını, silik etiketleri ve seri numaralarını harf harf oku.
+    2. Topolojik Mühendislik Haritası: Parçanın rekorlarını, dişli hatve yapılarını, cıvata/montaj delik sayısını, elektrik pin/soketlerini detaylı say.
+    3. Geometrik Sınıflandırma: Parçanın ana kategorisini (Örn: Fren Sistemleri, Hava Valfleri, Filtrasyon, Hidrolik vb.) ve tam adını belirle.
+
+    Çıktıyı SADECE ve kesinlikle şu JSON formatında ver:
     {
-      "is_clear": true,
-      "part_type": "Parçanın genel adı",
-      "color": "Renk",
-      "visible_codes": "Okunan parça numarası veya OEM kodu (Yoksa 'Yok')",
-      "form_and_specs": "Soket, delik, vida yuvası ve fiziksel yapı detayları",
-      "side_detected": "Sağ / Sol / Ön / Arka / Belirsiz"
+      "is_part_detected": true,
+      "universal_category": "Fren / Hava Sistemi / Filtre / Süspansiyon / Diğer",
+      "exact_name_classification": "Parçanın Sektörel Net Adı",
+      "ocr_extracted_codes": ["Kod1", "Kod2", "Bulunamazsa Boş Liste"],
+      "topology_map": {
+        "ports_or_threads": "Rekor, boru veya dişli bağlantı detayları ve sayıları",
+        "electrical_pins_or_sockets": "Elektronik soket, pin veya sensör uçları",
+        "mounting_holes_and_flanges": "Civata delikleri, kulaklar veya flanş yapısı"
+      },
+      "geometry_and_material": "Malzeme cinsi (Alüminyum döküm, sac, plastik, balata materyali vb.) ve fiziksel form"
     }
     """
     try:
@@ -112,37 +118,38 @@ def vision_agent(image_path: str) -> dict:
         start = clean_text.find("{")
         end = clean_text.rfind("}") + 1
         return json.loads(clean_text[start:end])
-    except Exception:
-        return {
-            "is_clear": True,
-            "part_type": "Ağır Vasıta Parçası",
-            "color": "Belirsiz",
-            "visible_codes": "Yok",
-            "form_and_specs": "Standart yedek parça yapısı",
-            "side_detected": "Belirsiz"
-        }
+    except Exception as e:
+        raise Exception(f"Universal Tarama Hatası: {str(e)}")
 
 # ---------------------------------------------------------
-# AJAN 2: KATALOG EŞLEŞTİRME AJANI (Match Agent)
+# EVRENSEL AJAN 2: UNIVERSAL PRECISION MATCHER
 # ---------------------------------------------------------
 def match_agent(vision_data: dict) -> dict:
+    catalog = load_catalog()
+    if not catalog:
+        return {"id": "NOT_IN_CATALOG", "name": "Katalog Boş", "match_reason": "Veritabanında kayıtlı ürün bulunamadı."}
+    
+    prompt = f"""
+    Sen sıfır hata toleransına sahip kurumsal bir parça eşleştirme motorusun.
+    Müşterinin sahadan gönderdiği parçanın tarama verisi:
+    {json.dumps(vision_data, ensure_ascii=False)}
+
+    Sistemimizdeki Tüm Parça Katalog Veritabanı:
+    {json.dumps(catalog, ensure_ascii=False)}
+
+    EŞLEŞTİRME PRENSİPLERİ:
+    1. OEM / KOD EŞLEŞMESİ: Tarama verisindeki 'ocr_extracted_codes' içindeki herhangi bir kod katalogdaki 'oem' veya 'id' ile uyuşuyorsa güven skoru direkt %100'dür.
+    2. TOPOLOJİK UYUM: Kod okunamadıysa; parça kategorisi, rekor/delik sayıları ve fiziksel özellikleri katalogdaki ürünlerin 'specs' bilgileriyle kıyaslanır. Uyum oranı hesaplanır.
+    3. Eşleşme skoru %70'in altındaysa kesinlikle yanlış parça riskine girilmez ve 'NOT_IN_CATALOG' döndürülür.
+
+    Çıktı SADECE şu JSON yapısında olmalıdır:
+    {{
+      "matched_id": "katalog_id_yada_NOT_IN_CATALOG",
+      "match_accuracy_score": 92,
+      "decision_logic": "Neden eşleştiğine dair net teknik mühendislik kanıtı"
+    }}
+    """
     try:
-        catalog = load_catalog()
-        if not vision_data.get("is_clear", True):
-            return {"id": "IMAGE_UNCLEAR", "name": "Görsel Net Değil", "match_reason": "Görsel analiz için yetersiz."}
-        
-        prompt = f"""
-        Müşteri Görsel Analiz Verileri: {json.dumps(vision_data, ensure_ascii=False)}
-        Mevcut Stok Katalog Listemiz: {json.dumps(catalog, ensure_ascii=False)}
-
-        Görevin: Görsel verilerini katalogdaki ürünlerle eşleştir. 
-        Eğer tam veya yüksek benzerlikte bir ürün varsa ürünün 'id' değerini dön.
-        Eğer katalogda bu parça kesinlikle yoksa 'NOT_IN_CATALOG' dön.
-
-        Çıktıyı SADECE şu JSON formatında ver:
-        {{"matched_id": "ürün_id_veya_NOT_IN_CATALOG", "match_reason": "Neden eşleştiği veya eşleşmediği hakkında detaylı açıklama"}}
-        """
-        
         raw_text = call_gemini_api(prompt)
         clean_text = raw_text.replace("```json", "").replace("```", "").strip()
         start = clean_text.find("{")
@@ -150,53 +157,51 @@ def match_agent(vision_data: dict) -> dict:
         result = json.loads(clean_text[start:end])
         
         matched_id = result.get("matched_id")
-        match_reason = result.get("match_reason", "")
+        score = int(result.get("match_accuracy_score", 0))
+        decision = result.get("decision_logic", "")
 
-        if matched_id and matched_id != "NOT_IN_CATALOG":
+        if matched_id and matched_id != "NOT_IN_CATALOG" and score >= 70:
             for item in catalog:
-                if item.get("id") == matched_id:
+                if str(item.get("id")) == str(matched_id):
                     item_copy = item.copy()
-                    item_copy["match_reason"] = match_reason
-                    item_copy["vision_side"] = vision_data.get("side_detected", "Belirsiz")
+                    item_copy["match_reason"] = f"Kesinlik Skoru: %{score} | Doğrulama: {decision}"
                     return item_copy
                     
         return {
             "id": "NOT_IN_CATALOG", 
-            "name": "Katalog Dışı / Özel Tedarik Parçası", 
-            "match_reason": match_reason, 
-            "vision_side": vision_data.get("side_detected", "Belirsiz")
+            "name": "Katalog Dışı / Eşleşme Sağlanamadı", 
+            "match_reason": f"Benzerlik skoru (%{score}) yeterli eşik değerinin altında kaldı. Kanıt: {decision}"
         }
-    except Exception:
-        return {"id": "NOT_IN_CATALOG", "name": "Özel Tedarik Parçası", "match_reason": "Manuel inceleme gerekiyor."}
+    except Exception as e:
+        raise Exception(f"Eşleştirme Motoru Hatası: {str(e)}")
 
 # ---------------------------------------------------------
-# AJAN 3: SATIŞ & WHATSAPP MESAJ AJANI (Sales Agent)
+# EVRENSEL AJAN 3: B2B PROFESSIONAL SALES AGENT
 # ---------------------------------------------------------
 def sales_agent(product_data: dict, customer_type: str, price_note: str) -> str:
+    if product_data.get("id") == "NOT_IN_CATALOG":
+        return "Sayın İş Ortağımız, gönderdiğiniz yedek parça görseli evrensel katalogumuzda yüksek doğrulukla eşleştirilememiştir. Yanlış sevkiyatın önüne geçmek adına lütfen parçanın OEM kodunu veya araç şase (VIN) numarasını iletiniz."
+    
+    fiyat = price_note if price_note else "Güncel kur ve iskonto oranları için iletişime geçiniz."
+    
+    prompt = f"""
+    Sen ağır vasıta yedek parça sektöründe faaliyet gösteren kurumsal bir B2B tedarik sisteminin satış asistanısın.
+    Müşteri Profili: {customer_type}
+    Tespit Edilen Ürün: {product_data.get('name')} 
+    Marka / Kalite: {product_data.get('brand')}
+    OEM Kodu: {product_data.get('oem')}
+    Fiyat / Not: {fiyat}
+    Stok Durumu: Mevcut ({product_data.get('stock', 'Hazır')} adet)
+    
+    Görev: WhatsApp ve kurumsal iletişim kanalları için; tamamen profesyonel, net, yorumsuz, parça durumu eleştirisi barındırmayan saf ticari sipariş/teklif mesajı oluştur.
+    """
     try:
-        if product_data.get("id") == "IMAGE_UNCLEAR":
-            return "Ustam selamlar, attığın fotoğraf net seçilemiyor. Parçanın üzerindeki kodu veya soket kısmını gösterecek şekilde yeniden fotoğraf iletebilir misin?"
-        
-        if product_data.get("id") == "NOT_IN_CATALOG":
-            return "Ustam selamlar, gönderdiğin parça şu an hazır stok kataloğumuzda görünmüyor. Yanlış parça çıkışını önlemek adına aracın şase numarasını (VIN) iletirsen hemen orijinal OEM kodundan sorgulayıp temin edelim."
-        
-        fiyat_bilgisi = price_note if price_note else "Özel iskonto ve güncel fiyat bilgisi için iletişime geçebilirsiniz."
-        
-        prompt = f"""
-        Sen ağır vasıta yedek parça sektöründe tecrübeli, usta dilinden anlayan profesyonel bir satış temsilcisisin.
-        
-        Müşteri Tipi: {customer_type}
-        Ürün Bilgileri: {json.dumps(product_data, ensure_ascii=False)}
-        Fiyat Notu: {fiyat_bilgisi}
-        
-        Müşteriye WhatsApp üzerinden gönderilecek; samimi, güven veren, stok durumunu ve hızlı kargo avantajını belirten net bir satış mesajı oluştur.
-        """
         return call_gemini_api(prompt)
-    except Exception:
-        return "Parçanız stoklarımızda mevcuttur. Detaylı bilgi ve sipariş için ulaşabilirsiniz."
+    except:
+        return f"Ürün Başarıyla Tespit Edildi: {product_data.get('name')} (OEM: {product_data.get('oem')}). Stoklarımızda mevcuttur. Bilgilerinize sunarız."
 
 # ---------------------------------------------------------
-# FASTAPI ENDPOINT'LERİ
+# FASTAPI ENDPOINT MİMARİSİ
 # ---------------------------------------------------------
 @app.get("/", response_class=HTMLResponse)
 async def read_root():
@@ -204,7 +209,7 @@ async def read_root():
         with open("index.html", "r", encoding="utf-8") as f:
             return f.read()
     except Exception:
-        return "<h2 style='font-family:sans-serif;'>FleetParts AI Sistem Çalışıyor!</h2>"
+        return "<h2>FleetParts AI - Universal Heavy Duty Master Engine Aktif</h2>"
 
 @app.get("/get-catalog")
 async def get_catalog_endpoint():
@@ -213,42 +218,46 @@ async def get_catalog_endpoint():
 @app.post("/upload-catalog-files")
 async def upload_catalog_files(files: list[UploadFile] = File(...)):
     try:
-        all_items = load_catalog()
+        catalog = load_catalog()
+        added_count = 0
+        
         for file in files:
             file_path = os.path.join(CATALOG_DIR, file.filename)
             with open(file_path, "wb") as buffer:
                 shutil.copyfileobj(file.file, buffer)
             
-            # Doküman / Resim Okuma
             prompt = """
-            Bu dosyada yer alan ağır vasıta yedek parçalarını oku ve saf JSON listesi olarak döndür.
-            Format:
-            [{"id": "KOD1", "oem": "OEM123", "name": "Parça Adı", "brand": "Marka", "specs": "Özellikler", "stock": 10}]
+            Bu evrensel katalog dosyasından/görselinden her tür ağır vasıta yedek parçasını tara.
+            SADECE şu JSON yapısında kusursuz veri çıkar:
+            {
+                "id": "PRC-" + rasgele 4 haneli sayı,
+                "oem": "Parçanın OEM Kodu veya numarası (Yoksa 'OEM-BELİRSİZ')",
+                "name": "Sektörel Resmi Parça Adı",
+                "brand": "Üretici veya Marka",
+                "specs": "Bağlantı rekorları, pinler, ölçüler ve teknik detaylar",
+                "stock": 25
+            }
             """
-            try:
-                raw_text = call_gemini_api(prompt, file_path)
-                clean_text = raw_text.replace("```json", "").replace("```", "").strip()
-                start = clean_text.find("[")
-                end = clean_text.rfind("]") + 1
-                parsed_items = json.loads(clean_text[start:end])
-                
-                for item in parsed_items:
-                    if not any(existing.get("id") == item.get("id") for existing in all_items):
-                        all_items.append(item)
-            except Exception:
-                continue
-                    
-        with open(CATALOG_FILE, "w", encoding="utf-8") as f:
-            json.dump(all_items, f, ensure_ascii=False, indent=4)
+            raw_res = call_gemini_api(prompt, file_path)
+            clean_res = raw_res.replace("```json", "").replace("```", "").strip()
+            start = clean_res.find("{")
+            end = clean_res.rfind("}") + 1
+            item_data = json.loads(clean_res[start:end])
             
-        return {"status": "success", "message": "Katalog başarıyla güncellendi ve işlendi!"}
+            catalog.append(item_data)
+            added_count += 1
+            
+        with open(CATALOG_FILE, "w", encoding="utf-8") as f:
+            json.dump(catalog, f, ensure_ascii=False, indent=4)
+            
+        return {"status": "success", "message": f"{added_count} adet evrensel yedek parça kataloğa işlendi."}
     except Exception as e:
-        return {"status": "error", "message": f"Hata: {str(e)}"}
+        return {"status": "error", "message": f"Katalog Yükleme Hatası: {str(e)}"}
 
 @app.post("/process-part")
 async def process_part(
     file: UploadFile = File(...),
-    customer_type: str = Form("Anadolu Toptancısı"),
+    customer_type: str = Form("Kurumsal Filo / Toptancı"),
     price_note: str = Form("")
 ):
     file_path = os.path.join(UPLOAD_DIR, file.filename)
@@ -256,9 +265,13 @@ async def process_part(
         with open(file_path, "wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
         
-        # 3 Aşamalı Ajan Akışı
+        # 1. Aşama: Evrensel Endüstriyel Tarama & OCR
         vision_res = vision_agent(file_path)
+        
+        # 2. Aşama: Matris Algoritmik Eşleştirme
         matched_prod = match_agent(vision_res)
+        
+        # 3. Aşama: B2B Kurumsal Satış Teklifi
         sales_msg = sales_agent(matched_prod, customer_type, price_note)
         
         return {
@@ -270,7 +283,7 @@ async def process_part(
             }
         }
     except Exception as e:
-        return {"status": "error", "message": f"İşlem Hatası: {str(e)}"}
+        return {"status": "error", "message": f"Kritik Sistem Hatası: {str(e)}"}
     finally:
         if os.path.exists(file_path):
             try:
