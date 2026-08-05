@@ -45,7 +45,7 @@ async def analyze_part(file: UploadFile = File(...)):
         Kullanıcının yüklediği bu parça görselini analiz et:
         1. Görseldeki parçanın ne olduğunu tespit et.
         2. Katalogdaki hangi parça veya parça grubuyla eşleştiğini bul.
-        3. Stokta olup olmadığını, kritik stok durumunu ve hangi araç gruplarına uyduğunu belirt.
+        3. Stokta olup olmadığını ve hangi araç gruplarına uyduğunu belirt.
         4. Müşteriye gönderilmek üzere profesyonel, net ve satış odaklı bir teklif/bilgilendirme mesajı hazırla.
         """
 
