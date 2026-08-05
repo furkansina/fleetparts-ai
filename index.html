@@ -21,7 +21,6 @@
 <div class="container">
     <h1>FleetParts AI 🚚</h1>
     
-    <!-- Katalog Yükleme Bölümü -->
     <div class="section">
         <h3>1. Katalog / PDF / Görsel Yükle</h3>
         <form id="catalogForm">
@@ -30,7 +29,6 @@
         </form>
     </div>
 
-    <!-- Parça Analiz ve Satış Asistanı Bölümü -->
     <div class="section">
         <h3>2. Parça Fotoğrafı İncele & Satış Mesajı Üret</h3>
         <form id="partForm">
@@ -51,7 +49,6 @@
         </form>
     </div>
 
-    <!-- Sonuç Ekranı -->
     <div class="section">
         <h3>Sonuçlar / Ajan Çıktıları</h3>
         <pre id="output">İşlem bekleniyor...</pre>
@@ -65,7 +62,7 @@
         document.getElementById('output').innerText = "Katalog dosyaları işleniyor, lütfen bekleyin...";
         
         try {
-            const res = await fetch('/upload-catalog-files/', { method: 'POST', body: formData });
+            const res = await fetch('/upload-catalog-files', { method: 'POST', body: formData });
             const data = await res.json();
             document.getElementById('output').innerText = JSON.stringify(data, null, 2);
         } catch (err) {
@@ -79,7 +76,7 @@
         document.getElementById('output').innerText = "Parça analiz ediliyor ve satış mesajı hazırlanıyor...";
         
         try {
-            const res = await fetch('/process-part/', { method: 'POST', body: formData });
+            const res = await fetch('/process-part', { method: 'POST', body: formData });
             const data = await res.json();
             document.getElementById('output').innerText = JSON.stringify(data, null, 2);
         } catch (err) {
