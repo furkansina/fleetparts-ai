@@ -1,160 +1,92 @@
-import os
-import shutil
-import json
-from fastapi import FastAPI, UploadFile, File, Form
-from fastapi.responses import HTMLResponse
-from google import genai
-from PIL import Image
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FleetParts AI - Ağır Vasıta Parça Asistanı</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f6f9; color: #333; margin: 0; padding: 20px; }
+        .container { max-width: 900px; margin: auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        h1 { color: #d9534f; text-align: center; }
+        .section { margin-bottom: 30px; padding: 20px; border: 1px solid #ddd; border-radius: 6px; background: #fafafa; }
+        label { font-weight: bold; display: block; margin-top: 10px; }
+        input, select, button { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        button { background-color: #d9534f; color: white; font-weight: bold; cursor: pointer; border: none; margin-top: 15px; }
+        button:hover { background-color: #c9302c; }
+        pre { background: #272822; color: #f8f8f2; padding: 15px; border-radius: 5px; overflow-x: auto; }
+    </style>
+</head>
+<body>
 
-app = FastAPI(title="FleetParts AI")
+<div class="container">
+    <h1>FleetParts AI 🚚</h1>
+    
+    <!-- Katalog Yükleme Bölümü -->
+    <div class="section">
+        <h3>1. Katalog / PDF / Görsel Yükle</h3>
+        <form id="catalogForm">
+            <input type="file" name="files" multiple accept=".pdf, .png, .jpg, .jpeg">
+            <button type="submit">Katalog Dosyalarını İşle ve Ekle</button>
+        </form>
+    </div>
 
-client = genai.Client(api_key="AIzaSyA4QZ7G3hS-bunuKullanacagiz")
-
-UPLOAD_DIR = "temp_images"
-os.makedirs(UPLOAD_DIR, exist_ok=True)
-os.makedirs("sample_catalogs", exist_ok=True)  # Gömülü kataloglar için klasör
-
-CATALOG_FILE = "catalog.json"
-if not os.path.exists(CATALOG_FILE):
-    with open(CATALOG_FILE, "w", encoding="utf-8") as f:
-        json.dump([
-            {"id": "FRN-001", "name": "Disk Fren Balatası Heavy", "brand": "Orijinal Kalite", "stock": 30}
-        ], f, ensure_ascii=False, indent=4)
-
-def load_catalog():
-    try:
-        with open(CATALOG_FILE, "r", encoding="utf-8") as f:
-            return json.load(f)
-    except Exception:
-        return []
-
-def vision_agent(image_path: str) -> dict:
-    try:
-        image = Image.open(image_path)
-        prompt = "Bu ağır vasıta parçasını teknik olarak incele. Yanıtını şu formatta ver: {\"is_clear\": true, \"description\": \"detay\", \"side_detected\": \"Belirsiz\"}"
-        response = client.models.generate_content(model="gemini-2.5-flash", contents=[image, prompt])
-        if not response or not response.text:
-            return {"is_clear": True, "description": "Görsel analizi tamamlandı", "side_detected": "Belirsiz"}
-        raw_text = response.text.replace("```json", "").replace("```", "").strip()
-        if "{" not in raw_text or "}" not in raw_text:
-            return {"is_clear": True, "description": raw_text, "side_detected": "Belirsiz"}
-        start = raw_text.find("{")
-        end = raw_text.rfind("}") + 1
-        return json.loads(raw_text[start:end])
-    except Exception:
-        return {"is_clear": True, "description": "Parça görseli başarıyla işlendi", "side_detected": "Belirsiz"}
-
-def match_agent(vision_data: dict) -> dict:
-    try:
-        catalog = load_catalog()
-        if not vision_data.get("is_clear", True):
-            return {"id": "IMAGE_UNCLEAR", "name": "Görsel Yetersiz", "risk_note": "Görsel net değil."}
-        prompt = f"Görsel Veri: {json.dumps(vision_data, ensure_ascii=False)}. Katalog Stok Listesi: {json.dumps(catalog, ensure_ascii=False)}. Eşleşen ürün id değerini SADECE JSON formatında ver: {{\"matched_id\": \"id_yada_NOT_IN_CATALOG\"}}"
-        response = client.models.generate_content(model="gemini-2.5-flash", contents=prompt)
-        if not response or not response.text:
-            return {"id": "NOT_IN_CATALOG", "name": "Özel Tedarik Parçası", "vision_side": vision_data.get("side_detected", "Belirsiz")}
-        raw_text = response.text.replace("```json", "").replace("```", "").strip()
-        if "{" in raw_text and "}" in raw_text:
-            start = raw_text.find("{")
-            end = raw_text.rfind("}") + 1
-            result = json.loads(raw_text[start:end])
-        else:
-            result = {"matched_id": "NOT_IN_CATALOG"}
-        matched_id = result.get("matched_id")
-        if matched_id and matched_id != "NOT_IN_CATALOG":
-            for item in catalog:
-                if item.get("id") == matched_id:
-                    item["vision_side"] = vision_data.get("side_detected", "Belirsiz")
-                    return item
-        return {"id": "NOT_IN_CATALOG", "name": "Katalog Dışı / Özel Tedarik Parçası", "vision_side": vision_data.get("side_detected", "Belirsiz")}
-    except Exception:
-        return {"id": "NOT_IN_CATALOG", "name": "Özel Tedarik Parçası", "vision_side": "Belirsiz"}
-
-def sales_agent(product_data: dict, customer_type: str, price_note: str) -> str:
-    try:
-        if product_data.get("id") == "IMAGE_UNCLEAR":
-            return "Ustam selamlar, attığın fotoğraf biraz net çıkmamış. Soket kısmını netleştirecek şekilde yeni bir fotoğraf atabilir misin?"
-        if product_data.get("id") == "NOT_IN_CATALOG":
-            return "Ustam selamlar, bu parça hızlı kataloğumuzda görünmüyor. Yanlış parça göndermemek için aracın şase numarasını veya OEM kodunu iletebilir misin?"
-        fiyat = price_note if price_note else "Özel teklif fiyatımız için arayabilirsin"
-        prompt = f"Ağır vasıta yedek parça sektöründe deneyimli bir satış yetkilisisin. Müşteri: {customer_type}, Ürün: {json.dumps(product_data, ensure_ascii=False)}, Fiyat: {fiyat}. Usta diline uygun samimi WhatsApp satış mesajı yaz."
-        response = client.models.generate_content(model="gemini-2.5-flash", contents=prompt)
-        return response.text if response and response.text else "Parçanız stoklarımızda mevcuttur."
-    except Exception:
-        return "Parçanız incelenmiştir, detaylar için iletişime geçebilirsiniz."
-
-@app.get("/", response_class=HTMLResponse)
-async def read_root():
-    try:
-        with open("index.html", "r", encoding="utf-8") as f:
-            return f.read()
-    except Exception:
-        return "<h3>FleetParts AI Çalışıyor!</h3>"
-
-@app.get("/get-catalog/")
-async def get_catalog():
-    catalog = load_catalog()
-    files = os.listdir("sample_catalogs")
-    return {"catalog": catalog, "files": files}
-
-@app.post("/upload-catalog-files/")
-async def upload_catalog_files(files: list[UploadFile] = File(...)):
-    try:
-        all_items = load_catalog()
-        for file in files:
-            file_path = os.path.join("sample_catalogs", file.filename)
-            with open(file_path, "wb") as buffer:
-                shutil.copyfileobj(file.file, buffer)
+    <!-- Parça Analiz ve Satış Asistanı Bölümü -->
+    <div class="section">
+        <h3>2. Parça Fotoğrafı İncele & Satış Mesajı Üret</h3>
+        <form id="partForm">
+            <label>Parça Fotoğrafı:</label>
+            <input type="file" name="file" accept="image/*" required>
             
-            # PDF veya görselleri Gemini ile okutup kataloğa ekliyoruz
-            uploaded_file_ref = client.files.upload(file=file_path)
-            prompt = "Bu dokümandaki yedek parça verilerini oku ve şu JSON formatında bir liste olarak dışarı ver: [{\"id\": \"parca_kodu\", \"name\": \"parca_adi\", \"brand\": \"marka\", \"stock\": adet_sayisi}]. SADECE saf JSON dizisi döndür."
-            
-            response = client.models.generate_content(model="gemini-2.5-flash", contents=[uploaded_file_ref, prompt])
-            raw_text = response.text.replace("```json", "").replace("```", "").strip()
-            
-            start = raw_text.find("[")
-            end = raw_text.rfind("]") + 1
-            parsed_items = json.loads(raw_text[start:end])
-            
-            # Üzerine ekleme yapıyoruz
-            for item in parsed_items:
-                if not any(existing.get("id") == item.get("id") for existing in all_items):
-                    all_items.append(item)
-                    
-        with open(CATALOG_FILE, "w", encoding="utf-8") as f:
-            json.dump(all_items, f, ensure_ascii=False, indent=4)
-            
-        return {"status": "success", "message": "Seçilen tüm PDF/katalog dosyaları başarıyla işlendi ve sisteme eklendi!"}
-    except Exception as e:
-        return {"status": "error", "message": f"Dosyalar işlenirken hata oluştu: {str(e)}"}
+            <label>Müşteri Tipi:</label>
+            <select name="customer_type">
+                <option value="Anadolu Toptancısı">Anadolu Toptancısı</option>
+                <option value="Servis Ustası">Servis Ustası</option>
+                <option value="Filo Sahibi">Filo Sahibi</option>
+            </select>
 
-@app.post("/process-part/")
-async def process_part(
-    file: UploadFile = File(...),
-    customer_type: str = Form("Anadolu Toptancısı"),
-    price_note: str = Form("")
-):
-    file_path = os.path.join(UPLOAD_DIR, file.filename)
-    try:
-        with open(file_path, "wb") as buffer:
-            shutil.copyfileobj(file.file, buffer)
-        vision_res = vision_agent(file_path)
-        matched_prod = match_agent(vision_res)
-        sales_msg = sales_agent(matched_prod, customer_type, price_note)
-        return {
-            "status": "success",
-            "agents_output": {
-                "vision_agent_desc": vision_res.get("description", "Analiz Yapılamadı"),
-                "matched_product": matched_prod,
-                "final_sales_message": sales_msg
-            }
+            <label>Fiyat Notu (İsteğe Bağlı):</label>
+            <input type="text" name="price_note" placeholder="Örn: 1.250 TL + KDV">
+
+            <button type="submit">Yapay Zeka Ajanlarını Çalıştır</button>
+        </form>
+    </div>
+
+    <!-- Sonuç Ekranı -->
+    <div class="section">
+        <h3>Sonuçlar / Ajan Çıktıları</h3>
+        <pre id="output">İşlem bekleniyor...</pre>
+    </div>
+</div>
+
+<script>
+    document.getElementById('catalogForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        document.getElementById('output').innerText = "Katalog dosyaları işleniyor, lütfen bekleyin...";
+        
+        try {
+            const res = await fetch('/upload-catalog-files/', { method: 'POST', body: formData });
+            const data = await res.json();
+            document.getElementById('output').innerText = JSON.stringify(data, null, 2);
+        } catch (err) {
+            document.getElementById('output').innerText = "Hata oluştu: " + err;
         }
-    except Exception as e:
-        return {"status": "error", "message": str(e)}
-    finally:
-        if os.path.exists(file_path):
-            try:
-                os.remove(file_path)
-            except:
-                pass
+    });
+
+    document.getElementById('partForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        document.getElementById('output').innerText = "Parça analiz ediliyor ve satış mesajı hazırlanıyor...";
+        
+        try {
+            const res = await fetch('/process-part/', { method: 'POST', body: formData });
+            const data = await res.json();
+            document.getElementById('output').innerText = JSON.stringify(data, null, 2);
+        } catch (err) {
+            document.getElementById('output').innerText = "Hata oluştu: " + err;
+        }
+    });
+</script>
+
+</body>
+</html>
