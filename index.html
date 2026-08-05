@@ -13,6 +13,8 @@
         input, select, button { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
         button { background-color: #d9534f; color: white; font-weight: bold; cursor: pointer; border: none; margin-top: 15px; }
         button:hover { background-color: #c9302c; }
+        .btn-blue { background-color: #337ab7; }
+        .btn-blue:hover { background-color: #286090; }
         pre { background: #272822; color: #f8f8f2; padding: 15px; border-radius: 5px; overflow-x: auto; }
     </style>
 </head>
@@ -24,9 +26,10 @@
     <div class="section">
         <h3>1. Katalog / PDF / Görsel Yükle</h3>
         <form id="catalogForm">
-            <input type="file" name="files" multiple accept=".pdf, .png, .jpg, .jpeg">
+            <input type="file" name="files" multiple accept=".pdf, .png, .jpg, .jpeg" required>
             <button type="submit">Katalog Dosyalarını İşle ve Ekle</button>
         </form>
+        <button class="btn-blue" onclick="checkCatalog()">Şu Anki Kataloğu Görüntüle</button>
     </div>
 
     <div class="section">
@@ -56,10 +59,21 @@
 </div>
 
 <script>
+    async function checkCatalog() {
+        document.getElementById('output').innerText = "Katalog yükleniyor...";
+        try {
+            const res = await fetch('/get-catalog');
+            const data = await res.json();
+            document.getElementById('output').innerText = JSON.stringify(data, null, 2);
+        } catch (err) {
+            document.getElementById('output').innerText = "Hata: " + err;
+        }
+    }
+
     document.getElementById('catalogForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
-        document.getElementById('output').innerText = "Katalog dosyaları işleniyor, lütfen bekleyin...";
+        document.getElementById('output').innerText = "Katalog dosyaları yapay zeka tarafından okunuyor, lütfen bekleyin...";
         
         try {
             const res = await fetch('/upload-catalog-files', { method: 'POST', body: formData });
@@ -73,7 +87,7 @@
     document.getElementById('partForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
-        document.getElementById('output').innerText = "Parça analiz ediliyor ve satış mesajı hazırlanıyor...";
+        document.getElementById('output').innerText = "Parça analiz ediliyor ve katalogla eşleştiriliyor...";
         
         try {
             const res = await fetch('/process-part', { method: 'POST', body: formData });
