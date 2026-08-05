@@ -23,27 +23,27 @@ if not os.path.exists(CATALOG_FILE):
     with open(CATALOG_FILE, "w", encoding="utf-8") as f:
         json.dump([
             {
-                "id": "FRN-001", 
-                "oem": "1505234", 
-                "name": "Disk Fren Balatası Heavy", 
-                "brand": "Orijinal Kalite", 
-                "specs": "Döküm arka plaka, 247x110mm, çift kulaklı bağlantı noktası, kalınlık 25mm, aşınma sensör yuvalı.", 
+                "id": "FRN-001",
+                "oem": "1505234",
+                "name": "Disk Fren Balatası Heavy",
+                "brand": "Orijinal Kalite",
+                "specs": "Döküm arka plaka, 247x110mm, çift kulaklı bağlantı noktası, kalınlık 25mm, aşınma sensör yuvalı.",
                 "stock": 45
             },
             {
-                "id": "VLF-102", 
-                "oem": "4324102227", 
-                "name": "Hava Kurutucu Dağıtıcı Valf (4 Yollu)", 
-                "brand": "Wabco Tipi", 
-                "specs": "Alüminyum döküm gövde, 4 adet M22 hava basınç portu, alt kısımda 7 pin elektronik soket, silindirik üst hazne.", 
+                "id": "VLF-102",
+                "oem": "4324102227",
+                "name": "Hava Kurutucu Dağıtıcı Valf (4 Yollu)",
+                "brand": "Wabco Tipi",
+                "specs": "Alüminyum döküm gövde, 4 adet M22 hava basınç portu, alt kısımda 7 pin elektronik soket, silindirik üst hazne.",
                 "stock": 15
             },
             {
-                "id": "FLT-303", 
-                "oem": "21707134", 
-                "name": "Ana Yakıt ve Su Ayırıcı Filtre", 
-                "brand": "FleetGuard", 
-                "specs": "Silindirik kağıt filtre elemanı, üst conta çapı 90mm, tahliye musluklu metal dış gövde.", 
+                "id": "FLT-303",
+                "oem": "21707134",
+                "name": "Ana Yakıt ve Su Ayırıcı Filtre",
+                "brand": "FleetGuard",
+                "specs": "Silindirik kağıt filtre elemanı, üst conta çapı 90mm, tahliye musluklu metal dış gövde.",
                 "stock": 60
             }
         ], f, ensure_ascii=False, indent=4)
@@ -57,26 +57,22 @@ def load_catalog():
 
 def call_gemini_api(prompt: str, image_path: str = None) -> str:
     """OAuth Token ve Standart API Key destekli evrensel bağlantı yöneticisi"""
-    models_to_try = ["gemini-1.5-pro", "gemini-2.0-flash", "gemini-1.5-flash"]
+    models_to_try = ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-pro", "gemini-1.5-flash"]
     parts = [{"text": prompt}]
-    
+
     if image_path and os.path.exists(image_path):
         with open(image_path, "rb") as img_f:
             b64_img = base64.b64encode(img_f.read()).decode("utf-8")
         ext = image_path.split('.')[-1].lower()
         mime_type = "image/png" if ext == "png" else "image/jpeg"
         parts.append({"inline_data": {"mime_type": mime_type, "data": b64_img}})
-        
+
     payload = {"contents": [{"parts": parts}]}
-    headers = {"Content-Type": "application/json"}
-    
-    # Kimlik Doğrulama Türünü Otomatik Algıla (API Key vs OAuth Bearer Token)
-    if GEMINI_API_KEY.startswith("AIza"):
-        url_template = "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key=" + GEMINI_API_KEY
-    else:
-        # OAuth / Bearer Token desteği (AQ... vb.)
-        headers["Authorization"] = f"Bearer {GEMINI_API_KEY}"
-        url_template = "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
+    headers = {
+        "Content-Type": "application/json",
+        "x-goog-api-key": GEMINI_API_KEY,
+    }
+    url_template = "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
 
     last_error = ""
     for model in models_to_try:
@@ -91,7 +87,7 @@ def call_gemini_api(prompt: str, image_path: str = None) -> str:
         except Exception as e:
             last_error = str(e)
             continue
-            
+
     raise Exception(f"Universal API Kritik Bağlantı Hatası: {last_error}")
 
 # ---------------------------------------------------------
@@ -136,7 +132,7 @@ def match_agent(vision_data: dict) -> dict:
     catalog = load_catalog()
     if not catalog:
         return {"id": "NOT_IN_CATALOG", "name": "Katalog Boş", "match_reason": "Veritabanında kayıtlı ürün bulunamadı."}
-    
+
     prompt = f"""
     Sen sıfır hata toleransına sahip kurumsal bir parça eşleştirme motorusun.
     Müşterinin sahadan gönderdiği parçanın tarama verisi:
@@ -163,7 +159,7 @@ def match_agent(vision_data: dict) -> dict:
         start = clean_text.find("{")
         end = clean_text.rfind("}") + 1
         result = json.loads(clean_text[start:end])
-        
+
         matched_id = result.get("matched_id")
         score = int(result.get("match_accuracy_score", 0))
         decision = result.get("decision_logic", "")
@@ -174,10 +170,10 @@ def match_agent(vision_data: dict) -> dict:
                     item_copy = item.copy()
                     item_copy["match_reason"] = f"Kesinlik Skoru: %{score} | Doğrulama: {decision}"
                     return item_copy
-                    
+
         return {
-            "id": "NOT_IN_CATALOG", 
-            "name": "Katalog Dışı / Eşleşme Sağlanamadı", 
+            "id": "NOT_IN_CATALOG",
+            "name": "Katalog Dışı / Eşleşme Sağlanamadı",
             "match_reason": f"Benzerlik skoru (%{score}) yeterli eşik değerinin altında kaldı. Kanıt: {decision}"
         }
     except Exception as e:
@@ -189,18 +185,18 @@ def match_agent(vision_data: dict) -> dict:
 def sales_agent(product_data: dict, customer_type: str, price_note: str) -> str:
     if product_data.get("id") == "NOT_IN_CATALOG":
         return "Sayın İş Ortağımız, gönderdiğiniz yedek parça görseli evrensel katalogumuzda yüksek doğrulukla eşleştirilememiştir. Yanlış sevkiyatın önüne geçmek adına lütfen parçanın OEM kodunu veya araç şase (VIN) numarasını iletiniz."
-    
+
     fiyat = price_note if price_note else "Güncel kur ve iskonto oranları için iletişime geçiniz."
-    
+
     prompt = f"""
     Sen ağır vasıta yedek parça sektöründe faaliyet gösteren kurumsal bir B2B tedarik sisteminin satış asistanısın.
     Müşteri Profili: {customer_type}
-    Tespit Edilen Ürün: {product_data.get('name')} 
+    Tespit Edilen Ürün: {product_data.get('name')}
     Marka / Kalite: {product_data.get('brand')}
     OEM Kodu: {product_data.get('oem')}
     Fiyat / Not: {fiyat}
     Stok Durumu: Mevcut ({product_data.get('stock', 'Hazır')} adet)
-    
+
     Görev: WhatsApp ve kurumsal iletişim kanalları için; tamamen profesyonel, net, yorumsuz, parça durumu eleştirisi barındırmayan saf ticari sipariş/teklif mesajı oluştur.
     """
     try:
@@ -228,12 +224,12 @@ async def upload_catalog_files(files: list[UploadFile] = File(...)):
     try:
         catalog = load_catalog()
         added_count = 0
-        
+
         for file in files:
             file_path = os.path.join(CATALOG_DIR, file.filename)
             with open(file_path, "wb") as buffer:
                 shutil.copyfileobj(file.file, buffer)
-            
+
             prompt = """
             Bu evrensel katalog dosyasından/görselinden her tür ağır vasıta yedek parçasını tara.
             SADECE şu JSON yapısında kusursuz veri çıkar:
@@ -251,13 +247,13 @@ async def upload_catalog_files(files: list[UploadFile] = File(...)):
             start = clean_res.find("{")
             end = clean_res.rfind("}") + 1
             item_data = json.loads(clean_res[start:end])
-            
+
             catalog.append(item_data)
             added_count += 1
-            
+
         with open(CATALOG_FILE, "w", encoding="utf-8") as f:
             json.dump(catalog, f, ensure_ascii=False, indent=4)
-            
+
         return {"status": "success", "message": f"{added_count} adet evrensel yedek parça kataloğa işlendi."}
     except Exception as e:
         return {"status": "error", "message": f"Katalog Yükleme Hatası: {str(e)}"}
@@ -272,16 +268,16 @@ async def process_part(
     try:
         with open(file_path, "wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
-        
+
         # 1. Aşama: Evrensel Endüstriyel Tarama & OCR
         vision_res = vision_agent(file_path)
-        
+
         # 2. Aşama: Matris Algoritmik Eşleştirme
         matched_prod = match_agent(vision_res)
-        
+
         # 3. Aşama: B2B Kurumsal Satış Teklifi
         sales_msg = sales_agent(matched_prod, customer_type, price_note)
-        
+
         return {
             "status": "success",
             "agents_output": {
