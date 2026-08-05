@@ -8,6 +8,7 @@ from PIL import Image
 
 app = FastAPI(title="FleetParts AI - Heavy Duty Agent")
 
+# API Anahtarın doğrudan entegre edildi
 client = genai.Client(api_key="AQ.Ab8RN6KDpRVhFJkFnmKXHd5pGMIETsr9gdserDGgjz8DKW_qdQ")
 
 UPLOAD_DIR = "temp_images"
@@ -50,7 +51,8 @@ def vision_agent(image_path: str) -> dict:
           "side_detected": "Sağ / Sol / Ön / Arka / Belirsiz"
         }
         """
-        response = client.models.generate_content(model="gemini-2.5-flash", contents=[image, prompt])
+        # Hatalı model adı DÜZELTİLDİ: gemini-1.5-flash
+        response = client.models.generate_content(model="gemini-1.5-flash", contents=[image, prompt])
         if not response or not response.text:
             return {"is_clear": True, "part_type": "Parça", "color": "Belirsiz", "visible_codes": "Yok", "form_and_specs": "Standart", "side_detected": "Belirsiz"}
         
@@ -76,7 +78,8 @@ def match_agent(vision_data: dict) -> dict:
         {{"matched_id": "bulunan_id_yada_NOT_IN_CATALOG", "match_reason": "Kısa açıklama"}}
         """
         
-        response = client.models.generate_content(model="gemini-2.5-flash", contents=prompt)
+        # Hatalı model adı DÜZELTİLDİ: gemini-1.5-flash
+        response = client.models.generate_content(model="gemini-1.5-flash", contents=prompt)
         if not response or not response.text:
             return {"id": "NOT_IN_CATALOG", "name": "Özel Tedarik Parçası"}
 
@@ -109,7 +112,8 @@ def sales_agent(product_data: dict, customer_type: str, price_note: str) -> str:
         fiyat = price_note if price_note else "Özel iskonto ve fiyat için arayabilirsin"
         prompt = f"Ağır vasıta yedek parça piyasasında tecrübeli samimi bir satış yetkilisisin. Müşteri: {customer_type}, Ürün: {json.dumps(product_data, ensure_ascii=False)}, Fiyat: {fiyat}. WhatsApp satış mesajı yaz."
         
-        response = client.models.generate_content(model="gemini-2.5-flash", contents=prompt)
+        # Hatalı model adı DÜZELTİLDİ: gemini-1.5-flash
+        response = client.models.generate_content(model="gemini-1.5-flash", contents=prompt)
         return response.text if response and response.text else "Parçanız stoklarımızda mevcuttur."
     except Exception:
         return "Parçanız incelenmiştir, detaylar için iletişime geçebilirsiniz."
@@ -142,7 +146,8 @@ async def upload_catalog_files(files: list[UploadFile] = File(...)):
             SADECE saf JSON dizisi döndür.
             """
             
-            response = client.models.generate_content(model="gemini-2.5-flash", contents=[uploaded_file_ref, prompt])
+            # Hatalı model adı DÜZELTİLDİ: gemini-1.5-flash
+            response = client.models.generate_content(model="gemini-1.5-flash", contents=[uploaded_file_ref, prompt])
             raw_text = response.text.replace("```json", "").replace("```", "").strip()
             
             start = raw_text.find("[")
