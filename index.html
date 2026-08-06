@@ -42,11 +42,6 @@
         .kv-list .k { color: #666; }
         .kv-list .v { font-weight: 600; text-align: right; }
 
-        .sales-box { position: relative; background: #272822; color: #f8f8f2; padding: 16px; border-radius: 6px; margin-top: 12px; white-space: pre-wrap; line-height: 1.5; font-size: 14.5px; }
-        .copy-btn { position: absolute; top: 10px; right: 10px; width: auto; margin: 0; padding: 6px 12px; font-size: 13px; background: #495057; }
-        .copy-btn:hover { background: #343a40; }
-        .copy-btn.copied { background: #28a745; }
-
         details.tech { margin-top: 12px; font-size: 13.5px; }
         details.tech summary { cursor: pointer; color: #337ab7; font-weight: 600; }
         details.tech pre { background: #272822; color: #f8f8f2; padding: 12px; border-radius: 5px; overflow-x: auto; margin-top: 8px; font-size: 12.5px; }
@@ -75,23 +70,13 @@
     </div>
 
     <div class="section">
-        <h3>2. Parça Fotoğrafı İncele & Satış Mesajı Üret</h3>
+        <h3>2. Parça Fotoğrafı İncele & Katalogda Bul</h3>
         <form id="partForm">
             <label>Parça Fotoğrafı (kirli/paslı/yağlı olabilir):</label>
             <input type="file" name="file" accept="image/*">
 
             <label>veya OEM Kodu / Parça Adı (fotoğraf yoksa):</label>
             <input type="text" name="query" placeholder="Örn: 1505234 veya DAF sol çamurluk">
-
-            <label>Müşteri Tipi:</label>
-            <select name="customer_type">
-                <option value="Anadolu Toptancısı">Anadolu Toptancısı</option>
-                <option value="Servis Ustası">Servis Ustası</option>
-                <option value="Filo Sahibi">Filo Sahibi</option>
-            </select>
-
-            <label>Fiyat Notu (İsteğe Bağlı):</label>
-            <input type="text" name="price_note" placeholder="Örn: 1.250 TL + KDV">
 
             <button type="submit">Yapay Zeka Ajanlarını Çalıştır</button>
         </form>
@@ -118,22 +103,13 @@
         out.innerHTML = `<div class="card err"><div class="card-title">❌ Hata</div><div>${esc(msg)}</div></div>`;
     }
 
-    function copySalesMessage(btn, text) {
-        navigator.clipboard.writeText(text).then(() => {
-            btn.textContent = '✅ Kopyalandı';
-            btn.classList.add('copied');
-            setTimeout(() => { btn.textContent = '📋 Kopyala'; btn.classList.remove('copied'); }, 2000);
-        });
-    }
-    window.copySalesMessage = copySalesMessage;
-
     function renderProcessPartResult(data) {
         if (data.status !== 'success') {
             showPlainError(data.message || 'Bilinmeyen hata');
             return;
         }
 
-        const { vision_analysis, matched_product, final_sales_message } = data.agents_output;
+        const { vision_analysis, matched_product } = data.agents_output;
         const isMatched = matched_product && matched_product.id !== 'NOT_IN_CATALOG';
         const cardClass = isMatched ? 'ok' : 'warn';
         const icon = isMatched ? '✅' : '⚠️';
@@ -156,28 +132,16 @@
             kvHtml = `<div style="color:#555; font-size:14px;">${esc(matched_product && matched_product.match_reason || 'Eşleşme bulunamadı.')}</div>`;
         }
 
-        const salesId = 'sales_' + Date.now();
-        const salesHtml = (isMatched && final_sales_message) ? `
-            <div class="sales-box" id="${salesId}">
-                <button class="copy-btn" onclick="copySalesMessage(this, document.getElementById('${salesId}').dataset.raw)">📋 Kopyala</button>
-                ${esc(final_sales_message)}
-            </div>
-        ` : '';
-
         out.innerHTML = `
             <div class="card ${cardClass}">
                 <div class="card-title">${icon} ${title}</div>
                 ${kvHtml}
-                ${salesHtml}
                 <details class="tech">
                     <summary>🔍 Teknik tarama detayları</summary>
                     <pre>${esc(JSON.stringify(vision_analysis, null, 2))}</pre>
                 </details>
             </div>
         `;
-        if (isMatched && final_sales_message) {
-            document.getElementById(salesId).dataset.raw = final_sales_message;
-        }
     }
 
     function renderCatalog(data) {
