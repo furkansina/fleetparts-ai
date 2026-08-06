@@ -1,0 +1,30 @@
+name: Haftalık Lead Keşif Taraması
+
+on:
+  schedule:
+    - cron: '17 2 * * 1'  # Her Pazartesi 02:17 UTC - tam saatten kaydırılmış, yoğunluk saatini atlar
+  workflow_dispatch: {}
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Bağımlılıkları kur
+        run: pip install requests
+
+      - name: Taramayı çalıştır
+        run: python scripts/run_discovery.py
+
+      - name: Değişiklikleri commit et
+        run: |
+          git config user.name "fleetparts-discovery-bot"
+          git config user.email "actions@github.com"
+          git add leads.json
+          git diff --staged --quiet || git commit -m "Otomatik lead taraması $(date -u +%Y-%m-%d)"
+          git push
