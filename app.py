@@ -5,6 +5,7 @@ import base64
 import time
 import secrets
 import threading
+import uuid
 from datetime import datetime, timezone
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import requests
@@ -162,6 +163,10 @@ def call_groq_api(prompt: str, image_path: str = None, use_secondary_model: bool
                 return data["choices"][0]["message"]["content"]
             if res.status_code == 429:
                 last_error = f"HTTP 429: {res.text}"
+                # Günlük token kotası tamamen bittiyse tekrar denemek anlamsız (gece sıfırlanana
+                # kadar asla başarılı olmaz) - hemen net bir hatayla çık, dakikalık limitse tekrar dene.
+                if "per day" in res.text.lower() or "tpd" in res.text.lower():
+                    raise Exception("Günlük yapay zeka kullanım kotası doldu. Kota gece (Groq sıfırlama saatinde) yenilenir, biraz sonra tekrar deneyin.")
                 time.sleep(10)
                 continue
             raise Exception(f"HTTP {res.status_code}: {res.text}")
@@ -351,7 +356,7 @@ def sales_agent(product_data: dict, customer_type: str, price_note: str) -> str:
     """
     try:
         return call_groq_api(prompt)
-    except:
+    except Exception:
         return f"Ürün Başarıyla Tespit Edildi: {product_data.get('name')} (OEM: {product_data.get('oem')}). Stoklarımızda mevcuttur. Bilgilerinize sunarız."
 
 # ---------------------------------------------------------
@@ -437,31 +442,42 @@ def render_pdf_pages_to_images(pdf_path: str) -> list:
         doc.close()
     return page_paths
 
+CATALOG_WRITE_LOCK = threading.Lock()  # istekler arası paylaşılan kilit - iki ayrı yükleme isteği aynı anda gelirse birbirinin kaydını ezmesin diye
+
 def _scan_catalog_source(filename: str, file_path: str) -> list:
     """Bir katalog dosyasını tarar. PDF ise her sayfayı, görselse görselin kendisini tarar;
-    her ikisinde de sayfada/görselde kaç parça varsa hepsi çıkarılır (tek parça da olabilir, onlarca da)."""
-    if filename.lower().endswith(".pdf"):
-        items = []
-        for page_path in render_pdf_pages_to_images(file_path):
-            try:
-                items.extend(call_groq_json_array(CATALOG_SCAN_PROMPT, page_path))
-            finally:
-                if os.path.exists(page_path):
-                    os.remove(page_path)
-        return items
-    return call_groq_json_array(CATALOG_SCAN_PROMPT, file_path)
+    her ikisinde de sayfada/görselde kaç parça varsa hepsi çıkarılır (tek parça da olabilir, onlarca da).
+    İşlem başarılı da olsa başarısız da olsa orijinal yüklenen dosya sonunda diskten silinir
+    (veri zaten catalog.json'a işlendi, kaynak dosyayı tutmanın bir faydası yok - Render'ın
+    sınırlı diskini zamanla doldurmasın diye)."""
+    try:
+        if filename.lower().endswith(".pdf"):
+            items = []
+            for page_path in render_pdf_pages_to_images(file_path):
+                try:
+                    items.extend(call_groq_json_array(CATALOG_SCAN_PROMPT, page_path))
+                finally:
+                    if os.path.exists(page_path):
+                        os.remove(page_path)
+            return items
+        return call_groq_json_array(CATALOG_SCAN_PROMPT, file_path)
+    finally:
+        if os.path.exists(file_path):
+            os.remove(file_path)
 
 @app.post("/upload-catalog-files")
 async def upload_catalog_files(files: list[UploadFile] = File(...)):
-    catalog = load_catalog()
-    catalog_lock = threading.Lock()
     saved_paths = []
     oversized = []
 
     for file in files:
-        file_path = os.path.join(CATALOG_DIR, file.filename)
+        # Dosya adına rastgele önek eklenir: hem aynı anda gelen iki isteğin aynı dosya adını
+        # kullanıp birbirinin üzerine yazmasını (veri karışması) hem de dosya adı üzerinden
+        # dizin gezinme (path traversal) girişimlerini engeller.
+        safe_name = f"{uuid.uuid4().hex}_{os.path.basename(file.filename)}"
+        file_path = os.path.join(CATALOG_DIR, safe_name)
         with open(file_path, "wb") as buffer:
-            size = shutil.copyfileobj(file.file, buffer)
+            shutil.copyfileobj(file.file, buffer)
         size_mb = os.path.getsize(file_path) / (1024 * 1024)
         if size_mb > MAX_UPLOAD_MB:
             oversized.append(f"{file.filename} ({size_mb:.1f}MB, {MAX_UPLOAD_MB}MB sınırını aşıyor)")
@@ -479,7 +495,8 @@ async def upload_catalog_files(files: list[UploadFile] = File(...)):
             filename = future_to_name[future]
             try:
                 items = future.result()
-                with catalog_lock:
+                with CATALOG_WRITE_LOCK:
+                    catalog = load_catalog()  # en güncel hali diskten oku - başka bir yükleme isteği aynı anda kaydetmiş olabilir
                     catalog.extend(items)
                     added_count += len(items)
                     save_catalog(catalog)  # her başarılı dosyadan sonra hemen kaydet, ilerleme kaybolmasın
@@ -569,13 +586,20 @@ async def export_leads_csv(_: str = Depends(require_admin)):
     """Kataloğu Excel'de açılabilir CSV olarak indirir - sahada kağıt/excel üzerinden çalışmak için."""
     leads = lead_store.load_leads()
     reviews = lead_store.load_lead_reviews()
+    ai_scores = lead_store.load_lead_ai_scores()  # AI ile netleştirilmiş lead'lerin GÜNCEL skoru buradan gelir
 
     output = io.StringIO()
     output.write("﻿")  # Excel'in Türkçe karakterleri doğru göstermesi için UTF-8 BOM
     writer = csv.writer(output)
     writer.writerow(["Firma Adı", "Sektör", "İl", "İlçe", "Adres", "Telefon", "Skor", "Durum", "Not", "Gerekçe"])
     for lead in leads:
-        review = reviews.get(lead.get("lead_id"), {})
+        lid = lead.get("lead_id")
+        review = reviews.get(lid, {})
+        ai = ai_scores.get(lid)
+        # AI ile netleştirilmiş bir lead'se /leads sayfasında gösterilen güncel skor kullanılır,
+        # yoksa keşif anındaki kural bazlı skor - bu ikisi tutarsız olursa saha ekibi yanlış önceliklendirir
+        score = ai["relevance_score"] if ai else lead.get("relevance_score", "")
+        reasoning = ai["score_reasoning"] if ai else lead.get("score_reasoning", "")
         writer.writerow([
             lead.get("company_name", ""),
             lead.get("sector_guess", ""),
@@ -583,10 +607,10 @@ async def export_leads_csv(_: str = Depends(require_admin)):
             lead.get("district", ""),
             lead.get("address", ""),
             lead.get("phone", ""),
-            lead.get("relevance_score", ""),
+            score,
             review.get("status", "yeni"),
             review.get("note", ""),
-            lead.get("score_reasoning", ""),
+            reasoning,
         ])
 
     return Response(
@@ -762,7 +786,10 @@ async def process_part(
     if not file and not query.strip():
         return {"status": "error", "message": "Fotoğraf yükleyin veya OEM kodu / parça adı girin."}
 
-    file_path = os.path.join(UPLOAD_DIR, file.filename) if file else None
+    # Dosya adına rastgele önek eklenir: aynı anda gelen iki müşteri isteği aynı dosya adını
+    # (örn. telefonun varsayılan "IMG_0001.jpg" adı) kullanırsa birbirinin fotoğrafının
+    # üzerine yazıp yanlış/karışık sonuç üretmesin diye. Ayrıca path traversal'a karşı korur.
+    file_path = os.path.join(UPLOAD_DIR, f"{uuid.uuid4().hex}_{os.path.basename(file.filename)}") if file else None
     try:
         if file:
             with open(file_path, "wb") as buffer:
