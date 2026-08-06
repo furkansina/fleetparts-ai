@@ -496,6 +496,7 @@ async def read_leads(_: str = Depends(require_admin)):
 async def get_leads_data(_: str = Depends(require_admin)):
     leads = lead_store.load_leads()
     reviews = lead_store.load_lead_reviews()
+    ai_scores = lead_store.load_lead_ai_scores()
     merged = []
     for lead in leads:
         lid = lead.get("lead_id")
@@ -503,6 +504,11 @@ async def get_leads_data(_: str = Depends(require_admin)):
         item = dict(lead)
         item["status"] = review.get("status", "yeni")
         item["note"] = review.get("note", "")
+        ai = ai_scores.get(lid)
+        if ai:
+            item["relevance_score"] = ai["relevance_score"]
+            item["score_reasoning"] = ai["score_reasoning"]
+            item["ai_reviewed"] = True
         merged.append(item)
     return {"leads": merged}
 
@@ -570,6 +576,73 @@ async def export_leads_csv(_: str = Depends(require_admin)):
         media_type="text/csv",
         headers={"Content-Disposition": "attachment; filename=fleetparts_leadler.csv"}
     )
+
+CLASSIFY_AMBIGUOUS_BATCH_SIZE = 20
+CLASSIFY_SCORE_MIN = 20
+CLASSIFY_SCORE_MAX = 60
+
+@app.post("/leads/classify-ambiguous")
+async def classify_ambiguous_leads(_: str = Depends(require_admin)):
+    """Kural bazlı skorlamanın net karar veremediği (ne çok yüksek ne çok düşük skorlu)
+    lead'leri Groq ile toplu değerlendirir. Zaten değerlendirilmiş olanları tekrar sormaz."""
+    leads = lead_store.load_leads()
+    ai_scores = lead_store.load_lead_ai_scores()
+
+    candidates = [
+        l for l in leads
+        if l.get("lead_id") not in ai_scores
+        and CLASSIFY_SCORE_MIN <= (l.get("relevance_score") or 0) <= CLASSIFY_SCORE_MAX
+    ]
+
+    if not candidates:
+        return {"status": "success", "message": "Netleştirilecek belirsiz lead kalmadı.", "classified": 0, "remaining": 0}
+
+    # TEK bir grup (20) işlenir - Render'ın istek zaman aşımını aşmamak için.
+    # Arayüz (leads.html) bu endpoint'i "remaining" 0 olana kadar otomatik olarak tekrar çağırır.
+    batch = candidates[:CLASSIFY_AMBIGUOUS_BATCH_SIZE]
+    now = datetime.now(timezone.utc).isoformat()
+    listing = "\n".join(
+        f'{i+1}. lead_id="{l["lead_id"]}" | isim="{l.get("company_name","")}" | '
+        f'kategori="{l.get("sector_guess","")}" | il="{l.get("province","")}"'
+        for i, l in enumerate(batch)
+    )
+    prompt = f"""
+    Sen ağır vasıta (kamyon, TIR, otobüs, iş makinesi) yedek parça toptan satıcısının hedef müşteri analistisin.
+    Hedef kitle: oto yedek parça toptancıları/satıcıları VEYA kendi filosu olan nakliye/lojistik firmaları.
+    Hedef DIŞI: bağımsız tamirciler/servisler, alakasız sektörler (market, giyim, gıda vb.).
+
+    Aşağıdaki firmaları değerlendir:
+    {listing}
+
+    Her biri için 0-100 arası bir uygunluk skoru ve kısa bir gerekçe ver.
+
+    SADECE şu JSON dizisini döndür:
+    [
+      {{"lead_id": "...", "relevance_score": 55, "score_reasoning": "..."}}
+    ]
+    """
+    try:
+        results = call_groq_json_array(prompt)
+        for r in results:
+            lid = r.get("lead_id")
+            if not lid:
+                continue
+            ai_scores[lid] = {
+                "relevance_score": int(r.get("relevance_score", 0)),
+                "score_reasoning": r.get("score_reasoning", ""),
+                "classified_at": now,
+            }
+        lead_store.save_lead_ai_scores(ai_scores)
+        lead_store.sync_lead_ai_scores_to_github()
+        remaining = len(candidates) - len(batch)
+        return {
+            "status": "success",
+            "message": f"{len(results)} lead netleştirildi.",
+            "classified": len(results),
+            "remaining": remaining,
+        }
+    except Exception as e:
+        return {"status": "error", "message": str(e), "remaining": len(candidates)}
 
 @app.post("/trigger-discovery")
 async def trigger_discovery(_: str = Depends(require_admin)):
