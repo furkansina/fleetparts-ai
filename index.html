@@ -156,7 +156,7 @@
         }
 
         const salesId = 'sales_' + Date.now();
-        const salesHtml = final_sales_message ? `
+        const salesHtml = (isMatched && final_sales_message) ? `
             <div class="sales-box" id="${salesId}">
                 <button class="copy-btn" onclick="copySalesMessage(this, document.getElementById('${salesId}').dataset.raw)">📋 Kopyala</button>
                 ${esc(final_sales_message)}
