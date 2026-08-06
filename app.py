@@ -10,7 +10,9 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 import requests
 import fitz  # PyMuPDF - PDF sayfalarını görsele çevirmek için
 from fastapi import FastAPI, UploadFile, File, Form, Depends, HTTPException
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, Response
+import csv
+import io
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 
 import lead_store
@@ -520,6 +522,54 @@ async def update_lead_status(
     lead_store.save_lead_reviews(reviews)
     lead_store.sync_lead_reviews_to_github()
     return {"status": "success"}
+
+@app.post("/leads/bulk-status")
+async def bulk_update_lead_status(
+    lead_ids: str = Form(...),  # virgülle ayrılmış id listesi
+    status: str = Form(...),
+    _: str = Depends(require_admin)
+):
+    """Birden fazla lead'i tek seferde aynı duruma işaretler (933 kayıtta tek tek tıklamamak için)."""
+    ids = [i.strip() for i in lead_ids.split(",") if i.strip()]
+    reviews = lead_store.load_lead_reviews()
+    now = datetime.now(timezone.utc).isoformat()
+    for lid in ids:
+        existing_note = reviews.get(lid, {}).get("note", "")
+        reviews[lid] = {"status": status, "note": existing_note, "reviewed_at": now}
+    lead_store.save_lead_reviews(reviews)
+    lead_store.sync_lead_reviews_to_github()
+    return {"status": "success", "message": f"{len(ids)} lead güncellendi."}
+
+@app.get("/leads-export")
+async def export_leads_csv(_: str = Depends(require_admin)):
+    """Kataloğu Excel'de açılabilir CSV olarak indirir - sahada kağıt/excel üzerinden çalışmak için."""
+    leads = lead_store.load_leads()
+    reviews = lead_store.load_lead_reviews()
+
+    output = io.StringIO()
+    output.write("﻿")  # Excel'in Türkçe karakterleri doğru göstermesi için UTF-8 BOM
+    writer = csv.writer(output)
+    writer.writerow(["Firma Adı", "Sektör", "İl", "İlçe", "Adres", "Telefon", "Skor", "Durum", "Not", "Gerekçe"])
+    for lead in leads:
+        review = reviews.get(lead.get("lead_id"), {})
+        writer.writerow([
+            lead.get("company_name", ""),
+            lead.get("sector_guess", ""),
+            lead.get("province", ""),
+            lead.get("district", ""),
+            lead.get("address", ""),
+            lead.get("phone", ""),
+            lead.get("relevance_score", ""),
+            review.get("status", "yeni"),
+            review.get("note", ""),
+            lead.get("score_reasoning", ""),
+        ])
+
+    return Response(
+        content=output.getvalue(),
+        media_type="text/csv",
+        headers={"Content-Disposition": "attachment; filename=fleetparts_leadler.csv"}
+    )
 
 @app.post("/trigger-discovery")
 async def trigger_discovery(_: str = Depends(require_admin)):
