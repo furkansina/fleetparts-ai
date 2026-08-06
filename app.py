@@ -39,6 +39,9 @@ GROQ_MODEL = "qwen/qwen3.6-27b"
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
 GITHUB_REPO = os.environ.get("GITHUB_REPO", "")
 
+# Faz 5: soğuk lead'lerin kendi WhatsApp'ından ilk temas kurabileceği herkese açık katalog sayfası
+BUSINESS_WHATSAPP_NUMBER = os.environ.get("BUSINESS_WHATSAPP_NUMBER", "")
+
 UPLOAD_DIR = "temp_images"
 CATALOG_DIR = "sample_catalogs"
 CATALOG_FILE = "catalog.json"
@@ -329,12 +332,7 @@ def sales_agent(product_data: dict, customer_type: str, price_note: str) -> str:
     Fiyat / Not: {fiyat}
     Stok Durumu: Mevcut ({product_data.get('stock', 'Hazır')} adet)
 
-    Görev: WhatsApp ve k
-    
-    
-    
-    
-    urumsal iletişim kanalları için; tamamen profesyonel, net, yorumsuz, parça durumu eleştirisi barındırmayan saf ticari sipariş/teklif mesajı oluştur.
+    Görev: WhatsApp ve kurumsal iletişim kanalları için; tamamen profesyonel, net, yorumsuz, parça durumu eleştirisi barındırmayan saf ticari sipariş/teklif mesajı oluştur.
     """
     try:
         return call_groq_api(prompt)
@@ -351,6 +349,17 @@ async def read_root():
             return f.read()
     except Exception:
         return "<h2>FleetParts AI - Universal Heavy Duty Master Engine Aktif</h2>"
+
+@app.get("/katalog", response_class=HTMLResponse)
+async def read_katalog():
+    """Herkese açık, giriş gerektirmeyen katalog vitrini - soğuk lead'lerin kendi
+    WhatsApp'larından ilk temas kurabileceği (opt-in) sayfa."""
+    try:
+        with open("katalog.html", "r", encoding="utf-8") as f:
+            html = f.read()
+        return html.replace("__BUSINESS_WHATSAPP_NUMBER__", BUSINESS_WHATSAPP_NUMBER)
+    except Exception:
+        return "<h2>Katalog sayfası bulunamadı</h2>"
 
 @app.get("/get-catalog")
 async def get_catalog_endpoint():
