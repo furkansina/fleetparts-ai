@@ -190,5 +190,133 @@
         "brand": "",
         "specs": "KÜÇÜK",
         "stock": 25
+    },
+    {
+        "id": "PRC-1024",
+        "oem": "30-KR0407-100",
+        "name": "Hortum 4x2,5",
+        "brand": "",
+        "specs": "PA 12 | Çap: 4mm | Dou: 2.5mm | Uzunluk: 100m",
+        "stock": 25
+    },
+    {
+        "id": "PRC-1025",
+        "oem": "30-KR0410-200",
+        "name": "Hortum 4x2",
+        "brand": "",
+        "specs": "PA 12 | Çap: 4mm | Dou: 2mm | Uzunluk: 200m",
+        "stock": 25
+    },
+    {
+        "id": "PRC-1026",
+        "oem": "30-KR0508-100",
+        "name": "Hortum 5x3,3",
+        "brand": "",
+        "specs": "PA 12 | Çap: 5mm | Dou: 3.3mm | Uzunluk: 100m",
+        "stock": 25
+    },
+    {
+        "id": "PRC-1027",
+        "oem": "30-KR0610-100",
+        "name": "Hortum 6x4",
+        "brand": "",
+        "specs": "PA 12 | Çap: 6mm | Dou: 4mm | Uzunluk: 100m",
+        "stock": 25
+    },
+    {
+        "id": "PRC-1028",
+        "oem": "30-KR0810-100",
+        "name": "Hortum 8x6",
+        "brand": "",
+        "specs": "PA 12 | Çap: 8mm | Dou: 6mm | Uzunluk: 100m",
+        "stock": 25
+    },
+    {
+        "id": "PRC-1029",
+        "oem": "30-KR0915-100",
+        "name": "Hortum 9x6",
+        "brand": "",
+        "specs": "PA 12 | Çap: 9mm | Dou: 6mm | Uzunluk: 100m",
+        "stock": 25
+    },
+    {
+        "id": "PRC-1030",
+        "oem": "30-KR1010-100",
+        "name": "Hortum 10x8",
+        "brand": "",
+        "specs": "PA 12 | Çap: 10mm | Dou: 8mm | Uzunluk: 100m",
+        "stock": 25
+    },
+    {
+        "id": "PRC-1031",
+        "oem": "30-KR1012-100",
+        "name": "Hortum 10x7,5",
+        "brand": "",
+        "specs": "PA 12 | Çap: 10mm | Dou: 7.5mm | Uzunluk: 100m",
+        "stock": 25
+    },
+    {
+        "id": "PRC-1032",
+        "oem": "30-KR1015-100",
+        "name": "Hortum 10x7",
+        "brand": "",
+        "specs": "PA 12 | Çap: 10mm | Dou: 7mm | Uzunluk: 100m",
+        "stock": 25
+    },
+    {
+        "id": "PRC-1033",
+        "oem": "30-KR1115-100",
+        "name": "Hortum 11x8",
+        "brand": "",
+        "specs": "PA 12 | Çap: 11mm | Dou: 8mm | Uzunluk: 100m",
+        "stock": 25
+    },
+    {
+        "id": "PRC-1034",
+        "oem": "30-KR1215-100",
+        "name": "Hortum 12x9",
+        "brand": "",
+        "specs": "PA 12 | Çap: 12mm | Dou: 9mm | Uzunluk: 100m",
+        "stock": 25
+    },
+    {
+        "id": "PRC-1035",
+        "oem": "30-KR1210-100",
+        "name": "Hortum 12x10",
+        "brand": "",
+        "specs": "PA 12 | Çap: 12mm | Dou: 10mm | Uzunluk: 100m",
+        "stock": 25
+    },
+    {
+        "id": "PRC-1036",
+        "oem": "30-KR1420-50",
+        "name": "Hortum 14x10",
+        "brand": "",
+        "specs": "PA 12 | Çap: 14mm | Dou: 10mm | Uzunluk: 50m",
+        "stock": 25
+    },
+    {
+        "id": "PRC-1037",
+        "oem": "30-KR1515-50",
+        "name": "Hortum 15x12",
+        "brand": "",
+        "specs": "PA 12 | Çap: 15mm | Dou: 12mm | Uzunluk: 50m",
+        "stock": 25
+    },
+    {
+        "id": "PRC-1038",
+        "oem": "30-KR1620-50",
+        "name": "Hortum 16x12",
+        "brand": "",
+        "specs": "PA 12 | Çap: 16mm | Dou: 12mm | Uzunluk: 50m",
+        "stock": 25
+    },
+    {
+        "id": "PRC-1039",
+        "oem": "30-KR1820-25",
+        "name": "Hortum 18x14",
+        "brand": "",
+        "specs": "PA 12 | Çap: 18mm | Dou: 14mm | Uzunluk: 25m",
+        "stock": 25
     }
 ]
