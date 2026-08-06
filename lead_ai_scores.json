@@ -1,0 +1,797 @@
+{
+    "osm_node_4573041692": {
+        "relevance_score": 85,
+        "score_reasoning": "\"Toptan\" ifadesi içeren isim, ağır vasıta parçalarında perakende yerine toptan ticaret yaptığını işaret eder. Yüksek ihtimalle hedef kitle içindedir.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_6815088049": {
+        "relevance_score": 92,
+        "score_reasoning": "Büyük ölçekli lojistik firmasıdır. Kapsamlı bir filo işlettiği için büyük hacimli ağır vasıta yedek parça alımı yapması beklenir.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_5282838639": {
+        "relevance_score": 90,
+        "score_reasoning": "Lojistik firması olduğu için kendi filosunu beslemek üzere düzenli olarak ağır vasıta yedek parça ihtiyaçları olacaktır.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_3731381994": {
+        "relevance_score": 40,
+        "score_reasoning": "\"Oto Aksesuar\" genellikle akıllı kargo, ses sistemi gibi hafif yedek parçaları içerir. Ağır vasıta ana parçaları (motor, şanzıman vb.) odak noktası değildir.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_5306492121": {
+        "relevance_score": 20,
+        "score_reasoning": "İsmi Rusça 'Volvo Servis' anlamına gelmektedir. Servis ve bakım odaklıdır, yedek parça satışçıları için doğrudan hedef değildir (bağımsız tamirci kategorisi).",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_5307261222": {
+        "relevance_score": 15,
+        "score_reasoning": "Özel parçalar (fren vb.) satışı yapıyor olabilir ancak Rusca isimlendirme ve genel 'oto parça' konumu, ağır vasıta toptancılığına yönelik spesifik bir hedef değildir.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_6036137844": {
+        "relevance_score": 45,
+        "score_reasoning": "Oto elektrik ve aksesuar üzerine odaklanmıştır. Ağır vasıta mekanik yedek parçaları (akışkanlar, girdeler, şanzıman) için doğrudan bir tedarikçi hedefi olmaktan uzak olabilir.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_6535580292": {
+        "relevance_score": 50,
+        "score_reasoning": "Genel ticaret firmasıdır. Ağır vasıta parçası satıp satmadığı belirsizdir. Araştırma gerektirir ancak genel oto parça mağazaları arasında kalabilir.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_9150725318": {
+        "relevance_score": 88,
+        "score_reasoning": "İsimde 'Toptan' kelimesi geçmektedir. Eğer ağır vasıta sektörüne hizmet veriyorsa yüksek değerlidir. Genellikle çok sektörlü olabilir ancak inceleme değeri yüksektir.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_9276650620": {
+        "relevance_score": 60,
+        "score_reasoning": "Nakliye firmasıdır. Küçük ölçekli bir filo ile çalışıyor olabilir. Büyük lojistik firmalarına göre hacmi düşüktür ancak hedef kitlededir.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_9998073117": {
+        "relevance_score": 10,
+        "score_reasoning": "Elektronik ve multimedya sistemleri satan bir firmadır. Ağır vasıta endüstriyel yedek parça (motor, şasi) ile alakası yoktur.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_10219528264": {
+        "relevance_score": 80,
+        "score_reasoning": "İsimde 'Kamyon' geçmektedir. Yüksek ihtimalle kamyon aksesuar veya parçası satar. Toptan veya perakende satıcı olabilir, doğrudan sektör içindedir.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_10281880586": {
+        "relevance_score": 30,
+        "score_reasoning": "Turizm ve yazılım tekniklerinin araştırmadan, taşımacılık ilişkisi vardır. Ancak muhtemelen yazılım veya operasyon yönetimi amaçlıdır, parça tedarikçisi olma ihtimali düşüktür.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_10657718528": {
+        "relevance_score": 55,
+        "score_reasoning": "Taşıma firmasıdır. Uluslararası taşımacılık yapabilir. Filo büyüklüğünü bilmeden tam skorlanamaz ama potansiyel müşteridir.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_10994230206": {
+        "relevance_score": 0,
+        "score_reasoning": "\"ŞOK\" bir perakende zinciridir. Dağıtım merkezi ancak parça satıcısı değildir. Ürünleri gıda ve hogar eşyalarıdır. Hedef dışıdır.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_11003305599": {
+        "relevance_score": 0,
+        "score_reasoning": "Fasdat bir gıda üretici şirketidir. Lojistik ofisi olsa da ürünleri gıdadır. Ağır vasıtaları yedek parça satıcısı olamaz, hedef dışıdır.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_11062876214": {
+        "relevance_score": 20,
+        "score_reasoning": "Sadece akü satan bir firmadır. Yedek parça çeşitliliği (fren, süspansiyon, motor) için yeterli değildir. Niş bir satıcıdır.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_11082671271": {
+        "relevance_score": 15,
+        "score_reasoning": "Garaj adı, hizmet ve tamir hizmetlerin merkezi olduğunu gösterir. Perakende satış yapabilir ama toptan tedarikçi olarak değil, hizmet alıcısı olarak görülür. Hedef dışıdır.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_11088933962": {
+        "relevance_score": 35,
+        "score_reasoning": "\"Aksesuar ve Tasarım\" ifadesi, dekoratif veya elektrik aksesuar odaklı olabilir. Yan parçalar ya da iç/dış aksesuar odaklıdır. Ağır vasıta motor veya şasi odaklı değildir.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_12723302200": {
+        "relevance_score": 15,
+        "score_reasoning": "İsminde 'Toptan' geçmekle ancak kategori ve bağlam nakliye/lojistik ile sınırlı kalmıştır. 'Bizim Toptan' muhtemelen gıda veya日用 ürünleri satmaktadır. Ağır vasıta yedek parça alıcısı olma ihtimali oldukça düşüktür.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_12723307484": {
+        "relevance_score": 20,
+        "score_reasoning": "İsminde 'Toptan' ifadesi bulunsa da 'Karatekin Ticaret Toptan & Perakende' genelde gıda/satış mağazası olarak anılır. Otomotiv sektörüyle doğrudan bir bağı belirtilmemiştir, hedef dışı değerlendirilir.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_12736400985": {
+        "relevance_score": 10,
+        "score_reasoning": "Oto aksesuar satışı yapan işletmeler genellikle perakende veya hafif ticari araçlar için ürün satışı yapar. Ağır vasıta yedek parça ihtiyacı olan toptancı veya filo işletmesi profili karşılayamamaktadır.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13255457065": {
+        "relevance_score": 45,
+        "score_reasoning": "Oto yedek parça kategorisinde olması potansiyel yaratır, ancak ismi genel olduğundan (Oto Tuna) toptan satıcı mı yoksa küçük servis/zarf parçası satıcısı mı olduğu belirsiz. Orta-düşük potansiyel.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13270921404": {
+        "relevance_score": 0,
+        "score_reasoning": "Garaj olan işletmeler genellikle bağımsız tamir ve bakım hizmeti verir. Hedef kitle tanımında açıkça 'bağımsız tamirciler/servisler' hedef dışı olarak belirtilmiştir.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13473148808": {
+        "relevance_score": 15,
+        "score_reasoning": "Akü satan işletmeler genellikle perakende veya tamirhanelere arz sağlar. Ağır vasıta yedek parça (motor, şanzıman, aks vb.) çeşitliliği ve toptan alım hacmi açısından hedef profiline tam uymamaktadır.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_6060027493": {
+        "relevance_score": 0,
+        "score_reasoning": "Kahvehane işletmesidir. Otomotiv veya lojistik sektörünün ticari bir parçası değildir, tamamen alakasız sektördür.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_6060027499": {
+        "relevance_score": 65,
+        "score_reasoning": "TCDD bünyesindeki lojistik birimdir. Devletin lojistik filoları (kazıcı, ray araçları, lojistik kamyonları)中存在 olabilir. Public procurement süreçleri dışında doğrudan ticari alım yapmayabilir ancak filo sahibi olduğu için potansiyel hedeftir.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_6112688720": {
+        "relevance_score": 60,
+        "score_reasoning": "Otomotiv iş yeri olduğu için potansiyel taşır. 'Şahin Otomotiv' gibi genel isimlerde toptancı olma ihtimali vardır ancak aynı zamanda tamirhane olma riski de yüksektir. Karşılıksız potansiyel.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_6112688725": {
+        "relevance_score": 0,
+        "score_reasoning": "İsmi ve kategorisi ('RS Servis') açıkça bir bakım ve onarım servisi olduğunu göstermektedir. Bağımsız tamirciler hedef dışıdır.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_6136730491": {
+        "relevance_score": 0,
+        "score_reasoning": "Cash & Carry market işletmesidir. Gıda ve semboller odaklıdır, otomotiv sektörüyle ilgisi yoktur.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_8983895245": {
+        "relevance_score": 55,
+        "score_reasoning": "Lojistik depo işletmesidir. Bu tip firmalar genellikle kendi taşımacılık filosuna sahip olabilir veya lojistik operasyonları için ağır vasıtalar kullanır. Filo yöneticileri potansiyel müşteri olabilir.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_10578379730": {
+        "relevance_score": 10,
+        "score_reasoning": "Tuning işletmeleri genellikle personelleştirilmiş araç parçaları ile uğraşır ve performansı odaklıdır. Ağır vasıta endüstrisiyle veya toptan ticaretle ilgisi yoktur.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_12056379146": {
+        "relevance_score": 35,
+        "score_reasoning": "İsmi 'Özel Servis' ve 'Yedek Parça' içermekte. Parça satışı yaptığı için potansiyel vardır ancak 'Servis' vurgusu bakım/onarım ağırlığını gösterir. Küçük ölçekli bayilik ihtimali vardır, düşük potansiyel.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_12919685113": {
+        "relevance_score": 50,
+        "score_reasoning": "Genel otomotiv işletmesi. Topcan parça satıcısı olabilir mi yada servis mi ayrımı yapılanamaz. Ortalama potansiyele sahiptir.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13289109570": {
+        "relevance_score": 5,
+        "score_reasoning": "Auto Detailing, araç yıkama ve cilalama işlerinin yapıldığı yerdir. Yedek parça satışıyla ilgisi yoktur.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13311005461": {
+        "relevance_score": 70,
+        "score_reasoning": "Liman ve lojistik firmasıdır. Liman operasyonlarında vinçler, çatal liftsler ve nakliye araçları yoğun olarak kullanılır. Bu firmalar genellikle büyük filolara sahiptir veHeavy Duty yedek parça ihtiyacı duyarlar.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13346645699": {
+        "relevance_score": 30,
+        "score_reasoning": "Genel otomotiv dükkanı. 'Özbayındırlar' ismiyle toptan satış yapıp yapmadığı belli değil. Muhtemelen küçük ölçekli perakende/parça satıcısıdır.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13362183265": {
+        "relevance_score": 40,
+        "score_reasoning": "Oto lastik satışı yapan işletmeler, ağır vasıta lastiği de satabilir. Ancak sadece lastik odaklı olmaları nedeniyle genel yedek parça toptancılığına göre daha dar bir nişe sahiptir. Orta-düşük potansiyel.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13363672888": {
+        "relevance_score": 10,
+        "score_reasoning": "Oto aksesuar işletmeleri genellikle dekoratif veya konfor ürünleri satmaktadır. Ağır vasıta endüstriyel yedek parçası ihtiyacıyla alakalı değildir.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13371862077": {
+        "relevance_score": 80,
+        "score_reasoning": "İsimde 'Moto' geçmesi motosiklet odaklı olabileceğini gösterse de 'Oto Yedek Parça' kategorisi ve toptan satış potansiyeli nedeniyle ağır vasıta parça toptancısı olarak değerlendirilebilir.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13373989738": {
+        "relevance_score": 65,
+        "score_reasoning": "Aksesuar satıcısı olduğu için ana yedek parça (motor, şanzıman, gergi) ihtiyacı düşük olabilir, ancak toptan alım satım yapıyorlarsa dolaylı bağlantı kurulabilir.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13374069308": {
+        "relevance_score": 90,
+        "score_reasoning": "'Oto Lastik' satan firmalar genellikle yük taşımacılığı yapan Kamyon/TIR filolarıyla doğrudan iş birliği yapar. Ağır vasıta lastiği ihtiyacı yüksek bir hedef kitledir.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13374360106": {
+        "relevance_score": 20,
+        "score_reasoning": "Desibel, ses sistemleri ve garaj hizmetleri sunuyor. Ağır vasıta yedek parça toptan satışı ile alakası yok, bağımsız servis kategorisine girer.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13378118904": {
+        "relevance_score": 60,
+        "score_reasoning": "Genel oto yedek parça satıcısı. Toptan mı perakende mi yaptığı belli değil, ancak potansiyel bir kanalda olduğu için ortalama skor.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13401735727": {
+        "relevance_score": 65,
+        "score_reasoning": "Aksesuar odaklı olduğu için ana mekanik parça ihtiyacı düşük. Ancak yine de otomotiv sektörü içinde toptan alım yapabilir.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13408542930": {
+        "relevance_score": 90,
+        "score_reasoning": "Lastik satıcıları ağır vasıta filolarının ilk tedarikçi adaylarındandır. Yüksek hacimli lastik ithalatı/satışı muhtemeldir.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13408542948": {
+        "relevance_score": 90,
+        "score_reasoning": "Oto lastik satıcısı. Yük taşımacılığı sektörü ile yüksek korelasyona sahiptir, TIR lastiği ihtiyacı vardır.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13408542956": {
+        "relevance_score": 30,
+        "score_reasoning": "İsimde 'Motor' ve 'Kuba' (muhtemelen motosiklet markası veya tipi) geçiyor. Büyük olasılıkla motosiklet yedek parçası satıyor, ağır vasıta dışında.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13409343781": {
+        "relevance_score": 10,
+        "score_reasoning": "Detailing (dış/sortiment) hizmeti veren bir işletme. Yedek parça satışı veya ağır vasıta lojistiği ile ilgisi yoktur.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13410496412": {
+        "relevance_score": 60,
+        "score_reasoning": "Kısa isim yapısı genel bir yedek parça dükkanını düşündürür. Detay yok ancak sektörü doğru, potansiyel orta/alt segment.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13411008273": {
+        "relevance_score": 75,
+        "score_reasoning": "'Oto Market' ismi genellikle geniş yelpazeli yedek parça sattığını, muhtemelen perakende ve küçük toptan yaptığını gösterir.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13411008276": {
+        "relevance_score": 25,
+        "score_reasoning": "'Garage' islimi bakım ve onarım odaklı olduğunu gösterir. Hedef dışı kurala (bağımsız servis) yakındır.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13411049222": {
+        "relevance_score": 85,
+        "score_reasoning": "'Motor ve Ekipman' ifadesi iş makineleri (AİİS/Motosiklet) veya ağır vasıta motor yedek parçaları satışı anlamına gelebilir. Yüksek potansiyel.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13411049254": {
+        "relevance_score": 30,
+        "score_reasoning": "Açıkça 'Motosiklet' belirtiyor. Ağır vasıta (kamyon/TIR) hedef kitlemize uygun değildir.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13413348116": {
+        "relevance_score": 5,
+        "score_reasoning": "Oto kuaför/detaylı temizlik hizmeti. Yedek parça satışı veya lojistik ile ilgisi tamamen yok.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13418631768": {
+        "relevance_score": 30,
+        "score_reasoning": "İsmi 'Toptan' taşıyor ancak 'Ambalaj, Gıda, Temizlik' ürün satıyor. Nakliye/Lojistik firması değil, lojistik ürün satıcısı. Doğrudan ağır vasıta parça müşterisi değil.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13421247867": {
+        "relevance_score": 95,
+        "score_reasoning": "'Servis Taşımacılık' ismi doğrudan kendi filosu olan nakliye/lojistik firması olduğunu gösterir. Kendi araçlarının yedek parça ihtiyacına sahiptir.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13437591802": {
+        "relevance_score": 10,
+        "score_reasoning": "Detailing hizmeti. Hedef kitle dışında, alakasız sektör.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13474095012": {
+        "relevance_score": 60,
+        "score_reasoning": "Genel otomotiv yedek parça satıcısı. Toptan imkanları muhtemel ancak 'Oto' geneliği vardır, ağır vasıta için kesin bilgi yok.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13474095351": {
+        "relevance_score": 65,
+        "score_reasoning": "İsim 'Motoon' ve kategori 'Oto Yedek Parça' toptancılık potansiyeli taşıyor ancak ağır vasıta odaklı olup olmadığı belirsiz. Genel otomotiv yedek parça satıcısı olma ihtimali yüksek.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13474095352": {
+        "relevance_score": 50,
+        "score_reasoning": "Genel 'Oto Yedek Parça' kategorisinde. İsimden ağır vasıta veya toptan ticaret yapıldığına dair bir işaret yok. Ancak parça satıcısı olduğu için düşük-orta uygunlukta tutuldu.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13520102132": {
+        "relevance_score": 0,
+        "score_reasoning": "Alkol satış deposu. Hedef dışı sektör (gıda/içecek).",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13545909341": {
+        "relevance_score": 85,
+        "score_reasoning": "Lojistik firması. Filo yöneticisi olduğu için ağır vasıta yedek parca ihtiyacı olan doğrudan bir hedef kitle.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13555618556": {
+        "relevance_score": 85,
+        "score_reasoning": "Lojistik firması. Filo yöneticisi olduğu için ağır vasıta yedek parca ihtiyacı olan doğrudan bir hedef kitle.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13564931533": {
+        "relevance_score": 0,
+        "score_reasoning": "Sendika/Organizasyon. Parça satın alan bir işletme değil, meslek örgütüdür.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13566412118": {
+        "relevance_score": 90,
+        "score_reasoning": "Taşımacılık firması ('Tur Taşımacılık'). Otobüs filosu olması muhtemel, bu da doğrudan ağır vasıta yedek parça müşterisi yapar.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13596183695": {
+        "relevance_score": 0,
+        "score_reasoning": "Oto Kuaför (Servis/Taşî service). Hedef dışı (tamir hizmetleri, parça ticareti değil).",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_way_1183490045": {
+        "relevance_score": 45,
+        "score_reasoning": "Oto Lastik. Parça satıcısı ancak ağır vasıta lastiği üzerine uzmanlaşmış mı belirsiz. Genellikle perakende veya hafif ticari araç odaklıdır.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_way_1183490053": {
+        "relevance_score": 40,
+        "score_reasoning": "Lastikçi. Servis ve perakende odaklı muhtemel. Ağır vasıta toptan satıcı profili uzak.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_way_1183521984": {
+        "relevance_score": 0,
+        "score_reasoning": "Auto Detailing (Detaylı Bakım/Işıkлатma). Yedek parça satışı ve ağır vasıta ile alakasız hizmet.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_way_1486037306": {
+        "relevance_score": 0,
+        "score_reasoning": "Auto Detailing Garage. Yedek parça satışı ve ağır vasıta ile alakasız hizmet.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_way_1486067534": {
+        "relevance_score": 0,
+        "score_reasoning": "Kygas Expert. Adından teknik servis veya spesifik bir servis merkezi anlaşılıyor. Toptan parça satıcısı profili yok.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_way_1486271442": {
+        "relevance_score": 35,
+        "score_reasoning": "Akü Merkezi. Parça satıcısı ancak perakende odaklı. Ağır vasıta aküleri satsa bile toptan ticaret yapılan bir firma olup olmadığı şüpheli.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_way_1486271451": {
+        "relevance_score": 0,
+        "score_reasoning": "Oto Döşeme. Servis hizmetidir, yedek parça ticareti değildir.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_way_1486271457": {
+        "relevance_score": 35,
+        "score_reasoning": "Akü Merkezi. Parça satıcısı ancak perakende odaklı. Ağır vasıta aküleri satsa bile toptan ticaret yapılan bir firma olup olmadığı şüpheli.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_way_1486350655": {
+        "relevance_score": 20,
+        "score_reasoning": "Egzoz Merkezi. Servis/Montaj odaklı. Parça stoklayabilir ama hedef kitlemiz (toptancılar/lojistik) için doğrudan bir tedarikçi veya müşteri profili değil.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_way_1486350662": {
+        "relevance_score": 20,
+        "score_reasoning": "Oto Elektrik/Akü. Servis ve küçük çaplı parça satışına odaklı. Toptan ticaret profili düşük.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_way_1486350663": {
+        "relevance_score": 0,
+        "score_reasoning": "Araç Detay Merkezi. Yedek parça satışı ve ağır vasıta ile alakasız hizmet.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_way_1486350680": {
+        "relevance_score": 10,
+        "score_reasoning": "Tuning Merkezi. Modifikasyon ve performans parçaları üzerine çalışır. Ağır vasıta (kamyon/TIR) standardı yedek parça ticareti ile bağlantısı zayıf.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_way_1486350682": {
+        "relevance_score": 20,
+        "score_reasoning": "İsim 'Akücü' (Akü satıcısı) işini doğrudan belli ediyor. Ağır vasıta parçası değil, tek bir bileşen satıcısı. Hedef dışı.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_way_1486511064": {
+        "relevance_score": 10,
+        "score_reasoning": "Spesifik olarak 'Airbag' satıyor. Güvenlik sistemi bileşeni satıcısı, genel ağır vasıta parça toptancısı değil.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_way_1486511067": {
+        "relevance_score": 15,
+        "score_reasoning": "'Torna Makine Sanayi' üretici veya işleme atölyesi olduğunu gösterir. Toptan satıcı değil, üretim/torna layanan sunucusu.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_way_1486511070": {
+        "relevance_score": 25,
+        "score_reasoning": "'Dişli' ürünü spesifiktir. Şanzıman parçaları ile uğraşabilir ancak genel ağır vasıta parça toptancılığından ziyade özel parça üreticisi/satıcısı ihtimali yüksek.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_way_1486511073": {
+        "relevance_score": 20,
+        "score_reasoning": "'Egzoz Radyatör' spesifik ürün grubu. Genel toptancı değil, özel parça (egzoz/radyatör) satıcısı.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_way_1486511083": {
+        "relevance_score": 60,
+        "score_reasoning": "İsim 'İstray' kulağa toptan/ünite ismi gibi geliyor. Kategori 'Oto Yedek Parça'. Geniş bir katalog olma potansiyeli var. Uygunluk orta-üst.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_way_1486511090": {
+        "relevance_score": 85,
+        "score_reasoning": "'Temel Oto Parça' ismi genel 'oto parça' satıcılığına işaret ediyor. 'Temel' kelimesi dükkan/perakende de olabilir ama toptan potansiyeli var. Orta-yüksek uygunluk.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_way_1486511093": {
+        "relevance_score": 10,
+        "score_reasoning": "Power Akü: Sadece akü satıcısı. Hedef dışı.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_way_1486541785": {
+        "relevance_score": 15,
+        "score_reasoning": "Kurum Egzoz: Spesifik egzoz sistemi satıcısı. Genel ağır vasıta toptancısı değil.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_way_1486654946": {
+        "relevance_score": 90,
+        "score_reasoning": "'Otoban' ismi, ağır vasıta (TIR, otobüs) yoluyla güçlü ilişki kuruyor. Genellikle TIR parçaları ve ağır vasıta toptancılığı yapan firmalar bu ismi kullanır. Yüksek uygunluk.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_way_1486654948": {
+        "relevance_score": 65,
+        "score_reasoning": "'Sevinç Otomatik Şanzıman'. Şanzıman ağır vasıtada çok önemli bir parça grubu. Şanzıman uzmanı satıcılar genellikle ileri vitis/retarder gibi ağır vasıta özel parçalarını da bulundurur. Orta-yüksek uygunluk.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_way_1486700309": {
+        "relevance_score": 10,
+        "score_reasoning": "'BK Oto Garage' ismi servis/tamirci olduğunu doğrudan gösteriyor. Hedef dışı.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_way_1486700311": {
+        "relevance_score": 10,
+        "score_reasoning": "'Zirek Oto Cam Oto Film'. Cam ve film uzmanı. Yedek parça toptancısı değil.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_way_1486700321": {
+        "relevance_score": 15,
+        "score_reasoning": "'Önen Egzoz'. Spesifik egzoz satıcısı. Genel toptancı değil.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_way_1486848419": {
+        "relevance_score": 95,
+        "score_reasoning": "İsim 'Oto Bilgin Yedek Parça' ve kategori 'İsim Eşleşmesi (Nakliye/Lojistik/Toptan)' olarak verilmiş. 'Yedek Parça' ifadesi genel dağıtıcı/toptancı olduğunu güçlü şekilde işaret ediyor. Çok yüksek uygunluk.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_way_1486848423": {
+        "relevance_score": 80,
+        "score_reasoning": "'Sipahi Oto Yedek Parça'. 'Yedek Parça' kelimesi var. Geniş çaplı satıcı olma ihtimali yüksek. Yüksek uygunluk.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_way_1486848437": {
+        "relevance_score": 40,
+        "score_reasoning": "'Mutlu Motor'. Motor satanlar genellikle motora ait yedek parçaları da satar. Ancak odak noktası motor değişimi/ıslak parça üzerinde. Orta-düşük uygunluk, ancak ağır vasıta motor parçası ihtiyacı olabilir.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_way_1486848438": {
+        "relevance_score": 15,
+        "score_reasoning": "Yıldız Egzoz: Spesifik egzoz satıcısı. Genel toptancı değil.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_way_1486848442": {
+        "relevance_score": 10,
+        "score_reasoning": "Önem Jeneratör: Sadece jeneratör satıcısı. Hedef dışı.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_12145207042": {
+        "relevance_score": 60,
+        "score_reasoning": "'Deniz Otomotiv TIR Market'. 'TIR Market' ifadesi TIR parçası sattığını gösteriyor. Ancak 'Market' genellikle perakende/garaj içi satış yapar, toptan olmayabilir. Orta uygunluk.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_7626731621": {
+        "relevance_score": 65,
+        "score_reasoning": "Oto yedek parça satıcısı olduğu için potansiyel toptan müşteridir, ancak 'İlik' ön eki bireysel ticareti işaret edebilir.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_7626731626": {
+        "relevance_score": 65,
+        "score_reasoning": "Sektör olarak uyumlu olup (oto yedek parça), toptan alım yapma ihtimali yüksektir.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_7626748493": {
+        "relevance_score": 50,
+        "score_reasoning": "Oto aksesuar satışında yoğunlaşmış görünüyor; ağır vasıta parçası ihtiyacı daha belirgin olmayabilir.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_7909083069": {
+        "relevance_score": 30,
+        "score_reasoning": "İsmi toptanca olsa da Bitlis'te ve lojistik ismi taşımadığı için nakliye filosu olma ihtimali düşük, muhtemelen gıda/giyim vb. toptancıdır.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_5646579389": {
+        "relevance_score": 0,
+        "score_reasoning": "Toptan market olacak ağır vasıta yedek parçası satan veya filosu olan bir firma değildir. Hedef dışı.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_4516339292": {
+        "relevance_score": 60,
+        "score_reasoning": "Bursa gibi büyük bir sanayi şehrinde oto yedek parça satmak toptan iş yapma potansiyeli taşır.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_4784554422": {
+        "relevance_score": 60,
+        "score_reasoning": "Oto yedek parça sektöründe olduğu için B2B alıcı profili uygundur.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_11137736765": {
+        "relevance_score": 20,
+        "score_reasoning": "İsimdeki 'Log' kelimesi yanıltıcı olabilir, ancak 'Ofis' eki nakliye firması değil, lojistik ofisi/temsilcilik olduğunu gösterir. Filo sahibi olma ihtimali düşüktür.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13244658601": {
+        "relevance_score": 0,
+        "score_reasoning": "Motosiklet (Moto) odaklı bir servistir. Ağır vasıta (kamyon/TIR) parçası satıcısı değildir. Hedef dışı.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_4580344152": {
+        "relevance_score": 55,
+        "score_reasoning": "Lastik satan oto yedek parçacılar genellikle ağır vasıta lastikleri de stoklar ve toptan alım yapar.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13042299917": {
+        "relevance_score": 85,
+        "score_reasoning": "İsimde açıkça 'Nakliye' ve 'Sanayi' geçiyor. Madencilik sektörlü nakliye firması yüksek ihtimalle iş makinesi ve ağır vasıta filosuna sahiptir.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_3761759551": {
+        "relevance_score": 10,
+        "score_reasoning": "Aras Kargo bir şube ofisidir. Kendi filo operasyonlarını merkezi yönetir veya kurye/aracı kullanır, yedek parça toptan müşterisi olarak doğrudan satışı zor.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_5340283621": {
+        "relevance_score": 60,
+        "score_reasoning": "Genel oto yedek parça satıcısıdır, toptan kaynağı arayışında olabilir.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_7265726285": {
+        "relevance_score": 45,
+        "score_reasoning": "'Servis' kelimesi tamir dükkanı/otokarı olduğunu düşündürür. Toptan satıcı mı sorunsuz çalışmaktadır.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_5001164526": {
+        "relevance_score": 50,
+        "score_reasoning": "Oto aksesuar üzerine yoğunlaşmış görünüyor, ağır vasıta parçası ihtiyacı belirsiz.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_6813797885": {
+        "relevance_score": 10,
+        "score_reasoning": "Toptan satış mağazası ancak sektör belirtimi yok. Muhtemelen ev ihtiyaçları/gıda/teknoloji toptancıdır. Ağır vasıta ilişkisi yok.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_10718979697": {
+        "relevance_score": 0,
+        "score_reasoning": "Traktör servisi/yedek parçası satıcısıdır. Tarım aletleri ağır vasıta (TIR/Kamyon) ile aynı parça havuzunu paylaşmaz. Hedef dışı.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_12273476479": {
+        "relevance_score": 0,
+        "score_reasoning": "Evden Eve nakliye şirketleri genellikle kamyonet minibüs kullanır veya aracıdır. Büyük TIR filosu değilse alıcı potansiyeli çok düşüktür. Hedef dışı.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_2631172551": {
+        "relevance_score": 0,
+        "score_reasoning": "Kamyoncular lokantasıdır. Yedek parça satmıyor ve filo sahibi değil. Hedef dışı.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_4669431703": {
+        "relevance_score": 60,
+        "score_reasoning": "Oto yedek parça olarak işaretlenmiş. Geniş bir avlusu veya distribütörlüğü varsa toptan alıcı olabilir.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_12686759701": {
+        "relevance_score": 90,
+        "score_reasoning": "Isim ve kategori ('Atek Turbo', 'Oto Yedek Parça') ağır vasıta yedek parça satıcısı olduğunu açıkça gösteriyor. Hedef kitleye (toptancı/satıcı) doğrudan uymaktadır.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13188396702": {
+        "relevance_score": 10,
+        "score_reasoning": "'Ambalaj' kelimesi gıda/lojistik ambalajını ima eder, oto yedek parça ile ilgisi yok. Hedef dışı (alakasız sektör).",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_641933453": {
+        "relevance_score": 85,
+        "score_reasoning": "'Kamyoncular Kooperatifi' ismi, kendi filosu olan veya grup halinde çalışan nakliyecileri temsil eder. Bular B2B ağır vasıta parça alıcılarıdır.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_1730993632": {
+        "relevance_score": 20,
+        "score_reasoning": "'Garaj' ifadesi genellikle servis/tamirciyi işaret eder. Bağımsız tamirciler/servisler hedef dışı tanımlanmıştır.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_4142189689": {
+        "relevance_score": 85,
+        "score_reasoning": "'Özolgun Yedek Parça' ismi, oto yedek parça perakende veya toptan satıcısı olduğunu gösterir. Hedef kitleye (satıcılar) uygundur.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_5309825021": {
+        "relevance_score": 70,
+        "score_reasoning": "'Lojistik Merkezi' işleten firma yüksek ihtimalle kendi büyük filo ve iş makinesi filolarına sahiptir. Doğrudan satıcı olmasa da potansiyel filo sahibi B2B müşteridir.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_5982665559": {
+        "relevance_score": 70,
+        "score_reasoning": "'Kara Nakliyeciler' ismi, aktif bir kamyona filosu olan lojistik şirketi olduğunu işaret eder. Filo sahibi hedef kitleye uygundur.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_7079214089": {
+        "relevance_score": 50,
+        "score_reasoning": "'Oto Test' merkezi genellikle araç muayenesi yapar, yedek parça satışı yapmaz. Ancak 'Oto Yedek Parça' kategorisinde listelenmiş olması riskli bir eşleşmedir, genel olarak hedef dışıdır ancak kategori hatası olabileceğinden orta düşük skor.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_8088027491": {
+        "relevance_score": 10,
+        "score_reasoning": "Isim genel ticareti ima ediyor, sektör belirtilmemiş. 'Alternatif Toptan Fiyatına Perakende' çok muğlak, yüksek ihtimalle gıda veya genel halka satış. Oto parça ile doğrudan bağlantı yok.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_9009796841": {
+        "relevance_score": 80,
+        "score_reasoning": "'Yeditepe Transportation' profesyonel bir taşımacılık şirketidir. Büyük olasılıkla kendi ağır vasıta filolarını barındırır ve bu filolar için parca tedarikçisi arar.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_10918454096": {
+        "relevance_score": 30,
+        "score_reasoning": "Aras Kargo merkezileştirilmiş lojistik ağının bir acentesidir. Parça tedariki genel merkez tarafından yapılır, butik bir filo sahibi firma veya toptancı değildir. Rekabetçi/potansiyel alıcı olarak zayıf.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_11045787025": {
+        "relevance_score": 20,
+        "score_reasoning": "CarrefourSA bir perakende zinciridir. Deposu yerel bir nakliye firması değildir, parça satın alma süreçleri merkezi ve global tedarikçilerdedir. Hedef dışı.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_11054886013": {
+        "relevance_score": 10,
+        "score_reasoning": "Ceran beton santrali ekipmanları üreticisi/distribütörüdür. Oto yedek parça sektörüyle doğrudan ilgisi yoktur. Hedef dışı.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_12355287028": {
+        "relevance_score": 10,
+        "score_reasoning": "'Toptan Perakende' ifadesi geneldir, oto parça ile sınırlı değildir. Büyük ihtimalle gıda, giyim veya hediyelik eşya ile ilgilenir. Hedef dışı.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_12355287041": {
+        "relevance_score": 10,
+        "score_reasoning": "Yukarıdaki gibi genel toptancıdır, oto parça sektörüne özgü bir isimleme içermemektedir. Hedef dışı.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_12364769694": {
+        "relevance_score": 10,
+        "score_reasoning": "Isimde 'Motosiklet Yedek Parça' açıkça belirtilmiş. Hedef kitle ağır vasıta (kamyon/TIR) olduğundan motosiklet sektörü hedef dışıdır.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_12367171182": {
+        "relevance_score": 10,
+        "score_reasoning": "'Can Gıda Toptan Perakende' gıda sektöründedir. Alakasız sektör. Hedef dışı.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_12367372008": {
+        "relevance_score": 10,
+        "score_reasoning": "'Toptan Perakende' geneldir, sektör belirtmez. Yüksek olasılıkla gıda/temizlik/giyimdir. Oto parça ile ilgisi şüpheli. Hedef dışı.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13230200824": {
+        "relevance_score": 30,
+        "score_reasoning": "DHL gibi global lojistik devlerin yerel ofisleri, tedarik süreçlerini merkezlerden yönetir. Yerel ofisler B2B parça alıcısı olarak düşük potansiyele sahiptir. Rekabetçi/büyük şirket statüsünde.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13253947993": {
+        "relevance_score": 60,
+        "score_reasoning": "'Egem Forklift' ismi, vinç/forklift gibi iş makineleri kiralama veya satış yaptığına işaret eder. İş makinesi yedek parçaları hedef ürün grubudur. Potansiyel alıcıdır.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13388562250": {
+        "relevance_score": 95,
+        "score_reasoning": "Oto yedek parça satıcısı olduğu kesin. Toptancı olduğundan emin olmasak da ana hedef kitleye (yedek parça satıcıları) direkt hitap eder. Yüksek öncelikli.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13473177753": {
+        "relevance_score": 0,
+        "score_reasoning": "Kitap dağıtımı yapan firma. Alakasız sektör (gıda/giyim/yayın vb.). Hedef dışı.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13943786125": {
+        "relevance_score": 60,
+        "score_reasoning": "Lojistik firması. Filosu olabilir ancak büyük olması muhtemel. Potansiyel hedef ancak yedek parça satıcılarından daha düşük öncelikli.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_14038499674": {
+        "relevance_score": 85,
+        "score_reasoning": "'Oto Market' genellikle hem toptan hem perakende yedek parça satan işletmelerdir. Hedef kitleye uygunluk oranı yüksek.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_14073045840": {
+        "relevance_score": 40,
+        "score_reasoning": "Oto aksesuar satıcısı. Yedek parça değil, aksesuar odaklı. Doğrudan hedef kitlenin (veya ağır vasıta parçası) dışında kalabilir, düşük skor.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_10134049685": {
+        "relevance_score": 0,
+        "score_reasoning": "Sebze hali ve toptancı. Gıda sektörü. Kesinlikle hedef dışı.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13245922340": {
+        "relevance_score": 65,
+        "score_reasoning": "Lojistik merkezi. Büyük ihtimalle filoya sahip nakliye şirketidir. Hedef kitle içinde ama yedek parça satıcılarına göre ikinci planda.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_1633093477": {
+        "relevance_score": 10,
+        "score_reasoning": "Kamyon durağı. Sürücülerin dinlendiği yer, yedek parça satışı yapan aktif bir işletme değil. Hedef dışı veya çok düşük potansiyel.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_5272592522": {
+        "relevance_score": 0,
+        "score_reasoning": "Toptançarşı ismi taşıyor ancak otomotiv ile ilişkisi yok. Genelde giyim/gıda/komodite odaklıdır. Alakasız sektör.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_10121665745": {
+        "relevance_score": 0,
+        "score_reasoning": "Toptan satış mağazaları (genel tüketici malları). Otomotiv ile ilişkisi yok. Hedef dışı.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_way_373592813": {
+        "relevance_score": 20,
+        "score_reasoning": "Oto hurdacı sitesi. Eskici firmalar, yedek parça toptancıları değildir. Rekabetçi veya farklı iş modeli. Hedef dışı.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_3259537445": {
+        "relevance_score": 40,
+        "score_reasoning": "Oto aksesuar satıcısı. Yedek parça değil. Hedef kitleyle örtüşmesi zayıf.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_3259537446": {
+        "relevance_score": 40,
+        "score_reasoning": "Oto aksesuar satıcısı. Yedek parça değil. Hedef kitleyle örtüşmesi zayıf.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_13639221920": {
+        "relevance_score": 0,
+        "score_reasoning": "Toptan gıda firma. Kesinlikle hedef dışı.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_11578435323": {
+        "relevance_score": 0,
+        "score_reasoning": "Toptancılar sitesi. Otomotiv sektörü ile ilişkisi belirtilmemiş, genel mal toptancıları olarak değerlendirilir. Hedef dışı.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_4885268721": {
+        "relevance_score": 80,
+        "score_reasoning": "Otomotiv sektöründe faaliyet gösteriyor. 'Otomotiv' kelimesi geniş olsa da yedek parça/toptan ihtimali yüksek. Orta-üyük skor.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_7087535959": {
+        "relevance_score": 0,
+        "score_reasoning": "Toptan satış market. Gıda/temizlik vb. ürünler. Hedef dışı.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_10858796912": {
+        "relevance_score": 70,
+        "score_reasoning": "Nakliyat firması. Filosu olabilir. Hedef kitle içinde (nakliye/lojistik firmaları).",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_4375010399": {
+        "relevance_score": 70,
+        "score_reasoning": "Taşımacılık firması. Filosu olabilir. Hedef kitle içinde (nakliye/lojistik firmaları).",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_5046975130": {
+        "relevance_score": 65,
+        "score_reasoning": "Lojistik ofisi. Potansiyel filo sahibi. Hedef kitle içinde ancak yedek parça satıcılarına göre daha düşük öncelikli.",
+        "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    }
+}
