@@ -2,14 +2,16 @@ import os
 import shutil
 import json
 import base64
+import time
 import requests
 from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.responses import HTMLResponse
 
 app = FastAPI(title="FleetParts AI - Universal Heavy Duty Master Engine")
 
-# API Anahtarı / Token (Render ortamından çeker)
-GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "AQ.Ab8RN6IPhISGbVUlc0GZ_I28dwWjGZSNV37AjFt9gx-EvAVjAQ")
+# API Anahtarı / Token (Render ortamından GROQ_API_KEY olarak çeker) - console.groq.com/keys, kredi kartı gerektirmez
+GROQ_API_KEY = os.environ.get("GROQ_API_KEY", "")
+GROQ_MODEL = "qwen/qwen3.6-27b"
 
 UPLOAD_DIR = "temp_images"
 CATALOG_DIR = "sample_catalogs"
@@ -18,77 +20,105 @@ CATALOG_FILE = "catalog.json"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 os.makedirs(CATALOG_DIR, exist_ok=True)
 
-# Başlangıç Evrensel Katalog Veritabanı
-if not os.path.exists(CATALOG_FILE):
+DEFAULT_CATALOG = [
+    {
+        "id": "FRN-001",
+        "oem": "1505234",
+        "name": "Disk Fren Balatası Heavy",
+        "brand": "Orijinal Kalite",
+        "specs": "Döküm arka plaka, 247x110mm, çift kulaklı bağlantı noktası, kalınlık 25mm, aşınma sensör yuvalı.",
+        "stock": 45
+    },
+    {
+        "id": "VLF-102",
+        "oem": "4324102227",
+        "name": "Hava Kurutucu Dağıtıcı Valf (4 Yollu)",
+        "brand": "Wabco Tipi",
+        "specs": "Alüminyum döküm gövde, 4 adet M22 hava basınç portu, alt kısımda 7 pin elektronik soket, silindirik üst hazne.",
+        "stock": 15
+    },
+    {
+        "id": "FLT-303",
+        "oem": "21707134",
+        "name": "Ana Yakıt ve Su Ayırıcı Filtre",
+        "brand": "FleetGuard",
+        "specs": "Silindirik kağıt filtre elemanı, üst conta çapı 90mm, tahliye musluklu metal dış gövde.",
+        "stock": 60
+    }
+]
+
+def seed_default_catalog():
     with open(CATALOG_FILE, "w", encoding="utf-8") as f:
-        json.dump([
-            {
-                "id": "FRN-001",
-                "oem": "1505234",
-                "name": "Disk Fren Balatası Heavy",
-                "brand": "Orijinal Kalite",
-                "specs": "Döküm arka plaka, 247x110mm, çift kulaklı bağlantı noktası, kalınlık 25mm, aşınma sensör yuvalı.",
-                "stock": 45
-            },
-            {
-                "id": "VLF-102",
-                "oem": "4324102227",
-                "name": "Hava Kurutucu Dağıtıcı Valf (4 Yollu)",
-                "brand": "Wabco Tipi",
-                "specs": "Alüminyum döküm gövde, 4 adet M22 hava basınç portu, alt kısımda 7 pin elektronik soket, silindirik üst hazne.",
-                "stock": 15
-            },
-            {
-                "id": "FLT-303",
-                "oem": "21707134",
-                "name": "Ana Yakıt ve Su Ayırıcı Filtre",
-                "brand": "FleetGuard",
-                "specs": "Silindirik kağıt filtre elemanı, üst conta çapı 90mm, tahliye musluklu metal dış gövde.",
-                "stock": 60
-            }
-        ], f, ensure_ascii=False, indent=4)
+        json.dump(DEFAULT_CATALOG, f, ensure_ascii=False, indent=4)
+
+# Başlangıç Evrensel Katalog Veritabanı (dosya yoksa veya bozuk/boşsa yeniden oluştur)
+if not os.path.exists(CATALOG_FILE) or os.path.getsize(CATALOG_FILE) == 0:
+    seed_default_catalog()
 
 def load_catalog():
     try:
         with open(CATALOG_FILE, "r", encoding="utf-8") as f:
-            return json.load(f)
+            data = json.load(f)
+            return data if isinstance(data, list) else []
     except Exception:
-        return []
+        seed_default_catalog()
+        return DEFAULT_CATALOG
 
-def call_gemini_api(prompt: str, image_path: str = None) -> str:
-    """OAuth Token ve Standart API Key destekli evrensel bağlantı yöneticisi"""
-    models_to_try = ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-pro", "gemini-1.5-flash"]
-    parts = [{"text": prompt}]
-
+def call_groq_api(prompt: str, image_path: str = None) -> str:
+    """Groq (OpenAI uyumlu) chat completions uç noktasına istek atan evrensel bağlantı yöneticisi"""
     if image_path and os.path.exists(image_path):
         with open(image_path, "rb") as img_f:
             b64_img = base64.b64encode(img_f.read()).decode("utf-8")
         ext = image_path.split('.')[-1].lower()
-        mime_type = "image/png" if ext == "png" else "image/jpeg"
-        parts.append({"inline_data": {"mime_type": mime_type, "data": b64_img}})
+        mime_map = {"png": "image/png", "jpg": "image/jpeg", "jpeg": "image/jpeg", "pdf": "application/pdf"}
+        mime_type = mime_map.get(ext, "image/jpeg")
+        content = [
+            {"type": "text", "text": prompt},
+            {"type": "image_url", "image_url": {"url": f"data:{mime_type};base64,{b64_img}"}},
+        ]
+    else:
+        content = prompt
 
-    payload = {"contents": [{"parts": parts}]}
+    payload = {"model": GROQ_MODEL, "reasoning_effort": "none", "messages": [{"role": "user", "content": content}]}
     headers = {
         "Content-Type": "application/json",
-        "x-goog-api-key": GEMINI_API_KEY,
+        "Authorization": f"Bearer {GROQ_API_KEY}",
     }
-    url_template = "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
 
     last_error = ""
-    for model in models_to_try:
-        url = url_template.format(model=model)
+    for attempt in range(3):
         try:
-            res = requests.post(url, json=payload, headers=headers, timeout=50)
+            res = requests.post("https://api.groq.com/openai/v1/chat/completions", json=payload, headers=headers, timeout=60)
             if res.status_code == 200:
-                data = res.json()
-                return data['candidates'][0]['content']['parts'][0]['text']
-            else:
-                last_error = f"HTTP {res.status_code}: {res.text}"
-        except Exception as e:
-            last_error = str(e)
-            continue
+                return res.json()["choices"][0]["message"]["content"]
+            if res.status_code == 429:
+                last_error = f"HTTP 429: {res.text}"
+                time.sleep(10)
+                continue
+            raise Exception(f"HTTP {res.status_code}: {res.text}")
+        except requests.RequestException as e:
+            raise Exception(f"Groq Bağlantı Hatası: {str(e)}")
 
-    raise Exception(f"Universal API Kritik Bağlantı Hatası: {last_error}")
+    raise Exception(f"Groq kota limiti aşıldı, tekrar denendi ama başarısız oldu: {last_error}")
+
+def extract_json_object(raw_text: str) -> dict:
+    clean_text = raw_text.replace("```json", "").replace("```", "").strip()
+    start = clean_text.find("{")
+    end = clean_text.rfind("}") + 1
+    if start == -1 or end <= start:
+        raise ValueError(f"Yanıtta JSON bulunamadı: {raw_text[:200]!r}")
+    return json.loads(clean_text[start:end])
+
+def call_groq_json(prompt: str, image_path: str = None) -> dict:
+    """JSON bekleyen çağrılar için: modelin bozuk/boş yanıt verdiği durumlarda bir kez daha dener."""
+    last_error = None
+    for attempt in range(2):
+        raw_text = call_groq_api(prompt, image_path)
+        try:
+            return extract_json_object(raw_text)
+        except (ValueError, json.JSONDecodeError) as e:
+            last_error = e
+    raise Exception(f"Model geçerli JSON döndürmedi: {last_error}")
 
 # ---------------------------------------------------------
 # EVRENSEL AJAN 1: UNIVERSAL INDUSTRIAL SCANNER & OCR
@@ -117,11 +147,7 @@ def vision_agent(image_path: str) -> dict:
     }
     """
     try:
-        raw_text = call_gemini_api(prompt, image_path)
-        clean_text = raw_text.replace("```json", "").replace("```", "").strip()
-        start = clean_text.find("{")
-        end = clean_text.rfind("}") + 1
-        return json.loads(clean_text[start:end])
+        return call_groq_json(prompt, image_path)
     except Exception as e:
         raise Exception(f"Universal Tarama Hatası: {str(e)}")
 
@@ -154,12 +180,7 @@ def match_agent(vision_data: dict) -> dict:
     }}
     """
     try:
-        raw_text = call_gemini_api(prompt)
-        clean_text = raw_text.replace("```json", "").replace("```", "").strip()
-        start = clean_text.find("{")
-        end = clean_text.rfind("}") + 1
-        result = json.loads(clean_text[start:end])
-
+        result = call_groq_json(prompt)
         matched_id = result.get("matched_id")
         score = int(result.get("match_accuracy_score", 0))
         decision = result.get("decision_logic", "")
@@ -178,6 +199,66 @@ def match_agent(vision_data: dict) -> dict:
         }
     except Exception as e:
         raise Exception(f"Eşleştirme Motoru Hatası: {str(e)}")
+
+# ---------------------------------------------------------
+# EVRENSEL AJAN 2b: METİN TABANLI ARAMA (OEM KODU / PARÇA ADI)
+# ---------------------------------------------------------
+def find_by_text(query: str) -> dict:
+    """Fotoğraf olmadan, girilen OEM kodu veya parça adına göre kataloğu arar."""
+    catalog = load_catalog()
+    if not catalog:
+        return {"id": "NOT_IN_CATALOG", "name": "Katalog Boş", "match_reason": "Veritabanında kayıtlı ürün bulunamadı."}
+
+    q = query.strip().lower()
+
+    # 1. Önce birebir OEM/ID eşleşmesi dene (hızlı ve %100 güvenilir, yapay zekaya gerek yok)
+    for item in catalog:
+        if q == str(item.get("oem", "")).strip().lower() or q == str(item.get("id", "")).strip().lower():
+            item_copy = item.copy()
+            item_copy["match_reason"] = "OEM/katalog kodu ile birebir eşleşme (%100)"
+            return item_copy
+
+    # 2. Birebir kod eşleşmesi yoksa, yapay zekaya isim/açıklama bazlı eşleştirt (örn: "DAF sol çamurluk")
+    prompt = f"""
+    Sen sıfır hata toleransına sahip kurumsal bir parça eşleştirme motorusun.
+    Sahadaki kullanıcı, elinde fotoğraf olmadan şu metni yazdı: "{query}"
+    Bu metin bir OEM kodu, marka+parça adı (örn: "DAF sol çamurluk") veya serbest bir açıklama olabilir.
+
+    Sistemimizdeki Tüm Parça Katalog Veritabanı:
+    {json.dumps(catalog, ensure_ascii=False)}
+
+    EŞLEŞTİRME PRENSİPLERİ:
+    1. Yazılan metin katalogdaki 'oem' veya 'id' alanına (kısmen de olsa) uyuyorsa güven skoru yüksek olmalıdır.
+    2. Kod uyuşmuyorsa, metindeki marka/parça adı katalogdaki 'name', 'brand' ve 'specs' alanlarıyla anlam olarak kıyaslanır.
+    3. Eşleşme skoru %70'in altındaysa kesinlikle yanlış parça riskine girilmez ve 'NOT_IN_CATALOG' döndürülür.
+
+    Çıktı SADECE şu JSON yapısında olmalıdır:
+    {{
+      "matched_id": "katalog_id_yada_NOT_IN_CATALOG",
+      "match_accuracy_score": 92,
+      "decision_logic": "Neden eşleştiğine dair net teknik mühendislik kanıtı"
+    }}
+    """
+    try:
+        result = call_groq_json(prompt)
+        matched_id = result.get("matched_id")
+        score = int(result.get("match_accuracy_score", 0))
+        decision = result.get("decision_logic", "")
+
+        if matched_id and matched_id != "NOT_IN_CATALOG" and score >= 70:
+            for item in catalog:
+                if str(item.get("id")) == str(matched_id):
+                    item_copy = item.copy()
+                    item_copy["match_reason"] = f"Kesinlik Skoru: %{score} | Doğrulama: {decision}"
+                    return item_copy
+
+        return {
+            "id": "NOT_IN_CATALOG",
+            "name": "Katalog Dışı / Eşleşme Sağlanamadı",
+            "match_reason": f"Benzerlik skoru (%{score}) yeterli eşik değerinin altında kaldı. Kanıt: {decision}"
+        }
+    except Exception as e:
+        raise Exception(f"Metin Arama Motoru Hatası: {str(e)}")
 
 # ---------------------------------------------------------
 # EVRENSEL AJAN 3: B2B PROFESSIONAL SALES AGENT
@@ -200,7 +281,7 @@ def sales_agent(product_data: dict, customer_type: str, price_note: str) -> str:
     Görev: WhatsApp ve kurumsal iletişim kanalları için; tamamen profesyonel, net, yorumsuz, parça durumu eleştirisi barındırmayan saf ticari sipariş/teklif mesajı oluştur.
     """
     try:
-        return call_gemini_api(prompt)
+        return call_groq_api(prompt)
     except:
         return f"Ürün Başarıyla Tespit Edildi: {product_data.get('name')} (OEM: {product_data.get('oem')}). Stoklarımızda mevcuttur. Bilgilerinize sunarız."
 
@@ -242,12 +323,7 @@ async def upload_catalog_files(files: list[UploadFile] = File(...)):
                 "stock": 25
             }
             """
-            raw_res = call_gemini_api(prompt, file_path)
-            clean_res = raw_res.replace("```json", "").replace("```", "").strip()
-            start = clean_res.find("{")
-            end = clean_res.rfind("}") + 1
-            item_data = json.loads(clean_res[start:end])
-
+            item_data = call_groq_json(prompt, file_path)
             catalog.append(item_data)
             added_count += 1
 
@@ -260,20 +336,29 @@ async def upload_catalog_files(files: list[UploadFile] = File(...)):
 
 @app.post("/process-part")
 async def process_part(
-    file: UploadFile = File(...),
+    file: UploadFile = File(None),
+    query: str = Form(""),
     customer_type: str = Form("Kurumsal Filo / Toptancı"),
     price_note: str = Form("")
 ):
-    file_path = os.path.join(UPLOAD_DIR, file.filename)
+    if not file and not query.strip():
+        return {"status": "error", "message": "Fotoğraf yükleyin veya OEM kodu / parça adı girin."}
+
+    file_path = os.path.join(UPLOAD_DIR, file.filename) if file else None
     try:
-        with open(file_path, "wb") as buffer:
-            shutil.copyfileobj(file.file, buffer)
+        if file:
+            with open(file_path, "wb") as buffer:
+                shutil.copyfileobj(file.file, buffer)
 
-        # 1. Aşama: Evrensel Endüstriyel Tarama & OCR
-        vision_res = vision_agent(file_path)
+            # 1. Aşama: Evrensel Endüstriyel Tarama & OCR
+            vision_res = vision_agent(file_path)
 
-        # 2. Aşama: Matris Algoritmik Eşleştirme
-        matched_prod = match_agent(vision_res)
+            # 2. Aşama: Matris Algoritmik Eşleştirme
+            matched_prod = match_agent(vision_res)
+        else:
+            # Fotoğraf yok: OEM kodu veya parça adına göre doğrudan katalog araması
+            vision_res = {"note": "Fotoğrafsız metin araması yapıldı.", "query": query}
+            matched_prod = find_by_text(query)
 
         # 3. Aşama: B2B Kurumsal Satış Teklifi
         sales_msg = sales_agent(matched_prod, customer_type, price_note)
@@ -289,7 +374,7 @@ async def process_part(
     except Exception as e:
         return {"status": "error", "message": f"Kritik Sistem Hatası: {str(e)}"}
     finally:
-        if os.path.exists(file_path):
+        if file_path and os.path.exists(file_path):
             try:
                 os.remove(file_path)
             except Exception:
