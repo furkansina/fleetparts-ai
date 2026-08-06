@@ -46,5 +46,13 @@
         "brand": "OEM-BELİRSİZ",
         "specs": "7 pin polyurethane (PU) electrical cable, \"S\" type plastic EJR plugs, 24V, 4m working length, compatible with ISO 3731",
         "stock": 25
+    },
+    {
+        "id": "PRC-7231",
+        "oem": "OEM-BELİRSİZ",
+        "name": "Tek Tarafı Hortum Girişli Dirsek (8x1 Normal)",
+        "brand": "Güvenli Çelik / Yan Sanayi",
+        "specs": "8mm iç çap x 1 inç bağlantı, 90 derece dirsek, Hortum tarafı TAVBRO/TAVRO tipi kelepçeyle bağlanır, Dişi taraf konik (FAN) bağlantı, 1.8mm duvar kalınlığı, Siyah plastik/aşınmaya dayanıklı gövde",
+        "stock": 25
     }
 ]
