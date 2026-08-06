@@ -174,7 +174,7 @@
                 </details>
             </div>
         `;
-        if (final_sales_message) {
+        if (isMatched && final_sales_message) {
             document.getElementById(salesId).dataset.raw = final_sales_message;
         }
     }
