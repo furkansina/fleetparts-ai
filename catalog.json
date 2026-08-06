@@ -1,0 +1,50 @@
+[
+    {
+        "id": "FRN-001",
+        "oem": "1505234",
+        "name": "Disk Fren Balatası Heavy",
+        "brand": "Orijinal Kalite",
+        "specs": "Döküm arka plaka, 247x110mm, çift kulaklı bağlantı noktası, kalınlık 25mm, aşınma sensör yuvalı.",
+        "stock": 45
+    },
+    {
+        "id": "VLF-102",
+        "oem": "4324102227",
+        "name": "Hava Kurutucu Dağıtıcı Valf (4 Yollu)",
+        "brand": "Wabco Tipi",
+        "specs": "Alüminyum döküm gövde, 4 adet M22 hava basınç portu, alt kısımda 7 pin elektronik soket, silindirik üst hazne.",
+        "stock": 15
+    },
+    {
+        "id": "FLT-303",
+        "oem": "21707134",
+        "name": "Ana Yakıt ve Su Ayırıcı Filtre",
+        "brand": "FleetGuard",
+        "specs": "Silindirik kağıt filtre elemanı, üst conta çapı 90mm, tahliye musluklu metal dış gövde.",
+        "stock": 60
+    },
+    {
+        "id": "PRC-4729",
+        "oem": "OEM-BELİRSİZ",
+        "name": "DEPO KAPAĞI 80mm GALVANİZLİ KİLİTSİZ",
+        "brand": "GENEL YEDek PARÇA",
+        "specs": "80mm çap, galvanizli gövde, kilitli değil, standart fileolu bağlantı, araç markalarına göre uyumluluk değişebilir",
+        "stock": 25
+    },
+    {
+        "id": "PRC-7294",
+        "oem": "KR0407-100",
+        "name": "PA 12 Hortum (4mm İç Çap)",
+        "brand": "Evrensel Ağırlı Vasıta Parçaları",
+        "specs": "Kod: KR0407; Malzeme: PA 12; İç Çap: 4 mm; Boyut: x2,5; Kullanım: Hava/Yakıt Sistemi; Kompakt Tasarım; Sıkma Bağlantı Uygunluğu",
+        "stock": 25
+    },
+    {
+        "id": "PRC-4829",
+        "oem": "61-611175",
+        "name": "7 Çekirdekli Poliüretan Elektrik Kablosu, 24V, ISO 3731 Uygun S Tipi Plastik EJR Fişli",
+        "brand": "OEM-BELİRSİZ",
+        "specs": "7 pin polyurethane (PU) electrical cable, \"S\" type plastic EJR plugs, 24V, 4m working length, compatible with ISO 3731",
+        "stock": 25
+    }
+]
