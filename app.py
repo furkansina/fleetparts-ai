@@ -90,7 +90,7 @@ def seed_default_catalog():
 if not os.path.exists(CATALOG_FILE) or os.path.getsize(CATALOG_FILE) == 0:
     seed_default_catalog()
 
-def load_catalog():
+def _load_catalog_from_disk() -> list:
     try:
         with open(CATALOG_FILE, "r", encoding="utf-8") as f:
             data = json.load(f)
@@ -98,6 +98,36 @@ def load_catalog():
     except Exception:
         seed_default_catalog()
         return DEFAULT_CATALOG
+
+_catalog_cache = {"data": None, "fetched_at": 0}
+CATALOG_CACHE_TTL = 30  # saniye
+
+def load_catalog() -> list:
+    """Kataloğu önce GitHub'dan (kısa önbellekle) canlı çekmeye çalışır - böylece GitHub'da yapılan
+    HERHANGİ bir değişiklik (uygulama üzerinden yükleme, elle bir düzeltme, ileride bir script) Render'da
+    yeni bir deploy tetiklenmesini beklemeden birkaç saniye içinde canlıya yansır. Bunu eklememizin sebebi:
+    catalog.json Render'ın 'ignored paths' listesinde olduğu için tek başına ona yapılan bir GitHub
+    değişikliği yeni bir deploy tetiklemiyor - eskiden bu yüzden GitHub'daki düzeltmeler sessizce
+    canlıya hiç yansımıyordu. GitHub'a ulaşılamazsa (yapılandırılmamış/ağ hatası) Render'ın kendi
+    diskindeki en son bilinen hale döner."""
+    now = time.time()
+    if _catalog_cache["data"] is not None and (now - _catalog_cache["fetched_at"]) < CATALOG_CACHE_TTL:
+        return _catalog_cache["data"]
+
+    if GITHUB_REPO:
+        try:
+            url = f"https://raw.githubusercontent.com/{GITHUB_REPO}/main/{CATALOG_FILE}"
+            res = requests.get(url, timeout=10)
+            if res.status_code == 200:
+                data = res.json()
+                if isinstance(data, list):
+                    _catalog_cache["data"] = data
+                    _catalog_cache["fetched_at"] = now
+                    return data
+        except Exception:
+            pass
+
+    return _load_catalog_from_disk()
 
 def save_catalog(catalog: list):
     with open(CATALOG_FILE, "w", encoding="utf-8") as f:
@@ -512,7 +542,7 @@ async def upload_catalog_files(files: list[UploadFile] = File(...)):
             try:
                 items = future.result()
                 with CATALOG_WRITE_LOCK:
-                    catalog = load_catalog()  # en güncel hali diskten oku - başka bir yükleme isteği aynı anda kaydetmiş olabilir
+                    catalog = _load_catalog_from_disk()  # yazma işlemi lokal diskten yapılır (GitHub ağ gecikmesine bağımlı olmasın); başka bir yükleme isteği aynı anda kaydetmiş olabileceğinden en güncel hali diskten oku
                     catalog, added, updated = merge_catalog_items(catalog, items)
                     added_count += added
                     updated_count += updated
@@ -521,6 +551,10 @@ async def upload_catalog_files(files: list[UploadFile] = File(...)):
                 failed.append(f"{filename}: {str(e)}")
 
     sync_catalog_to_github()
+    # Az önce diske yazdığımız kesin doğru hali önbelleğe hemen yansıt - GitHub'a gidip gelmeyi
+    # veya önbellek süresinin dolmasını beklemeden hemen sonraki okuma (örn. /get-catalog) güncel veriyi görsün
+    _catalog_cache["data"] = _load_catalog_from_disk()
+    _catalog_cache["fetched_at"] = time.time()
 
     message = f"{added_count} adet yeni parça eklendi."
     if updated_count:
