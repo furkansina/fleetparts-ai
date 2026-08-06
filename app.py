@@ -17,6 +17,7 @@ from fastapi.security import HTTPBasic, HTTPBasicCredentials
 
 import lead_store
 import outreach
+import usage_tracker
 
 app = FastAPI(title="FleetParts AI - Universal Heavy Duty Master Engine")
 
@@ -35,7 +36,8 @@ def require_admin(credentials: HTTPBasicCredentials = Depends(security)):
 
 # API Anahtarı / Token (Render ortamından GROQ_API_KEY olarak çeker) - console.groq.com/keys, kredi kartı gerektirmez
 GROQ_API_KEY = os.environ.get("GROQ_API_KEY", "")
-GROQ_MODEL = "qwen/qwen3.6-27b"
+GROQ_VISION_MODEL = "qwen/qwen3.6-27b"     # Görsel gerektiren işler (parça fotoğrafı, katalog sayfası) - günlük 200K token kotası
+GROQ_TEXT_MODEL = "llama-3.3-70b-versatile"  # Sadece iç/toplu kullanım (lead ön-değerlendirme) - AYRI, 100K token kotası
 
 # Render'ın diski her deploy'da sıfırlandığı için katalog GitHub'a da yedeklenir (kalıcılık için)
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
@@ -120,8 +122,13 @@ def sync_catalog_to_github():
     except Exception:
         pass
 
-def call_groq_api(prompt: str, image_path: str = None) -> str:
-    """Groq (OpenAI uyumlu) chat completions uç noktasına istek atan evrensel bağlantı yöneticisi"""
+def call_groq_api(prompt: str, image_path: str = None, use_secondary_model: bool = False) -> str:
+    """Groq (OpenAI uyumlu) chat completions uç noktasına istek atan evrensel bağlantı yöneticisi.
+    Varsayılan olarak HER ŞEY kanıtlanmış qwen modelinde kalır (müşteriye giden satış mesajı, eşleştirme
+    gibi kritik çıktılarda kalite/güvenilirlik kotadan daha önemli). Sadece açıkça `use_secondary_model=True`
+    verilen, müşteriye hiç gösterilmeyen iç/toplu işler (örn. lead ön-değerlendirme metni) ayrı kotalı
+    llama modeline gider - qwen bazen Türkçe metne yabancı kelime karıştırdığı için llama'yı müşteri
+    tarafına hiç kullanmıyoruz."""
     if image_path and os.path.exists(image_path):
         with open(image_path, "rb") as img_f:
             b64_img = base64.b64encode(img_f.read()).decode("utf-8")
@@ -132,10 +139,14 @@ def call_groq_api(prompt: str, image_path: str = None) -> str:
             {"type": "text", "text": prompt},
             {"type": "image_url", "image_url": {"url": f"data:{mime_type};base64,{b64_img}"}},
         ]
+        model = GROQ_VISION_MODEL
+        payload = {"model": model, "reasoning_effort": "none", "messages": [{"role": "user", "content": content}]}
+    elif use_secondary_model:
+        model = GROQ_TEXT_MODEL
+        payload = {"model": model, "messages": [{"role": "user", "content": prompt}]}
     else:
-        content = prompt
-
-    payload = {"model": GROQ_MODEL, "reasoning_effort": "none", "messages": [{"role": "user", "content": content}]}
+        model = GROQ_VISION_MODEL
+        payload = {"model": model, "reasoning_effort": "none", "messages": [{"role": "user", "content": prompt}]}
     headers = {
         "Content-Type": "application/json",
         "Authorization": f"Bearer {GROQ_API_KEY}",
@@ -146,7 +157,9 @@ def call_groq_api(prompt: str, image_path: str = None) -> str:
         try:
             res = requests.post("https://api.groq.com/openai/v1/chat/completions", json=payload, headers=headers, timeout=60)
             if res.status_code == 200:
-                return res.json()["choices"][0]["message"]["content"]
+                data = res.json()
+                usage_tracker.record_usage(data.get("usage", {}).get("total_tokens", 0))
+                return data["choices"][0]["message"]["content"]
             if res.status_code == 429:
                 last_error = f"HTTP 429: {res.text}"
                 time.sleep(10)
@@ -165,11 +178,11 @@ def extract_json_object(raw_text: str) -> dict:
         raise ValueError(f"Yanıtta JSON bulunamadı: {raw_text[:200]!r}")
     return json.loads(clean_text[start:end])
 
-def call_groq_json(prompt: str, image_path: str = None) -> dict:
+def call_groq_json(prompt: str, image_path: str = None, use_secondary_model: bool = False) -> dict:
     """JSON bekleyen çağrılar için: modelin bozuk/boş yanıt verdiği durumlarda bir kez daha dener."""
     last_error = None
     for attempt in range(2):
-        raw_text = call_groq_api(prompt, image_path)
+        raw_text = call_groq_api(prompt, image_path, use_secondary_model=use_secondary_model)
         try:
             return extract_json_object(raw_text)
         except (ValueError, json.JSONDecodeError) as e:
@@ -398,10 +411,10 @@ def extract_json_array(raw_text: str) -> list:
     data = json.loads(clean_text[start:end])
     return data if isinstance(data, list) else []
 
-def call_groq_json_array(prompt: str, image_path: str = None) -> list:
+def call_groq_json_array(prompt: str, image_path: str = None, use_secondary_model: bool = False) -> list:
     last_error = None
     for attempt in range(2):
-        raw_text = call_groq_api(prompt, image_path)
+        raw_text = call_groq_api(prompt, image_path, use_secondary_model=use_secondary_model)
         try:
             return extract_json_array(raw_text)
         except (ValueError, json.JSONDecodeError) as e:
@@ -491,6 +504,11 @@ async def read_leads(_: str = Depends(require_admin)):
             return f.read()
     except Exception:
         return "<h2>Lead sayfası bulunamadı</h2>"
+
+@app.get("/usage")
+async def get_usage(_: str = Depends(require_admin)):
+    """Bugünkü tahmini Groq token kullanımını döndürür (gerçek API yanıtlarından toplanır)."""
+    return usage_tracker.get_today_usage()
 
 @app.get("/leads-data")
 async def get_leads_data(_: str = Depends(require_admin)):
@@ -622,7 +640,7 @@ async def classify_ambiguous_leads(_: str = Depends(require_admin)):
     ]
     """
     try:
-        results = call_groq_json_array(prompt)
+        results = call_groq_json_array(prompt, use_secondary_model=True)  # iç kullanım, müşteriye gösterilmez
         for r in results:
             lid = r.get("lead_id")
             if not lid:
