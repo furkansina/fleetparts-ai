@@ -142,11 +142,12 @@
         let kvHtml = '';
         if (isMatched) {
             const stock = matched_product.stock ?? 0;
+            const brandRow = matched_product.brand ? `<li><span class="k">Marka</span><span class="v">${esc(matched_product.brand)}</span></li>` : '';
             kvHtml = `
                 <ul class="kv-list">
                     <li><span class="k">Ürün</span><span class="v">${esc(matched_product.name)}</span></li>
                     <li><span class="k">OEM Kodu</span><span class="v"><span class="badge badge-oem">${esc(matched_product.oem)}</span></span></li>
-                    <li><span class="k">Marka</span><span class="v">${esc(matched_product.brand)}</span></li>
+                    ${brandRow}
                     <li><span class="k">Stok</span><span class="v"><span class="badge badge-stock ${stock == 0 ? 'zero' : ''}">${esc(stock)} adet</span></span></li>
                 </ul>
                 <div style="color:#555; font-size:13.5px; margin-top:4px;">${esc(matched_product.match_reason || '')}</div>
