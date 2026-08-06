@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FleetParts AI - Lead İnceleme</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: -apple-system, Segoe UI, Arial, sans-serif; background-color: #f4f6f9; color: #333; margin: 0; padding: 20px; }
+        .container { max-width: 1000px; margin: auto; }
+        h1 { color: #d9534f; text-align: center; margin-bottom: 6px; }
+        .subtitle { text-align: center; color: #666; margin-bottom: 24px; font-size: 14px; }
+
+        .toolbar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; align-items: center; }
+        .toolbar select, .toolbar input { padding: 8px 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+        .toolbar .count { margin-left: auto; color: #666; font-size: 13px; }
+
+        .lead-card { background: white; border-radius: 8px; padding: 16px 20px; margin-bottom: 12px; border-left: 6px solid #ccc; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+        .lead-card.score-high { border-left-color: #28a745; }
+        .lead-card.score-mid { border-left-color: #f0ad4e; }
+        .lead-card.score-low { border-left-color: #d9534f; }
+
+        .lead-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; }
+        .lead-name { font-size: 17px; font-weight: bold; margin: 0; }
+        .lead-meta { color: #666; font-size: 13px; margin-top: 3px; }
+
+        .score-badge { font-family: "Courier New", monospace; font-weight: bold; font-size: 15px; padding: 4px 12px; border-radius: 20px; white-space: nowrap; }
+        .score-high .score-badge { background: #d4edda; color: #155724; }
+        .score-mid .score-badge { background: #fff3cd; color: #856404; }
+        .score-low .score-badge { background: #f8d7da; color: #721c24; }
+
+        .lead-body { margin-top: 10px; font-size: 14px; }
+        .lead-reason { color: #555; margin-top: 6px; font-size: 13px; }
+        .growth-tag { display: inline-block; background: #cce5ff; color: #004085; padding: 2px 9px; border-radius: 20px; font-size: 12px; margin-top: 6px; }
+
+        .lead-actions { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; align-items: center; }
+        .lead-actions button { padding: 7px 14px; border: 1px solid #ccc; border-radius: 4px; background: white; cursor: pointer; font-size: 13px; }
+        .lead-actions button.active { color: white; border-color: transparent; }
+        .lead-actions button[data-status="onaylandı"].active { background: #28a745; }
+        .lead-actions button[data-status="aranacak"].active { background: #337ab7; }
+        .lead-actions button[data-status="reddedildi"].active { background: #d9534f; }
+        .lead-actions input[type=text] { flex: 1; min-width: 160px; padding: 7px 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 13px; }
+
+        .placeholder { text-align: center; color: #888; padding: 40px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Lead İnceleme 🔎</h1>
+    <p class="subtitle">Keşfedilen firmalar — otomatik mesaj gönderilmez, bu bir arama/ziyaret listesidir.</p>
+
+    <div class="toolbar">
+        <select id="statusFilter">
+            <option value="">Tüm durumlar</option>
+            <option value="yeni">Yeni</option>
+            <option value="onaylandı">Onaylandı</option>
+            <option value="aranacak">Aranacak</option>
+            <option value="reddedildi">Reddedildi</option>
+        </select>
+        <select id="provinceFilter">
+            <option value="">Tüm iller</option>
+        </select>
+        <span class="count" id="countLabel"></span>
+    </div>
+
+    <div id="leadList"><div class="placeholder">Yükleniyor...</div></div>
+</div>
+
+<script>
+    let allLeads = [];
+
+    function esc(s) {
+        return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    }
+
+    function scoreClass(score) {
+        if (score >= 70) return 'score-high';
+        if (score >= 40) return 'score-mid';
+        return 'score-low';
+    }
+
+    function renderLeads() {
+        const statusVal = document.getElementById('statusFilter').value;
+        const provinceVal = document.getElementById('provinceFilter').value;
+
+        let filtered = allLeads.filter(l => {
+            if (statusVal && l.status !== statusVal) return false;
+            if (provinceVal && l.province !== provinceVal) return false;
+            return true;
+        });
+        filtered.sort((a, b) => (b.relevance_score ?? 0) - (a.relevance_score ?? 0));
+
+        document.getElementById('countLabel').textContent = filtered.length + ' lead';
+
+        const list = document.getElementById('leadList');
+        if (filtered.length === 0) {
+            list.innerHTML = '<div class="placeholder">Bu filtreyle eşleşen lead yok.</div>';
+            return;
+        }
+
+        list.innerHTML = filtered.map(l => {
+            const cls = scoreClass(l.relevance_score ?? 0);
+            const growthHtml = l.growth_signal
+                ? `<div class="growth-tag">📈 ${esc(l.growth_signal.type || 'büyüme sinyali')}</div>`
+                : '';
+            const statuses = ['onaylandı', 'aranacak', 'reddedildi'];
+            const buttonsHtml = statuses.map(s =>
+                `<button data-status="${s}" class="${l.status === s ? 'active' : ''}" onclick="setStatus('${esc(l.lead_id)}', '${s}', this)">${s === 'onaylandı' ? '✓ Onayla' : s === 'aranacak' ? '📞 Aranacak' : '✕ Reddet'}</button>`
+            ).join('');
+
+            return `
+                <div class="lead-card ${cls}" id="card_${esc(l.lead_id)}">
+                    <div class="lead-head">
+                        <div>
+                            <p class="lead-name">${esc(l.company_name)}</p>
+                            <div class="lead-meta">${esc(l.sector_guess || '')} · ${esc(l.district || '')}/${esc(l.province || '')} · ${esc(l.entity_type_note || '')}</div>
+                        </div>
+                        <span class="score-badge">${l.relevance_score ?? 0}</span>
+                    </div>
+                    <div class="lead-body">
+                        <div>📍 ${esc(l.address || '-')} &nbsp;·&nbsp; ☎️ ${esc(l.phone || '-')}</div>
+                        ${growthHtml}
+                        <div class="lead-reason">${esc(l.score_reasoning || '')}</div>
+                    </div>
+                    <div class="lead-actions">
+                        ${buttonsHtml}
+                        <input type="text" placeholder="Not ekle..." value="${esc(l.note || '')}" onchange="setStatus('${esc(l.lead_id)}', '${esc(l.status)}', null, this.value)">
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    function populateProvinceFilter() {
+        const select = document.getElementById('provinceFilter');
+        const provinces = [...new Set(allLeads.map(l => l.province).filter(Boolean))].sort();
+        select.innerHTML = '<option value="">Tüm iller</option>' + provinces.map(p => `<option value="${esc(p)}">${esc(p)}</option>`).join('');
+    }
+
+    async function loadLeads() {
+        try {
+            const res = await fetch('/leads-data');
+            const data = await res.json();
+            allLeads = data.leads || [];
+            populateProvinceFilter();
+            renderLeads();
+        } catch (err) {
+            document.getElementById('leadList').innerHTML = '<div class="placeholder">Yüklenemedi: ' + esc(String(err)) + '</div>';
+        }
+    }
+
+    async function setStatus(leadId, status, btnEl, note) {
+        const lead = allLeads.find(l => l.lead_id === leadId);
+        const noteVal = note !== undefined ? note : (lead ? lead.note : '');
+        const formData = new FormData();
+        formData.append('status', status);
+        formData.append('note', noteVal || '');
+        try {
+            await fetch(`/leads/${encodeURIComponent(leadId)}/status`, { method: 'POST', body: formData });
+            if (lead) { lead.status = status; lead.note = noteVal; }
+            renderLeads();
+        } catch (err) {
+            alert('Kaydedilemedi: ' + err);
+        }
+    }
+    window.setStatus = setStatus;
+
+    document.getElementById('statusFilter').addEventListener('change', renderLeads);
+    document.getElementById('provinceFilter').addEventListener('change', renderLeads);
+
+    loadLeads();
+</script>
+
+</body>
+</html>
