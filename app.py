@@ -335,34 +335,6 @@ def find_by_text(query: str) -> dict:
         raise Exception(f"Metin Arama Motoru Hatası: {str(e)}")
 
 # ---------------------------------------------------------
-# EVRENSEL AJAN 3: B2B PROFESSIONAL SALES AGENT
-# ---------------------------------------------------------
-def sales_agent(product_data: dict, customer_type: str, price_note: str) -> str:
-    if product_data.get("id") == "NOT_IN_CATALOG":
-        return "Sayın İş Ortağımız, gönderdiğiniz yedek parça görseli evrensel katalogumuzda yüksek doğrulukla eşleştirilememiştir. Yanlış sevkiyatın önüne geçmek adına lütfen parçanın OEM kodunu veya araç şase (VIN) numarasını iletiniz."
-
-    fiyat = price_note if price_note else "Güncel kur ve iskonto oranları için iletişime geçiniz."
-    brand = (product_data.get('brand') or '').strip()
-    # Marka bilgisi katalogda yoksa satırı prompt'a hiç eklemiyoruz - boş bir alan görünce
-    # model bazen kendi kafasından bir marka uydurma eğiliminde oluyordu.
-    brand_line = f"    Marka / Kalite: {brand}\n" if brand else ""
-
-    prompt = f"""
-    Sen ağır vasıta yedek parça sektöründe faaliyet gösteren kurumsal bir B2B tedarik sisteminin satış asistanısın.
-    Müşteri Profili: {customer_type}
-    Tespit Edilen Ürün: {product_data.get('name')}
-{brand_line}    OEM Kodu: {product_data.get('oem')}
-    Fiyat / Not: {fiyat}
-    Stok Durumu: Mevcut ({product_data.get('stock', 'Hazır')} adet)
-
-    Görev: WhatsApp ve kurumsal iletişim kanalları için; tamamen profesyonel, net, yorumsuz, parça durumu eleştirisi barındırmayan saf ticari sipariş/teklif mesajı oluştur. Marka bilgisi yukarıda verilmemişse, mesajda marka hakkında kesinlikle hiçbir şey yazma veya tahmin etme.
-    """
-    try:
-        return call_groq_api(prompt)
-    except Exception:
-        return f"Ürün Başarıyla Tespit Edildi: {product_data.get('name')} (OEM: {product_data.get('oem')}). Stoklarımızda mevcuttur. Bilgilerinize sunarız."
-
-# ---------------------------------------------------------
 # FASTAPI ENDPOINT MİMARİSİ
 # ---------------------------------------------------------
 @app.get("/", response_class=HTMLResponse)
@@ -818,9 +790,7 @@ async def save_broadcast(message: str = Form(...), origin: str = Form("manuel"),
 @app.post("/process-part")
 async def process_part(
     file: UploadFile = File(None),
-    query: str = Form(""),
-    customer_type: str = Form("Kurumsal Filo / Toptancı"),
-    price_note: str = Form("")
+    query: str = Form("")
 ):
     if not file and not query.strip():
         return {"status": "error", "message": "Fotoğraf yükleyin veya OEM kodu / parça adı girin."}
@@ -844,15 +814,11 @@ async def process_part(
             vision_res = {"note": "Fotoğrafsız metin araması yapıldı.", "query": query}
             matched_prod = find_by_text(query)
 
-        # 3. Aşama: B2B Kurumsal Satış Teklifi
-        sales_msg = sales_agent(matched_prod, customer_type, price_note)
-
         return {
             "status": "success",
             "agents_output": {
                 "vision_analysis": vision_res,
-                "matched_product": matched_prod,
-                "final_sales_message": sales_msg
+                "matched_product": matched_prod
             }
         }
     except Exception as e:
