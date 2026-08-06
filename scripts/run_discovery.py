@@ -61,6 +61,8 @@ def main():
                 "district": "",
                 "address": raw.get("address", ""),
                 "phone": raw.get("phone", ""),
+                "lat": raw.get("lat"),
+                "lon": raw.get("lon"),
                 "growth_signal": None,
                 "relevance_score": scoring["relevance_score"],
                 "score_breakdown": scoring["score_breakdown"],
