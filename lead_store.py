@@ -41,13 +41,44 @@ def load_leads() -> list:
     return _leads_cache["data"] or []
 
 
-def load_lead_reviews() -> dict:
+_lead_reviews_cache = {"data": None, "fetched_at": 0}
+_lead_ai_scores_cache = {"data": None, "fetched_at": 0}
+_DICT_CACHE_TTL = 30  # saniye
+
+def _load_json_dict_live(filename: str, cache: dict) -> dict:
+    """catalog.json/leads.json ile aynı desen: önce GitHub'dan (kısa önbellekle) canlı okumayı dener,
+    böylece bu dosya Render'a yeni bir deploy tetiklemeden GitHub üzerinden değişse bile (örn. elle
+    bir düzeltme) birkaç saniye içinde canlıya yansır. Ulaşılamazsa Render'ın kendi diskindeki en son
+    bilinen hale döner."""
+    now = time.time()
+    if cache["data"] is not None and (now - cache["fetched_at"]) < _DICT_CACHE_TTL:
+        return cache["data"]
+    if GITHUB_REPO:
+        try:
+            url = f"https://raw.githubusercontent.com/{GITHUB_REPO}/{GITHUB_BRANCH}/{filename}"
+            res = requests.get(url, timeout=10)
+            if res.status_code == 200:
+                data = res.json()
+                if isinstance(data, dict):
+                    cache["data"] = data
+                    cache["fetched_at"] = now
+                    return data
+        except Exception:
+            pass
+    return _load_json_dict_from_disk(filename)
+
+
+def _load_json_dict_from_disk(filename: str) -> dict:
     try:
-        with open(LEAD_REVIEWS_FILE, "r", encoding="utf-8") as f:
+        with open(filename, "r", encoding="utf-8") as f:
             data = json.load(f)
             return data if isinstance(data, dict) else {}
     except Exception:
         return {}
+
+
+def load_lead_reviews() -> dict:
+    return _load_json_dict_live(LEAD_REVIEWS_FILE, _lead_reviews_cache)
 
 
 def save_lead_reviews(reviews: dict):
@@ -79,15 +110,14 @@ def _sync_json_file_to_github(filename: str, message: str):
 
 def sync_lead_reviews_to_github():
     _sync_json_file_to_github(LEAD_REVIEWS_FILE, "Lead inceleme durumu güncelleme")
+    # Az önce diske yazdığımız kesin doğru hali önbelleğe hemen yansıt - GitHub'a gidip gelmeyi
+    # veya önbellek süresinin dolmasını beklemeden hemen sonraki okuma güncel veriyi görsün
+    _lead_reviews_cache["data"] = _load_json_dict_from_disk(LEAD_REVIEWS_FILE)
+    _lead_reviews_cache["fetched_at"] = time.time()
 
 
 def load_lead_ai_scores() -> dict:
-    try:
-        with open(LEAD_AI_SCORES_FILE, "r", encoding="utf-8") as f:
-            data = json.load(f)
-            return data if isinstance(data, dict) else {}
-    except Exception:
-        return {}
+    return _load_json_dict_live(LEAD_AI_SCORES_FILE, _lead_ai_scores_cache)
 
 
 def save_lead_ai_scores(scores: dict):
@@ -97,3 +127,5 @@ def save_lead_ai_scores(scores: dict):
 
 def sync_lead_ai_scores_to_github():
     _sync_json_file_to_github(LEAD_AI_SCORES_FILE, "AI lead sınıflandırma güncelleme")
+    _lead_ai_scores_cache["data"] = _load_json_dict_from_disk(LEAD_AI_SCORES_FILE)
+    _lead_ai_scores_cache["fetched_at"] = time.time()
