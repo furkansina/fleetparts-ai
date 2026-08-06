@@ -22,7 +22,7 @@
 
 <div class="container">
     <h1>FleetParts AI 🚚</h1>
-    
+
     <div class="section">
         <h3>1. Katalog / PDF / Görsel Yükle</h3>
         <form id="catalogForm">
@@ -35,9 +35,12 @@
     <div class="section">
         <h3>2. Parça Fotoğrafı İncele & Satış Mesajı Üret</h3>
         <form id="partForm">
-            <label>Parça Fotoğrafı:</label>
-            <input type="file" name="file" accept="image/*" required>
-            
+            <label>Parça Fotoğrafı (kirli/paslı/yağlı olabilir):</label>
+            <input type="file" name="file" accept="image/*">
+
+            <label>veya OEM Kodu / Parça Adı (fotoğraf yoksa):</label>
+            <input type="text" name="query" placeholder="Örn: 1505234 veya DAF sol çamurluk">
+
             <label>Müşteri Tipi:</label>
             <select name="customer_type">
                 <option value="Anadolu Toptancısı">Anadolu Toptancısı</option>
@@ -74,7 +77,7 @@
         e.preventDefault();
         const formData = new FormData(e.target);
         document.getElementById('output').innerText = "Katalog dosyaları yapay zeka tarafından okunuyor, lütfen bekleyin...";
-        
+
         try {
             const res = await fetch('/upload-catalog-files', { method: 'POST', body: formData });
             const data = await res.json();
@@ -87,8 +90,15 @@
     document.getElementById('partForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
+        const hasFile = formData.get('file') && formData.get('file').size > 0;
+        const hasQuery = formData.get('query') && formData.get('query').trim().length > 0;
+        if (!hasFile && !hasQuery) {
+            document.getElementById('output').innerText = "Lütfen bir fotoğraf yükleyin veya OEM kodu / parça adı girin.";
+            return;
+        }
+        if (!hasFile) formData.delete('file');
         document.getElementById('output').innerText = "Parça analiz ediliyor ve katalogla eşleştiriliyor...";
-        
+
         try {
             const res = await fetch('/process-part', { method: 'POST', body: formData });
             const data = await res.json();
