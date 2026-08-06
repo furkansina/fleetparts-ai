@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FleetParts AI - Müşteri İletişimi</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: -apple-system, Segoe UI, Arial, sans-serif; background-color: #f4f6f9; color: #333; margin: 0; padding: 20px; }
+        .container { max-width: 800px; margin: auto; }
+        h1 { color: #d9534f; text-align: center; margin-bottom: 6px; }
+        .subtitle { text-align: center; color: #666; margin-bottom: 24px; font-size: 14px; }
+
+        .section { background: white; border-radius: 8px; padding: 20px 24px; margin-bottom: 18px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+        .section h3 { margin-top: 0; }
+
+        textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; font-family: inherit; resize: vertical; }
+        textarea#contactsInput { height: 80px; }
+        textarea#messageBox { height: 140px; margin-top: 10px; }
+
+        .btn-row { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+        button { padding: 9px 16px; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; font-weight: bold; }
+        .btn-ai { background: #337ab7; color: white; }
+        .btn-ai:hover { background: #286090; }
+        .btn-manual { background: #6c757d; color: white; }
+        .btn-manual:hover { background: #545b62; }
+        .btn-save { background: #28a745; color: white; }
+        .btn-save:hover { background: #218838; }
+        .btn-copy { background: #495057; color: white; }
+        .btn-copy:hover { background: #343a40; }
+
+        .contact-count { font-size: 14px; color: #555; margin-bottom: 8px; }
+        .status-msg { margin-top: 8px; font-size: 13px; color: #28a745; }
+
+        .log-item { border-bottom: 1px solid #eee; padding: 10px 0; font-size: 13.5px; }
+        .log-item:last-child { border-bottom: none; }
+        .log-meta { color: #888; font-size: 12px; margin-bottom: 4px; }
+        .log-msg { white-space: pre-wrap; }
+        .badge-origin { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: bold; margin-right: 6px; }
+        .badge-origin.ai { background: #cce5ff; color: #004085; }
+        .badge-origin.manuel { background: #e2e3e5; color: #383d41; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Müşteri İletişimi 📣</h1>
+    <p class="subtitle">Mevcut müşterilere WhatsApp Business üzerinden gönderilecek çeşitli, dönüşümlü içerikler.</p>
+
+    <div class="section">
+        <h3>1. Kişi Listesi</h3>
+        <div class="contact-count" id="contactCount">Yükleniyor...</div>
+        <label style="font-size:13px; color:#666;">Yeni kişi ekle (satır satır: İsim, Telefon)</label>
+        <textarea id="contactsInput" placeholder="Örn:&#10;Ahmet Yılmaz, 05551234567&#10;Mehmet Kaya, 05559876543"></textarea>
+        <div class="btn-row">
+            <button class="btn-save" onclick="importContacts()">Listeye Ekle</button>
+        </div>
+        <div class="status-msg" id="contactStatus"></div>
+    </div>
+
+    <div class="section">
+        <h3>2. Yeni Mesaj</h3>
+        <div class="btn-row">
+            <button class="btn-ai" onclick="generateAI()">🤖 AI'dan Taslak Öner</button>
+            <button class="btn-manual" onclick="startManual()">✍️ Sıfırdan Yaz</button>
+        </div>
+        <textarea id="messageBox" placeholder="AI'dan taslak iste veya buraya kendin yaz..."></textarea>
+        <div class="btn-row">
+            <button class="btn-copy" onclick="copyMessage()">📋 Kopyala</button>
+            <button class="btn-save" onclick="saveMessage()">✅ Gönderildi Olarak Kaydet</button>
+        </div>
+        <div class="status-msg" id="messageStatus"></div>
+    </div>
+
+    <div class="section">
+        <h3>3. Geçmiş</h3>
+        <div id="logList">Yükleniyor...</div>
+    </div>
+</div>
+
+<script>
+    let lastOrigin = 'manuel';
+
+    function esc(s) {
+        return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    }
+
+    async function loadData() {
+        try {
+            const res = await fetch('/broadcast-data');
+            const data = await res.json();
+            document.getElementById('contactCount').textContent = `Şu an ${data.contacts.length} kişi listede.`;
+
+            const logEl = document.getElementById('logList');
+            if (!data.log || data.log.length === 0) {
+                logEl.innerHTML = '<div style="color:#888;">Henüz gönderim kaydı yok.</div>';
+                return;
+            }
+            logEl.innerHTML = data.log.map(item => `
+                <div class="log-item">
+                    <div class="log-meta">
+                        <span class="badge-origin ${item.origin}">${item.origin === 'ai' ? '🤖 AI' : '✍️ Manuel'}</span>
+                        ${new Date(item.created_at).toLocaleString('tr-TR')}
+                    </div>
+                    <div class="log-msg">${esc(item.message)}</div>
+                </div>
+            `).join('');
+        } catch (err) {
+            document.getElementById('contactCount').textContent = 'Yüklenemedi: ' + err;
+        }
+    }
+
+    async function importContacts() {
+        const text = document.getElementById('contactsInput').value.trim();
+        if (!text) return;
+        const formData = new FormData();
+        formData.append('text', text);
+        try {
+            const res = await fetch('/contacts/import', { method: 'POST', body: formData });
+            const data = await res.json();
+            document.getElementById('contactStatus').textContent = data.message || '';
+            document.getElementById('contactsInput').value = '';
+            loadData();
+        } catch (err) {
+            document.getElementById('contactStatus').textContent = 'Hata: ' + err;
+        }
+    }
+
+    async function generateAI() {
+        document.getElementById('messageBox').value = 'Yapay zeka taslak hazırlıyor...';
+        try {
+            const res = await fetch('/broadcast-generate', { method: 'POST' });
+            const data = await res.json();
+            if (data.status === 'success') {
+                document.getElementById('messageBox').value = data.draft;
+                lastOrigin = 'ai';
+            } else {
+                document.getElementById('messageBox').value = '';
+                document.getElementById('messageStatus').textContent = 'Hata: ' + data.message;
+            }
+        } catch (err) {
+            document.getElementById('messageStatus').textContent = 'Hata: ' + err;
+        }
+    }
+
+    function startManual() {
+        document.getElementById('messageBox').value = '';
+        document.getElementById('messageBox').focus();
+        lastOrigin = 'manuel';
+    }
+
+    function copyMessage() {
+        const text = document.getElementById('messageBox').value;
+        navigator.clipboard.writeText(text).then(() => {
+            document.getElementById('messageStatus').textContent = '✅ Panoya kopyalandı.';
+        });
+    }
+
+    async function saveMessage() {
+        const message = document.getElementById('messageBox').value.trim();
+        if (!message) return;
+        const formData = new FormData();
+        formData.append('message', message);
+        formData.append('origin', lastOrigin);
+        try {
+            await fetch('/broadcast/save', { method: 'POST', body: formData });
+            document.getElementById('messageStatus').textContent = '✅ Geçmişe kaydedildi.';
+            loadData();
+        } catch (err) {
+            document.getElementById('messageStatus').textContent = 'Hata: ' + err;
+        }
+    }
+
+    loadData();
+</script>
+
+</body>
+</html>
