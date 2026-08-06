@@ -62,6 +62,9 @@
         <select id="provinceFilter">
             <option value="">Tüm iller</option>
         </select>
+        <label style="display:flex; align-items:center; gap:5px; font-size:13px; color:#555; font-weight:normal;">
+            <input type="checkbox" id="phoneOnlyFilter" style="width:auto; margin:0;"> Sadece telefonu olanlar
+        </label>
         <span class="count" id="countLabel"></span>
     </div>
 
@@ -84,10 +87,12 @@
     function renderLeads() {
         const statusVal = document.getElementById('statusFilter').value;
         const provinceVal = document.getElementById('provinceFilter').value;
+        const phoneOnly = document.getElementById('phoneOnlyFilter').checked;
 
         let filtered = allLeads.filter(l => {
             if (statusVal && l.status !== statusVal) return false;
             if (provinceVal && l.province !== provinceVal) return false;
+            if (phoneOnly && !l.phone) return false;
             return true;
         });
         filtered.sort((a, b) => (b.relevance_score ?? 0) - (a.relevance_score ?? 0));
@@ -110,6 +115,10 @@
                 `<button data-status="${s}" class="${l.status === s ? 'active' : ''}" onclick="setStatus('${esc(l.lead_id)}', '${s}', this)">${s === 'onaylandı' ? '✓ Onayla' : s === 'aranacak' ? '📞 Aranacak' : '✕ Reddet'}</button>`
             ).join('');
 
+            const mapQuery = encodeURIComponent(l.lat && l.lon ? `${l.lat},${l.lon}` : `${l.company_name} ${l.province}`);
+            const searchQuery = encodeURIComponent(`${l.company_name} ${l.province} telefon`);
+            const noPhoneNote = !l.phone ? '<span style="color:#b45309; font-size:12px;">telefon yok, aşağıdan ara</span>' : '';
+
             return `
                 <div class="lead-card ${cls}" id="card_${esc(l.lead_id)}">
                     <div class="lead-head">
@@ -120,7 +129,12 @@
                         <span class="score-badge">${l.relevance_score ?? 0}</span>
                     </div>
                     <div class="lead-body">
-                        <div>📍 ${esc(l.address || '-')} &nbsp;·&nbsp; ☎️ ${esc(l.phone || '-')}</div>
+                        <div>📍 ${esc(l.address || '-')} &nbsp;·&nbsp; ☎️ ${esc(l.phone || '-')} ${noPhoneNote}</div>
+                        <div style="margin-top:6px; font-size:12.5px;">
+                            <a href="https://www.google.com/maps/search/?api=1&query=${mapQuery}" target="_blank">🗺️ Haritada Aç</a>
+                            &nbsp;·&nbsp;
+                            <a href="https://www.google.com/search?q=${searchQuery}" target="_blank">🔎 Google'da Ara</a>
+                        </div>
                         ${growthHtml}
                         <div class="lead-reason">${esc(l.score_reasoning || '')}</div>
                     </div>
@@ -186,6 +200,7 @@
 
     document.getElementById('statusFilter').addEventListener('change', renderLeads);
     document.getElementById('provinceFilter').addEventListener('change', renderLeads);
+    document.getElementById('phoneOnlyFilter').addEventListener('change', renderLeads);
 
     loadLeads();
 </script>
