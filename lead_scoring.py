@@ -1,5 +1,13 @@
 from provinces import NAME_KEYWORDS_HIGH_VALUE
 
+# OSM'in ham etiket değerleri (car_parts, yes, convenience vb.) okunabilir değil -
+# arayüzde gösterilecek temiz sektör etiketleri buradan gelir
+SECTOR_LABELS = {
+    "car_parts": "Oto Yedek Parça",
+    "logistics": "Lojistik/Nakliye Ofisi",
+    "car_repair": "Oto Tamir Servisi",
+}
+
 
 def score_lead(raw: dict) -> dict:
     """Kural bazlı skor: OSM'den gelen ham veriyi (isim, kategori, iletişim bilgisi)
@@ -12,7 +20,7 @@ def score_lead(raw: dict) -> dict:
     sector_match = 0
     if shop_type == "car_parts":
         sector_match += 30
-    if shop_type == "office" or shop_type == "logistics":
+    if shop_type == "logistics":
         sector_match += 30
     if keyword_hit:
         sector_match += 25
@@ -45,6 +53,13 @@ def score_lead(raw: dict) -> dict:
             reasoning = "Sektör kategorisi eşleşmesi bulundu, isim bazlı ek doğrulama önerilir."
         entity_type_note = "Belirsiz"
 
+    if shop_type in SECTOR_LABELS:
+        sector_label = SECTOR_LABELS[shop_type]
+    elif keyword_hit:
+        sector_label = "İsim Eşleşmesi (Nakliye/Lojistik/Toptan)"
+    else:
+        sector_label = "Belirsiz"
+
     return {
         "relevance_score": relevance_score,
         "score_breakdown": {
@@ -55,4 +70,5 @@ def score_lead(raw: dict) -> dict:
         },
         "score_reasoning": reasoning,
         "entity_type_note": entity_type_note,
+        "sector_label": sector_label,
     }
