@@ -15,7 +15,14 @@
         .toolbar select, .toolbar input { padding: 8px 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
         .toolbar .count { margin-left: auto; color: #666; font-size: 13px; }
 
-        .lead-card { background: white; border-radius: 8px; padding: 16px 20px; margin-bottom: 12px; border-left: 6px solid #ccc; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+        .bulk-bar { position: sticky; top: 0; z-index: 10; background: #343a40; color: white; padding: 10px 16px; border-radius: 6px; margin-bottom: 14px; display: none; align-items: center; gap: 10px; flex-wrap: wrap; }
+        .bulk-bar.show { display: flex; }
+        .bulk-bar button { width: auto; margin: 0; padding: 6px 12px; font-size: 13px; border: none; border-radius: 4px; cursor: pointer; background: #495057; color: white; }
+        .bulk-bar button:hover { background: #5a6268; }
+
+        .lead-card { background: white; border-radius: 8px; padding: 16px 20px; margin-bottom: 12px; border-left: 6px solid #ccc; box-shadow: 0 2px 6px rgba(0,0,0,0.06); display: flex; gap: 12px; }
+        .lead-checkbox { margin-top: 3px; width: auto; }
+        .lead-card-body { flex: 1; min-width: 0; }
         .lead-card.score-high { border-left-color: #28a745; }
         .lead-card.score-mid { border-left-color: #f0ad4e; }
         .lead-card.score-low { border-left-color: #d9534f; }
@@ -52,6 +59,7 @@
 
     <div class="toolbar">
         <button id="scanBtn" onclick="triggerScan()" style="width:auto; margin:0; padding:8px 16px; background:#337ab7; color:white; border:none; border-radius:4px; cursor:pointer;">🔍 Şimdi Tara</button>
+        <a href="/leads-export" style="width:auto; margin:0; padding:8px 16px; background:#28a745; color:white; border-radius:4px; text-decoration:none; font-size:14px; font-weight:bold;">⬇️ CSV İndir</a>
         <select id="statusFilter">
             <option value="">Tüm durumlar</option>
             <option value="yeni">Yeni</option>
@@ -68,11 +76,65 @@
         <span class="count" id="countLabel"></span>
     </div>
 
+    <div class="bulk-bar" id="bulkBar">
+        <span id="bulkCount">0 seçili</span>
+        <button onclick="bulkSet('onaylandı')">✓ Onayla</button>
+        <button onclick="bulkSet('aranacak')">📞 Aranacak</button>
+        <button onclick="bulkSet('reddedildi')">✕ Reddet</button>
+        <button onclick="clearSelection()">Seçimi Temizle</button>
+    </div>
+
     <div id="leadList"><div class="placeholder">Yükleniyor...</div></div>
 </div>
 
 <script>
     let allLeads = [];
+    let selectedIds = new Set();
+
+    function updateBulkBar() {
+        const bar = document.getElementById('bulkBar');
+        const count = document.getElementById('bulkCount');
+        if (selectedIds.size > 0) {
+            bar.classList.add('show');
+            count.textContent = `${selectedIds.size} seçili`;
+        } else {
+            bar.classList.remove('show');
+        }
+    }
+
+    function toggleSelect(leadId, isChecked) {
+        if (isChecked) selectedIds.add(leadId);
+        else selectedIds.delete(leadId);
+        updateBulkBar();
+    }
+    window.toggleSelect = toggleSelect;
+
+    function clearSelection() {
+        selectedIds.clear();
+        updateBulkBar();
+        renderLeads();
+    }
+    window.clearSelection = clearSelection;
+
+    async function bulkSet(status) {
+        if (selectedIds.size === 0) return;
+        const formData = new FormData();
+        formData.append('lead_ids', Array.from(selectedIds).join(','));
+        formData.append('status', status);
+        try {
+            await fetch('/leads/bulk-status', { method: 'POST', body: formData });
+            for (const id of selectedIds) {
+                const lead = allLeads.find(l => l.lead_id === id);
+                if (lead) lead.status = status;
+            }
+            selectedIds.clear();
+            updateBulkBar();
+            renderLeads();
+        } catch (err) {
+            alert('Hata: ' + err);
+        }
+    }
+    window.bulkSet = bulkSet;
 
     function esc(s) {
         return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -119,28 +181,33 @@
             const searchQuery = encodeURIComponent(`${l.company_name} ${l.province} telefon`);
             const noPhoneNote = !l.phone ? '<span style="color:#b45309; font-size:12px;">telefon yok, aşağıdan ara</span>' : '';
 
+            const checked = selectedIds.has(l.lead_id) ? 'checked' : '';
+
             return `
                 <div class="lead-card ${cls}" id="card_${esc(l.lead_id)}">
-                    <div class="lead-head">
-                        <div>
-                            <p class="lead-name">${esc(l.company_name)}</p>
-                            <div class="lead-meta">${esc(l.sector_guess || '')} · ${esc(l.district || '')}/${esc(l.province || '')} · ${esc(l.entity_type_note || '')}</div>
+                    <input type="checkbox" class="lead-checkbox" ${checked} onchange="toggleSelect('${esc(l.lead_id)}', this.checked)">
+                    <div class="lead-card-body">
+                        <div class="lead-head">
+                            <div>
+                                <p class="lead-name">${esc(l.company_name)}</p>
+                                <div class="lead-meta">${esc(l.sector_guess || '')} · ${esc(l.district || '')}/${esc(l.province || '')} · ${esc(l.entity_type_note || '')}</div>
+                            </div>
+                            <span class="score-badge">${l.relevance_score ?? 0}</span>
                         </div>
-                        <span class="score-badge">${l.relevance_score ?? 0}</span>
-                    </div>
-                    <div class="lead-body">
-                        <div>📍 ${esc(l.address || '-')} &nbsp;·&nbsp; ☎️ ${esc(l.phone || '-')} ${noPhoneNote}</div>
-                        <div style="margin-top:6px; font-size:12.5px;">
-                            <a href="https://www.google.com/maps/search/?api=1&query=${mapQuery}" target="_blank">🗺️ Haritada Aç</a>
-                            &nbsp;·&nbsp;
-                            <a href="https://www.google.com/search?q=${searchQuery}" target="_blank">🔎 Google'da Ara</a>
+                        <div class="lead-body">
+                            <div>📍 ${esc(l.address || '-')} &nbsp;·&nbsp; ☎️ ${esc(l.phone || '-')} ${noPhoneNote}</div>
+                            <div style="margin-top:6px; font-size:12.5px;">
+                                <a href="https://www.google.com/maps/search/?api=1&query=${mapQuery}" target="_blank">🗺️ Haritada Aç</a>
+                                &nbsp;·&nbsp;
+                                <a href="https://www.google.com/search?q=${searchQuery}" target="_blank">🔎 Google'da Ara</a>
+                            </div>
+                            ${growthHtml}
+                            <div class="lead-reason">${esc(l.score_reasoning || '')}</div>
                         </div>
-                        ${growthHtml}
-                        <div class="lead-reason">${esc(l.score_reasoning || '')}</div>
-                    </div>
-                    <div class="lead-actions">
-                        ${buttonsHtml}
-                        <input type="text" placeholder="Not ekle..." value="${esc(l.note || '')}" onchange="setStatus('${esc(l.lead_id)}', '${esc(l.status)}', null, this.value)">
+                        <div class="lead-actions">
+                            ${buttonsHtml}
+                            <input type="text" placeholder="Not ekle..." value="${esc(l.note || '')}" onchange="setStatus('${esc(l.lead_id)}', '${esc(l.status)}', null, this.value)">
+                        </div>
                     </div>
                 </div>
             `;
