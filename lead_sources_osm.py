@@ -15,7 +15,7 @@ def build_query(province: str) -> str:
     # pahalı olduğu için sadece node'larda yapılır (way'lerde değil) - büyük illerde zaman
     # aşımını önlemek için bu şekilde sınırlandırıldı.
     return (
-        f'[out:json][timeout:90];'
+        f'[out:json][timeout:30];'
         f'area["name"="{province}"]["admin_level"="4"]->.searchArea;'
         f'('
         f'node["shop"="car_parts"](area.searchArea);'
@@ -69,7 +69,9 @@ def search_province(province: str) -> list:
 
     for mirror in OVERPASS_MIRRORS:
         try:
-            res = requests.post(mirror, data={"data": query}, headers=OVERPASS_HEADERS, timeout=120)
+            # İstemci zaman aşımı, sorgunun kendi [timeout:30] değerinden biraz fazla tutuluyor;
+            # yavaş/tıkanık bir aynada uzun süre beklemek yerine hızlıca bir sonraki aynaya geçilir.
+            res = requests.post(mirror, data={"data": query}, headers=OVERPASS_HEADERS, timeout=40)
             if res.status_code != 200:
                 print(f"  [{province}] {mirror}: HTTP {res.status_code}")
                 continue
