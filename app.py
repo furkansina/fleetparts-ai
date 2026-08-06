@@ -3,14 +3,32 @@ import shutil
 import json
 import base64
 import time
+import secrets
 import threading
+from datetime import datetime, timezone
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import requests
 import fitz  # PyMuPDF - PDF sayfalarını görsele çevirmek için
-from fastapi import FastAPI, UploadFile, File, Form
+from fastapi import FastAPI, UploadFile, File, Form, Depends, HTTPException
 from fastapi.responses import HTMLResponse
+from fastapi.security import HTTPBasic, HTTPBasicCredentials
+
+import lead_store
 
 app = FastAPI(title="FleetParts AI - Universal Heavy Duty Master Engine")
+
+# Faz 2 (lead keşfi/inceleme) yönetim sayfaları için basit koruma -
+# katalog/parça arama (mevcut ürün) herkese açık kalır, sadece yeni admin sayfaları korunur
+ADMIN_USER = os.environ.get("ADMIN_USER", "")
+ADMIN_PASS = os.environ.get("ADMIN_PASS", "")
+security = HTTPBasic()
+
+def require_admin(credentials: HTTPBasicCredentials = Depends(security)):
+    valid_user = bool(ADMIN_USER) and secrets.compare_digest(credentials.username, ADMIN_USER)
+    valid_pass = bool(ADMIN_PASS) and secrets.compare_digest(credentials.password, ADMIN_PASS)
+    if not (valid_user and valid_pass):
+        raise HTTPException(status_code=401, detail="Yetkisiz erişim", headers={"WWW-Authenticate": "Basic"})
+    return credentials.username
 
 # API Anahtarı / Token (Render ortamından GROQ_API_KEY olarak çeker) - console.groq.com/keys, kredi kartı gerektirmez
 GROQ_API_KEY = os.environ.get("GROQ_API_KEY", "")
@@ -445,6 +463,48 @@ async def upload_catalog_files(files: list[UploadFile] = File(...)):
         message += f" {len(failed)} dosya işlenemedi: " + "; ".join(failed)
 
     return {"status": "success" if added_count > 0 or not failed else "error", "message": message}
+
+# ---------------------------------------------------------
+# FAZ 2: LEAD KEŞFİ / İNCELEME (korumalı admin sayfaları)
+# ---------------------------------------------------------
+@app.get("/leads", response_class=HTMLResponse)
+async def read_leads(_: str = Depends(require_admin)):
+    try:
+        with open("leads.html", "r", encoding="utf-8") as f:
+            return f.read()
+    except Exception:
+        return "<h2>Lead sayfası bulunamadı</h2>"
+
+@app.get("/leads-data")
+async def get_leads_data(_: str = Depends(require_admin)):
+    leads = lead_store.load_leads()
+    reviews = lead_store.load_lead_reviews()
+    merged = []
+    for lead in leads:
+        lid = lead.get("lead_id")
+        review = reviews.get(lid, {})
+        item = dict(lead)
+        item["status"] = review.get("status", "yeni")
+        item["note"] = review.get("note", "")
+        merged.append(item)
+    return {"leads": merged}
+
+@app.post("/leads/{lead_id}/status")
+async def update_lead_status(
+    lead_id: str,
+    status: str = Form(...),
+    note: str = Form(""),
+    _: str = Depends(require_admin)
+):
+    reviews = lead_store.load_lead_reviews()
+    reviews[lead_id] = {
+        "status": status,
+        "note": note,
+        "reviewed_at": datetime.now(timezone.utc).isoformat()
+    }
+    lead_store.save_lead_reviews(reviews)
+    lead_store.sync_lead_reviews_to_github()
+    return {"status": "success"}
 
 @app.post("/process-part")
 async def process_part(
