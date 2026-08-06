@@ -3,6 +3,8 @@ import shutil
 import json
 import base64
 import time
+import threading
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import requests
 from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.responses import HTMLResponse
@@ -12,6 +14,10 @@ app = FastAPI(title="FleetParts AI - Universal Heavy Duty Master Engine")
 # API Anahtarı / Token (Render ortamından GROQ_API_KEY olarak çeker) - console.groq.com/keys, kredi kartı gerektirmez
 GROQ_API_KEY = os.environ.get("GROQ_API_KEY", "")
 GROQ_MODEL = "qwen/qwen3.6-27b"
+
+# Render'ın diski her deploy'da sıfırlandığı için katalog GitHub'a da yedeklenir (kalıcılık için)
+GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
+GITHUB_REPO = os.environ.get("GITHUB_REPO", "")
 
 UPLOAD_DIR = "temp_images"
 CATALOG_DIR = "sample_catalogs"
@@ -63,6 +69,30 @@ def load_catalog():
     except Exception:
         seed_default_catalog()
         return DEFAULT_CATALOG
+
+def save_catalog(catalog: list):
+    with open(CATALOG_FILE, "w", encoding="utf-8") as f:
+        json.dump(catalog, f, ensure_ascii=False, indent=4)
+
+def sync_catalog_to_github():
+    """catalog.json'u GitHub'a yedekler; Render her yeniden deploy olduğunda diski sıfırladığı için kalıcılık böyle sağlanır."""
+    if not GITHUB_TOKEN or not GITHUB_REPO:
+        return
+    try:
+        api_url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/catalog.json"
+        headers = {"Authorization": f"Bearer {GITHUB_TOKEN}", "Accept": "application/vnd.github+json"}
+        sha = None
+        res = requests.get(api_url, headers=headers, timeout=15)
+        if res.status_code == 200:
+            sha = res.json().get("sha")
+        with open(CATALOG_FILE, "rb") as f:
+            content_b64 = base64.b64encode(f.read()).decode("utf-8")
+        body = {"message": "Katalog otomatik güncelleme", "content": content_b64}
+        if sha:
+            body["sha"] = sha
+        requests.put(api_url, headers=headers, json=body, timeout=15)
+    except Exception:
+        pass
 
 def call_groq_api(prompt: str, image_path: str = None) -> str:
     """Groq (OpenAI uyumlu) chat completions uç noktasına istek atan evrensel bağlantı yöneticisi"""
@@ -300,39 +330,57 @@ async def read_root():
 async def get_catalog_endpoint():
     return {"catalog": load_catalog(), "files": os.listdir(CATALOG_DIR)}
 
+CATALOG_UPLOAD_PROMPT = """
+Bu evrensel katalog dosyasından/görselinden her tür ağır vasıta yedek parçasını tara.
+SADECE şu JSON yapısında kusursuz veri çıkar:
+{
+    "id": "PRC-" + rasgele 4 haneli sayı,
+    "oem": "Parçanın OEM Kodu veya numarası (Yoksa 'OEM-BELİRSİZ')",
+    "name": "Sektörel Resmi Parça Adı",
+    "brand": "Üretici veya Marka",
+    "specs": "Bağlantı rekorları, pinler, ölçüler ve teknik detaylar",
+    "stock": 25
+}
+"""
+
+def _scan_one_catalog_file(file_path: str) -> dict:
+    return call_groq_json(CATALOG_UPLOAD_PROMPT, file_path)
+
 @app.post("/upload-catalog-files")
 async def upload_catalog_files(files: list[UploadFile] = File(...)):
-    try:
-        catalog = load_catalog()
-        added_count = 0
+    catalog = load_catalog()
+    catalog_lock = threading.Lock()
+    saved_paths = []
+    for file in files:
+        file_path = os.path.join(CATALOG_DIR, file.filename)
+        with open(file_path, "wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+        saved_paths.append((file.filename, file_path))
 
-        for file in files:
-            file_path = os.path.join(CATALOG_DIR, file.filename)
-            with open(file_path, "wb") as buffer:
-                shutil.copyfileobj(file.file, buffer)
+    added_count = 0
+    failed = []
 
-            prompt = """
-            Bu evrensel katalog dosyasından/görselinden her tür ağır vasıta yedek parçasını tara.
-            SADECE şu JSON yapısında kusursuz veri çıkar:
-            {
-                "id": "PRC-" + rasgele 4 haneli sayı,
-                "oem": "Parçanın OEM Kodu veya numarası (Yoksa 'OEM-BELİRSİZ')",
-                "name": "Sektörel Resmi Parça Adı",
-                "brand": "Üretici veya Marka",
-                "specs": "Bağlantı rekorları, pinler, ölçüler ve teknik detaylar",
-                "stock": 25
-            }
-            """
-            item_data = call_groq_json(prompt, file_path)
-            catalog.append(item_data)
-            added_count += 1
+    # Dosyalar aynı anda (en fazla 3'ü birlikte) taranır; biri başarısız olursa diğerleri etkilenmez
+    with ThreadPoolExecutor(max_workers=3) as executor:
+        future_to_name = {executor.submit(_scan_one_catalog_file, path): name for name, path in saved_paths}
+        for future in as_completed(future_to_name):
+            filename = future_to_name[future]
+            try:
+                item_data = future.result()
+                with catalog_lock:
+                    catalog.append(item_data)
+                    added_count += 1
+                    save_catalog(catalog)  # her başarılı dosyadan sonra hemen kaydet, ilerleme kaybolmasın
+            except Exception as e:
+                failed.append(f"{filename}: {str(e)}")
 
-        with open(CATALOG_FILE, "w", encoding="utf-8") as f:
-            json.dump(catalog, f, ensure_ascii=False, indent=4)
+    sync_catalog_to_github()
 
-        return {"status": "success", "message": f"{added_count} adet evrensel yedek parça kataloğa işlendi."}
-    except Exception as e:
-        return {"status": "error", "message": f"Katalog Yükleme Hatası: {str(e)}"}
+    message = f"{added_count} adet evrensel yedek parça kataloğa işlendi."
+    if failed:
+        message += f" {len(failed)} dosya işlenemedi: " + "; ".join(failed)
+
+    return {"status": "success" if added_count > 0 or not failed else "error", "message": message}
 
 @app.post("/process-part")
 async def process_part(
