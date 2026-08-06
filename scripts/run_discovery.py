@@ -70,6 +70,13 @@ def main():
             }
             new_leads.append(lead)
 
+        # Her ilden sonra diske yazılır - koşu yarıda kesilse/zaman aşımına uğrasa bile
+        # o ana kadarki ilerleme kaybolmaz (GitHub Actions'taki commit adımı ne bulursa onu kaydeder)
+        if not args.dry_run:
+            combined_so_far = existing + new_leads
+            with open(LEADS_FILE, "w", encoding="utf-8") as f:
+                json.dump(combined_so_far, f, ensure_ascii=False, indent=4)
+
     print(f"\nToplam yeni lead: {len(new_leads)}")
     for l in sorted(new_leads, key=lambda x: -x["relevance_score"])[:15]:
         print(f"  [{l['relevance_score']:>3}] {l['company_name']} | {l['province']} | {l['sector_guess']}")
@@ -78,10 +85,7 @@ def main():
         print("\nDRY RUN - leads.json'a yazılmadı")
         return
 
-    combined = existing + new_leads
-    with open(LEADS_FILE, "w", encoding="utf-8") as f:
-        json.dump(combined, f, ensure_ascii=False, indent=4)
-    print(f"\nleads.json güncellendi. Toplam kayıt: {len(combined)}")
+    print(f"\nleads.json güncellendi. Toplam kayıt: {len(existing) + len(new_leads)}")
 
 
 if __name__ == "__main__":
