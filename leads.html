@@ -60,6 +60,7 @@
     <div class="toolbar">
         <button id="scanBtn" onclick="triggerScan()" style="width:auto; margin:0; padding:8px 16px; background:#337ab7; color:white; border:none; border-radius:4px; cursor:pointer;">🔍 Şimdi Tara</button>
         <a href="/leads-export" style="width:auto; margin:0; padding:8px 16px; background:#28a745; color:white; border-radius:4px; text-decoration:none; font-size:14px; font-weight:bold;">⬇️ CSV İndir</a>
+        <button id="classifyBtn" onclick="classifyAmbiguous()" style="width:auto; margin:0; padding:8px 16px; background:#6f42c1; color:white; border:none; border-radius:4px; cursor:pointer;">🤖 Belirsizleri AI ile Netleştir</button>
         <select id="statusFilter">
             <option value="">Tüm durumlar</option>
             <option value="yeni">Yeni</option>
@@ -189,7 +190,7 @@
                     <div class="lead-card-body">
                         <div class="lead-head">
                             <div>
-                                <p class="lead-name">${esc(l.company_name)}</p>
+                                <p class="lead-name">${esc(l.company_name)} ${l.ai_reviewed ? '<span title="AI tarafından netleştirildi" style="font-size:12px;">🤖</span>' : ''}</p>
                                 <div class="lead-meta">${esc(l.sector_guess || '')} · ${esc(l.district || '')}/${esc(l.province || '')} · ${esc(l.entity_type_note || '')}</div>
                             </div>
                             <span class="score-badge">${l.relevance_score ?? 0}</span>
@@ -264,6 +265,33 @@
         }
     }
     window.triggerScan = triggerScan;
+
+    async function classifyAmbiguous() {
+        const btn = document.getElementById('classifyBtn');
+        btn.disabled = true;
+        let total = 0;
+        try {
+            while (true) {
+                btn.textContent = `Değerlendiriliyor... (${total} tamamlandı)`;
+                const res = await fetch('/leads/classify-ambiguous', { method: 'POST' });
+                const data = await res.json();
+                if (data.status !== 'success') {
+                    alert('Hata: ' + data.message);
+                    break;
+                }
+                total += data.classified || 0;
+                if (!data.remaining || data.remaining <= 0) break;
+            }
+            alert(`Tamamlandı: ${total} lead netleştirildi.`);
+            if (total > 0) loadLeads();
+        } catch (err) {
+            alert('Hata: ' + err);
+        } finally {
+            btn.disabled = false;
+            btn.textContent = '🤖 Belirsizleri AI ile Netleştir';
+        }
+    }
+    window.classifyAmbiguous = classifyAmbiguous;
 
     document.getElementById('statusFilter').addEventListener('change', renderLeads);
     document.getElementById('provinceFilter').addEventListener('change', renderLeads);
