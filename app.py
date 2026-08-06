@@ -342,17 +342,20 @@ def sales_agent(product_data: dict, customer_type: str, price_note: str) -> str:
         return "Sayın İş Ortağımız, gönderdiğiniz yedek parça görseli evrensel katalogumuzda yüksek doğrulukla eşleştirilememiştir. Yanlış sevkiyatın önüne geçmek adına lütfen parçanın OEM kodunu veya araç şase (VIN) numarasını iletiniz."
 
     fiyat = price_note if price_note else "Güncel kur ve iskonto oranları için iletişime geçiniz."
+    brand = (product_data.get('brand') or '').strip()
+    # Marka bilgisi katalogda yoksa satırı prompt'a hiç eklemiyoruz - boş bir alan görünce
+    # model bazen kendi kafasından bir marka uydurma eğiliminde oluyordu.
+    brand_line = f"    Marka / Kalite: {brand}\n" if brand else ""
 
     prompt = f"""
     Sen ağır vasıta yedek parça sektöründe faaliyet gösteren kurumsal bir B2B tedarik sisteminin satış asistanısın.
     Müşteri Profili: {customer_type}
     Tespit Edilen Ürün: {product_data.get('name')}
-    Marka / Kalite: {product_data.get('brand')}
-    OEM Kodu: {product_data.get('oem')}
+{brand_line}    OEM Kodu: {product_data.get('oem')}
     Fiyat / Not: {fiyat}
     Stok Durumu: Mevcut ({product_data.get('stock', 'Hazır')} adet)
 
-    Görev: WhatsApp ve kurumsal iletişim kanalları için; tamamen profesyonel, net, yorumsuz, parça durumu eleştirisi barındırmayan saf ticari sipariş/teklif mesajı oluştur.
+    Görev: WhatsApp ve kurumsal iletişim kanalları için; tamamen profesyonel, net, yorumsuz, parça durumu eleştirisi barındırmayan saf ticari sipariş/teklif mesajı oluştur. Marka bilgisi yukarıda verilmemişse, mesajda marka hakkında kesinlikle hiçbir şey yazma veya tahmin etme.
     """
     try:
         return call_groq_api(prompt)
@@ -394,13 +397,19 @@ Görseldeki HER BİR parçayı tek tek tara ve çıkar. Görselde hiç parça yo
 Bir üründe birden fazla kod görünüyorsa (kendi kod sistemi + üretici/OEM referans numarası gibi),
 'oem' alanına en belirgin/asıl ürün kodunu yaz.
 
+MARKA KURALI (ÇOK ÖNEMLİ): 'brand' alanına SADECE görselde/katalog sayfasında AÇIKÇA YAZILI OLARAK
+görünen bir üretici/marka adı varsa yaz. Ürünün tipinden, şeklinden veya genel izlenimden marka
+TAHMİN ETME veya UYDURMA. Görselde/katalogda hiçbir marka adı yazmıyorsa ya da emin değilsen,
+'brand' alanını kesinlikle boş string ("") bırak - yanlış marka bilgisi vermek boş bırakmaktan
+çok daha kötüdür.
+
 SADECE şu JSON yapısında bir DİZİ (array) döndür, başka hiçbir şey yazma:
 [
     {
         "id": "PRC-" + rasgele 4 haneli sayı,
         "oem": "Parçanın kod/OEM numarası (Yoksa 'OEM-BELİRSİZ')",
         "name": "Parçanın adı (varsa ölçü/renk/varyant bilgisiyle birlikte)",
-        "brand": "Üretici veya Marka (yoksa boş bırak)",
+        "brand": "SADECE görselde açıkça yazılı olan üretici/marka adı - yoksa/emin değilsen kesinlikle boş string",
         "specs": "Ölçüler, bağlantı tipi, malzeme ve diğer teknik detaylar",
         "stock": 25
     }
@@ -444,6 +453,32 @@ def render_pdf_pages_to_images(pdf_path: str) -> list:
 
 CATALOG_WRITE_LOCK = threading.Lock()  # istekler arası paylaşılan kilit - iki ayrı yükleme isteği aynı anda gelirse birbirinin kaydını ezmesin diye
 
+def merge_catalog_items(catalog: list, new_items: list) -> tuple:
+    """Yeni taranan parçaları kataloğa ekler. Aynı OEM koduna sahip bir parça (aynı ürün iki farklı
+    katalog dosyasında/sayfasında geçmişse) tekrar eklenmez, mevcut kayıt güncellenir - katalogda
+    aynı ürünün birden fazla kopyası birikmesin diye. OEM kodu boş/'OEM-BELİRSİZ' olan parçalar
+    güvenilir şekilde eşleştirilemeyeceği için (yanlışlıkla farklı iki ürünü birleştirmemek adına)
+    her zaman yeni kayıt olarak eklenir."""
+    oem_index = {
+        str(item.get("oem", "")).strip().lower(): idx
+        for idx, item in enumerate(catalog)
+        if item.get("oem") and str(item.get("oem")).strip().upper() != "OEM-BELİRSİZ"
+    }
+    added = 0
+    updated = 0
+    for new_item in new_items:
+        oem_key = str(new_item.get("oem", "")).strip().lower()
+        is_known_oem = bool(oem_key) and oem_key != "oem-belirsiz"
+        if is_known_oem and oem_key in oem_index:
+            catalog[oem_index[oem_key]] = new_item
+            updated += 1
+        else:
+            catalog.append(new_item)
+            if is_known_oem:
+                oem_index[oem_key] = len(catalog) - 1
+            added += 1
+    return catalog, added, updated
+
 def _scan_catalog_source(filename: str, file_path: str) -> list:
     """Bir katalog dosyasını tarar. PDF ise her sayfayı, görselse görselin kendisini tarar;
     her ikisinde de sayfada/görselde kaç parça varsa hepsi çıkarılır (tek parça da olabilir, onlarca da).
@@ -486,6 +521,7 @@ async def upload_catalog_files(files: list[UploadFile] = File(...)):
         saved_paths.append((file.filename, file_path))
 
     added_count = 0
+    updated_count = 0
     failed = list(oversized)
 
     # Dosyalar aynı anda (en fazla 3'ü birlikte) taranır; biri başarısız olursa diğerleri etkilenmez
@@ -497,19 +533,22 @@ async def upload_catalog_files(files: list[UploadFile] = File(...)):
                 items = future.result()
                 with CATALOG_WRITE_LOCK:
                     catalog = load_catalog()  # en güncel hali diskten oku - başka bir yükleme isteği aynı anda kaydetmiş olabilir
-                    catalog.extend(items)
-                    added_count += len(items)
+                    catalog, added, updated = merge_catalog_items(catalog, items)
+                    added_count += added
+                    updated_count += updated
                     save_catalog(catalog)  # her başarılı dosyadan sonra hemen kaydet, ilerleme kaybolmasın
             except Exception as e:
                 failed.append(f"{filename}: {str(e)}")
 
     sync_catalog_to_github()
 
-    message = f"{added_count} adet evrensel yedek parça kataloğa işlendi."
+    message = f"{added_count} adet yeni parça eklendi."
+    if updated_count:
+        message += f" {updated_count} adet zaten katalogda vardı, bilgileri güncellendi."
     if failed:
         message += f" {len(failed)} dosya işlenemedi: " + "; ".join(failed)
 
-    return {"status": "success" if added_count > 0 or not failed else "error", "message": message}
+    return {"status": "success" if (added_count > 0 or updated_count > 0 or not failed) else "error", "message": message}
 
 # ---------------------------------------------------------
 # FAZ 2: LEAD KEŞFİ / İNCELEME (korumalı admin sayfaları)
