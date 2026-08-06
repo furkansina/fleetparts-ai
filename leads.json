@@ -1,0 +1,53 @@
+[
+    {
+        "lead_id": "test_001",
+        "source": "manual_test",
+        "company_name": "Örnek Nakliyat Ltd. Şti.",
+        "entity_type_note": "Ltd. Şti.",
+        "sector_guess": "Nakliye/Lojistik",
+        "province": "Kayseri",
+        "district": "Melikgazi",
+        "address": "Organize Sanayi Bölgesi, Kayseri",
+        "phone": "+905551234567",
+        "growth_signal": null,
+        "relevance_score": 78,
+        "score_breakdown": {"sector_match": 40, "geography": 20, "growth_signal": 0, "data_completeness": 18},
+        "score_reasoning": "Test verisi - nakliye sektörü anahtar kelime eşleşmesi",
+        "discovered_at": "2026-08-06T00:00:00Z",
+        "scan_batch_id": "test-batch-0"
+    },
+    {
+        "lead_id": "test_002",
+        "source": "manual_test",
+        "company_name": "Anadolu Oto Yedek Parça Toptan Tic. A.Ş.",
+        "entity_type_note": "A.Ş.",
+        "sector_guess": "Oto Yedek Parça Toptan",
+        "province": "Konya",
+        "district": "Selçuklu",
+        "address": "Fevzi Çakmak Sanayi Sitesi, Konya",
+        "phone": "+905559876543",
+        "growth_signal": {"type": "yeni_kuruluş", "detected_at": "2026-07-15", "source_url": "test"},
+        "relevance_score": 91,
+        "score_breakdown": {"sector_match": 45, "geography": 20, "growth_signal": 15, "data_completeness": 11},
+        "score_reasoning": "Test verisi - hem sektör eşleşmesi hem yeni kuruluş sinyali",
+        "discovered_at": "2026-08-06T00:00:00Z",
+        "scan_batch_id": "test-batch-0"
+    },
+    {
+        "lead_id": "test_003",
+        "source": "manual_test",
+        "company_name": "Sanayi Oto Tamir Servisi",
+        "entity_type_note": "Şahıs Şirketi",
+        "sector_guess": "Bağımsız Tamirci (hedef dışı - kontrol amaçlı)",
+        "province": "Gaziantep",
+        "district": "Şehitkamil",
+        "address": "Sanayi Sitesi, Gaziantep",
+        "phone": "+905553334455",
+        "growth_signal": null,
+        "relevance_score": 12,
+        "score_breakdown": {"sector_match": 5, "geography": 5, "growth_signal": 0, "data_completeness": 2},
+        "score_reasoning": "Test verisi - bağımsız tamirci, hedef kitle dışı, düşük skor beklenen davranış",
+        "discovered_at": "2026-08-06T00:00:00Z",
+        "scan_batch_id": "test-batch-0"
+    }
+]
