@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ürün Kataloğumuz</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: -apple-system, Segoe UI, Arial, sans-serif; background-color: #f4f6f9; color: #333; margin: 0; padding: 16px; }
+        .container { max-width: 700px; margin: auto; }
+        h1 { color: #d9534f; text-align: center; margin-bottom: 4px; }
+        .subtitle { text-align: center; color: #666; margin-bottom: 20px; font-size: 14px; }
+
+        .whatsapp-cta { display: block; background: #25D366; color: white; text-align: center; font-weight: bold; font-size: 17px; padding: 16px; border-radius: 10px; text-decoration: none; margin-bottom: 24px; box-shadow: 0 4px 10px rgba(37,211,102,0.3); }
+        .whatsapp-cta:hover { background: #1ebe57; }
+        .whatsapp-cta .sub { display: block; font-weight: normal; font-size: 13px; margin-top: 4px; opacity: 0.9; }
+
+        .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; }
+        .catalog-item { background: white; border: 1px solid #e2e2e2; border-radius: 8px; padding: 14px; box-shadow: 0 2px 4px rgba(0,0,0,0.04); }
+        .catalog-item h4 { margin: 0 0 6px 0; font-size: 15px; }
+        .catalog-item .specs { color: #666; font-size: 12.5px; margin-top: 6px; }
+        .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11.5px; font-weight: bold; }
+        .badge-oem { background: #e9ecef; color: #495057; font-family: monospace; }
+
+        .placeholder { text-align: center; color: #888; padding: 30px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Ürün Kataloğumuz 🚚</h1>
+    <p class="subtitle">Ağır vasıta yedek parça kataloğumuza göz atın, aradığınızı bulamazsanız aşağıdan bize yazın.</p>
+
+    <a class="whatsapp-cta" id="waButton" href="#" target="_blank">
+        💬 WhatsApp'tan Bize Yazın
+        <span class="sub">Aradığınız parçanın fotoğrafını veya kodunu gönderin, hemen dönüş yapalım</span>
+    </a>
+
+    <div id="catalogList" class="placeholder">Katalog yükleniyor...</div>
+</div>
+
+<script>
+    const WA_NUMBER = "__BUSINESS_WHATSAPP_NUMBER__";
+    const params = new URLSearchParams(window.location.search);
+    const src = params.get('src') || 'katalog';
+
+    function esc(s) {
+        return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    }
+
+    function setupWhatsAppButton() {
+        const btn = document.getElementById('waButton');
+        if (!WA_NUMBER || WA_NUMBER.indexOf('__') === 0) {
+            btn.style.display = 'none';
+            return;
+        }
+        const text = encodeURIComponent(`Merhaba, ürün kataloğunuzu inceliyordum (kaynak: ${src}), bir parça hakkında bilgi almak istiyorum.`);
+        btn.href = `https://wa.me/${WA_NUMBER}?text=${text}`;
+    }
+
+    async function loadCatalog() {
+        try {
+            const res = await fetch('/get-catalog');
+            const data = await res.json();
+            const items = data.catalog || [];
+            const el = document.getElementById('catalogList');
+            if (items.length === 0) {
+                el.innerHTML = '<div class="placeholder">Katalog yakında eklenecek.</div>';
+                return;
+            }
+            el.className = 'catalog-grid';
+            el.innerHTML = items.map(item => `
+                <div class="catalog-item">
+                    <h4>${esc(item.name)}</h4>
+                    <span class="badge badge-oem">${esc(item.oem)}</span>
+                    <div style="margin-top:6px; color:#555; font-size:12.5px;">${esc(item.brand || '')}</div>
+                    <div class="specs">${esc(item.specs || '')}</div>
+                </div>
+            `).join('');
+        } catch (err) {
+            document.getElementById('catalogList').innerHTML = '<div class="placeholder">Katalog yüklenemedi.</div>';
+        }
+    }
+
+    setupWhatsAppButton();
+    loadCatalog();
+</script>
+
+</body>
+</html>
