@@ -46,6 +46,7 @@
 <div class="container">
     <h1>Müşteri İletişimi 📣</h1>
     <p class="subtitle">Mevcut müşterilere WhatsApp Business üzerinden gönderilecek çeşitli, dönüşümlü içerikler.</p>
+    <div id="usageBadge" style="text-align:center; font-size:12px; color:#888; margin-bottom:14px;"></div>
 
     <div class="section">
         <h3>1. Kişi Listesi</h3>
@@ -171,7 +172,18 @@
         }
     }
 
+    async function loadUsageBadge() {
+        try {
+            const res = await fetch('/usage');
+            const u = await res.json();
+            const el = document.getElementById('usageBadge');
+            const color = u.percent_used > 80 ? '#d9534f' : u.percent_used > 50 ? '#f0ad4e' : '#888';
+            el.innerHTML = `⚡ Bugünkü tahmini yapay zeka kullanımı: <b style="color:${color}">%${u.percent_used}</b> (${u.total_tokens.toLocaleString('tr-TR')} / ${u.budget.toLocaleString('tr-TR')} token)`;
+        } catch (err) { /* sessizce geç, kritik değil */ }
+    }
+
     loadData();
+    loadUsageBadge();
 </script>
 
 </body>
