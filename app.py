@@ -6,6 +6,7 @@ import time
 import threading
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import requests
+import fitz  # PyMuPDF - PDF sayfalarını görsele çevirmek için
 from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.responses import HTMLResponse
 
@@ -22,6 +23,7 @@ GITHUB_REPO = os.environ.get("GITHUB_REPO", "")
 UPLOAD_DIR = "temp_images"
 CATALOG_DIR = "sample_catalogs"
 CATALOG_FILE = "catalog.json"
+MAX_UPLOAD_MB = 20  # Groq görsel API'sinin sabit dosya boyutu sınırı
 
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 os.makedirs(CATALOG_DIR, exist_ok=True)
@@ -330,46 +332,108 @@ async def read_root():
 async def get_catalog_endpoint():
     return {"catalog": load_catalog(), "files": os.listdir(CATALOG_DIR)}
 
-CATALOG_UPLOAD_PROMPT = """
-Bu evrensel katalog dosyasından/görselinden her tür ağır vasıta yedek parçasını tara.
-SADECE şu JSON yapısında kusursuz veri çıkar:
-{
-    "id": "PRC-" + rasgele 4 haneli sayı,
-    "oem": "Parçanın OEM Kodu veya numarası (Yoksa 'OEM-BELİRSİZ')",
-    "name": "Sektörel Resmi Parça Adı",
-    "brand": "Üretici veya Marka",
-    "specs": "Bağlantı rekorları, pinler, ölçüler ve teknik detaylar",
-    "stock": 25
-}
+CATALOG_SCAN_PROMPT = """
+Bu, ağır vasıta yedek parça kataloğuna ait bir sayfa, fotoğraf veya web sayfası ekran görüntüsü.
+Görselde TEK bir parça olabileceği gibi, bir tabloda/gridde ONLARCA farklı parça da olabilir
+(farklı ölçü, renk veya varyant olarak listelenmiş olsa bile HER SATIR/HER VARYANT ayrı bir parçadır).
+Görseldeki HER BİR parçayı tek tek tara ve çıkar. Görselde hiç parça yoksa (kapak sayfası, boş sayfa vb.) boş liste döndür.
+
+Bir üründe birden fazla kod görünüyorsa (kendi kod sistemi + üretici/OEM referans numarası gibi),
+'oem' alanına en belirgin/asıl ürün kodunu yaz.
+
+SADECE şu JSON yapısında bir DİZİ (array) döndür, başka hiçbir şey yazma:
+[
+    {
+        "id": "PRC-" + rasgele 4 haneli sayı,
+        "oem": "Parçanın kod/OEM numarası (Yoksa 'OEM-BELİRSİZ')",
+        "name": "Parçanın adı (varsa ölçü/renk/varyant bilgisiyle birlikte)",
+        "brand": "Üretici veya Marka (yoksa boş bırak)",
+        "specs": "Ölçüler, bağlantı tipi, malzeme ve diğer teknik detaylar",
+        "stock": 25
+    }
+]
 """
 
-def _scan_one_catalog_file(file_path: str) -> dict:
-    return call_groq_json(CATALOG_UPLOAD_PROMPT, file_path)
+def extract_json_array(raw_text: str) -> list:
+    clean_text = raw_text.replace("```json", "").replace("```", "").strip()
+    start = clean_text.find("[")
+    end = clean_text.rfind("]") + 1
+    if start == -1 or end <= start:
+        raise ValueError(f"Yanıtta JSON dizisi bulunamadı: {raw_text[:200]!r}")
+    data = json.loads(clean_text[start:end])
+    return data if isinstance(data, list) else []
+
+def call_groq_json_array(prompt: str, image_path: str = None) -> list:
+    last_error = None
+    for attempt in range(2):
+        raw_text = call_groq_api(prompt, image_path)
+        try:
+            return extract_json_array(raw_text)
+        except (ValueError, json.JSONDecodeError) as e:
+            last_error = e
+    raise Exception(f"Model geçerli JSON dizisi döndürmedi: {last_error}")
+
+def render_pdf_pages_to_images(pdf_path: str) -> list:
+    """PDF'in her sayfasını PNG görsele çevirir, geçici dosya yollarını döndürür."""
+    page_paths = []
+    doc = fitz.open(pdf_path)
+    try:
+        base_name = os.path.splitext(os.path.basename(pdf_path))[0]
+        zoom_matrix = fitz.Matrix(2.0, 2.0)  # ~144 DPI, OCR için yeterli netlik
+        for page_index in range(len(doc)):
+            pix = doc[page_index].get_pixmap(matrix=zoom_matrix)
+            page_path = os.path.join(CATALOG_DIR, f"{base_name}_sayfa{page_index + 1}.png")
+            pix.save(page_path)
+            page_paths.append(page_path)
+    finally:
+        doc.close()
+    return page_paths
+
+def _scan_catalog_source(filename: str, file_path: str) -> list:
+    """Bir katalog dosyasını tarar. PDF ise her sayfayı, görselse görselin kendisini tarar;
+    her ikisinde de sayfada/görselde kaç parça varsa hepsi çıkarılır (tek parça da olabilir, onlarca da)."""
+    if filename.lower().endswith(".pdf"):
+        items = []
+        for page_path in render_pdf_pages_to_images(file_path):
+            try:
+                items.extend(call_groq_json_array(CATALOG_SCAN_PROMPT, page_path))
+            finally:
+                if os.path.exists(page_path):
+                    os.remove(page_path)
+        return items
+    return call_groq_json_array(CATALOG_SCAN_PROMPT, file_path)
 
 @app.post("/upload-catalog-files")
 async def upload_catalog_files(files: list[UploadFile] = File(...)):
     catalog = load_catalog()
     catalog_lock = threading.Lock()
     saved_paths = []
+    oversized = []
+
     for file in files:
         file_path = os.path.join(CATALOG_DIR, file.filename)
         with open(file_path, "wb") as buffer:
-            shutil.copyfileobj(file.file, buffer)
+            size = shutil.copyfileobj(file.file, buffer)
+        size_mb = os.path.getsize(file_path) / (1024 * 1024)
+        if size_mb > MAX_UPLOAD_MB:
+            oversized.append(f"{file.filename} ({size_mb:.1f}MB, {MAX_UPLOAD_MB}MB sınırını aşıyor)")
+            os.remove(file_path)
+            continue
         saved_paths.append((file.filename, file_path))
 
     added_count = 0
-    failed = []
+    failed = list(oversized)
 
     # Dosyalar aynı anda (en fazla 3'ü birlikte) taranır; biri başarısız olursa diğerleri etkilenmez
     with ThreadPoolExecutor(max_workers=3) as executor:
-        future_to_name = {executor.submit(_scan_one_catalog_file, path): name for name, path in saved_paths}
+        future_to_name = {executor.submit(_scan_catalog_source, name, path): name for name, path in saved_paths}
         for future in as_completed(future_to_name):
             filename = future_to_name[future]
             try:
-                item_data = future.result()
+                items = future.result()
                 with catalog_lock:
-                    catalog.append(item_data)
-                    added_count += 1
+                    catalog.extend(items)
+                    added_count += len(items)
                     save_catalog(catalog)  # her başarılı dosyadan sonra hemen kaydet, ilerleme kaybolmasın
             except Exception as e:
                 failed.append(f"{filename}: {str(e)}")
