@@ -5,17 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FleetParts AI - Ağır Vasıta Parça Asistanı</title>
     <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f6f9; color: #333; margin: 0; padding: 20px; }
+        * { box-sizing: border-box; }
+        body { font-family: -apple-system, Segoe UI, Arial, sans-serif; background-color: #f4f6f9; color: #333; margin: 0; padding: 20px; }
         .container { max-width: 900px; margin: auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         h1 { color: #d9534f; text-align: center; }
         .section { margin-bottom: 30px; padding: 20px; border: 1px solid #ddd; border-radius: 6px; background: #fafafa; }
         label { font-weight: bold; display: block; margin-top: 10px; }
-        input, select, button { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        input, select, button { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 15px; }
         button { background-color: #d9534f; color: white; font-weight: bold; cursor: pointer; border: none; margin-top: 15px; }
         button:hover { background-color: #c9302c; }
         .btn-blue { background-color: #337ab7; }
         .btn-blue:hover { background-color: #286090; }
-        pre { background: #272822; color: #f8f8f2; padding: 15px; border-radius: 5px; overflow-x: auto; }
+
+        /* ---- Sonuç kartları ---- */
+        #output { min-height: 40px; }
+        .placeholder { color: #888; font-style: italic; }
+        .loading { color: #337ab7; font-weight: bold; }
+        .loading .dots::after { content: '...'; animation: dots 1.4s steps(4, end) infinite; }
+        @keyframes dots { 0%,20%{content:'.'} 40%{content:'..'} 60%,100%{content:'...'} }
+
+        .card { border-radius: 8px; padding: 18px 20px; margin-bottom: 14px; border-left: 6px solid #ccc; background: white; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+        .card.ok { border-left-color: #28a745; background: #f4fbf6; }
+        .card.warn { border-left-color: #f0ad4e; background: #fff9ef; }
+        .card.err { border-left-color: #d9534f; background: #fdf3f2; }
+
+        .card-title { font-size: 18px; font-weight: bold; margin: 0 0 10px 0; display: flex; align-items: center; gap: 8px; }
+        .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; margin-left: 6px; }
+        .badge-oem { background: #e9ecef; color: #495057; font-family: monospace; }
+        .badge-stock { background: #d4edda; color: #155724; }
+        .badge-stock.zero { background: #f8d7da; color: #721c24; }
+        .badge-score { background: #cce5ff; color: #004085; }
+
+        .kv-list { list-style: none; margin: 10px 0; padding: 0; }
+        .kv-list li { padding: 6px 0; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; gap: 10px; }
+        .kv-list li:last-child { border-bottom: none; }
+        .kv-list .k { color: #666; }
+        .kv-list .v { font-weight: 600; text-align: right; }
+
+        .sales-box { position: relative; background: #272822; color: #f8f8f2; padding: 16px; border-radius: 6px; margin-top: 12px; white-space: pre-wrap; line-height: 1.5; font-size: 14.5px; }
+        .copy-btn { position: absolute; top: 10px; right: 10px; width: auto; margin: 0; padding: 6px 12px; font-size: 13px; background: #495057; }
+        .copy-btn:hover { background: #343a40; }
+        .copy-btn.copied { background: #28a745; }
+
+        details.tech { margin-top: 12px; font-size: 13.5px; }
+        details.tech summary { cursor: pointer; color: #337ab7; font-weight: 600; }
+        details.tech pre { background: #272822; color: #f8f8f2; padding: 12px; border-radius: 5px; overflow-x: auto; margin-top: 8px; font-size: 12.5px; }
+
+        .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; margin-top: 10px; }
+        .catalog-item { background: white; border: 1px solid #e2e2e2; border-radius: 8px; padding: 14px; box-shadow: 0 2px 4px rgba(0,0,0,0.04); }
+        .catalog-item h4 { margin: 0 0 6px 0; font-size: 15.5px; }
+        .catalog-item .specs { color: #666; font-size: 13px; margin-top: 6px; }
+
+        .fail-list { margin-top: 10px; font-size: 13.5px; color: #721c24; }
+        .fail-list li { margin-bottom: 4px; }
     </style>
 </head>
 <body>
@@ -56,34 +98,141 @@
     </div>
 
     <div class="section">
-        <h3>Sonuçlar / Ajan Çıktıları</h3>
-        <pre id="output">İşlem bekleniyor...</pre>
+        <h3>Sonuçlar</h3>
+        <div id="output"><span class="placeholder">İşlem bekleniyor...</span></div>
     </div>
 </div>
 
 <script>
+    const out = document.getElementById('output');
+
+    function esc(s) {
+        return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    }
+
+    function showLoading(msg) {
+        out.innerHTML = `<div class="loading">${esc(msg)}<span class="dots"></span></div>`;
+    }
+
+    function showPlainError(msg) {
+        out.innerHTML = `<div class="card err"><div class="card-title">❌ Hata</div><div>${esc(msg)}</div></div>`;
+    }
+
+    function copySalesMessage(btn, text) {
+        navigator.clipboard.writeText(text).then(() => {
+            btn.textContent = '✅ Kopyalandı';
+            btn.classList.add('copied');
+            setTimeout(() => { btn.textContent = '📋 Kopyala'; btn.classList.remove('copied'); }, 2000);
+        });
+    }
+    window.copySalesMessage = copySalesMessage;
+
+    function renderProcessPartResult(data) {
+        if (data.status !== 'success') {
+            showPlainError(data.message || 'Bilinmeyen hata');
+            return;
+        }
+
+        const { vision_analysis, matched_product, final_sales_message } = data.agents_output;
+        const isMatched = matched_product && matched_product.id !== 'NOT_IN_CATALOG';
+        const cardClass = isMatched ? 'ok' : 'warn';
+        const icon = isMatched ? '✅' : '⚠️';
+        const title = isMatched ? 'Ürün Bulundu' : 'Katalogda Bulunamadı';
+
+        let kvHtml = '';
+        if (isMatched) {
+            const stock = matched_product.stock ?? 0;
+            kvHtml = `
+                <ul class="kv-list">
+                    <li><span class="k">Ürün</span><span class="v">${esc(matched_product.name)}</span></li>
+                    <li><span class="k">OEM Kodu</span><span class="v"><span class="badge badge-oem">${esc(matched_product.oem)}</span></span></li>
+                    <li><span class="k">Marka</span><span class="v">${esc(matched_product.brand)}</span></li>
+                    <li><span class="k">Stok</span><span class="v"><span class="badge badge-stock ${stock == 0 ? 'zero' : ''}">${esc(stock)} adet</span></span></li>
+                </ul>
+                <div style="color:#555; font-size:13.5px; margin-top:4px;">${esc(matched_product.match_reason || '')}</div>
+            `;
+        } else {
+            kvHtml = `<div style="color:#555; font-size:14px;">${esc(matched_product && matched_product.match_reason || 'Eşleşme bulunamadı.')}</div>`;
+        }
+
+        const salesId = 'sales_' + Date.now();
+        const salesHtml = final_sales_message ? `
+            <div class="sales-box" id="${salesId}">
+                <button class="copy-btn" onclick="copySalesMessage(this, document.getElementById('${salesId}').dataset.raw)">📋 Kopyala</button>
+                ${esc(final_sales_message)}
+            </div>
+        ` : '';
+
+        out.innerHTML = `
+            <div class="card ${cardClass}">
+                <div class="card-title">${icon} ${title}</div>
+                ${kvHtml}
+                ${salesHtml}
+                <details class="tech">
+                    <summary>🔍 Teknik tarama detayları</summary>
+                    <pre>${esc(JSON.stringify(vision_analysis, null, 2))}</pre>
+                </details>
+            </div>
+        `;
+        if (final_sales_message) {
+            document.getElementById(salesId).dataset.raw = final_sales_message;
+        }
+    }
+
+    function renderCatalog(data) {
+        const items = data.catalog || [];
+        if (items.length === 0) {
+            out.innerHTML = `<div class="card warn"><div class="card-title">⚠️ Katalog Boş</div><div>Henüz hiç parça eklenmemiş.</div></div>`;
+            return;
+        }
+        const cards = items.map(item => `
+            <div class="catalog-item">
+                <h4>${esc(item.name)}</h4>
+                <div><span class="badge badge-oem">${esc(item.oem)}</span> <span class="badge badge-stock ${(item.stock ?? 0) == 0 ? 'zero' : ''}">${esc(item.stock ?? 0)} adet</span></div>
+                <div style="margin-top:6px; color:#555; font-size:13px;">${esc(item.brand || '')}</div>
+                <div class="specs">${esc(item.specs || '')}</div>
+            </div>
+        `).join('');
+        out.innerHTML = `
+            <div class="card ok">
+                <div class="card-title">📦 Kataloğunuz (${items.length} parça)</div>
+                <div class="catalog-grid">${cards}</div>
+            </div>
+        `;
+    }
+
+    function renderUploadResult(data) {
+        const ok = data.status === 'success';
+        out.innerHTML = `
+            <div class="card ${ok ? 'ok' : 'err'}">
+                <div class="card-title">${ok ? '✅' : '❌'} Katalog Yükleme Sonucu</div>
+                <div>${esc(data.message)}</div>
+            </div>
+        `;
+    }
+
     async function checkCatalog() {
-        document.getElementById('output').innerText = "Katalog yükleniyor...";
+        showLoading('Katalog yükleniyor');
         try {
             const res = await fetch('/get-catalog');
             const data = await res.json();
-            document.getElementById('output').innerText = JSON.stringify(data, null, 2);
+            renderCatalog(data);
         } catch (err) {
-            document.getElementById('output').innerText = "Hata: " + err;
+            showPlainError('Katalog yüklenemedi: ' + err);
         }
     }
 
     document.getElementById('catalogForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
-        document.getElementById('output').innerText = "Katalog dosyaları yapay zeka tarafından okunuyor, lütfen bekleyin...";
+        showLoading('Katalog dosyaları yapay zeka tarafından okunuyor, lütfen bekleyin (birden fazla dosyada biraz sürebilir)');
 
         try {
             const res = await fetch('/upload-catalog-files', { method: 'POST', body: formData });
             const data = await res.json();
-            document.getElementById('output').innerText = JSON.stringify(data, null, 2);
+            renderUploadResult(data);
         } catch (err) {
-            document.getElementById('output').innerText = "Hata oluştu: " + err;
+            showPlainError('Katalog yükleme hatası: ' + err);
         }
     });
 
@@ -93,18 +242,18 @@
         const hasFile = formData.get('file') && formData.get('file').size > 0;
         const hasQuery = formData.get('query') && formData.get('query').trim().length > 0;
         if (!hasFile && !hasQuery) {
-            document.getElementById('output').innerText = "Lütfen bir fotoğraf yükleyin veya OEM kodu / parça adı girin.";
+            showPlainError('Lütfen bir fotoğraf yükleyin veya OEM kodu / parça adı girin.');
             return;
         }
         if (!hasFile) formData.delete('file');
-        document.getElementById('output').innerText = "Parça analiz ediliyor ve katalogla eşleştiriliyor...";
+        showLoading('Parça analiz ediliyor ve katalogla eşleştiriliyor');
 
         try {
             const res = await fetch('/process-part', { method: 'POST', body: formData });
             const data = await res.json();
-            document.getElementById('output').innerText = JSON.stringify(data, null, 2);
+            renderProcessPartResult(data);
         } catch (err) {
-            document.getElementById('output').innerText = "Hata oluştu: " + err;
+            showPlainError('İşlem hatası: ' + err);
         }
     });
 </script>
