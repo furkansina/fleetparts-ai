@@ -48,11 +48,11 @@
         "stock": 25
     },
     {
-        "id": "PRC-7231",
-        "oem": "OEM-BELİRSİZ",
-        "name": "Tek Tarafı Hortum Girişli Dirsek (8x1 Normal)",
-        "brand": "Güvenli Çelik / Yan Sanayi",
-        "specs": "8mm iç çap x 1 inç bağlantı, 90 derece dirsek, Hortum tarafı TAVBRO/TAVRO tipi kelepçeyle bağlanır, Dişi taraf konik (FAN) bağlantı, 1.8mm duvar kalınlığı, Siyah plastik/aşınmaya dayanıklı gövde",
+        "id": "PRC-8472",
+        "oem": "258FR129",
+        "name": "AĞIR HİZMET TİPİ TEK TARAF HORTUM GİRİŞLİ DIRSEK",
+        "brand": "BATCO-T",
+        "specs": "Ölçü: 16x2.0, Bağlantı Çapı: 90216006, Uyumlu: 893800099",
         "stock": 25
     }
 ]
