@@ -54,5 +54,141 @@
         "brand": "BATCO-T",
         "specs": "Ölçü: 16x2.0, Bağlantı Çapı: 90216006, Uyumlu: 893800099",
         "stock": 25
+    },
+    {
+        "id": "PRC-8412",
+        "oem": "258FR129",
+        "name": "AĞIR HİZMET 16x2,0 TEK TARAFI HORTUM GİRİŞLİ DIRSEK",
+        "brand": "",
+        "specs": "90216006",
+        "stock": 25
+    },
+    {
+        "id": "PRC-1931",
+        "oem": "258FR109",
+        "name": "KÜÇÜK 8x1 TEK TARAFI HORTUM GİRİŞLİ DIRSEK",
+        "brand": "",
+        "specs": "90306004",
+        "stock": 25
+    },
+    {
+        "id": "PRC-4293",
+        "oem": "258FR110",
+        "name": "KÜÇÜK 8x1 TEK TARAFI HORTUM GİRİŞLİ DIRSEK",
+        "brand": "",
+        "specs": "90308004",
+        "stock": 25
+    },
+    {
+        "id": "PRC-5566",
+        "oem": "258FR114",
+        "name": "NORMAL 8x1 TEK TARAFI HORTUM GİRİŞLİ DIRSEK",
+        "brand": "",
+        "specs": "90306005",
+        "stock": 25
+    },
+    {
+        "id": "PRC-6201",
+        "oem": "258FR112",
+        "name": "NORMAL 10x1 TEK TARAFI HORTUM GİRİŞLİ DIRSEK",
+        "brand": "",
+        "specs": "90308005",
+        "stock": 25
+    },
+    {
+        "id": "PRC-9903",
+        "oem": "258FR117",
+        "name": "NORMAL 10x1 TEK TARAFI HORTUM GİRİŞLİ DIRSEK",
+        "brand": "",
+        "specs": "90310005",
+        "stock": 25
+    },
+    {
+        "id": "PRC-3847",
+        "oem": "258FR116",
+        "name": "NORMAL 10x1,25 TEK TARAFI HORTUM GİRİŞLİ DIRSEK",
+        "brand": "",
+        "specs": "90310105",
+        "stock": 25
+    },
+    {
+        "id": "PRC-7704",
+        "oem": "258FR180",
+        "name": "NORMAL 12x1,5 TEK TARAFI HORTUM GİRİŞLİ DIRSEK",
+        "brand": "",
+        "specs": "90310206",
+        "stock": 25
+    },
+    {
+        "id": "PRC-1022",
+        "oem": "258FR111",
+        "name": "NORMAL 12x1,5 TEK TARAFI HORTUM GİRİŞLİ DIRSEK",
+        "brand": "",
+        "specs": "90312205",
+        "stock": 25
+    },
+    {
+        "id": "PRC-2445",
+        "oem": "258FR115",
+        "name": "AĞIR HİZMET TİPİ 15x1,5 TEK TARAFI HORTUM GİRİŞLİ DIRSEK",
+        "brand": "",
+        "specs": "90315006",
+        "stock": 25
+    },
+    {
+        "id": "PRC-5518",
+        "oem": "258FR113",
+        "name": "AĞIR HİZMET 16x2,0 TEK TARAFI HORTUM GİRİŞLİ DIRSEK",
+        "brand": "",
+        "specs": "90316006",
+        "stock": 25
+    },
+    {
+        "id": "PRC-8893",
+        "oem": "258FR000",
+        "name": "PROPLAST PLASTİK HORTUM NİPELİ 6x1",
+        "brand": "PROPLAST",
+        "specs": "90306006",
+        "stock": 25
+    },
+    {
+        "id": "PRC-1529",
+        "oem": "258FR010",
+        "name": "PROPLAST PLASTİK HORTUM NİPELİ 8x1",
+        "brand": "PROPLAST",
+        "specs": "90508008",
+        "stock": 25
+    },
+    {
+        "id": "PRC-6630",
+        "oem": "258FR050",
+        "name": "PROPLAST PLASTİK HORTUM NİPELİ 12x1,5",
+        "brand": "PROPLAST",
+        "specs": "90512012",
+        "stock": 25
+    },
+    {
+        "id": "PRC-4471",
+        "oem": "258FR131",
+        "name": "KÜÇÜK DIŞI NİPEL",
+        "brand": "",
+        "specs": "96140004",
+        "stock": 25
+    },
+    {
+        "id": "PRC-3098",
+        "oem": "258FR132",
+        "name": "DÜZENLİ DIŞI NİPEL",
+        "brand": "",
+        "specs": "96150205",
+        "stock": 25
+    },
+    {
+        "id": "PRC-7742",
+        "oem": "258FR135",
+        "name": "KÜÇÜK DIŞI NİPEL",
+        "brand": "",
+        "specs": "92040045",
+        "stock": 25
     }
 ]
