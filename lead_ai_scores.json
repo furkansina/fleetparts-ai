@@ -793,5 +793,105 @@
         "relevance_score": 65,
         "score_reasoning": "Lojistik ofisi. Potansiyel filo sahibi. Hedef kitle içinde ancak yedek parça satıcılarına göre daha düşük öncelikli.",
         "classified_at": "2026-08-06T12:28:31.802997+00:00"
+    },
+    "osm_node_4027367688": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça toptancısı olduğu için yüksek skor verilmiştir",
+        "classified_at": "2026-08-06T13:10:27.417764+00:00"
+    },
+    "osm_node_5249546311": {
+        "relevance_score": 70,
+        "score_reasoning": "Nakliye/lojistik/toptan kategorisinde olduğu için orta-yüksek skor verilmiştir",
+        "classified_at": "2026-08-06T13:10:27.417764+00:00"
+    },
+    "osm_node_5249546434": {
+        "relevance_score": 60,
+        "score_reasoning": "Nakliye/lojistik/toptan kategorisinde olduğu için orta skor verilmiştir",
+        "classified_at": "2026-08-06T13:10:27.417764+00:00"
+    },
+    "osm_node_5250042634": {
+        "relevance_score": 40,
+        "score_reasoning": "Oto yedek parça kategorisinde ama aksesuar odaklı olduğu için düşük skor verilmiştir",
+        "classified_at": "2026-08-06T13:10:27.417764+00:00"
+    },
+    "osm_node_5423629914": {
+        "relevance_score": 30,
+        "score_reasoning": "Oto yedek parça kategorisinde ama bağımsız tamirci/servis odaklı olduğu için düşük skor verilmiştir",
+        "classified_at": "2026-08-06T13:10:27.417764+00:00"
+    },
+    "osm_node_5546298660": {
+        "relevance_score": 90,
+        "score_reasoning": "Nakliye/lojistik/toptan kategorisinde ve taşımacılık yaptığı için yüksek skor verilmiştir",
+        "classified_at": "2026-08-06T13:10:27.417764+00:00"
+    },
+    "osm_node_5605433733": {
+        "relevance_score": 0,
+        "score_reasoning": "Alakasız sektörde (gıda) olduğu için skor verilmiştir",
+        "classified_at": "2026-08-06T13:10:27.417764+00:00"
+    },
+    "osm_node_5606129493": {
+        "relevance_score": 0,
+        "score_reasoning": "Alakasız sektörde (gıda) olduğu için skor verilmiştir",
+        "classified_at": "2026-08-06T13:10:27.417764+00:00"
+    },
+    "osm_node_5723454543": {
+        "relevance_score": 50,
+        "score_reasoning": "Oto yedek parça kategorisinde ama genel sebuah için orta skor verilmiştir",
+        "classified_at": "2026-08-06T13:10:27.417764+00:00"
+    },
+    "osm_node_5840049421": {
+        "relevance_score": 20,
+        "score_reasoning": "Oto yedek parça kategorisinde ama bağımsız tamirci/servis odaklı olduğu için düşük skor verilmiştir",
+        "classified_at": "2026-08-06T13:10:27.417764+00:00"
+    },
+    "osm_node_5950545395": {
+        "relevance_score": 10,
+        "score_reasoning": "Özel servis olduğu için düşük skor verilmiştir",
+        "classified_at": "2026-08-06T13:10:27.417764+00:00"
+    },
+    "osm_node_5967861544": {
+        "relevance_score": 0,
+        "score_reasoning": "Alakasız sektörde (gıda) olduğu için skor verilmiştir",
+        "classified_at": "2026-08-06T13:10:27.417764+00:00"
+    },
+    "osm_node_6081025958": {
+        "relevance_score": 10,
+        "score_reasoning": "Tuning odaklı olduğu için düşük skor verilmiştir",
+        "classified_at": "2026-08-06T13:10:27.417764+00:00"
+    },
+    "osm_node_6273339463": {
+        "relevance_score": 20,
+        "score_reasoning": "İş makinesi odaklı olduğu için düşük skor verilmiştir",
+        "classified_at": "2026-08-06T13:10:27.417764+00:00"
+    },
+    "osm_node_6273340838": {
+        "relevance_score": 80,
+        "score_reasoning": "Lojistik/nakliye ofisi olduğu için yüksek skor verilmiştir",
+        "classified_at": "2026-08-06T13:10:27.417764+00:00"
+    },
+    "osm_node_6311883018": {
+        "relevance_score": 80,
+        "score_reasoning": "Lojistik/nakliye ofisi olduğu için yüksek skor verilmiştir",
+        "classified_at": "2026-08-06T13:10:27.417764+00:00"
+    },
+    "osm_node_6329891138": {
+        "relevance_score": 20,
+        "score_reasoning": "Oto yedek parça kategorisinde ama bağımsız tamirci/servis odaklı olduğu için düşük skor verilmiştir",
+        "classified_at": "2026-08-06T13:10:27.417764+00:00"
+    },
+    "osm_node_6389686524": {
+        "relevance_score": 10,
+        "score_reasoning": "Bağımsız tamirci/servis odaklı olduğu için düşük skor verilmiştir",
+        "classified_at": "2026-08-06T13:10:27.417764+00:00"
+    },
+    "osm_node_6741511914": {
+        "relevance_score": 10,
+        "score_reasoning": "Bağımsız tamirci/servis odaklı olduğu için düşük skor verilmiştir",
+        "classified_at": "2026-08-06T13:10:27.417764+00:00"
+    },
+    "osm_node_6991991099": {
+        "relevance_score": 10,
+        "score_reasoning": "Bağımsız tamirci/servis odaklı olduğu için düşük skor verilmiştir",
+        "classified_at": "2026-08-06T13:10:27.417764+00:00"
     }
 }
