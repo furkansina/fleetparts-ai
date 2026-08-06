@@ -211,14 +211,32 @@
         `;
     }
 
+    // Render'ın ücretsiz sunucusu birkaç dakika boş kalınca uykuya dalıyor; ilk istek onu
+    // uyandırırken bazen zaman aşımına uğrayıp JSON yerine bir hata sayfası dönebiliyor.
+    // Bu durumda kullanıcıya çirkin bir hata göstermek yerine otomatik olarak bir kez daha deneriz.
+    async function fetchJson(url, options, onRetry) {
+        for (let attempt = 0; attempt < 2; attempt++) {
+            const res = await fetch(url, options);
+            const contentType = res.headers.get('content-type') || '';
+            if (contentType.includes('application/json')) {
+                return await res.json();
+            }
+            if (attempt === 0) {
+                if (onRetry) onRetry();
+                await new Promise(r => setTimeout(r, 6000));
+                continue;
+            }
+            throw new Error('Sunucu şu an yanıt vermiyor. Sunucu uykudan uyanıyor olabilir, lütfen birkaç saniye sonra tekrar deneyin.');
+        }
+    }
+
     async function checkCatalog() {
         showLoading('Katalog yükleniyor');
         try {
-            const res = await fetch('/get-catalog');
-            const data = await res.json();
+            const data = await fetchJson('/get-catalog', undefined, () => showLoading('Sunucu uyandırılıyor, biraz daha bekleyin'));
             renderCatalog(data);
         } catch (err) {
-            showPlainError('Katalog yüklenemedi: ' + err);
+            showPlainError(err.message || String(err));
         }
     }
 
@@ -228,11 +246,10 @@
         showLoading('Katalog dosyaları yapay zeka tarafından okunuyor, lütfen bekleyin (birden fazla dosyada biraz sürebilir)');
 
         try {
-            const res = await fetch('/upload-catalog-files', { method: 'POST', body: formData });
-            const data = await res.json();
+            const data = await fetchJson('/upload-catalog-files', { method: 'POST', body: formData }, () => showLoading('Sunucu uyandırılıyor, biraz daha bekleyin'));
             renderUploadResult(data);
         } catch (err) {
-            showPlainError('Katalog yükleme hatası: ' + err);
+            showPlainError(err.message || String(err));
         }
     });
 
@@ -249,11 +266,10 @@
         showLoading('Parça analiz ediliyor ve katalogla eşleştiriliyor');
 
         try {
-            const res = await fetch('/process-part', { method: 'POST', body: formData });
-            const data = await res.json();
+            const data = await fetchJson('/process-part', { method: 'POST', body: formData }, () => showLoading('Sunucu uyandırılıyor, biraz daha bekleyin'));
             renderProcessPartResult(data);
         } catch (err) {
-            showPlainError('İşlem hatası: ' + err);
+            showPlainError(err.message || String(err));
         }
     });
 </script>
