@@ -14,6 +14,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 
 import lead_store
+import outreach
 
 app = FastAPI(title="FleetParts AI - Universal Heavy Duty Master Engine")
 
@@ -525,6 +526,81 @@ async def trigger_discovery(_: str = Depends(require_admin)):
         return {"status": "error", "message": f"HTTP {res.status_code}: {res.text}"}
     except Exception as e:
         return {"status": "error", "message": str(e)}
+
+# ---------------------------------------------------------
+# FAZ 1: MEVCUT MÜŞTERİLERE ÇEŞİTLİ İÇERİK (korumalı admin sayfaları)
+# ---------------------------------------------------------
+@app.get("/broadcast", response_class=HTMLResponse)
+async def read_broadcast(_: str = Depends(require_admin)):
+    try:
+        with open("broadcast.html", "r", encoding="utf-8") as f:
+            return f.read()
+    except Exception:
+        return "<h2>Sayfa bulunamadı</h2>"
+
+@app.get("/broadcast-data")
+async def get_broadcast_data(_: str = Depends(require_admin)):
+    return {
+        "contacts": outreach.load_contacts(),
+        "log": sorted(outreach.load_broadcast_log(), key=lambda x: x.get("created_at", ""), reverse=True),
+    }
+
+@app.post("/contacts/import")
+async def import_contacts(text: str = Form(...), _: str = Depends(require_admin)):
+    """'İsim, Telefon' formatında satır satır yapıştırılan kişileri mevcut listeye ekler."""
+    contacts = outreach.load_contacts()
+    existing_phones = {c.get("phone", "").strip() for c in contacts}
+    added = 0
+    for line in text.splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        parts = [p.strip() for p in line.split(",")]
+        name = parts[0] if parts else ""
+        phone = parts[1] if len(parts) > 1 else ""
+        if not name:
+            continue
+        if phone and phone in existing_phones:
+            continue
+        contacts.append({"name": name, "phone": phone, "company": "", "opted_in_at": None})
+        if phone:
+            existing_phones.add(phone)
+        added += 1
+    outreach.save_contacts(contacts)
+    outreach.sync_contacts_to_github()
+    return {"status": "success", "message": f"{added} kişi eklendi. Toplam: {len(contacts)}"}
+
+@app.post("/broadcast-generate")
+async def generate_broadcast(_: str = Depends(require_admin)):
+    """Groq ile dönüşümlü (statik olmayan) bir taslak mesaj önerir - kullanıcı gönderim öncesi düzenleyebilir."""
+    import random
+    angle = random.choice(outreach.BROADCAST_ANGLES)
+    prompt = f"""
+    Sen ağır vasıta yedek parça sektöründe faaliyet gösteren kurumsal bir işletmenin WhatsApp içerik asistanısın.
+    Görev: {angle}
+    Kısa (en fazla 4-5 cümle), samimi ama profesyonel, WhatsApp'a doğrudan yapıştırılabilir formatta yaz.
+    Fiyat listesi gibi durağan/kuru bir mesaj OLMASIN, gerçek bir insan yazmış gibi hissettirsin.
+    """
+    try:
+        draft = call_groq_api(prompt)
+        return {"status": "success", "draft": draft}
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
+
+@app.post("/broadcast/save")
+async def save_broadcast(message: str = Form(...), origin: str = Form("manuel"), _: str = Depends(require_admin)):
+    """Bir taslağı (AI önerili veya sıfırdan yazılmış) geçmişe 'gönderildi' olarak kaydeder."""
+    log = outreach.load_broadcast_log()
+    entry = {
+        "id": f"bc_{int(time.time() * 1000)}",
+        "message": message,
+        "origin": origin,  # "ai" veya "manuel"
+        "created_at": datetime.now(timezone.utc).isoformat(),
+    }
+    log.append(entry)
+    outreach.save_broadcast_log(log)
+    outreach.sync_broadcast_log_to_github()
+    return {"status": "success"}
 
 @app.post("/process-part")
 async def process_part(
