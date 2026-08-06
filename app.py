@@ -454,20 +454,28 @@ def merge_catalog_items(catalog: list, new_items: list) -> tuple:
 def _scan_catalog_source(filename: str, file_path: str) -> list:
     """Bir katalog dosyasını tarar. PDF ise her sayfayı, görselse görselin kendisini tarar;
     her ikisinde de sayfada/görselde kaç parça varsa hepsi çıkarılır (tek parça da olabilir, onlarca da).
+    Her çıkarılan parçaya hangi dosyadan (ve PDF'se hangi sayfadan) geldiği 'source_file' alanıyla
+    işlenir - ileride aynı ürün birden fazla katalogda geçtiğinde hangisinden alındığı görülebilsin diye.
     İşlem başarılı da olsa başarısız da olsa orijinal yüklenen dosya sonunda diskten silinir
     (veri zaten catalog.json'a işlendi, kaynak dosyayı tutmanın bir faydası yok - Render'ın
     sınırlı diskini zamanla doldurmasın diye)."""
     try:
         if filename.lower().endswith(".pdf"):
             items = []
-            for page_path in render_pdf_pages_to_images(file_path):
+            for page_num, page_path in enumerate(render_pdf_pages_to_images(file_path), start=1):
                 try:
-                    items.extend(call_groq_json_array(CATALOG_SCAN_PROMPT, page_path))
+                    page_items = call_groq_json_array(CATALOG_SCAN_PROMPT, page_path)
+                    for item in page_items:
+                        item["source_file"] = f"{filename} (sayfa {page_num})"
+                    items.extend(page_items)
                 finally:
                     if os.path.exists(page_path):
                         os.remove(page_path)
             return items
-        return call_groq_json_array(CATALOG_SCAN_PROMPT, file_path)
+        items = call_groq_json_array(CATALOG_SCAN_PROMPT, file_path)
+        for item in items:
+            item["source_file"] = filename
+        return items
     finally:
         if os.path.exists(file_path):
             os.remove(file_path)
