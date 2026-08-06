@@ -56,7 +56,7 @@ def main():
                 "source": "openstreetmap",
                 "company_name": raw["name"],
                 "entity_type_note": scoring["entity_type_note"],
-                "sector_guess": raw.get("shop_type") or "Belirsiz",
+                "sector_guess": scoring["sector_label"],
                 "province": province,
                 "district": "",
                 "address": raw.get("address", ""),
