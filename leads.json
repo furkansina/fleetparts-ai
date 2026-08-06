@@ -11,7 +11,12 @@
         "phone": "+905551234567",
         "growth_signal": null,
         "relevance_score": 78,
-        "score_breakdown": {"sector_match": 40, "geography": 20, "growth_signal": 0, "data_completeness": 18},
+        "score_breakdown": {
+            "sector_match": 40,
+            "geography": 20,
+            "growth_signal": 0,
+            "data_completeness": 18
+        },
         "score_reasoning": "Test verisi - nakliye sektörü anahtar kelime eşleşmesi",
         "discovered_at": "2026-08-06T00:00:00Z",
         "scan_batch_id": "test-batch-0"
@@ -26,9 +31,18 @@
         "district": "Selçuklu",
         "address": "Fevzi Çakmak Sanayi Sitesi, Konya",
         "phone": "+905559876543",
-        "growth_signal": {"type": "yeni_kuruluş", "detected_at": "2026-07-15", "source_url": "test"},
+        "growth_signal": {
+            "type": "yeni_kuruluş",
+            "detected_at": "2026-07-15",
+            "source_url": "test"
+        },
         "relevance_score": 91,
-        "score_breakdown": {"sector_match": 45, "geography": 20, "growth_signal": 15, "data_completeness": 11},
+        "score_breakdown": {
+            "sector_match": 45,
+            "geography": 20,
+            "growth_signal": 15,
+            "data_completeness": 11
+        },
         "score_reasoning": "Test verisi - hem sektör eşleşmesi hem yeni kuruluş sinyali",
         "discovered_at": "2026-08-06T00:00:00Z",
         "scan_batch_id": "test-batch-0"
@@ -45,9 +59,168 @@
         "phone": "+905553334455",
         "growth_signal": null,
         "relevance_score": 12,
-        "score_breakdown": {"sector_match": 5, "geography": 5, "growth_signal": 0, "data_completeness": 2},
+        "score_breakdown": {
+            "sector_match": 5,
+            "geography": 5,
+            "growth_signal": 0,
+            "data_completeness": 2
+        },
         "score_reasoning": "Test verisi - bağımsız tamirci, hedef kitle dışı, düşük skor beklenen davranış",
         "discovered_at": "2026-08-06T00:00:00Z",
         "scan_batch_id": "test-batch-0"
+    },
+    {
+        "lead_id": "osm_node_4573041692",
+        "source": "openstreetmap",
+        "company_name": "Enes Toptan",
+        "entity_type_note": "Belirsiz",
+        "sector_guess": "convenience",
+        "province": "Adana",
+        "district": "",
+        "address": "",
+        "phone": "",
+        "growth_signal": null,
+        "relevance_score": 45,
+        "score_breakdown": {
+            "sector_match": 25,
+            "geography": 20,
+            "growth_signal": 0,
+            "data_completeness": 0
+        },
+        "score_reasoning": "İsminde nakliye/lojistik/toptan/dorse gibi hedef kitle anahtar kelimesi geçiyor.",
+        "discovered_at": "2026-08-06T10:41:15.989805+00:00",
+        "scan_batch_id": "2026-W32"
+    },
+    {
+        "lead_id": "osm_node_6670103470",
+        "source": "openstreetmap",
+        "company_name": "Komatsu - Aktif İş Makinaları",
+        "entity_type_note": "Belirsiz",
+        "sector_guess": "car_repair",
+        "province": "Adana",
+        "district": "",
+        "address": "",
+        "phone": "+90 322 332 88 68",
+        "growth_signal": null,
+        "relevance_score": 10,
+        "score_breakdown": {
+            "sector_match": 0,
+            "geography": 20,
+            "growth_signal": 0,
+            "data_completeness": 10
+        },
+        "score_reasoning": "Bağımsız oto tamir servisi görünüyor - hedef kitle dışı (sanayideki tamirciler), düşük öncelik.",
+        "discovered_at": "2026-08-06T10:41:15.990162+00:00",
+        "scan_batch_id": "2026-W32"
+    },
+    {
+        "lead_id": "osm_node_6670137060",
+        "source": "openstreetmap",
+        "company_name": "Komatsu - Güney İş Makinaları",
+        "entity_type_note": "Belirsiz",
+        "sector_guess": "car_repair",
+        "province": "Adana",
+        "district": "",
+        "address": "",
+        "phone": "+90 322 271 06 44",
+        "growth_signal": null,
+        "relevance_score": 10,
+        "score_breakdown": {
+            "sector_match": 0,
+            "geography": 20,
+            "growth_signal": 0,
+            "data_completeness": 10
+        },
+        "score_reasoning": "Bağımsız oto tamir servisi görünüyor - hedef kitle dışı (sanayideki tamirciler), düşük öncelik.",
+        "discovered_at": "2026-08-06T10:41:15.990226+00:00",
+        "scan_batch_id": "2026-W32"
+    },
+    {
+        "lead_id": "osm_node_6815088049",
+        "source": "openstreetmap",
+        "company_name": "Ekol Lojistik",
+        "entity_type_note": "Belirsiz",
+        "sector_guess": "yes",
+        "province": "Adana",
+        "district": "",
+        "address": "",
+        "phone": "",
+        "growth_signal": null,
+        "relevance_score": 45,
+        "score_breakdown": {
+            "sector_match": 25,
+            "geography": 20,
+            "growth_signal": 0,
+            "data_completeness": 0
+        },
+        "score_reasoning": "İsminde nakliye/lojistik/toptan/dorse gibi hedef kitle anahtar kelimesi geçiyor.",
+        "discovered_at": "2026-08-06T10:41:15.990261+00:00",
+        "scan_batch_id": "2026-W32"
+    },
+    {
+        "lead_id": "osm_node_6854626981",
+        "source": "openstreetmap",
+        "company_name": "Sonax",
+        "entity_type_note": "Belirsiz",
+        "sector_guess": "car_repair",
+        "province": "Adana",
+        "district": "",
+        "address": "",
+        "phone": "",
+        "growth_signal": null,
+        "relevance_score": 0,
+        "score_breakdown": {
+            "sector_match": 0,
+            "geography": 20,
+            "growth_signal": 0,
+            "data_completeness": 0
+        },
+        "score_reasoning": "Bağımsız oto tamir servisi görünüyor - hedef kitle dışı (sanayideki tamirciler), düşük öncelik.",
+        "discovered_at": "2026-08-06T10:41:15.990283+00:00",
+        "scan_batch_id": "2026-W32"
+    },
+    {
+        "lead_id": "osm_node_12624046645",
+        "source": "openstreetmap",
+        "company_name": "Sedat Oto Elektrik Ve Klima",
+        "entity_type_note": "Belirsiz",
+        "sector_guess": "car_repair",
+        "province": "Adana",
+        "district": "",
+        "address": "Haci Bektaş Veli Bulvarı 36 Çukurova Adana",
+        "phone": "+905330258054",
+        "growth_signal": null,
+        "relevance_score": 15,
+        "score_breakdown": {
+            "sector_match": 0,
+            "geography": 20,
+            "growth_signal": 0,
+            "data_completeness": 15
+        },
+        "score_reasoning": "Bağımsız oto tamir servisi görünüyor - hedef kitle dışı (sanayideki tamirciler), düşük öncelik.",
+        "discovered_at": "2026-08-06T10:41:15.990302+00:00",
+        "scan_batch_id": "2026-W32"
+    },
+    {
+        "lead_id": "osm_node_12626437318",
+        "source": "openstreetmap",
+        "company_name": "Oğuz Usta Oto Elektronik Beyin Tamiri",
+        "entity_type_note": "Belirsiz",
+        "sector_guess": "car_repair",
+        "province": "Adana",
+        "district": "",
+        "address": "46111 Sokak 25 D:B Seyhan Adana",
+        "phone": "",
+        "growth_signal": null,
+        "relevance_score": 5,
+        "score_breakdown": {
+            "sector_match": 0,
+            "geography": 20,
+            "growth_signal": 0,
+            "data_completeness": 5
+        },
+        "score_reasoning": "Bağımsız oto tamir servisi görünüyor - hedef kitle dışı (sanayideki tamirciler), düşük öncelik.",
+        "discovered_at": "2026-08-06T10:41:15.990335+00:00",
+        "scan_batch_id": "2026-W32"
     }
 ]
