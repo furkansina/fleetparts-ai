@@ -328,7 +328,12 @@ def sales_agent(product_data: dict, customer_type: str, price_note: str) -> str:
     Fiyat / Not: {fiyat}
     Stok Durumu: Mevcut ({product_data.get('stock', 'Hazır')} adet)
 
-    Görev: WhatsApp ve kurumsal iletişim kanalları için; tamamen profesyonel, net, yorumsuz, parça durumu eleştirisi barındırmayan saf ticari sipariş/teklif mesajı oluştur.
+    Görev: WhatsApp ve k
+    
+    
+    
+    
+    urumsal iletişim kanalları için; tamamen profesyonel, net, yorumsuz, parça durumu eleştirisi barındırmayan saf ticari sipariş/teklif mesajı oluştur.
     """
     try:
         return call_groq_api(prompt)
@@ -505,6 +510,21 @@ async def update_lead_status(
     lead_store.save_lead_reviews(reviews)
     lead_store.sync_lead_reviews_to_github()
     return {"status": "success"}
+
+@app.post("/trigger-discovery")
+async def trigger_discovery(_: str = Depends(require_admin)):
+    """GitHub Actions'taki haftalık tarama workflow'unu elle (anında) tetikler."""
+    if not GITHUB_TOKEN or not GITHUB_REPO:
+        return {"status": "error", "message": "GitHub bağlantısı yapılandırılmamış."}
+    try:
+        url = f"https://api.github.com/repos/{GITHUB_REPO}/actions/workflows/discovery-scan.yml/dispatches"
+        headers = {"Authorization": f"Bearer {GITHUB_TOKEN}", "Accept": "application/vnd.github+json"}
+        res = requests.post(url, headers=headers, json={"ref": "main"}, timeout=15)
+        if res.status_code == 204:
+            return {"status": "success", "message": "Tarama tetiklendi. Birkaç dakika içinde bu sayfada yeni lead'ler görünecek."}
+        return {"status": "error", "message": f"HTTP {res.status_code}: {res.text}"}
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
 
 @app.post("/process-part")
 async def process_part(
