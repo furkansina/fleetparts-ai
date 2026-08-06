@@ -5,6 +5,10 @@ on:
     - cron: '17 2 * * 1'  # Her Pazartesi 02:17 UTC - tam saatten kaydırılmış, yoğunluk saatini atlar
   workflow_dispatch: {}
 
+concurrency:
+  group: discovery-scan
+  cancel-in-progress: false  # yeni koşu, öncekini iptal etmez, kuyrukta bekler - leads.json çakışmasını önler
+
 jobs:
   discover:
     runs-on: ubuntu-latest
@@ -20,8 +24,10 @@ jobs:
 
       - name: Taramayı çalıştır
         run: python scripts/run_discovery.py
+        timeout-minutes: 45
 
       - name: Değişiklikleri commit et
+        if: always()
         run: |
           git config user.name "fleetparts-discovery-bot"
           git config user.email "actions@github.com"
