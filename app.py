@@ -19,6 +19,7 @@ from fastapi.security import HTTPBasic, HTTPBasicCredentials
 import lead_store
 import outreach
 import usage_tracker
+from lead_dedupe import is_mobile_phone
 
 app = FastAPI(title="FleetParts AI - Universal Heavy Duty Master Engine")
 
@@ -230,9 +231,12 @@ def call_groq_json(prompt: str, image_path: str = None, use_secondary_model: boo
 def vision_agent(image_path: str) -> dict:
     prompt = """
     Sen ağır vasıta, tır, kamyon, iş makinesi ve otobüslere ait KÜRESEL ÇAPTAKİ TÜM YEDEK PARÇALARI (Fren, Havalı Sistem, Filtreler, Süspansiyon, Sensörler, Dişliler, Valfler, Pompalar vb.) kusursuz tanıyan evrensel bir yapay zeka mühendisisin.
-    Görseldeki parça ne kadar kirli, paslı, yağlı veya kötü açıyla çekilmiş olursa olsun odaklan ve şu teknik verileri çıkar:
 
-    1. OCR Optik Karakter Taraması: Parça üzerindeki döküm yazılarını, OEM numaralarını, silik etiketleri ve seri numaralarını harf harf oku.
+    ÖNCE ŞUNU KONTROL ET: Görselde gerçekten ağır vasıta/kamyon/otobüs/iş makinesi yedek parçası var mı? Görsel bulanık, alakasız (insan, hayvan, belge, ekran görüntüsü, iç mekan vb.) veya boşsa, ya da hiçbir teknik parça özelliği ayırt edilemiyorsa 'is_part_detected' alanını false yap ve diğer alanları boş/null bırak - ASLA görselde olmayan bir parça uydurma.
+
+    Görselde gerçek bir parça varsa, parça ne kadar kirli, paslı, yağlı veya kötü açıyla çekilmiş olursa olsun odaklan ve şu teknik verileri çıkar:
+
+    1. OCR Optik Karakter Taraması: Parça üzerindeki döküm yazılarını, OEM numaralarını, silik etiketleri ve seri numaralarını harf harf oku. KARIŞABİLECEK KARAKTERLERE ÖZELLİKLE DİKKAT ET: 0 (sıfır) ile O (harf), 1 (bir) ile I/l (harf), 8 ile B, 5 ile S sık karışır - döküm derinliği, yazı tipi ve çevredeki diğer karakterlerin deseninden hangisi olduğuna dikkatlice karar ver. Bir kod net okunamıyor/yarısı silikse, o kodu ocr_extracted_codes'a EKLEME (yanlış kod eklemek hiç kod eklememekten daha kötüdür).
     2. Topolojik Mühendislik Haritası: Parçanın rekorlarını, dişli hatve yapılarını, cıvata/montaj delik sayısını, elektrik pin/soketlerini detaylı say.
     3. Geometrik Sınıflandırma: Parçanın ana kategorisini (Örn: Fren Sistemleri, Hava Valfleri, Filtrasyon, Hidrolik vb.) ve tam adını belirle.
 
@@ -241,7 +245,7 @@ def vision_agent(image_path: str) -> dict:
       "is_part_detected": true,
       "universal_category": "Fren / Hava Sistemi / Filtre / Süspansiyon / Diğer",
       "exact_name_classification": "Parçanın Sektörel Net Adı",
-      "ocr_extracted_codes": ["Kod1", "Kod2", "Bulunamazsa Boş Liste"],
+      "ocr_extracted_codes": ["Kod1", "Kod2", "Net okunamayan/şüpheli kod yoksa boş liste"],
       "topology_map": {
         "ports_or_threads": "Rekor, boru veya dişli bağlantı detayları ve sayıları",
         "electrical_pins_or_sockets": "Elektronik soket, pin veya sensör uçları",
@@ -249,6 +253,7 @@ def vision_agent(image_path: str) -> dict:
       },
       "geometry_and_material": "Malzeme cinsi (Alüminyum döküm, sac, plastik, balata materyali vb.) ve fiziksel form"
     }
+    Görselde parça tespit edilemediyse SADECE şunu döndür: {"is_part_detected": false}
     """
     try:
         return call_groq_json(prompt, image_path)
@@ -272,9 +277,10 @@ def match_agent(vision_data: dict) -> dict:
     {json.dumps(catalog, ensure_ascii=False)}
 
     EŞLEŞTİRME PRENSİPLERİ:
-    1. OEM / KOD EŞLEŞMESİ: Tarama verisindeki 'ocr_extracted_codes' içindeki herhangi bir kod katalogdaki 'oem' veya 'id' ile uyuşuyorsa güven skoru direkt %100'dür.
+    1. OEM / KOD EŞLEŞMESİ: Tarama verisindeki 'ocr_extracted_codes' içindeki herhangi bir kod katalogdaki 'oem' veya 'id' ile uyuşuyorsa YÜKSEK bir güven skoru (90-100) VER, FAKAT önce şu kritik kontrolü yap: eşleşen katalog ürününün kategorisi/'specs' bilgisi ile taranan parçanın 'universal_category', 'topology_map' ve 'geometry_and_material' bilgisi AÇIKÇA ÇELİŞİYORSA (örn. kod bir "hava valfi"ne ait ama taranan parça net biçimde bir "fren balatası" görünümündeyse), bu muhtemelen bir OCR OKUMA HATASI sonucu tesadüfi bir KOD ÇAKIŞMASIDIR - bu durumda güven skorunu 40'ın altına düşür ve decision_logic'te bu çelişkiyi açıkça belirt ("Kod eşleşti ama fiziksel özellikler uyuşmuyor, muhtemelen OCR hatası" gibi).
     2. TOPOLOJİK UYUM: Kod okunamadıysa; parça kategorisi, rekor/delik sayıları ve fiziksel özellikleri katalogdaki ürünlerin 'specs' bilgileriyle kıyaslanır. Uyum oranı hesaplanır.
-    3. Eşleşme skoru %70'in altındaysa kesinlikle yanlış parça riskine girilmez ve 'NOT_IN_CATALOG' döndürülür.
+    3. BELİRSİZLİK: Katalogda birden fazla ürün taranan parçaya benzer derecede uygunsa (aralarında net bir ayrım yapılamıyorsa), bunu kesin bir eşleşme gibi sunma - güven skorunu 60'ın altında tut ve decision_logic'te hangi ürünler arasında belirsizlik olduğunu belirt.
+    4. Eşleşme skoru %70'in altındaysa kesinlikle yanlış parça riskine girilmez ve 'NOT_IN_CATALOG' döndürülür.
 
     Çıktı SADECE şu JSON yapısında olmalıdır:
     {{
@@ -290,11 +296,19 @@ def match_agent(vision_data: dict) -> dict:
         decision = result.get("decision_logic", "")
 
         if matched_id and matched_id != "NOT_IN_CATALOG" and score >= 70:
-            for item in catalog:
-                if str(item.get("id")) == str(matched_id):
-                    item_copy = item.copy()
-                    item_copy["match_reason"] = f"Kesinlik Skoru: %{score} | Doğrulama: {decision}"
-                    return item_copy
+            matches = [item for item in catalog if str(item.get("id")) == str(matched_id)]
+            if len(matches) > 1:
+                # Katalogda aynı id'ye sahip birden fazla kayıt var - veri bütünlüğü sorunu,
+                # yanlış/eski kaydı sunmaktansa açıkça "eşleşme sağlanamadı" demek daha güvenli
+                return {
+                    "id": "NOT_IN_CATALOG",
+                    "name": "Katalog Veri Çakışması",
+                    "match_reason": f"'{matched_id}' koduna sahip birden fazla katalog kaydı bulundu - lütfen kataloğu kontrol edin, otomatik eşleştirme güvenli değil."
+                }
+            if matches:
+                item_copy = matches[0].copy()
+                item_copy["match_reason"] = f"Kesinlik Skoru: %{score} | Doğrulama: {decision}"
+                return item_copy
 
         return {
             "id": "NOT_IN_CATALOG",
@@ -316,11 +330,22 @@ def find_by_text(query: str) -> dict:
     q = query.strip().lower()
 
     # 1. Önce birebir OEM/ID eşleşmesi dene (hızlı ve %100 güvenilir, yapay zekaya gerek yok)
-    for item in catalog:
-        if q == str(item.get("oem", "")).strip().lower() or q == str(item.get("id", "")).strip().lower():
-            item_copy = item.copy()
-            item_copy["match_reason"] = "OEM/katalog kodu ile birebir eşleşme (%100)"
-            return item_copy
+    exact_matches = [
+        item for item in catalog
+        if q == str(item.get("oem", "")).strip().lower() or q == str(item.get("id", "")).strip().lower()
+    ]
+    if len(exact_matches) > 1:
+        # Aynı koda sahip birden fazla katalog kaydı - veri bütünlüğü sorunu, rastgele birini
+        # seçmek yerine açıkça uyar (bu normalde merge_catalog_items ile önlenir, ekstra güvenlik)
+        return {
+            "id": "NOT_IN_CATALOG",
+            "name": "Katalog Veri Çakışması",
+            "match_reason": f"'{query}' koduna sahip birden fazla katalog kaydı bulundu - lütfen kataloğu kontrol edin."
+        }
+    if exact_matches:
+        item_copy = exact_matches[0].copy()
+        item_copy["match_reason"] = "OEM/katalog kodu ile birebir eşleşme (%100)"
+        return item_copy
 
     # 2. Birebir kod eşleşmesi yoksa, yapay zekaya isim/açıklama bazlı eşleştirt (örn: "DAF sol çamurluk")
     prompt = f"""
@@ -332,9 +357,10 @@ def find_by_text(query: str) -> dict:
     {json.dumps(catalog, ensure_ascii=False)}
 
     EŞLEŞTİRME PRENSİPLERİ:
-    1. Yazılan metin katalogdaki 'oem' veya 'id' alanına (kısmen de olsa) uyuyorsa güven skoru yüksek olmalıdır.
-    2. Kod uyuşmuyorsa, metindeki marka/parça adı katalogdaki 'name', 'brand' ve 'specs' alanlarıyla anlam olarak kıyaslanır.
-    3. Eşleşme skoru %70'in altındaysa kesinlikle yanlış parça riskine girilmez ve 'NOT_IN_CATALOG' döndürülür.
+    1. Yazılan metin katalogdaki 'oem' veya 'id' alanıyla TAM olarak uyuyorsa güven skoru yüksek olmalıdır (bu zaten kod içinde ayrıca kontrol edildi, buraya gelmiş olması tam eşleşme OLMADIĞI anlamına gelir). SADECE KISMİ/parçalı bir kod benzerliği varsa (örn. birkaç hane ortak) bunu asla yüksek güven sayma - kısmi kod benzerliği yanlış parça riski taşır, güven skorunu en fazla 50-60 civarında tut ve NOT_IN_CATALOG'a düşmesine izin ver.
+    2. Kod uyuşmuyorsa, metindeki marka/parça adı katalogdaki 'name', 'brand' ve 'specs' alanlarıyla anlam olarak kıyaslanır - bu tür isim/açıklama bazlı eşleşmeler net ve tek bir aday varsa yüksek güven alabilir.
+    3. BELİRSİZLİK: Katalogda birden fazla ürün yazılan metne benzer derecede uygunsa, kesin bir eşleşme gibi sunma - güven skorunu 60'ın altında tut ve decision_logic'te belirsizliği belirt.
+    4. Eşleşme skoru %70'in altındaysa kesinlikle yanlış parça riskine girilmez ve 'NOT_IN_CATALOG' döndürülür.
 
     Çıktı SADECE şu JSON yapısında olmalıdır:
     {{
@@ -350,11 +376,17 @@ def find_by_text(query: str) -> dict:
         decision = result.get("decision_logic", "")
 
         if matched_id and matched_id != "NOT_IN_CATALOG" and score >= 70:
-            for item in catalog:
-                if str(item.get("id")) == str(matched_id):
-                    item_copy = item.copy()
-                    item_copy["match_reason"] = f"Kesinlik Skoru: %{score} | Doğrulama: {decision}"
-                    return item_copy
+            matches = [item for item in catalog if str(item.get("id")) == str(matched_id)]
+            if len(matches) > 1:
+                return {
+                    "id": "NOT_IN_CATALOG",
+                    "name": "Katalog Veri Çakışması",
+                    "match_reason": f"'{matched_id}' koduna sahip birden fazla katalog kaydı bulundu - lütfen kataloğu kontrol edin, otomatik eşleştirme güvenli değil."
+                }
+            if matches:
+                item_copy = matches[0].copy()
+                item_copy["match_reason"] = f"Kesinlik Skoru: %{score} | Doğrulama: {decision}"
+                return item_copy
 
         return {
             "id": "NOT_IN_CATALOG",
@@ -634,6 +666,54 @@ async def bulk_update_lead_status(
     lead_store.sync_lead_reviews_to_github()
     return {"status": "success", "message": f"{len(ids)} lead güncellendi."}
 
+@app.post("/leads/add-to-contacts")
+async def add_leads_to_contacts(
+    lead_ids: str = Form(...),  # virgülle ayrılmış id listesi
+    _: str = Depends(require_admin)
+):
+    """Lead Keşfi (Faz 2) ile Müşteri İletişimi (Faz 1) arasındaki köprü: seçilen lead'leri
+    mevcut kişi listesine ekler. Otomatik mesaj GÖNDERMEZ - sadece listeye ekler, gönderim
+    /broadcast sayfasından her zamanki gibi elle/AI taslağıyla yapılır. Sabit hat numaralı
+    lead'ler eklenmez (WhatsApp'tan ulaşılamaz), CSV/liste dışında bırakılmaları için sayılır."""
+    ids = [i.strip() for i in lead_ids.split(",") if i.strip()]
+    leads_by_id = {l.get("lead_id"): l for l in lead_store.load_leads()}
+    contacts = outreach.load_contacts()
+    existing_phones = {c.get("phone", "").strip() for c in contacts if c.get("phone")}
+
+    added = 0
+    skipped_no_mobile = 0
+    skipped_duplicate = 0
+    for lid in ids:
+        lead = leads_by_id.get(lid)
+        if not lead:
+            continue
+        phone = (lead.get("phone") or "").strip()
+        if not phone or not is_mobile_phone(phone):
+            skipped_no_mobile += 1
+            continue
+        if phone in existing_phones:
+            skipped_duplicate += 1
+            continue
+        contacts.append({
+            "name": lead.get("company_name", ""),
+            "phone": phone,
+            "company": lead.get("company_name", ""),
+            "opted_in_at": None,
+            "source": "lead_discovery",
+        })
+        existing_phones.add(phone)
+        added += 1
+
+    outreach.save_contacts(contacts)
+    outreach.sync_contacts_to_github()
+
+    message = f"{added} kişi Müşteri İletişimi listesine eklendi."
+    if skipped_no_mobile:
+        message += f" {skipped_no_mobile} lead cep telefonu (WhatsApp) numarası olmadığı için eklenmedi."
+    if skipped_duplicate:
+        message += f" {skipped_duplicate} lead zaten listede vardı."
+    return {"status": "success", "message": message, "added": added}
+
 @app.get("/leads-export")
 async def export_leads_csv(_: str = Depends(require_admin)):
     """Kataloğu Excel'de açılabilir CSV olarak indirir - sahada kağıt/excel üzerinden çalışmak için."""
@@ -848,6 +928,15 @@ async def process_part(
 
             # 1. Aşama: Evrensel Endüstriyel Tarama & OCR
             vision_res = vision_agent(file_path)
+
+            # Görselde hiç parça tespit edilemediyse (alakasız/bulanık/boş fotoğraf) katalogla
+            # eşleştirmeye hiç girişme - aksi halde model olmayan bir parça için katalogdan
+            # rastgele/hatalı bir eşleşme uydurmaya çalışabilir.
+            if vision_res.get("is_part_detected") is False:
+                return {
+                    "status": "error",
+                    "message": "Görselde bir yedek parça tespit edilemedi. Lütfen parçanın net, yakından çekilmiş bir fotoğrafını yükleyin veya OEM kodu/parça adını yazarak arayın."
+                }
 
             # 2. Aşama: Matris Algoritmik Eşleştirme
             matched_prod = match_agent(vision_res)
