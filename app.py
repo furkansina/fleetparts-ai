@@ -915,6 +915,131 @@ async def classify_ambiguous_leads(_: str = Depends(require_admin)):
     except Exception as e:
         return {"status": "error", "message": str(e), "remaining": len(candidates)}
 
+CLASSIFY_PRODUCT_BATCH_SIZE = 20
+
+def _slugify_product_key(text: str) -> str:
+    import re as _re
+    slug = _re.sub(r"[^a-z0-9ğüşıöç]+", "_", text.strip().lower())
+    return slug.strip("_")[:60] or "urun"
+
+@app.post("/leads/classify-for-product")
+async def classify_leads_for_product(
+    product_description: str = Form(...),
+    province: str = Form(""),  # boşsa tüm iller, doluysa sadece o ile bakılır (token tasarrufu)
+    _: str = Depends(require_admin)
+):
+    """'Bu ürünü kim alır?' sorusuna cevap verir - genel hedef kitle skorundan (relevance_score)
+    farklı olarak, VERİLEN SPESİFİK ürüne göre her lead'in alım ihtimalini AI ile değerlendirir.
+    Aynı ürün sorgusu tekrar gönderilirse zaten değerlendirilmiş lead'ler tekrar sorulmaz.
+    NOT: Bu sadece ürün KATEGORİSİ/tipi bazında eşleştirme yapar (örn. 'kim hortum adaptörü
+    alır') - OSM verisinde firmaların hangi araç MARKASINI/MODELİNİ kullandığı hiç kayıtlı
+    olmadığı için marka/model bazlı hedefleme (örn. 'kim IVECO S-WAY için parça alır') mevcut
+    veriyle yapılamaz."""
+    product_description = product_description.strip()
+    if not product_description:
+        return {"status": "error", "message": "Ürün açıklaması boş olamaz."}
+
+    product_key = _slugify_product_key(product_description)
+    leads = lead_store.load_leads()
+    reviews = lead_store.load_lead_reviews()
+    product_scores = lead_store.load_lead_product_scores()
+    existing = product_scores.get(product_key, {}).get("scores", {})
+
+    candidates = [
+        l for l in leads
+        if l.get("lead_id") not in existing
+        and (l.get("relevance_score") or 0) >= 15  # bağımsız tamirci tavanının altını baştan ele
+        and reviews.get(l.get("lead_id"), {}).get("status") != "reddedildi"
+        and (not province or l.get("province") == province)
+    ]
+
+    if not candidates:
+        return {
+            "status": "success",
+            "message": "Bu ürün için değerlendirilecek yeni lead kalmadı.",
+            "classified": 0,
+            "remaining": 0,
+            "product_key": product_key,
+        }
+
+    batch = candidates[:CLASSIFY_PRODUCT_BATCH_SIZE]
+    now = datetime.now(timezone.utc).isoformat()
+    listing = "\n".join(
+        f'{i+1}. lead_id="{l["lead_id"]}" | isim="{l.get("company_name","")}" | '
+        f'kategori="{l.get("sector_guess","")}" | il="{l.get("province","")}"'
+        for i, l in enumerate(batch)
+    )
+    prompt = f"""
+    Sen ağır vasıta (kamyon, TIR, otobüs, iş makinesi) yedek parça sektöründe satış hedefleme uzmanısın.
+    Satmak istediğimiz SPESİFİK ürün: "{product_description}"
+
+    Bu ürünü kimler satın alır düşün:
+    - Bu ürünü TOPTAN/PERAKENDE satacak oto yedek parça toptancıları/satıcıları (yeniden satış için) - genelde YÜKSEK ihtimal
+    - Kendi filosundaki araçlarda KULLANMAK için satın alacak nakliye/lojistik/filo sahibi firmalar (kendi bakımları için) - ORTA-YÜKSEK ihtimal
+    DEĞİL (düşük skor ver):
+    - Bu ürünle sektörel olarak hiç ilgisi olmayan firmalar
+    - Bağımsız oto tamir servisleri (genelde toptan/stok alımı yapmazlar)
+
+    Aşağıdaki firmaları bu SPESİFİK ürüne göre değerlendir (genel oto yedek parça hedef kitlesi
+    olmaları tek başına yeterli değil - bu ürünle ilgilenip ilgilenmeyecekleri önemli):
+    {listing}
+
+    Her biri için 0-100 arası "bu ürünü satın alma ihtimali" skoru ve kısa bir gerekçe ver.
+
+    SADECE şu JSON dizisini döndür:
+    [
+      {{"lead_id": "...", "product_fit_score": 65, "product_fit_reasoning": "..."}}
+    ]
+    """
+    try:
+        results = call_groq_json_array(prompt, use_secondary_model=True)  # iç kullanım, ayrı (llama) kota
+        if product_key not in product_scores:
+            product_scores[product_key] = {"product_description": product_description, "classified_at": now, "scores": {}}
+        for r in results:
+            lid = r.get("lead_id")
+            if not lid:
+                continue
+            product_scores[product_key]["scores"][lid] = {
+                "product_fit_score": int(r.get("product_fit_score", 0)),
+                "product_fit_reasoning": r.get("product_fit_reasoning", ""),
+                "classified_at": now,
+            }
+        product_scores[product_key]["classified_at"] = now
+        lead_store.save_lead_product_scores(product_scores)
+        lead_store.sync_lead_product_scores_to_github()
+        remaining = len(candidates) - len(batch)
+        return {
+            "status": "success",
+            "message": f"{len(results)} lead '{product_description}' ürününe göre değerlendirildi.",
+            "classified": len(results),
+            "remaining": remaining,
+            "product_key": product_key,
+        }
+    except Exception as e:
+        return {"status": "error", "message": str(e), "remaining": len(candidates), "product_key": product_key}
+
+@app.get("/leads-product-scores/{product_key}")
+async def get_leads_product_scores(product_key: str, _: str = Depends(require_admin)):
+    """Belirli bir ürün sorgusu için o ana kadar hesaplanmış tüm lead skorlarını döndürür
+    (leads.html bunu 'remaining' 0 olana kadar tekrar tekrar çağırdıktan sonra sonucu göstermek için kullanır)."""
+    product_scores = lead_store.load_lead_product_scores()
+    entry = product_scores.get(product_key)
+    if not entry:
+        return {"status": "error", "message": "Bu ürün için henüz bir değerlendirme yok."}
+    return {"status": "success", "product_description": entry.get("product_description", ""), "scores": entry.get("scores", {})}
+
+@app.get("/leads-product-queries")
+async def list_leads_product_queries(_: str = Depends(require_admin)):
+    """Daha önce sorgulanmış tüm ürünlerin listesini döndürür - kullanıcı aynı ürünü tekrar
+    yazmadan önceki bir sorguyu seçip devam edebilsin diye."""
+    product_scores = lead_store.load_lead_product_scores()
+    return {
+        "queries": [
+            {"product_key": key, "product_description": v.get("product_description", key), "count": len(v.get("scores", {}))}
+            for key, v in product_scores.items()
+        ]
+    }
+
 @app.post("/trigger-discovery")
 async def trigger_discovery(_: str = Depends(require_admin)):
     """GitHub Actions'taki haftalık tarama workflow'unu elle (anında) tetikler."""
