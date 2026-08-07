@@ -30,6 +30,26 @@ _EXCLUDE_PATTERN = re.compile(
     r"\b(" + "|".join(re.escape(k) for k in _EXCLUDE_KEYWORDS) + r")\b"
 )
 
+# İşletme sahibinin (baba) oğluna WhatsApp'ta AÇIKÇA belirttiği hedef kitle tanımı: "sanayideki
+# yedek parçacılar VE tamirciler" reddedildi - hedef "Anadolu'daki toptan ve perakendeciler" ile
+# kendi bakımını kendi yapabilen (elektrik/kaporta işini halledebilen), parça STOKLAYAN lojistik/
+# filo firmaları. Yani PARÇA SATAN işletmeler hedef, müşterinin aracını tamir eden/işçilik satan
+# SERVİS işletmeleri hedef DEĞİL. Rehber kaynaklarının (turkbusinesscenter.com, sanayi sitesi
+# rehberleri) kategori etiketi bunu ayırt etmek için kullanılır - "parça" kelimesi geçen bir
+# kategori aynı zamanda servis kelimesi içerse bile (örn. "Servis Yedek Parça") parça sattığı
+# için hedef kabul edilir, ama SADECE servis/tamir kelimesi geçip parça kelimesi hiç geçmiyorsa
+# (örn. "Motor Tamircileri", "Kaporta Boya", "Bakım Servisi") hedef dışı sayılır.
+_SERVICE_ONLY_CATEGORY_KEYWORDS = [
+    "tamir", "bakım servisi", "bakim servisi", "boya", "kaynak", "torna", "rektefiye",
+    "kurtarma", "vinç", "vinc", "montaj", "mekanik",
+]
+_PARTS_CATEGORY_KEYWORDS = [
+    "yedek parça", "yedek parca", "parça", "parca", "aksesuar", "hurdacı", "hurdaci",
+    "çıkma", "cikma", "levazımat", "levazimat", "nalbur", "lastik",
+]
+_SERVICE_CATEGORY_PATTERN = re.compile("|".join(re.escape(k) for k in _SERVICE_ONLY_CATEGORY_KEYWORDS))
+_PARTS_CATEGORY_PATTERN = re.compile("|".join(re.escape(k) for k in _PARTS_CATEGORY_KEYWORDS))
+
 
 def score_lead(raw: dict) -> dict:
     """Kural bazlı skor: OSM'den gelen ham veriyi (isim, kategori, iletişim bilgisi)
@@ -71,9 +91,17 @@ def score_lead(raw: dict) -> dict:
     if keyword_hit:
         sector_match += 25
 
-    # Bağımsız tamirci/servis tespiti: sadece "car_repair" kategorisinde ve
+    category_label_lower = turkish_lower(raw.get("category_label", ""))
+    is_service_only_category = (
+        shop_type == "directory"
+        and bool(_SERVICE_CATEGORY_PATTERN.search(category_label_lower))
+        and not bool(_PARTS_CATEGORY_PATTERN.search(category_label_lower))
+    )
+
+    # Bağımsız tamirci/servis tespiti: OSM'de "car_repair" kategorisinde OLMASI ya da rehber
+    # kaynağında saf servis/tamir kategorisinde (parça satışı belirtilmeden) OLMASI, VE
     # toptan/lojistik/filo gibi hiçbir hedef kitle sinyali yoksa hedef dışı say
-    is_independent_repair = shop_type == "car_repair" and not keyword_hit
+    is_independent_repair = (shop_type == "car_repair" or is_service_only_category) and not keyword_hit
 
     phone = raw.get("phone", "")
     phone_is_mobile = is_mobile_phone(phone) if phone else False
@@ -92,7 +120,10 @@ def score_lead(raw: dict) -> dict:
 
     if is_independent_repair:
         relevance_score = min(15, sector_match + data_completeness)
-        reasoning = "Bağımsız oto tamir servisi görünüyor - hedef kitle dışı (sanayideki tamirciler), düşük öncelik."
+        if is_service_only_category:
+            reasoning = f"'{raw.get('category_label', '')}' hizmet/tamir odaklı bir kategori görünüyor (parça satışı belirtilmemiş) - hedef kitle dışı, düşük öncelik."
+        else:
+            reasoning = "Bağımsız oto tamir servisi görünüyor - hedef kitle dışı (sanayideki tamirciler), düşük öncelik."
         entity_type_note = "Belirsiz"
     else:
         relevance_score = min(100, sector_match + geography + data_completeness)
