@@ -10,6 +10,8 @@ SECTOR_LABELS = {
     "logistics": "Lojistik/Nakliye Ofisi",
     "car_repair": "Oto Tamir Servisi",
     "tyres": "Lastikçi",
+    "trailer": "Dorse/Treyler Satış-Servis",
+    "agrarian": "Tarım Makinesi Ekipman/Parça",
 }
 
 # Anahtar kelimeler kelime sınırıyla (\b) aranır, düz alt-dize (substring) araması DEĞİL.
@@ -57,6 +59,10 @@ def score_lead(raw: dict) -> dict:
         # Lastikçi (özellikle ağır vasıta lastikçisi) hem kendi başına potansiyel müşteri hem de
         # genelde diğer parça ihtiyaçlarını da bilen/yönlendiren bir aktör - orta seviye puan.
         sector_match += 20
+    if shop_type in ("trailer", "agrarian"):
+        # Dorse/treyler ve tarım makinesi bayileri hedef kitlenin tam merkezinde - kendileri de
+        # sürekli mekanik/hidrolik parça ihtiyacı olan, ağır vasıta ekosisteminin bir parçası.
+        sector_match += 30
     if shop_type == "directory":
         # turkbusinesscenter.com gibi bir B2B firma rehberinden geliyor - sitenin kendisi zaten
         # firmayı "Otomotiv Yedek Parça" veya "Taşımacılık/Nakliye" kategorisine kaydetmiş,
@@ -92,6 +98,10 @@ def score_lead(raw: dict) -> dict:
         relevance_score = min(100, sector_match + geography + data_completeness)
         if shop_type == "car_parts":
             reasoning = "OSM'de 'oto yedek parça' kategorisinde kayıtlı."
+        elif shop_type == "trailer":
+            reasoning = "OSM'de 'dorse/treyler satış-servis' kategorisinde kayıtlı - hedef kitlenin tam merkezinde."
+        elif shop_type == "agrarian":
+            reasoning = "OSM'de 'tarım makinesi ekipman/parça' kategorisinde kayıtlı."
         elif shop_type == "directory":
             reasoning = f"Firma rehberinde '{raw.get('category_label', '')}' kategorisinde kayıtlı."
         elif keyword_hit:
