@@ -18,10 +18,9 @@ OVERPASS_HEADERS = {"Accept": "*/*", "User-Agent": "fleetparts-lead-discovery/1.
 NAME_REGEX = "nakliye|lojistik|dorse|yedek parça|kamyon|taşımacılık|transport|treyler|otobüs|iş makine|tır"
 
 
-def build_query(province: str) -> str:
-    # Etiket bazlı aramalar (shop=car_parts vb.) ucuz/indeksli; geniş isim regex taraması
-    # pahalı olduğu için sadece node'larda yapılır (way'lerde değil) - büyük illerde zaman
-    # aşımını önlemek için bu şekilde sınırlandırıldı.
+def build_tag_query(province: str) -> str:
+    """Etiket bazlı arama (shop=car_parts vb.) - indeksli olduğu için ucuz/hızlı, büyük
+    şehirlerde bile saniyeler içinde döner."""
     return (
         f'[out:json][timeout:30];'
         f'area["name"="{province}"]["admin_level"="4"]->.searchArea;'
@@ -32,8 +31,19 @@ def build_query(province: str) -> str:
         f'way["shop"="car_repair"](area.searchArea);'
         f'node["office"="logistics"](area.searchArea);'
         f'way["office"="logistics"](area.searchArea);'
-        f'node["name"~"{NAME_REGEX}",i](area.searchArea);'
         f');'
+        f'out center body 300;'
+    )
+
+
+def build_name_query(province: str) -> str:
+    """İsim bazlı serbest metin (regex) araması - indekssiz olduğu için pahalı, büyük/kalabalık
+    şehirlerde (örn. Ankara) zaman aşımına uğrayabiliyor. Bu yüzden etiket sorgusundan AYRI
+    tutulur: bu sorgu başarısız olsa bile etiket sorgusunun sonuçları kaybolmasın diye."""
+    return (
+        f'[out:json][timeout:30];'
+        f'area["name"="{province}"]["admin_level"="4"]->.searchArea;'
+        f'node["name"~"{NAME_REGEX}",i](area.searchArea);'
         f'out center body 300;'
     )
 
@@ -68,34 +78,51 @@ def _parse_elements(data: dict) -> list:
     return results
 
 
-def search_province(province: str, mirror_offset: int = 0) -> list:
-    """Bir ildeki potansiyel firmaları OpenStreetMap/Overpass API üzerinden arar.
-    Ücretsiz, API anahtarı/kart gerektirmez. Birden fazla ayna sırayla denenir;
-    hepsi başarısız olursa (rate limit, zaman aşımı vb.) boş liste döner - tek bir
-    ilin başarısız olması tüm koşuyu durdurmasın diye.
-    mirror_offset: hangi aynadan başlanacağını belirler - paralel taramada her iş parçacığı
-    farklı bir aynadan başlarsa hepsi aynı sunucuya aynı anda yüklenip rate limit'e takılmaz."""
-    query = build_query(province)
+def _run_query(query: str, mirror_offset: int, province: str, label: str) -> list:
+    """Tek bir Overpass sorgusunu birden fazla ayna deneyerek çalıştırır. Hepsi başarısız
+    olursa boş liste döner - bu sorgunun başarısız olması ÇAĞIRANIN diğer sorgusunu etkilemez
+    (bkz. search_province: etiket ve isim sorguları birbirinden bağımsız çalışır)."""
     n = len(OVERPASS_MIRRORS)
     ordered_mirrors = [OVERPASS_MIRRORS[(mirror_offset + i) % n] for i in range(n)]
 
     for mirror in ordered_mirrors:
         try:
-            # İstemci zaman aşımı, sorgunun kendi [timeout:30] değerinden biraz fazla tutuluyor;
-            # yavaş/tıkanık bir aynada uzun süre beklemek yerine hızlıca bir sonraki aynaya geçilir.
             res = requests.post(mirror, data={"data": query}, headers=OVERPASS_HEADERS, timeout=40)
             if res.status_code != 200:
-                print(f"  [{province}] {mirror}: HTTP {res.status_code}")
+                print(f"  [{province}/{label}] {mirror}: HTTP {res.status_code}")
                 continue
 
             data = res.json()
             if data.get("remark"):
-                print(f"  [{province}] {mirror}: {data['remark']}")
+                print(f"  [{province}/{label}] {mirror}: {data['remark']}")
                 continue
 
             return _parse_elements(data)
         except Exception as e:
-            print(f"  [{province}] {mirror}: hata - {e}")
+            print(f"  [{province}/{label}] {mirror}: hata - {e}")
             continue
 
     return []
+
+
+def search_province(province: str, mirror_offset: int = 0) -> list:
+    """Bir ildeki potansiyel firmaları OpenStreetMap/Overpass API üzerinden arar. Ücretsiz,
+    API anahtarı/kart gerektirmez.
+
+    Etiket (shop=car_parts vb.) ve isim (serbest metin regex) araması AYRI İKİ SORGU olarak
+    çalıştırılır - gerçek bir testte tespit edildi ki isim regex araması büyük/kalabalık
+    şehirlerde (örn. Ankara) çok pahalı olup zaman aşımına uğruyor; eskiden bu TEK bir birleşik
+    sorgu olduğu için isim kısmı zaman aşımına uğrayınca etiket kısmının bulduğu gerçek
+    sonuçlar (Ankara'da 141 firma!) da beraber kayboluyordu. Ayrı sorgularla biri başarısız
+    olsa bile diğeri kurtulur.
+
+    mirror_offset: hangi aynadan başlanacağını belirler - paralel taramada her iş parçacığı
+    farklı bir aynadan başlarsa hepsi aynı sunucuya aynı anda yüklenip rate limit'e takılmaz."""
+    tag_results = _run_query(build_tag_query(province), mirror_offset, province, "etiket")
+    name_results = _run_query(build_name_query(province), mirror_offset, province, "isim")
+
+    # Bir node hem etiket hem isim eşleşmesiyle iki sorguda da çıkabilir - osm_id'ye göre birleştir
+    merged = {}
+    for r in tag_results + name_results:
+        merged[r["osm_id"]] = r
+    return list(merged.values())
