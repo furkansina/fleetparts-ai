@@ -19,11 +19,13 @@ PROVINCES = [
 # (örn. "Bizim Toptan Market"). Diğer kelimelerin hepsi zaten araç/lojistik'e özgü.
 # "otobüs" ve "iş makinesi/makinası" işletmenin kendi hedef araç kapsamında (ağır vasıta, tır,
 # kamyon, iş makinesi ve otobüs - bkz. vision_agent prompt'u) olmasına rağmen aramaya hiç dahil
-# edilmemişti, eklendi. "TIR" de aynı sebeple eklendi (kısa/büyük harf olduğu için kelime sınırı
-# eşleşmesinde yanlış pozitif riski düşük - "tır" fiili farklı bağlamda genelde küçük harf kullanılır
-# ama biz zaten isimleri lower() yapıp eşleştiriyoruz, bu riski kabul edilebilir kılıyor çünkü
-# şirket isimlerinde "tır" geçen alakasız kelime son derece nadir).
+# edilmemişti, eklendi.
+# NOT: "tır" DENENDİ ve KALDIRILDI - kelime sınırı koruması olmasına rağmen gerçek bir taramada
+# yanlış pozitif ürettiği tespit edildi (örn. "Çamlık tır Kokoreç" bir kokoreç dükkanı, "Tırkaz"
+# alakasız bir yer adı - Türkçe'de "-tır/-dır" eki son derece yaygın olduğu için OSM'deki isimlerde
+# kelime olarak da karşımıza çıkabiliyor). "otobüs" ve "iş makinesi" gibi daha uzun/özgün kelimeler
+# bu riski taşımıyor, bu yüzden tutuldu.
 NAME_KEYWORDS_HIGH_VALUE = [
     "nakliye", "lojistik", "dorse", "treyler", "taşımacılık", "transport",
-    "yedek parça", "filo", "otobüs", "iş makinesi", "iş makinası", "tır",
+    "yedek parça", "filo", "otobüs", "iş makinesi", "iş makinası",
 ]
