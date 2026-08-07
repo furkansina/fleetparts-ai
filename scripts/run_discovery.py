@@ -12,10 +12,34 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from provinces import PROVINCES
 from lead_sources_osm import search_province, OVERPASS_MIRRORS
 from lead_sources_directory import search_province as search_province_directory
+from lead_sources_sanayi_sitesi import search_all as search_sanayi_sitesi
 from lead_scoring import score_lead
 from lead_dedupe import dedupe_key
 
 LEADS_FILE = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "leads.json")
+
+
+def _build_lead(lead_id, source, raw, province, scoring, batch_id):
+    return {
+        "lead_id": lead_id,
+        "source": source,
+        "company_name": raw["name"],
+        "entity_type_note": scoring["entity_type_note"],
+        "sector_guess": scoring["sector_label"],
+        "province": province,
+        "district": "",
+        "address": raw.get("address", ""),
+        "phone": raw.get("phone", ""),
+        "phone_is_mobile": scoring["phone_is_mobile"],
+        "lat": raw.get("lat"),
+        "lon": raw.get("lon"),
+        "growth_signal": None,
+        "relevance_score": scoring["relevance_score"],
+        "score_breakdown": scoring["score_breakdown"],
+        "score_reasoning": scoring["score_reasoning"],
+        "discovered_at": datetime.now(timezone.utc).isoformat(),
+        "scan_batch_id": batch_id,
+    }
 
 
 def load_existing_leads():
@@ -98,27 +122,7 @@ def main():
                     else:
                         lead_id = raw["site_id"]  # zaten "tbc_" önekli
                         source = "turkbusinesscenter"
-                    lead = {
-                        "lead_id": lead_id,
-                        "source": source,
-                        "company_name": raw["name"],
-                        "entity_type_note": scoring["entity_type_note"],
-                        "sector_guess": scoring["sector_label"],
-                        "province": province,
-                        "district": "",
-                        "address": raw.get("address", ""),
-                        "phone": raw.get("phone", ""),
-                        "phone_is_mobile": scoring["phone_is_mobile"],
-                        "lat": raw.get("lat"),
-                        "lon": raw.get("lon"),
-                        "growth_signal": None,
-                        "relevance_score": scoring["relevance_score"],
-                        "score_breakdown": scoring["score_breakdown"],
-                        "score_reasoning": scoring["score_reasoning"],
-                        "discovered_at": datetime.now(timezone.utc).isoformat(),
-                        "scan_batch_id": batch_id,
-                    }
-                    new_leads.append(lead)
+                    new_leads.append(_build_lead(lead_id, source, raw, province, scoring, batch_id))
 
                 # Her il tamamlandığında diske yazılır - koşu yarıda kesilse/zaman aşımına uğrasa
                 # bile o ana kadarki ilerleme kaybolmaz (GitHub Actions'taki commit adımı ne bulursa onu kaydeder)
@@ -126,6 +130,28 @@ def main():
                     combined_so_far = existing + new_leads
                     with open(LEADS_FILE, "w", encoding="utf-8") as f:
                         json.dump(combined_so_far, f, ensure_ascii=False, indent=4)
+
+    # Sanayi sitesi / bölgesel oto rehberi kaynakları il bazında değil - her biri zaten sabit
+    # bir ile bağlı (Ankara/İstanbul/İzmir), bu yüzden il döngüsünden AYRI, tek seferlik bir
+    # geçiş olarak çalıştırılıyor (bkz. lead_sources_sanayi_sitesi.py).
+    print("\nSanayi sitesi rehberleri taranıyor (Ankara/İstanbul/İzmir)...")
+    try:
+        sanayi_results = search_sanayi_sitesi()
+    except Exception as e:
+        print(f"  sanayi sitesi taraması basarisiz - {e}")
+        sanayi_results = []
+    print(f"  Sanayi sitesi ham sonuç: {len(sanayi_results)}")
+    for raw in sanayi_results:
+        key = dedupe_key(raw["name"], raw.get("phone", ""))
+        if key in existing_keys or key in seen_this_run:
+            continue
+        seen_this_run.add(key)
+        scoring = score_lead(raw)
+        new_leads.append(_build_lead(raw["site_id"], "sanayi_sitesi", raw, raw["province"], scoring, batch_id))
+    if not args.dry_run:
+        combined_so_far = existing + new_leads
+        with open(LEADS_FILE, "w", encoding="utf-8") as f:
+            json.dump(combined_so_far, f, ensure_ascii=False, indent=4)
 
     print(f"\nToplam yeni lead: {len(new_leads)}")
     for l in sorted(new_leads, key=lambda x: -x["relevance_score"])[:15]:
