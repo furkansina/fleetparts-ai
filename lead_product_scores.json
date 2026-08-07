@@ -1,0 +1,38 @@
+{
+    "hortum_adaptoru": {
+        "product_description": "Hortum adaptoru",
+        "classified_at": "2026-08-07T08:35:17.836517+00:00",
+        "scores": {
+            "osm_node_1633093477": {
+                "product_fit_score": 40,
+                "product_fit_reasoning": "Kategori belirsiz olduğu için düşük skor verildi",
+                "classified_at": "2026-08-07T08:35:17.836517+00:00"
+            },
+            "osm_node_2664916002": {
+                "product_fit_score": 10,
+                "product_fit_reasoning": "Bağımsız oto tamir servisinin toptan alım yapma ihtimali düşük",
+                "classified_at": "2026-08-07T08:35:17.836517+00:00"
+            },
+            "osm_node_5272592522": {
+                "product_fit_score": 80,
+                "product_fit_reasoning": "İsim eşleşmesi toptan satış ve lojistik ile ilgili olduğu için yüksek skor verildi",
+                "classified_at": "2026-08-07T08:35:17.836517+00:00"
+            },
+            "osm_node_10121665745": {
+                "product_fit_score": 80,
+                "product_fit_reasoning": "İsim eşleşmesi toptan satış ve lojistik ile ilgili olduğu için yüksek skor verildi",
+                "classified_at": "2026-08-07T08:35:17.836517+00:00"
+            },
+            "osm_way_373592813": {
+                "product_fit_score": 60,
+                "product_fit_reasoning": "Oto yedek parça kategorisinde olduğu için orta skor verildi",
+                "classified_at": "2026-08-07T08:35:17.836517+00:00"
+            },
+            "osm_way_889544636": {
+                "product_fit_score": 20,
+                "product_fit_reasoning": "Oto yedek parça kategorisinde olmasına rağmen specific ürün ile ilgili olmayabilir",
+                "classified_at": "2026-08-07T08:35:17.836517+00:00"
+            }
+        }
+    }
+}
