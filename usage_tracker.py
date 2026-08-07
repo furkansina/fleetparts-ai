@@ -11,22 +11,36 @@ GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
 GITHUB_REPO = os.environ.get("GITHUB_REPO", "")
 
 USAGE_FILE = "token_usage.json"
-DAILY_TOKEN_BUDGET = 200000  # Groq ücretsiz kotanın günlük token sınırı (tahmini referans)
+DAILY_TOKEN_BUDGET = 200000  # Groq ücretsiz kotanın (hesap başına) günlük token sınırı
 
 _lock = threading.Lock()
 _cache = {"data": None, "fetched_at": 0}
 CACHE_TTL = 15  # saniye - sık çağrıldığı için (her Groq isteğinden sonra) çok kısa tutuldu
+
+POOLS = ("customer", "bulk")
+
+
+def _empty_day() -> dict:
+    return {
+        "date": str(date.today()),
+        "customer": {"total_tokens": 0, "call_count": 0},
+        "bulk": {"total_tokens": 0, "call_count": 0},
+    }
+
+
+def _is_valid_shape(data) -> bool:
+    return isinstance(data, dict) and "date" in data and "customer" in data and "bulk" in data
 
 
 def _load_from_disk() -> dict:
     try:
         with open(USAGE_FILE, "r", encoding="utf-8") as f:
             data = json.load(f)
-            if isinstance(data, dict) and "date" in data:
+            if _is_valid_shape(data):
                 return data
     except Exception:
         pass
-    return {"date": str(date.today()), "total_tokens": 0, "call_count": 0}
+    return _empty_day()
 
 
 def _load_live() -> dict:
@@ -43,7 +57,7 @@ def _load_live() -> dict:
             res = requests.get(url, timeout=8)
             if res.status_code == 200:
                 data = res.json()
-                if isinstance(data, dict) and "date" in data:
+                if _is_valid_shape(data):
                     _cache["data"] = data
                     _cache["fetched_at"] = now
                     return data
@@ -78,19 +92,23 @@ def _sync_to_github():
         pass
 
 
-def record_usage(total_tokens: int):
+def record_usage(total_tokens: int, pool: str = "customer"):
     """Her Groq çağrısından sonra çağrılır; gün değiştiyse sayaç otomatik sıfırlanır.
-    En güncel hali GitHub'dan okuyup üzerine ekler ve tekrar GitHub'a yazar - böylece Render
-    bir kod güncellemesiyle yeniden başlasa bile bugünkü toplam kullanım kaybolmaz."""
+    `pool`: "customer" (müşteri arama) veya "bulk" (katalog tarama gibi toplu işler) - iki ayrı
+    Groq hesabının kullanımı karışmasın diye ayrı ayrı takip edilir. En güncel hali GitHub'dan
+    okuyup üzerine ekler ve tekrar GitHub'a yazar - böylece Render bir kod güncellemesiyle
+    yeniden başlasa bile bugünkü toplam kullanım kaybolmaz."""
     if not total_tokens:
         return
+    if pool not in POOLS:
+        pool = "customer"
     with _lock:
         data = _load_live()
         today = str(date.today())
         if data.get("date") != today:
-            data = {"date": today, "total_tokens": 0, "call_count": 0}
-        data["total_tokens"] += total_tokens
-        data["call_count"] += 1
+            data = _empty_day()
+        data[pool]["total_tokens"] += total_tokens
+        data[pool]["call_count"] += 1
         _save(data)
         _cache["data"] = data
         _cache["fetched_at"] = time.time()
@@ -98,12 +116,28 @@ def record_usage(total_tokens: int):
 
 
 def get_today_usage() -> dict:
+    """İki havuzun (customer/bulk) bugünkü kullanımını ayrı ayrı döndürür. Geriye dönük uyumluluk
+    için üst seviyede de (henüz güncellenmemiş bir istemci varsa) müşteri havuzunun değerleri
+    düz alanlar olarak tekrarlanır."""
     with _lock:
         data = _load_live()
         today = str(date.today())
         if data.get("date") != today:
-            data = {"date": today, "total_tokens": 0, "call_count": 0}
-        data["budget"] = DAILY_TOKEN_BUDGET
-        data["remaining_estimate"] = max(0, DAILY_TOKEN_BUDGET - data["total_tokens"])
-        data["percent_used"] = round(100 * data["total_tokens"] / DAILY_TOKEN_BUDGET, 1)
-        return data
+            data = _empty_day()
+
+        result = {"date": data["date"], "budget": DAILY_TOKEN_BUDGET}
+        for pool in POOLS:
+            p = data[pool]
+            result[pool] = {
+                "total_tokens": p["total_tokens"],
+                "call_count": p["call_count"],
+                "budget": DAILY_TOKEN_BUDGET,
+                "remaining_estimate": max(0, DAILY_TOKEN_BUDGET - p["total_tokens"]),
+                "percent_used": round(100 * p["total_tokens"] / DAILY_TOKEN_BUDGET, 1),
+            }
+
+        result["total_tokens"] = result["customer"]["total_tokens"]
+        result["call_count"] = result["customer"]["call_count"]
+        result["remaining_estimate"] = result["customer"]["remaining_estimate"]
+        result["percent_used"] = result["customer"]["percent_used"]
+        return result
