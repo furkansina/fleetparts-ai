@@ -218,7 +218,10 @@
             const el = document.getElementById('usageBadge');
             // Müşteri arama ve katalog taraması (toplu işlem) ayrı hesap/kota kullanır - karışmasınlar
             // diye ayrı ayrı gösteriliyor. İkinci hesap henüz tanımlanmadıysa ikisi aynı sayıyı gösterir.
-            el.innerHTML = `⚡ ${poolBadgeHtml('Müşteri Arama', u.customer)} &nbsp;·&nbsp; ${poolBadgeHtml('Katalog Tarama', u.bulk)}`;
+            // 3. hesap (customer2) sadece tanımlıysa (kullanımı varsa) gösterilir - müşteri havuzunun
+            // ekstra yedeği, ayrı bir rozet olarak karışıklık yaratmasın diye sessizce arkada durur.
+            const thirdBadge = (u.customer2 && u.customer2.call_count > 0) ? ` &nbsp;·&nbsp; ${poolBadgeHtml('Müşteri Arama (Yedek)', u.customer2)}` : '';
+            el.innerHTML = `⚡ ${poolBadgeHtml('Müşteri Arama', u.customer)} &nbsp;·&nbsp; ${poolBadgeHtml('Katalog Tarama', u.bulk)}${thirdBadge}`;
         } catch (err) { /* sessizce geç, kritik değil */ }
     }
     loadUsageBadge();
