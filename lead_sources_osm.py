@@ -1,10 +1,14 @@
 import requests
 
-# Birden fazla ücretsiz Overpass aynası - biri yavaş/meşgulse diğeri denenir
+# Birden fazla ücretsiz Overpass aynası - biri yavaş/meşgulse diğeri denenir.
+# NOT: "overpass.osm.ch" kasıtlı olarak burada YOK - gerçek bir testte tespit edildi ki bu ayna
+# Türkiye verisi için "başarılı" (HTTP 200) ama HER ZAMAN BOŞ sonuç dönüyor (İstanbul'da bile
+# 0 sonuç, <1sn'de) - muhtemelen Türkiye'nin idari alan sınırlarını indekslememiş sınırlı bir
+# ayna. Bu, sessizce "o ilde hiç firma yok" gibi yanlış bir sonuca yol açıp veri kaybına sebep
+# oluyordu - listede tutmak aramanın kalitesini bozardı.
 OVERPASS_MIRRORS = [
     "https://overpass-api.de/api/interpreter",
     "https://overpass.kumi.systems/api/interpreter",
-    "https://overpass.osm.ch/api/interpreter",
 ]
 OVERPASS_HEADERS = {"Accept": "*/*", "User-Agent": "fleetparts-lead-discovery/1.0"}
 # NOT: "toptan" (wholesale) kasıtlı olarak burada YOK - tek başına çok genel, market/tekstil/gıda
@@ -62,14 +66,18 @@ def _parse_elements(data: dict) -> list:
     return results
 
 
-def search_province(province: str) -> list:
+def search_province(province: str, mirror_offset: int = 0) -> list:
     """Bir ildeki potansiyel firmaları OpenStreetMap/Overpass API üzerinden arar.
     Ücretsiz, API anahtarı/kart gerektirmez. Birden fazla ayna sırayla denenir;
     hepsi başarısız olursa (rate limit, zaman aşımı vb.) boş liste döner - tek bir
-    ilin başarısız olması tüm koşuyu durdurmasın diye."""
+    ilin başarısız olması tüm koşuyu durdurmasın diye.
+    mirror_offset: hangi aynadan başlanacağını belirler - paralel taramada her iş parçacığı
+    farklı bir aynadan başlarsa hepsi aynı sunucuya aynı anda yüklenip rate limit'e takılmaz."""
     query = build_query(province)
+    n = len(OVERPASS_MIRRORS)
+    ordered_mirrors = [OVERPASS_MIRRORS[(mirror_offset + i) % n] for i in range(n)]
 
-    for mirror in OVERPASS_MIRRORS:
+    for mirror in ordered_mirrors:
         try:
             # İstemci zaman aşımı, sorgunun kendi [timeout:30] değerinden biraz fazla tutuluyor;
             # yavaş/tıkanık bir aynada uzun süre beklemek yerine hızlıca bir sonraki aynaya geçilir.
