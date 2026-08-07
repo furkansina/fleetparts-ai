@@ -42,6 +42,9 @@
         .kv-list .k { color: #666; }
         .kv-list .v { font-weight: 600; text-align: right; }
 
+        .evidence-box { margin-top: 6px; background: #f7f7f8; border-radius: 6px; padding: 10px 12px; color: #444; font-size: 13px; line-height: 1.5; }
+        .evidence-label { display: block; font-weight: 600; color: #666; font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 3px; }
+
         details.tech { margin-top: 12px; font-size: 13.5px; }
         details.tech summary { cursor: pointer; color: #337ab7; font-weight: 600; }
         details.tech pre { background: #272822; color: #f8f8f2; padding: 12px; border-radius: 5px; overflow-x: auto; margin-top: 8px; font-size: 12.5px; }
@@ -123,6 +126,8 @@
             const stock = matched_product.stock ?? 0;
             const brandRow = matched_product.brand ? `<li><span class="k">Marka</span><span class="v">${esc(matched_product.brand)}</span></li>` : '';
             const sourceRow = matched_product.source_file ? `<li><span class="k">Kaynak Katalog</span><span class="v">${esc(matched_product.source_file)}</span></li>` : '';
+            const scoreRow = matched_product.match_score != null ? `<li><span class="k">Eşleşme Skoru</span><span class="v">%${esc(matched_product.match_score)}</span></li>` : '';
+            const evidenceHtml = matched_product.match_evidence ? `<div class="evidence-box"><span class="evidence-label">🔎 Doğrulama</span>${esc(matched_product.match_evidence)}</div>` : '';
             kvHtml = `
                 <ul class="kv-list">
                     <li><span class="k">Ürün</span><span class="v">${esc(matched_product.name)}</span></li>
@@ -130,8 +135,9 @@
                     ${brandRow}
                     <li><span class="k">Stok</span><span class="v"><span class="badge badge-stock ${stock == 0 ? 'zero' : ''}">${esc(stock)} adet</span></span></li>
                     ${sourceRow}
+                    ${scoreRow}
                 </ul>
-                <div style="color:#555; font-size:13.5px; margin-top:4px;">${esc(matched_product.match_reason || '')}</div>
+                ${evidenceHtml}
             `;
             // Ürün bulununca müşterinin doğrudan yazabileceği bir WhatsApp linki - otomatik mesaj
             // DEĞİL, müşteri kendi isteğiyle tıklayıp göndermeden önce düzenleyebildiği bir taslak.
@@ -141,7 +147,7 @@
                 contactHtml = `<a href="https://wa.me/${WA_NUMBER}?text=${waText}" target="_blank" style="display:block; text-align:center; background:#25D366; color:white; font-weight:bold; padding:12px; border-radius:6px; text-decoration:none; margin-top:12px;">💬 Bu Parça İçin WhatsApp'tan Yazın</a>`;
             }
         } else {
-            kvHtml = `<div style="color:#555; font-size:14px;">${esc(matched_product && matched_product.match_reason || 'Eşleşme bulunamadı.')}</div>`;
+            kvHtml = `<div class="evidence-box">${esc(matched_product && matched_product.match_reason || 'Eşleşme bulunamadı.')}</div>`;
         }
 
         out.innerHTML = `
