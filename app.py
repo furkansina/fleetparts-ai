@@ -202,7 +202,14 @@ def call_groq_api(prompt: str, image_path: str = None, use_secondary_model: bool
                 # kadar asla başarılı olmaz) - hemen net bir hatayla çık, dakikalık limitse tekrar dene.
                 if "per day" in res.text.lower() or "tpd" in res.text.lower():
                     raise Exception("Günlük yapay zeka kullanım kotası doldu. Kota gece (Groq sıfırlama saatinde) yenilenir, biraz sonra tekrar deneyin.")
-                time.sleep(10)
+                # Groq'un hata mesajı dakikalık kota (TPM) dolduğunda tam gereken bekleme süresini
+                # veriyor (örn. "Please try again in 47.78s") - sabit 10sn yeterli olmadığı gerçek
+                # bir yükleme testinde tespit edildi (birden fazla sayfa aynı anda taranınca dakikalık
+                # limite takılıyor). Sabit süre yerine bu gerçek süreyi kullanıyoruz, aşırı uzamasın
+                # diye (Render'ın istek zaman aşımını aşmamak için) üst sınır koyuyoruz.
+                wait_match = re.search(r"try again in ([\d.]+)s", res.text)
+                wait_seconds = min(float(wait_match.group(1)), 45) + 1 if wait_match else 10
+                time.sleep(wait_seconds)
                 continue
             if res.status_code == 413 and payload.get("max_tokens"):
                 # İstek (girdi + istenen max_tokens) dakikalık token sınırını (TPM) aşıyor - özellikle
@@ -596,8 +603,10 @@ async def upload_catalog_files(files: list[UploadFile] = File(...)):
     updated_count = 0
     failed = list(oversized)
 
-    # Dosyalar aynı anda (en fazla 3'ü birlikte) taranır; biri başarısız olursa diğerleri etkilenmez
-    with ThreadPoolExecutor(max_workers=3) as executor:
+    # Dosyalar aynı anda (en fazla 2'si birlikte) taranır; biri başarısız olursa diğerleri etkilenmez.
+    # Not: eskiden 3'tü, ama Groq'un dakikalık token (TPM) kotası oldukça düşük olduğu için 3 sayfa
+    # aynı anda taranınca gerçek bir testte kotaya takılındığı tespit edildi - 2'ye düşürmek riski azaltır.
+    with ThreadPoolExecutor(max_workers=2) as executor:
         future_to_name = {executor.submit(_scan_catalog_source, name, path): name for name, path in saved_paths}
         for future in as_completed(future_to_name):
             filename = future_to_name[future]
