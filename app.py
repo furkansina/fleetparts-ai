@@ -40,6 +40,7 @@ def require_admin(credentials: HTTPBasicCredentials = Depends(security)):
 # API Anahtarı / Token (Render ortamından GROQ_API_KEY olarak çeker) - console.groq.com/keys, kredi kartı gerektirmez
 GROQ_API_KEY = os.environ.get("GROQ_API_KEY", "")            # Ana hesap - MÜŞTERİ havuzunun birincil anahtarı
 GROQ_API_KEY_BULK = os.environ.get("GROQ_API_KEY_BULK", "")  # İkinci (varsa) hesap - SADECE toplu iş (katalog tarama) için ayrılmış
+GROQ_API_KEY_THIRD = os.environ.get("GROQ_API_KEY_THIRD", "")  # Üçüncü (varsa) hesap - müşteri havuzunun 2. yedeği, kota hiç bitmesin diye ekstra güvence
 GROQ_VISION_MODEL = "qwen/qwen3.6-27b"     # Görsel gerektiren işler (parça fotoğrafı, katalog sayfası) - hesap başına günlük 200K token kotası
 GROQ_TEXT_MODEL = "llama-3.3-70b-versatile"  # Sadece iç/toplu kullanım (lead ön-değerlendirme) - AYRI, 100K token kotası
 
@@ -170,6 +171,10 @@ def _resolve_key_chain(pool: str, use_secondary_model: bool) -> list:
     chain = [("customer", GROQ_API_KEY)]
     if GROQ_API_KEY_BULK:
         chain.append(("bulk", GROQ_API_KEY_BULK))
+    if GROQ_API_KEY_THIRD:
+        # 3. hesap - müşteri havuzunun 2. yedeği. Ana VE bulk hesabın ikisi de günlük kotasını
+        # doldurursa devreye girer, kota tükenmesine karşı ekstra güvence.
+        chain.append(("customer2", GROQ_API_KEY_THIRD))
     return chain
 
 def call_groq_api(prompt: str, image_path: str = None, use_secondary_model: bool = False, pool: str = "customer") -> str:
@@ -273,7 +278,7 @@ def call_groq_api(prompt: str, image_path: str = None, use_secondary_model: bool
     if daily_exhausted_count >= len(key_chain):
         # Zincirdeki HER hesabın günlük kotası aynı anda doldu
         if len(key_chain) > 1:
-            raise Exception("🚨 Hem ana hem yedek yapay zeka hesabının günlük kotası aynı anda doldu (nadir bir durum). Kota gece yenilenir; sık tekrarlanırsa üçüncü bir hesap eklemeyi düşünebilirsiniz.")
+            raise Exception(f"🚨 Zincirdeki tüm yapay zeka hesaplarının ({len(key_chain)} hesap) günlük kotası aynı anda doldu (çok nadir bir durum). Kota gece yenilenir.")
         if pool == "bulk" and key_chain[0][0] == "bulk":
             raise Exception("Toplu işlem (katalog tarama) hesabının günlük kotası doldu. Müşteri arama ayrı bir hesap kullandığı için ETKİLENMEZ. Kota gece yenilenir.")
         raise Exception("Günlük yapay zeka kullanım kotası doldu. Kota gece (Groq sıfırlama saatinde) yenilenir, biraz sonra tekrar deneyin.")
