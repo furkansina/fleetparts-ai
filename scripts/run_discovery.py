@@ -61,6 +61,7 @@ def main():
                 "district": "",
                 "address": raw.get("address", ""),
                 "phone": raw.get("phone", ""),
+                "phone_is_mobile": scoring["phone_is_mobile"],
                 "lat": raw.get("lat"),
                 "lon": raw.get("lon"),
                 "growth_signal": None,
