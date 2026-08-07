@@ -1,1 +1,16 @@
-[]
+[
+    {
+        "name": "Özcan Oto Yedek Parça",
+        "phone": "+90 532 497 83 30",
+        "company": "Özcan Oto Yedek Parça",
+        "opted_in_at": null,
+        "source": "lead_discovery"
+    },
+    {
+        "name": "Minta Oto Yedek Parça",
+        "phone": "+90 532 385 36 25",
+        "company": "Minta Oto Yedek Parça",
+        "opted_in_at": null,
+        "source": "lead_discovery"
+    }
+]
