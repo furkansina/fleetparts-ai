@@ -1293,5 +1293,85 @@
         "relevance_score": 10,
         "score_reasoning": "Özmen Oto Aksesuar, bağımsız tamirci/servis olarak hedef dışındadır",
         "classified_at": "2026-08-07T06:08:08.350970+00:00"
+    },
+    "osm_node_5153378421": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça satıcısı olduğu için hedef kitleye uyuyor",
+        "classified_at": "2026-08-07T06:08:12.742454+00:00"
+    },
+    "osm_node_5303211725": {
+        "relevance_score": 40,
+        "score_reasoning": "Toptan alışveriş merkezi olduğu için kısmen hedef kitleye uyuyor, ancak nakliye/lojistik firması değil",
+        "classified_at": "2026-08-07T06:08:12.742454+00:00"
+    },
+    "osm_node_5405132039": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça satıcısı olduğu için hedef kitleye uyuyor",
+        "classified_at": "2026-08-07T06:08:12.742454+00:00"
+    },
+    "osm_node_7667303985": {
+        "relevance_score": 20,
+        "score_reasoning": "Toptan alışveriş merkezi olduğu için kısmen hedef kitleye uyuyor, ancak nakliye/lojistik firması değil ve ismi nakliye/lojistiğe benzemiyor",
+        "classified_at": "2026-08-07T06:08:12.742454+00:00"
+    },
+    "osm_node_7688178285": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça satıcısı olduğu için hedef kitleye uyuyor",
+        "classified_at": "2026-08-07T06:08:12.742454+00:00"
+    },
+    "osm_node_8582917717": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça satıcısı olduğu için hedef kitleye uyuyor",
+        "classified_at": "2026-08-07T06:08:12.742454+00:00"
+    },
+    "osm_node_9134957017": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça satıcısı olduğu için hedef kitleye uyuyor",
+        "classified_at": "2026-08-07T06:08:12.742454+00:00"
+    },
+    "osm_node_9687589617": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça satıcısı olduğu için hedef kitleye uyuyor",
+        "classified_at": "2026-08-07T06:08:12.742454+00:00"
+    },
+    "osm_node_11351482270": {
+        "relevance_score": 0,
+        "score_reasoning": "Tekstil toptan satıcısı olduğu için hedef kitleye uymuyor",
+        "classified_at": "2026-08-07T06:08:12.742454+00:00"
+    },
+    "osm_node_11351484969": {
+        "relevance_score": 0,
+        "score_reasoning": "Tekstil toptan satıcısı olduğu için hedef kitleye uymuyor",
+        "classified_at": "2026-08-07T06:08:12.742454+00:00"
+    },
+    "osm_node_13821608201": {
+        "relevance_score": 60,
+        "score_reasoning": "Elektronik satıcısı olduğu için kısmen hedef kitleye uyuyor, ancak oto yedek parça satıcısı değil",
+        "classified_at": "2026-08-07T06:08:12.742454+00:00"
+    },
+    "osm_node_3862380621": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça satıcısı olduğu için hedef kitleye uyuyor",
+        "classified_at": "2026-08-07T06:08:12.742454+00:00"
+    },
+    "osm_node_3862388379": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça satıcısı olduğu için hedef kitleye uyuyor",
+        "classified_at": "2026-08-07T06:08:12.742454+00:00"
+    },
+    "osm_node_3862388380": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça satıcısı olduğu için hedef kitleye uyuyor",
+        "classified_at": "2026-08-07T06:08:12.742454+00:00"
+    },
+    "osm_node_3862388381": {
+        "relevance_score": 100,
+        "score_reasoning": "Mitsubishi Motors bayisi olduğu için hedef kitleye tam olarak uyuyor",
+        "classified_at": "2026-08-07T06:08:12.742454+00:00"
+    },
+    "osm_node_6631530287": {
+        "relevance_score": 100,
+        "score_reasoning": "Lojistik ve nakliyat firması olduğu için hedef kitleye tam olarak uyuyor",
+        "classified_at": "2026-08-07T06:08:12.742454+00:00"
     }
 }
