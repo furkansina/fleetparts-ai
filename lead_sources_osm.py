@@ -28,8 +28,16 @@ def build_tag_query(province: str) -> str:
     # ("gürültü katar" diye) - ama bu, ayıklama işini puanlama sistemi yerine keşif aşamasında
     # yapmaya çalışmaktı ve ham veriyi gereksiz daraltıyordu. Artık dahil ediliyorlar, alakasız
     # olanlar zaten score_lead() ve AI netleştirme aşamasında düşük puan alıp elenecek.
+    # NOT: "out ... 300" sonuç tavanı KASITLI OLARAK 2000'e çıkarıldı - İstanbul/Ankara gibi
+    # büyük illerde gerçek eşleşme sayısı 300'ü kolayca aşabiliyordu ve eski tavan bunu
+    # SESSİZCE kırpıyordu (hata vermeden, sadece son 300'den sonrasını atıyordu) - fark
+    # edilmesi zor bir veri kaybı kaynağıydı, artık büyük şehirlerde de tüm sonuçlar dönüyor.
+    # "shop"=trailer (dorse/treyler satış+parça+tamir) ve "shop"=agrarian (tarım makinesi
+    # parçaları/ekipmanı) eklendi - ikisi de hedef kitledeki "iş makinesi"/"dorse/treyler"
+    # segmentine dosdoğru karşılık geliyor, OSM wiki'sinde tanımı net, gürültü riski düşük
+    # (galeri/oto yıkama gibi genel/alakasız kategoriler kasıtlı olarak hâlâ dışarıda).
     return (
-        f'[out:json][timeout:30];'
+        f'[out:json][timeout:60];'
         f'area["name"="{province}"]["admin_level"="4"]->.searchArea;'
         f'('
         f'node["shop"="car_parts"](area.searchArea);'
@@ -38,10 +46,14 @@ def build_tag_query(province: str) -> str:
         f'way["shop"="car_repair"](area.searchArea);'
         f'node["shop"="tyres"](area.searchArea);'
         f'way["shop"="tyres"](area.searchArea);'
+        f'node["shop"="trailer"](area.searchArea);'
+        f'way["shop"="trailer"](area.searchArea);'
+        f'node["shop"="agrarian"](area.searchArea);'
+        f'way["shop"="agrarian"](area.searchArea);'
         f'node["office"="logistics"](area.searchArea);'
         f'way["office"="logistics"](area.searchArea);'
         f');'
-        f'out center body 300;'
+        f'out center body 2000;'
     )
 
 
@@ -50,10 +62,10 @@ def build_name_query(province: str) -> str:
     şehirlerde (örn. Ankara) zaman aşımına uğrayabiliyor. Bu yüzden etiket sorgusundan AYRI
     tutulur: bu sorgu başarısız olsa bile etiket sorgusunun sonuçları kaybolmasın diye."""
     return (
-        f'[out:json][timeout:30];'
+        f'[out:json][timeout:45];'
         f'area["name"="{province}"]["admin_level"="4"]->.searchArea;'
         f'node["name"~"{NAME_REGEX}",i](area.searchArea);'
-        f'out center body 300;'
+        f'out center body 2000;'
     )
 
 
@@ -96,7 +108,9 @@ def _run_query(query: str, mirror_offset: int, province: str, label: str) -> lis
 
     for mirror in ordered_mirrors:
         try:
-            res = requests.post(mirror, data={"data": query}, headers=OVERPASS_HEADERS, timeout=40)
+            # istemci taraf zaman aşımı, sorgunun kendi [timeout:60] değerinden daha kısa OLAMAZ -
+            # aksi halde sunucu henüz bitirmeden istemci pes edip büyük şehir sonuçlarını kaybederdi.
+            res = requests.post(mirror, data={"data": query}, headers=OVERPASS_HEADERS, timeout=75)
             if res.status_code != 200:
                 print(f"  [{province}/{label}] {mirror}: HTTP {res.status_code}")
                 continue
