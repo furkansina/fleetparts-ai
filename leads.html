@@ -75,6 +75,13 @@
         <label style="display:flex; align-items:center; gap:5px; font-size:13px; color:#555; font-weight:normal;">
             <input type="checkbox" id="phoneOnlyFilter" style="width:auto; margin:0;"> Sadece telefonu olanlar
         </label>
+        <label style="display:flex; align-items:center; gap:5px; font-size:13px; color:#555; font-weight:normal;">
+            <input type="checkbox" id="mobileOnlyFilter" style="width:auto; margin:0;"> Sadece WhatsApp'tan ulaşılabilir (cep)
+        </label>
+        <label style="display:flex; align-items:center; gap:5px; font-size:13px; color:#555; font-weight:normal;">
+            Min. skor:
+            <input type="number" id="minScoreFilter" value="30" min="0" max="100" style="width:56px; padding:6px 8px;">
+        </label>
         <span class="count" id="countLabel"></span>
     </div>
 
@@ -83,6 +90,7 @@
         <button onclick="bulkSet('onaylandı')">✓ Onayla</button>
         <button onclick="bulkSet('aranacak')">📞 Aranacak</button>
         <button onclick="bulkSet('reddedildi')">✕ Reddet</button>
+        <button onclick="addSelectedToContacts()" style="background:#28a745;">📇 Kişi Listesine Ekle (WhatsApp)</button>
         <button onclick="clearSelection()">Seçimi Temizle</button>
     </div>
 
@@ -138,6 +146,23 @@
     }
     window.bulkSet = bulkSet;
 
+    async function addSelectedToContacts() {
+        if (selectedIds.size === 0) return;
+        const formData = new FormData();
+        formData.append('lead_ids', Array.from(selectedIds).join(','));
+        try {
+            const res = await fetch('/leads/add-to-contacts', { method: 'POST', body: formData });
+            const data = await res.json();
+            alert(data.message || 'Tamamlandı.');
+            selectedIds.clear();
+            updateBulkBar();
+            renderLeads();
+        } catch (err) {
+            alert('Hata: ' + err);
+        }
+    }
+    window.addSelectedToContacts = addSelectedToContacts;
+
     function esc(s) {
         return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     }
@@ -148,15 +173,30 @@
         return 'score-low';
     }
 
+    // Türkiye'de cep telefonu numaraları 05XX ile başlar (WhatsApp'tan ulaşılabilir);
+    // sabit hat (0212, 0312 gibi il/ilçe alan kodu) numaralarına WhatsApp mesajı gitmez.
+    // Backend'deki is_mobile_phone() ile aynı mantık - eski lead'lerde de çalışsın diye
+    // istemci tarafında hesaplanıyor, yeni bir alan/backfill beklemeye gerek yok.
+    function isMobilePhone(phone) {
+        const digits = String(phone || '').replace(/\D/g, '');
+        const last10 = digits.slice(-10);
+        return last10.startsWith('5');
+    }
+    window.isMobilePhone = isMobilePhone;
+
     function renderLeads() {
         const statusVal = document.getElementById('statusFilter').value;
         const provinceVal = document.getElementById('provinceFilter').value;
         const phoneOnly = document.getElementById('phoneOnlyFilter').checked;
+        const mobileOnly = document.getElementById('mobileOnlyFilter').checked;
+        const minScore = parseInt(document.getElementById('minScoreFilter').value, 10) || 0;
 
         let filtered = allLeads.filter(l => {
             if (statusVal && l.status !== statusVal) return false;
             if (provinceVal && l.province !== provinceVal) return false;
             if (phoneOnly && !l.phone) return false;
+            if (mobileOnly && !isMobilePhone(l.phone)) return false;
+            if ((l.relevance_score ?? 0) < minScore) return false;
             return true;
         });
         filtered.sort((a, b) => (b.relevance_score ?? 0) - (a.relevance_score ?? 0));
@@ -181,7 +221,9 @@
 
             const mapQuery = encodeURIComponent(l.lat && l.lon ? `${l.lat},${l.lon}` : `${l.company_name} ${l.province}`);
             const searchQuery = encodeURIComponent(`${l.company_name} ${l.province} telefon`);
-            const noPhoneNote = !l.phone ? '<span style="color:#b45309; font-size:12px;">telefon yok, aşağıdan ara</span>' : '';
+            const noPhoneNote = !l.phone
+                ? '<span style="color:#b45309; font-size:12px;">telefon yok, aşağıdan ara</span>'
+                : (!isMobilePhone(l.phone) ? '<span style="color:#b45309; font-size:12px;">☎️ sabit hat - WhatsApp\'tan ulaşılamaz</span>' : '');
 
             const checked = selectedIds.has(l.lead_id) ? 'checked' : '';
 
@@ -297,6 +339,8 @@
     document.getElementById('statusFilter').addEventListener('change', renderLeads);
     document.getElementById('provinceFilter').addEventListener('change', renderLeads);
     document.getElementById('phoneOnlyFilter').addEventListener('change', renderLeads);
+    document.getElementById('mobileOnlyFilter').addEventListener('change', renderLeads);
+    document.getElementById('minScoreFilter').addEventListener('input', renderLeads);
 
     async function loadUsageBadge() {
         try {
