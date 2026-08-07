@@ -1,7 +1,7 @@
 import re
 
 from provinces import NAME_KEYWORDS_HIGH_VALUE
-from lead_dedupe import is_mobile_phone
+from lead_dedupe import is_mobile_phone, turkish_lower
 
 # OSM'in ham etiket değerleri (car_parts, yes, convenience vb.) okunabilir değil -
 # arayüzde gösterilecek temiz sektör etiketleri buradan gelir
@@ -22,7 +22,7 @@ _KEYWORD_PATTERN = re.compile(
 def score_lead(raw: dict) -> dict:
     """Kural bazlı skor: OSM'den gelen ham veriyi (isim, kategori, iletişim bilgisi)
     hedef kitle profiline (toptancı/lojistik, bağımsız tamirci DEĞİL) göre puanlar."""
-    name_lower = raw.get("name", "").lower()
+    name_lower = turkish_lower(raw.get("name", ""))
     shop_type = raw.get("shop_type", "")
 
     keyword_hit = bool(_KEYWORD_PATTERN.search(name_lower))
