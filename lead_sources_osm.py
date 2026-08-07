@@ -13,7 +13,9 @@ OVERPASS_MIRRORS = [
 OVERPASS_HEADERS = {"Accept": "*/*", "User-Agent": "fleetparts-lead-discovery/1.0"}
 # NOT: "toptan" (wholesale) kasıtlı olarak burada YOK - tek başına çok genel, market/tekstil/gıda
 # gibi alakasız toptancıları da OSM sonuçlarına dahil edip gürültü üretiyordu (örn. "Bizim Toptan Market").
-NAME_REGEX = "nakliye|lojistik|dorse|yedek parça|kamyon|taşımacılık|transport|treyler"
+# "otobüs", "iş makine" ve "tır" işletmenin kendi hedef araç kapsamında (ağır vasıta, tır, kamyon,
+# iş makinesi ve otobüs) olmasına rağmen aramaya hiç dahil edilmemişti, eklendi.
+NAME_REGEX = "nakliye|lojistik|dorse|yedek parça|kamyon|taşımacılık|transport|treyler|otobüs|iş makine|tır"
 
 
 def build_query(province: str) -> str:
