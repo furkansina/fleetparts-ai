@@ -893,5 +893,105 @@
         "relevance_score": 10,
         "score_reasoning": "Bağımsız tamirci/servis odaklı olduğu için düşük skor verilmiştir",
         "classified_at": "2026-08-06T13:10:27.417764+00:00"
+    },
+    "osm_node_6991991104": {
+        "relevance_score": 80,
+        "score_reasoning": "İsim eşleşmesi nakliye/lojistik/toptan kategorisinde yer alıyor, oto yedek parça satışı yapıyor",
+        "classified_at": "2026-08-07T06:07:55.977465+00:00"
+    },
+    "osm_node_6991991125": {
+        "relevance_score": 70,
+        "score_reasoning": "İsim eşleşmesi nakliye/lojistik/toptan kategorisinde yer alıyor, oto tamir ve yedek parça satışı yapıyor",
+        "classified_at": "2026-08-07T06:07:55.977465+00:00"
+    },
+    "osm_node_6991991129": {
+        "relevance_score": 40,
+        "score_reasoning": "Oto yedek parça satışı yapıyor ancak nakliye/lojistik/toptan kategorisinde yer almiyor",
+        "classified_at": "2026-08-07T06:07:55.977465+00:00"
+    },
+    "osm_node_6991991135": {
+        "relevance_score": 30,
+        "score_reasoning": "Oto tamir ve yedek parça satışı yapıyor ancak nakliye/lojistik/toptan kategorisinde yer almiyor",
+        "classified_at": "2026-08-07T06:07:55.977465+00:00"
+    },
+    "osm_node_6991991136": {
+        "relevance_score": 20,
+        "score_reasoning": "Oto yedek parça satışı yapıyor ancak nakliye/lojistik/toptan kategorisinde yer almiyor ve spesifik bir marka üzerine odaklanmış",
+        "classified_at": "2026-08-07T06:07:55.977465+00:00"
+    },
+    "osm_node_6991991137": {
+        "relevance_score": 20,
+        "score_reasoning": "Oto aksesuar satışı yapıyor ancak nakliye/lojistik/toptan kategorisinde yer almiyor",
+        "classified_at": "2026-08-07T06:07:55.977465+00:00"
+    },
+    "osm_node_6991991168": {
+        "relevance_score": 90,
+        "score_reasoning": "Nakliye firması, büyük olasılıkla kendi filosuna sahip",
+        "classified_at": "2026-08-07T06:07:55.977465+00:00"
+    },
+    "osm_node_7074457771": {
+        "relevance_score": 50,
+        "score_reasoning": "Oto yedek parça satışı yapıyor ancak nakliye/lojistik/toptan kategorisinde yer almiyor",
+        "classified_at": "2026-08-07T06:07:55.977465+00:00"
+    },
+    "osm_node_7604141940": {
+        "relevance_score": 10,
+        "score_reasoning": "Spesifik ürün satışı yapıyor, toptan satışa odaklanmış değil",
+        "classified_at": "2026-08-07T06:07:55.977465+00:00"
+    },
+    "osm_node_7844720769": {
+        "relevance_score": 60,
+        "score_reasoning": "Oto yedek parça satışı yapıyor, ticaret üzerine odaklanmış",
+        "classified_at": "2026-08-07T06:07:55.977465+00:00"
+    },
+    "osm_node_8190275870": {
+        "relevance_score": 10,
+        "score_reasoning": "Oto aksesuar satışı yapıyor ancak nakliye/lojistik/toptan kategorisinde yer almiyor",
+        "classified_at": "2026-08-07T06:07:55.977465+00:00"
+    },
+    "osm_node_8632635700": {
+        "relevance_score": 0,
+        "score_reasoning": "Kırtasiye toptan ve perakende satışı, alakasız sektör",
+        "classified_at": "2026-08-07T06:07:55.977465+00:00"
+    },
+    "osm_node_8872746417": {
+        "relevance_score": 95,
+        "score_reasoning": "Nakliye firması, büyük olasılıkla kendi filosuna sahip",
+        "classified_at": "2026-08-07T06:07:55.977465+00:00"
+    },
+    "osm_node_8962029542": {
+        "relevance_score": 80,
+        "score_reasoning": "Toptan ve perakende satışa odaklanmış, nakliye/lojistik alanına hizmet edebilir",
+        "classified_at": "2026-08-07T06:07:55.977465+00:00"
+    },
+    "osm_node_9062104987": {
+        "relevance_score": 0,
+        "score_reasoning": "Gıda toptan ve perakende satışı, alakasız sektör",
+        "classified_at": "2026-08-07T06:07:55.977465+00:00"
+    },
+    "osm_node_9161680352": {
+        "relevance_score": 0,
+        "score_reasoning": "Gıda toptan ve perakende satışı, alakasız sektör",
+        "classified_at": "2026-08-07T06:07:55.977465+00:00"
+    },
+    "osm_node_9351671667": {
+        "relevance_score": 50,
+        "score_reasoning": "İsim eşleşmesi nakliye/lojistik/toptan kategorisinde yer alıyor ancak spesifik bir hizmete odaklanmış",
+        "classified_at": "2026-08-07T06:07:55.977465+00:00"
+    },
+    "osm_node_9666463834": {
+        "relevance_score": 90,
+        "score_reasoning": "Nakliye firması, büyük olasılıkla kendi filosuna sahip",
+        "classified_at": "2026-08-07T06:07:55.977465+00:00"
+    },
+    "osm_node_9711472014": {
+        "relevance_score": 40,
+        "score_reasoning": "Oto yedek parça satışı yapıyor ancak nakliye/lojistik/toptan kategorisinde yer almiyor",
+        "classified_at": "2026-08-07T06:07:55.977465+00:00"
+    },
+    "osm_node_9722091180": {
+        "relevance_score": 20,
+        "score_reasoning": "Oto aksesuar satışı yapıyor ancak nakliye/lojistik/toptan kategorisinde yer almiyor",
+        "classified_at": "2026-08-07T06:07:55.977465+00:00"
     }
 }
