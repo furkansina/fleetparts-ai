@@ -20,7 +20,7 @@ from fastapi.security import HTTPBasic, HTTPBasicCredentials
 import lead_store
 import outreach
 import usage_tracker
-from lead_dedupe import is_mobile_phone
+from lead_dedupe import is_mobile_phone, turkish_lower
 
 app = FastAPI(title="FleetParts AI - Universal Heavy Duty Master Engine")
 
@@ -401,12 +401,15 @@ def find_by_text(query: str) -> dict:
     if not catalog:
         return {"id": "NOT_IN_CATALOG", "name": "Katalog Boş", "match_reason": "Veritabanında kayıtlı ürün bulunamadı."}
 
-    q = query.strip().lower()
+    q = turkish_lower(query.strip())
 
     # 1. Önce birebir OEM/ID eşleşmesi dene (hızlı ve %100 güvenilir, yapay zekaya gerek yok)
+    # turkish_lower kullanılıyor: normal .lower() Türkçe büyük 'İ'yi 'i'ye değil görünmez bir
+    # noktalama işaretine çeviriyor - örn. müşteri "İVECO 12345" yazınca katalogdaki "iveco
+    # 12345" ile eşleşmeyebiliyordu.
     exact_matches = [
         item for item in catalog
-        if q == str(item.get("oem", "")).strip().lower() or q == str(item.get("id", "")).strip().lower()
+        if q == turkish_lower(str(item.get("oem", "")).strip()) or q == turkish_lower(str(item.get("id", "")).strip())
     ]
     if len(exact_matches) > 1:
         # Aynı koda sahip birden fazla katalog kaydı - veri bütünlüğü sorunu, rastgele birini
