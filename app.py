@@ -1,4 +1,5 @@
 import os
+import re
 import shutil
 import json
 import base64
@@ -172,13 +173,16 @@ def call_groq_api(prompt: str, image_path: str = None, use_secondary_model: bool
             {"type": "image_url", "image_url": {"url": f"data:{mime_type};base64,{b64_img}"}},
         ]
         model = GROQ_VISION_MODEL
-        payload = {"model": model, "reasoning_effort": "none", "messages": [{"role": "user", "content": content}]}
+        # max_tokens belirtilmezse Groq'un varsayılanı çok düşük kalıyor - yoğun bir katalog
+        # sayfası (onlarca ürün) taranırken JSON yanıtı yarıda kesiliyordu (gerçek örnekte
+        # tespit edildi). Bol payla ayarlandı ki uzun ürün listeleri tamamlanabilsin.
+        payload = {"model": model, "reasoning_effort": "none", "max_tokens": 8000, "messages": [{"role": "user", "content": content}]}
     elif use_secondary_model:
         model = GROQ_TEXT_MODEL
-        payload = {"model": model, "messages": [{"role": "user", "content": prompt}]}
+        payload = {"model": model, "max_tokens": 8000, "messages": [{"role": "user", "content": prompt}]}
     else:
         model = GROQ_VISION_MODEL
-        payload = {"model": model, "reasoning_effort": "none", "messages": [{"role": "user", "content": prompt}]}
+        payload = {"model": model, "reasoning_effort": "none", "max_tokens": 8000, "messages": [{"role": "user", "content": prompt}]}
     headers = {
         "Content-Type": "application/json",
         "Authorization": f"Bearer {GROQ_API_KEY}",
@@ -200,6 +204,20 @@ def call_groq_api(prompt: str, image_path: str = None, use_secondary_model: bool
                     raise Exception("Günlük yapay zeka kullanım kotası doldu. Kota gece (Groq sıfırlama saatinde) yenilenir, biraz sonra tekrar deneyin.")
                 time.sleep(10)
                 continue
+            if res.status_code == 413 and payload.get("max_tokens"):
+                # İstek (girdi + istenen max_tokens) dakikalık token sınırını (TPM) aşıyor - özellikle
+                # yoğun/büyük bir katalog sayfası görseli + geniş max_tokens kombinasyonunda oluşur.
+                # Groq'un hata mesajı gerçek sınırı ve istenen miktarı verdiği için max_tokens'ı buna
+                # göre otomatik küçültüp aynı isteği tekrar deneriz - statik bir sayı tahmin etmek yerine.
+                match = re.search(r"Limit (\d+), Requested (\d+)", res.text)
+                if match:
+                    limit, requested = int(match.group(1)), int(match.group(2))
+                    overage = requested - limit
+                    new_max_tokens = max(500, payload["max_tokens"] - overage - 200)
+                    if new_max_tokens < payload["max_tokens"]:
+                        payload["max_tokens"] = new_max_tokens
+                        continue
+                raise Exception(f"HTTP 413: {res.text}")
             raise Exception(f"HTTP {res.status_code}: {res.text}")
         except requests.RequestException as e:
             raise Exception(f"Groq Bağlantı Hatası: {str(e)}")
@@ -544,6 +562,18 @@ def _scan_catalog_source(filename: str, file_path: str) -> list:
 
 @app.post("/upload-catalog-files")
 async def upload_catalog_files(files: list[UploadFile] = File(...)):
+    # Günlük yapay zeka kotası zaten neredeyse bittiyse (katalog taraması en pahalı işlemdir,
+    # her sayfa bir görsel analizi gerektirir) hiç denemeden önceden net bir uyarı ver - aksi
+    # halde her dosya tek tek başarısız olur, kullanıcı neden olduğunu anlamadan zaman kaybeder.
+    usage = usage_tracker.get_today_usage()
+    if usage.get("remaining_estimate", usage["budget"]) < 2000:
+        return {
+            "status": "error",
+            "message": f"Bugünkü yapay zeka kullanım kotası doldu (%{usage['percent_used']} kullanıldı). "
+                       f"Katalog taraması en çok token harcayan işlem olduğu için şu an güvenilir çalışmaz. "
+                       f"Kota gece (Groq sıfırlama saatinde) yenilenir, o zaman tekrar deneyin."
+        }
+
     saved_paths = []
     oversized = []
 
@@ -608,8 +638,10 @@ async def read_leads(_: str = Depends(require_admin)):
         return "<h2>Lead sayfası bulunamadı</h2>"
 
 @app.get("/usage")
-async def get_usage(_: str = Depends(require_admin)):
-    """Bugünkü tahmini Groq token kullanımını döndürür (gerçek API yanıtlarından toplanır)."""
+async def get_usage():
+    """Bugünkü tahmini Groq token kullanımını döndürür (gerçek API yanıtlarından toplanır).
+    Hassas veri içermediği için (sadece toplam token sayısı) herkese açık - hem public
+    index.html hem admin sayfaları burayı kullanıyor."""
     return usage_tracker.get_today_usage()
 
 @app.get("/leads-data")
