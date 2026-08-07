@@ -10,6 +10,7 @@ GITHUB_BRANCH = os.environ.get("GITHUB_BRANCH", "main")
 
 LEAD_REVIEWS_FILE = "lead_reviews.json"
 LEAD_AI_SCORES_FILE = "lead_ai_scores.json"
+LEAD_PRODUCT_SCORES_FILE = "lead_product_scores.json"
 
 _leads_cache = {"data": None, "fetched_at": 0}
 LEADS_CACHE_TTL = 60  # saniye
@@ -43,6 +44,7 @@ def load_leads() -> list:
 
 _lead_reviews_cache = {"data": None, "fetched_at": 0}
 _lead_ai_scores_cache = {"data": None, "fetched_at": 0}
+_lead_product_scores_cache = {"data": None, "fetched_at": 0}
 _DICT_CACHE_TTL = 30  # saniye
 
 def _load_json_dict_live(filename: str, cache: dict) -> dict:
@@ -129,3 +131,21 @@ def sync_lead_ai_scores_to_github():
     _sync_json_file_to_github(LEAD_AI_SCORES_FILE, "AI lead sınıflandırma güncelleme")
     _lead_ai_scores_cache["data"] = _load_json_dict_from_disk(LEAD_AI_SCORES_FILE)
     _lead_ai_scores_cache["fetched_at"] = time.time()
+
+
+def load_lead_product_scores() -> dict:
+    """Her ürün sorgusu için ayrı bir anahtar altında saklanan, lead'lerin O ÜRÜNE özel
+    alım ihtimali skorlarını döndürür - genel hedef kitle skorundan (relevance_score) farklı
+    olarak 'bu spesifik ürünü kim alır' sorusuna cevap verir."""
+    return _load_json_dict_live(LEAD_PRODUCT_SCORES_FILE, _lead_product_scores_cache)
+
+
+def save_lead_product_scores(scores: dict):
+    with open(LEAD_PRODUCT_SCORES_FILE, "w", encoding="utf-8") as f:
+        json.dump(scores, f, ensure_ascii=False, indent=4)
+
+
+def sync_lead_product_scores_to_github():
+    _sync_json_file_to_github(LEAD_PRODUCT_SCORES_FILE, "Ürün bazlı lead sınıflandırma güncelleme")
+    _lead_product_scores_cache["data"] = _load_json_dict_from_disk(LEAD_PRODUCT_SCORES_FILE)
+    _lead_product_scores_cache["fetched_at"] = time.time()
