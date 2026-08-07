@@ -1,4 +1,5 @@
 from provinces import NAME_KEYWORDS_HIGH_VALUE
+from lead_dedupe import is_mobile_phone
 
 # OSM'in ham etiket değerleri (car_parts, yes, convenience vb.) okunabilir değil -
 # arayüzde gösterilecek temiz sektör etiketleri buradan gelir
@@ -29,9 +30,14 @@ def score_lead(raw: dict) -> dict:
     # toptan/lojistik/filo gibi hiçbir hedef kitle sinyali yoksa hedef dışı say
     is_independent_repair = shop_type == "car_repair" and not keyword_hit
 
+    phone = raw.get("phone", "")
+    phone_is_mobile = is_mobile_phone(phone) if phone else False
+
     data_completeness = 0
-    if raw.get("phone"):
-        data_completeness += 10
+    if phone:
+        # Cep telefonu (05XX) tam puan alır - WhatsApp'tan ulaşılabilir. Sabit hat da bir
+        # miktar puan alır (telefonla aranabilir) ama çok daha az, çünkü asıl kanalımız WhatsApp.
+        data_completeness += 10 if phone_is_mobile else 3
     if raw.get("address"):
         data_completeness += 5
     if raw.get("website"):
@@ -48,10 +54,13 @@ def score_lead(raw: dict) -> dict:
         if shop_type == "car_parts":
             reasoning = "OSM'de 'oto yedek parça' kategorisinde kayıtlı."
         elif keyword_hit:
-            reasoning = "İsminde nakliye/lojistik/toptan/dorse gibi hedef kitle anahtar kelimesi geçiyor."
+            reasoning = "İsminde nakliye/lojistik/dorse/filo gibi hedef kitle anahtar kelimesi geçiyor."
         else:
             reasoning = "Sektör kategorisi eşleşmesi bulundu, isim bazlı ek doğrulama önerilir."
         entity_type_note = "Belirsiz"
+
+    if phone and not phone_is_mobile:
+        reasoning += " (Not: numara sabit hat görünüyor, WhatsApp'tan değil sadece telefonla ulaşılabilir.)"
 
     if shop_type in SECTOR_LABELS:
         sector_label = SECTOR_LABELS[shop_type]
@@ -71,4 +80,5 @@ def score_lead(raw: dict) -> dict:
         "score_reasoning": reasoning,
         "entity_type_note": entity_type_note,
         "sector_label": sector_label,
+        "phone_is_mobile": phone_is_mobile,
     }
