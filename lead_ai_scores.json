@@ -1093,5 +1093,105 @@
         "relevance_score": 80,
         "score_reasoning": "Oto yedek parça kategorisinde faaliyet gösteren bir firma olduğu için hedef kitleye uygun",
         "classified_at": "2026-08-07T06:08:00.098387+00:00"
+    },
+    "osm_node_11887791940": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça toptancısı olabilir",
+        "classified_at": "2026-08-07T06:08:04.211715+00:00"
+    },
+    "osm_node_11887818509": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça toptancısı olabilir",
+        "classified_at": "2026-08-07T06:08:04.211715+00:00"
+    },
+    "osm_node_11887834914": {
+        "relevance_score": 70,
+        "score_reasoning": "Oto aksesuar satışı yapıyor, yedek parça satışı da yapıyor olabilir",
+        "classified_at": "2026-08-07T06:08:04.211715+00:00"
+    },
+    "osm_node_11887861148": {
+        "relevance_score": 40,
+        "score_reasoning": "Garaj hizmeti veriyor, yedek parça satışı yapıp yapmadığı belli değil",
+        "classified_at": "2026-08-07T06:08:04.211715+00:00"
+    },
+    "osm_node_12070648218": {
+        "relevance_score": 90,
+        "score_reasoning": "Lojistik/nakliye ofisi, kendi filosu olan nakliye/lojistik firması olabilir",
+        "classified_at": "2026-08-07T06:08:04.211715+00:00"
+    },
+    "osm_node_12201960134": {
+        "relevance_score": 30,
+        "score_reasoning": "Oto hurda tamir hizmeti veriyor, yedek parça satışı yapıp yapmadığı belli değil",
+        "classified_at": "2026-08-07T06:08:04.211715+00:00"
+    },
+    "osm_node_12202023578": {
+        "relevance_score": 50,
+        "score_reasoning": "Oto detailing hizmeti veriyor, yedek parça satışı da yapıyor olabilir",
+        "classified_at": "2026-08-07T06:08:04.211715+00:00"
+    },
+    "osm_node_12203289807": {
+        "relevance_score": 0,
+        "score_reasoning": "Gıda ve hırdavat satışı yapıyor, alakasız sektör",
+        "classified_at": "2026-08-07T06:08:04.211715+00:00"
+    },
+    "osm_node_12256292950": {
+        "relevance_score": 0,
+        "score_reasoning": "Halı satışı yapıyor, alakasız sektör",
+        "classified_at": "2026-08-07T06:08:04.211715+00:00"
+    },
+    "osm_node_12331390013": {
+        "relevance_score": 90,
+        "score_reasoning": "Lojistik/nakliye ofisi, kendi filosu olan nakliye/lojistik firması olabilir",
+        "classified_at": "2026-08-07T06:08:04.211715+00:00"
+    },
+    "osm_node_12333493110": {
+        "relevance_score": 80,
+        "score_reasoning": "Lojistik hizmetleri veriyor, kendi filosu olan nakliye/lojistik firması olabilir",
+        "classified_at": "2026-08-07T06:08:04.211715+00:00"
+    },
+    "osm_node_12359994624": {
+        "relevance_score": 90,
+        "score_reasoning": "Lojistik/nakliye ofisi, kendi filosu olan nakliye/lojistik firması olabilir",
+        "classified_at": "2026-08-07T06:08:04.211715+00:00"
+    },
+    "osm_node_12392058264": {
+        "relevance_score": 70,
+        "score_reasoning": "Oto aksesuar satışı yapıyor, yedek parça satışı da yapıyor olabilir",
+        "classified_at": "2026-08-07T06:08:04.211715+00:00"
+    },
+    "osm_node_12512004970": {
+        "relevance_score": 50,
+        "score_reasoning": "Oto detailing hizmeti veriyor, yedek parça satışı da yapıyor olabilir",
+        "classified_at": "2026-08-07T06:08:04.211715+00:00"
+    },
+    "osm_node_12514608527": {
+        "relevance_score": 0,
+        "score_reasoning": "Çorap satışı yapıyor, alakasız sektör",
+        "classified_at": "2026-08-07T06:08:04.211715+00:00"
+    },
+    "osm_node_12527992429": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto bakım ürünleri satışı yapıyor, yedek parça satışı da yapıyor olabilir",
+        "classified_at": "2026-08-07T06:08:04.211715+00:00"
+    },
+    "osm_node_13026892068": {
+        "relevance_score": 70,
+        "score_reasoning": "Akü satışı yapıyor, yedek parça satışı da yapıyor olabilir",
+        "classified_at": "2026-08-07T06:08:04.211715+00:00"
+    },
+    "osm_node_13055198706": {
+        "relevance_score": 60,
+        "score_reasoning": "Oto cam filmi ve aksesuar satışı yapıyor, yedek parça satışı da yapıyor olabilir",
+        "classified_at": "2026-08-07T06:08:04.211715+00:00"
+    },
+    "osm_node_13141910034": {
+        "relevance_score": 80,
+        "score_reasoning": "Lojistik/nakliye ofisi, kendi filosu olan nakliye/lojistik firması olabilir",
+        "classified_at": "2026-08-07T06:08:04.211715+00:00"
+    },
+    "osm_node_13349017787": {
+        "relevance_score": 0,
+        "score_reasoning": "Endüstriyel temizlik ürünleri satışı yapıyor, alakasız sektör",
+        "classified_at": "2026-08-07T06:08:04.211715+00:00"
     }
 }
