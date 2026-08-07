@@ -261,13 +261,20 @@
         }
     });
 
+    function poolBadgeHtml(label, pool) {
+        if (!pool) return '';
+        const color = pool.percent_used > 80 ? '#d9534f' : pool.percent_used > 50 ? '#f0ad4e' : '#888';
+        return `${label}: <b style="color:${color}">%${pool.percent_used}</b> (${pool.total_tokens.toLocaleString('tr-TR')} / 200.000 token)`;
+    }
+
     async function loadUsageBadge() {
         try {
             const res = await fetch('/usage');
             const u = await res.json();
             const el = document.getElementById('usageBadge');
-            const color = u.percent_used > 80 ? '#d9534f' : u.percent_used > 50 ? '#f0ad4e' : '#888';
-            el.innerHTML = `⚡ Bugünkü tahmini yapay zeka kullanımı: <b style="color:${color}">%${u.percent_used}</b> (${u.total_tokens.toLocaleString('tr-TR')} / ${u.budget.toLocaleString('tr-TR')} token)`;
+            // Müşteri arama ve katalog taraması (toplu işlem) ayrı hesap/kota kullanır - karışmasınlar
+            // diye ayrı ayrı gösteriliyor. İkinci hesap henüz tanımlanmadıysa ikisi aynı sayıyı gösterir.
+            el.innerHTML = `⚡ ${poolBadgeHtml('Müşteri Arama', u.customer)} &nbsp;·&nbsp; ${poolBadgeHtml('Katalog Tarama', u.bulk)}`;
         } catch (err) { /* sessizce geç, kritik değil */ }
     }
     loadUsageBadge();
