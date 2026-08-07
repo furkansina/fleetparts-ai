@@ -174,15 +174,20 @@ def call_groq_api(prompt: str, image_path: str = None, use_secondary_model: bool
         ]
         model = GROQ_VISION_MODEL
         # max_tokens belirtilmezse Groq'un varsayılanı çok düşük kalıyor - yoğun bir katalog
-        # sayfası (onlarca ürün) taranırken JSON yanıtı yarıda kesiliyordu (gerçek örnekte
-        # tespit edildi). Bol payla ayarlandı ki uzun ürün listeleri tamamlanabilsin.
-        payload = {"model": model, "reasoning_effort": "none", "max_tokens": 8000, "messages": [{"role": "user", "content": content}]}
+        # sayfası (onlarca ürün) taranırken JSON yanıtı yarıda kesiliyordu (gerçek örnekte tespit
+        # edildi). AMA çok yüksek de tutulamaz: Groq'un dakikalık kotası (TPM) sadece 8000 token
+        # ve görsel girdinin kendisi zaten ~2500-3000 token tutuyor - 8000 verince tek başına bile
+        # TPM'i dolduruyordu (413/429). 4500 hem çoğu katalog sayfası için yeterli hem de girdiyle
+        # toplamda dakikalık bütçenin içinde kalıyor.
+        payload = {"model": model, "reasoning_effort": "none", "max_tokens": 4500, "messages": [{"role": "user", "content": content}]}
     elif use_secondary_model:
         model = GROQ_TEXT_MODEL
         payload = {"model": model, "max_tokens": 8000, "messages": [{"role": "user", "content": prompt}]}
     else:
         model = GROQ_VISION_MODEL
-        payload = {"model": model, "reasoning_effort": "none", "max_tokens": 8000, "messages": [{"role": "user", "content": prompt}]}
+        # Metin tabanlı çağrılar (satış mesajı, eşleştirme kararı) çok daha kısa çıktı üretir -
+        # düşük tutmak dakikalık kotadan (TPM) daha az pay harcar, diğer isteklere yer bırakır.
+        payload = {"model": model, "reasoning_effort": "none", "max_tokens": 2500, "messages": [{"role": "user", "content": prompt}]}
     headers = {
         "Content-Type": "application/json",
         "Authorization": f"Bearer {GROQ_API_KEY}",
@@ -603,10 +608,12 @@ async def upload_catalog_files(files: list[UploadFile] = File(...)):
     updated_count = 0
     failed = list(oversized)
 
-    # Dosyalar aynı anda (en fazla 2'si birlikte) taranır; biri başarısız olursa diğerleri etkilenmez.
-    # Not: eskiden 3'tü, ama Groq'un dakikalık token (TPM) kotası oldukça düşük olduğu için 3 sayfa
-    # aynı anda taranınca gerçek bir testte kotaya takılındığı tespit edildi - 2'ye düşürmek riski azaltır.
-    with ThreadPoolExecutor(max_workers=2) as executor:
+    # Dosyalar TEK TEK (art arda) taranır - biri başarısız olursa diğerleri yine de etkilenmez.
+    # Not: eskiden 3 dosya aynı anda taranıyordu, ama Groq'un dakikalık token (TPM) kotası çok düşük
+    # (8000) olduğu için birden fazla görsel isteği aynı anda gidince kotaya takılındığı gerçek bir
+    # yüklemede tespit edildi - tek tek işlemek her isteğin kendi doğal süresi kadar boşluk bırakıp
+    # kotanın kendini toparlamasına izin veriyor, bu da güvenilirliği hız kaybından daha önemli kılıyor.
+    with ThreadPoolExecutor(max_workers=1) as executor:
         future_to_name = {executor.submit(_scan_catalog_source, name, path): name for name, path in saved_paths}
         for future in as_completed(future_to_name):
             filename = future_to_name[future]
