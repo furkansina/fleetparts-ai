@@ -38,8 +38,9 @@ def require_admin(credentials: HTTPBasicCredentials = Depends(security)):
     return credentials.username
 
 # API Anahtarı / Token (Render ortamından GROQ_API_KEY olarak çeker) - console.groq.com/keys, kredi kartı gerektirmez
-GROQ_API_KEY = os.environ.get("GROQ_API_KEY", "")
-GROQ_VISION_MODEL = "qwen/qwen3.6-27b"     # Görsel gerektiren işler (parça fotoğrafı, katalog sayfası) - günlük 200K token kotası
+GROQ_API_KEY = os.environ.get("GROQ_API_KEY", "")            # Ana hesap - MÜŞTERİ havuzunun birincil anahtarı
+GROQ_API_KEY_BULK = os.environ.get("GROQ_API_KEY_BULK", "")  # İkinci (varsa) hesap - SADECE toplu iş (katalog tarama) için ayrılmış
+GROQ_VISION_MODEL = "qwen/qwen3.6-27b"     # Görsel gerektiren işler (parça fotoğrafı, katalog sayfası) - hesap başına günlük 200K token kotası
 GROQ_TEXT_MODEL = "llama-3.3-70b-versatile"  # Sadece iç/toplu kullanım (lead ön-değerlendirme) - AYRI, 100K token kotası
 
 # Render'ın diski her deploy'da sıfırlandığı için katalog GitHub'a da yedeklenir (kalıcılık için)
@@ -155,13 +156,42 @@ def sync_catalog_to_github():
     except Exception:
         pass
 
-def call_groq_api(prompt: str, image_path: str = None, use_secondary_model: bool = False) -> str:
+def _resolve_key_chain(pool: str, use_secondary_model: bool) -> list:
+    """`pool`'a göre hangi Groq hesabının/hesaplarının hangi sırayla deneneceğini belirler.
+    Her eleman (etiket, api_anahtarı) çifti - etiket hata mesajlarında/kullanım takibinde
+    hangi hesabın kullanıldığını belirtmek için kullanılır."""
+    if use_secondary_model:
+        # llama modeli zaten ayrı bir model/kota (havuz ayrımından bağımsız), her zaman ana hesap üzerinden
+        return [("customer", GROQ_API_KEY)]
+    if pool == "bulk":
+        if GROQ_API_KEY_BULK:
+            return [("bulk", GROQ_API_KEY_BULK)]
+        return [("customer", GROQ_API_KEY)]  # ikinci hesap henüz tanımlanmadı, geçici olarak ana hesabı kullan
+    chain = [("customer", GROQ_API_KEY)]
+    if GROQ_API_KEY_BULK:
+        chain.append(("bulk", GROQ_API_KEY_BULK))
+    return chain
+
+def call_groq_api(prompt: str, image_path: str = None, use_secondary_model: bool = False, pool: str = "customer") -> str:
     """Groq (OpenAI uyumlu) chat completions uç noktasına istek atan evrensel bağlantı yöneticisi.
     Varsayılan olarak HER ŞEY kanıtlanmış qwen modelinde kalır (müşteriye giden satış mesajı, eşleştirme
     gibi kritik çıktılarda kalite/güvenilirlik kotadan daha önemli). Sadece açıkça `use_secondary_model=True`
     verilen, müşteriye hiç gösterilmeyen iç/toplu işler (örn. lead ön-değerlendirme metni) ayrı kotalı
     llama modeline gider - qwen bazen Türkçe metne yabancı kelime karıştırdığı için llama'yı müşteri
-    tarafına hiç kullanmıyoruz."""
+    tarafına hiç kullanmıyoruz.
+
+    `pool` parametresi HANGİ GROQ HESABININ kullanılacağını belirler (qwen için iki ayrı hesap
+    olabilir - bkz. GROQ_API_KEY / GROQ_API_KEY_BULK):
+    - "customer" (varsayılan): müşteri arama akışı (vision_agent/match_agent/find_by_text). ANA
+      hesap (GROQ_API_KEY) kullanılır. O hesabın GÜNLÜK kotası biterse ve ikinci hesap
+      tanımlıysa, MÜŞTERİ HİÇBİR ŞEY FARK ETMEDEN sessizce ikinci hesaba geçilir - müşteri
+      arama asla toplu iş yüzünden kotasız kalmasın diye önceliklidir.
+    - "bulk": katalog tarama gibi toplu/iç işler. SADECE ikinci hesap (GROQ_API_KEY_BULK)
+      kullanılır - ana (müşteri) hesabına ASLA dokunmaz, ikisi karışmasın diye. İkinci hesap
+      henüz tanımlanmadıysa (geçiş dönemi, tek hesapla çalışılıyor) ana hesaba düşer.
+    """
+    key_chain = _resolve_key_chain(pool, use_secondary_model)
+
     if image_path and os.path.exists(image_path):
         with open(image_path, "rb") as img_f:
             b64_img = base64.b64encode(img_f.read()).decode("utf-8")
@@ -188,53 +218,67 @@ def call_groq_api(prompt: str, image_path: str = None, use_secondary_model: bool
         # Metin tabanlı çağrılar (satış mesajı, eşleştirme kararı) çok daha kısa çıktı üretir -
         # düşük tutmak dakikalık kotadan (TPM) daha az pay harcar, diğer isteklere yer bırakır.
         payload = {"model": model, "reasoning_effort": "none", "max_tokens": 2500, "messages": [{"role": "user", "content": prompt}]}
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": f"Bearer {GROQ_API_KEY}",
-    }
-
     last_error = ""
-    for attempt in range(3):
-        try:
-            res = requests.post("https://api.groq.com/openai/v1/chat/completions", json=payload, headers=headers, timeout=60)
-            if res.status_code == 200:
-                data = res.json()
-                usage_tracker.record_usage(data.get("usage", {}).get("total_tokens", 0))
-                return data["choices"][0]["message"]["content"]
-            if res.status_code == 429:
-                last_error = f"HTTP 429: {res.text}"
-                # Günlük token kotası tamamen bittiyse tekrar denemek anlamsız (gece sıfırlanana
-                # kadar asla başarılı olmaz) - hemen net bir hatayla çık, dakikalık limitse tekrar dene.
-                if "per day" in res.text.lower() or "tpd" in res.text.lower():
-                    raise Exception("Günlük yapay zeka kullanım kotası doldu. Kota gece (Groq sıfırlama saatinde) yenilenir, biraz sonra tekrar deneyin.")
-                # Groq'un hata mesajı dakikalık kota (TPM) dolduğunda tam gereken bekleme süresini
-                # veriyor (örn. "Please try again in 47.78s") - sabit 10sn yeterli olmadığı gerçek
-                # bir yükleme testinde tespit edildi (birden fazla sayfa aynı anda taranınca dakikalık
-                # limite takılıyor). Sabit süre yerine bu gerçek süreyi kullanıyoruz, aşırı uzamasın
-                # diye (Render'ın istek zaman aşımını aşmamak için) üst sınır koyuyoruz.
-                wait_match = re.search(r"try again in ([\d.]+)s", res.text)
-                wait_seconds = min(float(wait_match.group(1)), 45) + 1 if wait_match else 10
-                time.sleep(wait_seconds)
-                continue
-            if res.status_code == 413 and payload.get("max_tokens"):
-                # İstek (girdi + istenen max_tokens) dakikalık token sınırını (TPM) aşıyor - özellikle
-                # yoğun/büyük bir katalog sayfası görseli + geniş max_tokens kombinasyonunda oluşur.
-                # Groq'un hata mesajı gerçek sınırı ve istenen miktarı verdiği için max_tokens'ı buna
-                # göre otomatik küçültüp aynı isteği tekrar deneriz - statik bir sayı tahmin etmek yerine.
-                match = re.search(r"Limit (\d+), Requested (\d+)", res.text)
-                if match:
-                    limit, requested = int(match.group(1)), int(match.group(2))
-                    overage = requested - limit
-                    new_max_tokens = max(500, payload["max_tokens"] - overage - 200)
-                    if new_max_tokens < payload["max_tokens"]:
-                        payload["max_tokens"] = new_max_tokens
-                        continue
-                raise Exception(f"HTTP 413: {res.text}")
-            raise Exception(f"HTTP {res.status_code}: {res.text}")
-        except requests.RequestException as e:
-            raise Exception(f"Groq Bağlantı Hatası: {str(e)}")
+    daily_exhausted_count = 0
+    for key_label, api_key in key_chain:
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {api_key}",
+        }
+        for attempt in range(3):
+            try:
+                res = requests.post("https://api.groq.com/openai/v1/chat/completions", json=payload, headers=headers, timeout=60)
+                if res.status_code == 200:
+                    data = res.json()
+                    usage_tracker.record_usage(data.get("usage", {}).get("total_tokens", 0), pool=key_label)
+                    return data["choices"][0]["message"]["content"]
+                if res.status_code == 429:
+                    last_error = f"HTTP 429 ({key_label} hesap): {res.text}"
+                    # Günlük token kotası bu HESAP için tamamen bittiyse tekrar denemek anlamsız
+                    # (gece sıfırlanana kadar asla başarılı olmaz) - zincirdeki bir sonraki hesaba
+                    # (varsa) geç. Dakikalık (TPM) limitse aynı hesapla tekrar dene.
+                    if "per day" in res.text.lower() or "tpd" in res.text.lower():
+                        daily_exhausted_count += 1
+                        break
+                    # Groq'un hata mesajı dakikalık kota (TPM) dolduğunda tam gereken bekleme süresini
+                    # veriyor (örn. "Please try again in 47.78s") - sabit 10sn yeterli olmadığı gerçek
+                    # bir yükleme testinde tespit edildi. Sabit süre yerine bu gerçek süreyi kullanıyoruz,
+                    # aşırı uzamasın diye (Render'ın istek zaman aşımını aşmamak için) üst sınır koyuyoruz.
+                    wait_match = re.search(r"try again in ([\d.]+)s", res.text)
+                    wait_seconds = min(float(wait_match.group(1)), 45) + 1 if wait_match else 10
+                    time.sleep(wait_seconds)
+                    continue
+                if res.status_code == 413 and payload.get("max_tokens"):
+                    # İstek (girdi + istenen max_tokens) dakikalık token sınırını (TPM) aşıyor - özellikle
+                    # yoğun/büyük bir katalog sayfası görseli + geniş max_tokens kombinasyonunda oluşur.
+                    # Groq'un hata mesajı gerçek sınırı ve istenen miktarı verdiği için max_tokens'ı buna
+                    # göre otomatik küçültüp aynı isteği tekrar deneriz - statik bir sayı tahmin etmek yerine.
+                    match = re.search(r"Limit (\d+), Requested (\d+)", res.text)
+                    if match:
+                        limit, requested = int(match.group(1)), int(match.group(2))
+                        overage = requested - limit
+                        new_max_tokens = max(500, payload["max_tokens"] - overage - 200)
+                        if new_max_tokens < payload["max_tokens"]:
+                            payload["max_tokens"] = new_max_tokens
+                            continue
+                    last_error = f"HTTP 413 ({key_label} hesap): {res.text}"
+                    break
+                last_error = f"HTTP {res.status_code} ({key_label} hesap): {res.text}"
+                break
+            except requests.RequestException as e:
+                last_error = f"Groq Bağlantı Hatası ({key_label} hesap): {str(e)}"
+                break
+        # bu hesapla olmadıysa (günlük kota bitti ya da başka bir hata) zincirdeki bir sonraki hesaba geçilir
 
-    raise Exception(f"Groq kota limiti aşıldı, tekrar denendi ama başarısız oldu: {last_error}")
+    if daily_exhausted_count >= len(key_chain):
+        # Zincirdeki HER hesabın günlük kotası aynı anda doldu
+        if len(key_chain) > 1:
+            raise Exception("🚨 Hem ana hem yedek yapay zeka hesabının günlük kotası aynı anda doldu (nadir bir durum). Kota gece yenilenir; sık tekrarlanırsa üçüncü bir hesap eklemeyi düşünebilirsiniz.")
+        if pool == "bulk" and key_chain[0][0] == "bulk":
+            raise Exception("Toplu işlem (katalog tarama) hesabının günlük kotası doldu. Müşteri arama ayrı bir hesap kullandığı için ETKİLENMEZ. Kota gece yenilenir.")
+        raise Exception("Günlük yapay zeka kullanım kotası doldu. Kota gece (Groq sıfırlama saatinde) yenilenir, biraz sonra tekrar deneyin.")
+
+    raise Exception(f"Groq isteği başarısız oldu: {last_error}")
 
 def extract_json_object(raw_text: str) -> dict:
     clean_text = raw_text.replace("```json", "").replace("```", "").strip()
@@ -244,11 +288,11 @@ def extract_json_object(raw_text: str) -> dict:
         raise ValueError(f"Yanıtta JSON bulunamadı: {raw_text[:200]!r}")
     return json.loads(clean_text[start:end])
 
-def call_groq_json(prompt: str, image_path: str = None, use_secondary_model: bool = False) -> dict:
+def call_groq_json(prompt: str, image_path: str = None, use_secondary_model: bool = False, pool: str = "customer") -> dict:
     """JSON bekleyen çağrılar için: modelin bozuk/boş yanıt verdiği durumlarda bir kez daha dener."""
     last_error = None
     for attempt in range(2):
-        raw_text = call_groq_api(prompt, image_path, use_secondary_model=use_secondary_model)
+        raw_text = call_groq_api(prompt, image_path, use_secondary_model=use_secondary_model, pool=pool)
         try:
             return extract_json_object(raw_text)
         except (ValueError, json.JSONDecodeError) as e:
@@ -489,10 +533,10 @@ def extract_json_array(raw_text: str) -> list:
     data = json.loads(clean_text[start:end])
     return data if isinstance(data, list) else []
 
-def call_groq_json_array(prompt: str, image_path: str = None, use_secondary_model: bool = False) -> list:
+def call_groq_json_array(prompt: str, image_path: str = None, use_secondary_model: bool = False, pool: str = "customer") -> list:
     last_error = None
     for attempt in range(2):
-        raw_text = call_groq_api(prompt, image_path, use_secondary_model=use_secondary_model)
+        raw_text = call_groq_api(prompt, image_path, use_secondary_model=use_secondary_model, pool=pool)
         try:
             return extract_json_array(raw_text)
         except (ValueError, json.JSONDecodeError) as e:
@@ -556,7 +600,7 @@ def _scan_catalog_source(filename: str, file_path: str) -> list:
             items = []
             for page_num, page_path in enumerate(render_pdf_pages_to_images(file_path), start=1):
                 try:
-                    page_items = call_groq_json_array(CATALOG_SCAN_PROMPT, page_path)
+                    page_items = call_groq_json_array(CATALOG_SCAN_PROMPT, page_path, pool="bulk")
                     for item in page_items:
                         item["source_file"] = f"{filename} (sayfa {page_num})"
                     items.extend(page_items)
@@ -564,7 +608,7 @@ def _scan_catalog_source(filename: str, file_path: str) -> list:
                     if os.path.exists(page_path):
                         os.remove(page_path)
             return items
-        items = call_groq_json_array(CATALOG_SCAN_PROMPT, file_path)
+        items = call_groq_json_array(CATALOG_SCAN_PROMPT, file_path, pool="bulk")
         for item in items:
             item["source_file"] = filename
         return items
@@ -577,11 +621,15 @@ async def upload_catalog_files(files: list[UploadFile] = File(...)):
     # Günlük yapay zeka kotası zaten neredeyse bittiyse (katalog taraması en pahalı işlemdir,
     # her sayfa bir görsel analizi gerektirir) hiç denemeden önceden net bir uyarı ver - aksi
     # halde her dosya tek tek başarısız olur, kullanıcı neden olduğunu anlamadan zaman kaybeder.
+    # Katalog taraması "bulk" havuzunu kullanır (ikinci hesap tanımlıysa ona, yoksa ana hesaba
+    # düşer) - hangi havuzu gerçekten kullanacaksa onun kalan bütçesine bakılır.
     usage = usage_tracker.get_today_usage()
-    if usage.get("remaining_estimate", usage["budget"]) < 2000:
+    check_pool = "bulk" if GROQ_API_KEY_BULK else "customer"
+    pool_usage = usage.get(check_pool, {})
+    if pool_usage.get("remaining_estimate", usage_tracker.DAILY_TOKEN_BUDGET) < 2000:
         return {
             "status": "error",
-            "message": f"Bugünkü yapay zeka kullanım kotası doldu (%{usage['percent_used']} kullanıldı). "
+            "message": f"Bugünkü yapay zeka kullanım kotası doldu (%{pool_usage.get('percent_used', 0)} kullanıldı). "
                        f"Katalog taraması en çok token harcayan işlem olduğu için şu an güvenilir çalışmaz. "
                        f"Kota gece (Groq sıfırlama saatinde) yenilenir, o zaman tekrar deneyin."
         }
@@ -937,7 +985,7 @@ async def generate_broadcast(_: str = Depends(require_admin)):
     Fiyat listesi gibi durağan/kuru bir mesaj OLMASIN, gerçek bir insan yazmış gibi hissettirsin.
     """
     try:
-        draft = call_groq_api(prompt)
+        draft = call_groq_api(prompt, pool="bulk")  # admin-only taslak, canlı müşteri aramasıyla aynı kotayı paylaşmasın
         return {"status": "success", "draft": draft}
     except Exception as e:
         return {"status": "error", "message": str(e)}
