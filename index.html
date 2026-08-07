@@ -181,28 +181,47 @@
     }
 
     // Render'ın ücretsiz sunucusu birkaç dakika boş kalınca uykuya dalıyor; ilk istek onu
-    // uyandırırken bazen zaman aşımına uğrayıp JSON yerine bir hata sayfası dönebiliyor.
-    // Bu durumda kullanıcıya çirkin bir hata göstermek yerine otomatik olarak bir kez daha deneriz.
+    // uyandırırken gerçek ölçümlerde 90 saniyeye kadar sürebiliyor (JSON yerine bir hata
+    // sayfası dönebiliyor ya da bağlantı zaman aşımına uğrayabiliyor). Kullanıcıya çirkin bir
+    // hata göstermek yerine, bu süreyi rahatça karşılayacak kadar (toplam ~100sn) otomatik
+    // olarak birkaç kez daha deneriz.
     async function fetchJson(url, options, onRetry) {
-        for (let attempt = 0; attempt < 2; attempt++) {
-            const res = await fetch(url, options);
+        const maxAttempts = 8;
+        for (let attempt = 0; attempt < maxAttempts; attempt++) {
+            let res;
+            try {
+                res = await fetch(url, options);
+            } catch (networkErr) {
+                if (attempt < maxAttempts - 1) {
+                    if (onRetry) onRetry(attempt);
+                    await new Promise(r => setTimeout(r, 12000));
+                    continue;
+                }
+                throw new Error('Sunucuya ulaşılamıyor. İnternet bağlantınızı kontrol edin, sorun devam ederse birkaç dakika sonra tekrar deneyin.');
+            }
             const contentType = res.headers.get('content-type') || '';
             if (contentType.includes('application/json')) {
                 return await res.json();
             }
-            if (attempt === 0) {
-                if (onRetry) onRetry();
-                await new Promise(r => setTimeout(r, 6000));
+            if (attempt < maxAttempts - 1) {
+                if (onRetry) onRetry(attempt);
+                await new Promise(r => setTimeout(r, 12000));
                 continue;
             }
-            throw new Error('Sunucu şu an yanıt vermiyor. Sunucu uykudan uyanıyor olabilir, lütfen birkaç saniye sonra tekrar deneyin.');
+            throw new Error('Sunucu şu an yanıt vermiyor. Render ücretsiz sunucusu uykudan uyanırken bazen 1-2 dakika sürebiliyor; lütfen birkaç dakika sonra tekrar deneyin.');
         }
+    }
+
+    function wakingUpMessage(baseMsg, attempt) {
+        return attempt < 2
+            ? `${baseMsg} — sunucu uyandırılıyor, biraz sürebilir`
+            : `${baseMsg} — sunucu hâlâ uyanıyor (${attempt + 1}. deneme), lütfen bekleyin`;
     }
 
     async function checkCatalog() {
         showLoading('Katalog yükleniyor');
         try {
-            const data = await fetchJson('/get-catalog', undefined, () => showLoading('Sunucu uyandırılıyor, biraz daha bekleyin'));
+            const data = await fetchJson('/get-catalog', undefined, (attempt) => showLoading(wakingUpMessage('Katalog yükleniyor', attempt)));
             renderCatalog(data);
         } catch (err) {
             showPlainError(err.message || String(err));
@@ -215,7 +234,7 @@
         showLoading('Katalog dosyaları yapay zeka tarafından okunuyor, lütfen bekleyin (birden fazla dosyada biraz sürebilir)');
 
         try {
-            const data = await fetchJson('/upload-catalog-files', { method: 'POST', body: formData }, () => showLoading('Sunucu uyandırılıyor, biraz daha bekleyin'));
+            const data = await fetchJson('/upload-catalog-files', { method: 'POST', body: formData }, (attempt) => showLoading(wakingUpMessage('Katalog dosyaları işleniyor', attempt)));
             renderUploadResult(data);
         } catch (err) {
             showPlainError(err.message || String(err));
@@ -235,7 +254,7 @@
         showLoading('Parça analiz ediliyor ve katalogla eşleştiriliyor');
 
         try {
-            const data = await fetchJson('/process-part', { method: 'POST', body: formData }, () => showLoading('Sunucu uyandırılıyor, biraz daha bekleyin'));
+            const data = await fetchJson('/process-part', { method: 'POST', body: formData }, (attempt) => showLoading(wakingUpMessage('Parça analiz ediliyor', attempt)));
             renderProcessPartResult(data);
         } catch (err) {
             showPlainError(err.message || String(err));
