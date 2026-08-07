@@ -24,6 +24,10 @@ NAME_REGEX = "nakliye|lojistik|dorse|yedek parça|kamyon|taşımacılık|transpo
 def build_tag_query(province: str) -> str:
     """Etiket bazlı arama (shop=car_parts vb.) - indeksli olduğu için ucuz/hızlı, büyük
     şehirlerde bile saniyeler içinde döner."""
+    # NOT: "shop"=tyres (lastikçi) ve "shop"=car (galeri) ÖNCEDEN kasıtlı dışarıda bırakılmıştı
+    # ("gürültü katar" diye) - ama bu, ayıklama işini puanlama sistemi yerine keşif aşamasında
+    # yapmaya çalışmaktı ve ham veriyi gereksiz daraltıyordu. Artık dahil ediliyorlar, alakasız
+    # olanlar zaten score_lead() ve AI netleştirme aşamasında düşük puan alıp elenecek.
     return (
         f'[out:json][timeout:30];'
         f'area["name"="{province}"]["admin_level"="4"]->.searchArea;'
@@ -32,6 +36,8 @@ def build_tag_query(province: str) -> str:
         f'way["shop"="car_parts"](area.searchArea);'
         f'node["shop"="car_repair"](area.searchArea);'
         f'way["shop"="car_repair"](area.searchArea);'
+        f'node["shop"="tyres"](area.searchArea);'
+        f'way["shop"="tyres"](area.searchArea);'
         f'node["office"="logistics"](area.searchArea);'
         f'way["office"="logistics"](area.searchArea);'
         f');'
