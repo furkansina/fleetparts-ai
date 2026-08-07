@@ -1193,5 +1193,105 @@
         "relevance_score": 0,
         "score_reasoning": "Endüstriyel temizlik ürünleri satışı yapıyor, alakasız sektör",
         "classified_at": "2026-08-07T06:08:04.211715+00:00"
+    },
+    "osm_node_13419416993": {
+        "relevance_score": 20,
+        "score_reasoning": "Bağımsız tamirci/servis olan Özde Otomotiv Servis Yedek Parça, hedef外dır",
+        "classified_at": "2026-08-07T06:08:08.350970+00:00"
+    },
+    "osm_node_13419419384": {
+        "relevance_score": 80,
+        "score_reasoning": "Öncü Otomotiv & Taşımacılık Ltd. Şti., nakliye/lojistik firması olarak hedef kitledir",
+        "classified_at": "2026-08-07T06:08:08.350970+00:00"
+    },
+    "osm_node_14017701728": {
+        "relevance_score": 10,
+        "score_reasoning": "Trakya Brothers Garage, bağımsız tamirci/servis olarak hedef dışındadır",
+        "classified_at": "2026-08-07T06:08:08.350970+00:00"
+    },
+    "osm_node_9726813007": {
+        "relevance_score": 60,
+        "score_reasoning": "Çaldıran Mega Toptancı, toptan satış yapan firma olarak hedef kitlenin yan Segmentidir",
+        "classified_at": "2026-08-07T06:08:08.350970+00:00"
+    },
+    "osm_node_3844441336": {
+        "relevance_score": 40,
+        "score_reasoning": "tt Toptan Tüketim, isminde toptan ibaresi geçse de sektörle alakası yok gibi görünüyor",
+        "classified_at": "2026-08-07T06:08:08.350970+00:00"
+    },
+    "osm_node_2945424104": {
+        "relevance_score": 5,
+        "score_reasoning": "Oto Aksesuar, bağımsız tamirci/servis olarak hedef dışındadır",
+        "classified_at": "2026-08-07T06:08:08.350970+00:00"
+    },
+    "osm_node_3294922762": {
+        "relevance_score": 50,
+        "score_reasoning": "Bizim Toptan Satış Mağzaları, toptan satış yapan firma olarak hedef kitlenin yan Segmentidir",
+        "classified_at": "2026-08-07T06:08:08.350970+00:00"
+    },
+    "osm_node_3310326901": {
+        "relevance_score": 70,
+        "score_reasoning": "Şensesler Toptan, toptan satış yapan firma olarak hedef kitlenin yan Segmentidir",
+        "classified_at": "2026-08-07T06:08:08.350970+00:00"
+    },
+    "osm_node_3908882411": {
+        "relevance_score": 15,
+        "score_reasoning": "Polimax Oto Aksesuar, bağımsız tamirci/servis olarak hedef dışındadır",
+        "classified_at": "2026-08-07T06:08:08.350970+00:00"
+    },
+    "osm_node_3983975034": {
+        "relevance_score": 10,
+        "score_reasoning": "Yıldırım Oto Aksesuar, bağımsız tamirci/servis olarak hedef dışındadır",
+        "classified_at": "2026-08-07T06:08:08.350970+00:00"
+    },
+    "osm_node_3983975035": {
+        "relevance_score": 10,
+        "score_reasoning": "Aktulum Oto Aksesuar, bağımsız tamirci/servis olarak hedef dışındadır",
+        "classified_at": "2026-08-07T06:08:08.350970+00:00"
+    },
+    "osm_node_3983976258": {
+        "relevance_score": 10,
+        "score_reasoning": "Doğan Oto Aksekuar, bağımsız tamirci/servis olarak hedef dışındadır",
+        "classified_at": "2026-08-07T06:08:08.350970+00:00"
+    },
+    "osm_node_4281946295": {
+        "relevance_score": 10,
+        "score_reasoning": "Rüzgar Oto Aksesuar, bağımsız tamirci/servis olarak hedef dışındadır",
+        "classified_at": "2026-08-07T06:08:08.350970+00:00"
+    },
+    "osm_node_4395955694": {
+        "relevance_score": 10,
+        "score_reasoning": "Vip Oto Aksesuar, bağımsız tamirci/servis olarak hedef dışındadır",
+        "classified_at": "2026-08-07T06:08:08.350970+00:00"
+    },
+    "osm_node_4404106090": {
+        "relevance_score": 10,
+        "score_reasoning": "Ak ticaret boya, bağımsız tamirci/servis olarak hedef dışındadır",
+        "classified_at": "2026-08-07T06:08:08.350970+00:00"
+    },
+    "osm_node_4584009189": {
+        "relevance_score": 10,
+        "score_reasoning": "Klas Oto Aksesuar, bağımsız tamirci/servis olarak hedef dışındadır",
+        "classified_at": "2026-08-07T06:08:08.350970+00:00"
+    },
+    "osm_node_4805830721": {
+        "relevance_score": 20,
+        "score_reasoning": "Oto Müzik Sistemleri, otomotiv sektöründe faaliyet gösteren bir firmadır, ancak hedef kitle değildir",
+        "classified_at": "2026-08-07T06:08:08.350970+00:00"
+    },
+    "osm_node_4938901722": {
+        "relevance_score": 10,
+        "score_reasoning": "Ahmet Oto Aksesuar, bağımsız tamirci/servis olarak hedef dışındadır",
+        "classified_at": "2026-08-07T06:08:08.350970+00:00"
+    },
+    "osm_node_5141155456": {
+        "relevance_score": 0,
+        "score_reasoning": "Toptan Çiçekçi, tamamen farklı bir sektörde faaliyet gösteren firma olarak hedef dışındadır",
+        "classified_at": "2026-08-07T06:08:08.350970+00:00"
+    },
+    "osm_node_5153377523": {
+        "relevance_score": 10,
+        "score_reasoning": "Özmen Oto Aksesuar, bağımsız tamirci/servis olarak hedef dışındadır",
+        "classified_at": "2026-08-07T06:08:08.350970+00:00"
     }
 }
