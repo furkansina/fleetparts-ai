@@ -204,6 +204,71 @@ def _parse_izmir3(html: str, category_label: str) -> list:
 
 _PARSERS = {"ankara": _parse_ankara, "sanko": _parse_sanko, "izmir3": _parse_izmir3}
 
+# Kayseri Yeni Sanayi rehberi diğerlerinden farklı: liste sayfası sadece isim+kategori veriyor,
+# telefon/adres için her firmanın kendi detay sayfası ayrıca çekilmesi gerekiyor. Detay
+# sayfasında "Firma Yetkilisi: <kişi adı>" alanı da VAR ama KASITLI OLARAK hiç okunmuyor - bu
+# projede kişi adı hiçbir kaynaktan (KVKK) leads.json'a yazılmaz. Sadece "firmainfo" kutusundaki
+# (Adres/Telefon) kurumsal bilgiler alınıyor, sayfanın geri kalanı hiç parse edilmiyor.
+KAYSERI_BASE = "https://kayseriyenisanayi.com"
+KAYSERI_CATEGORIES = {
+    "oto-yedek-parca": "Oto Yedek Parça", "servis-yedek-parca": "Servis/Yedek Parça",
+    "mekanik": "Mekanik", "motor": "Motor", "sanziman": "Şanzıman",
+    "kaporta": "Kaporta", "kaporta-boya": "Kaporta/Boya", "egzoz": "Egzoz",
+    "rot-balans-lastik": "Rot Balans/Lastik", "lastik": "Lastik",
+    "oto-elektrik": "Oto Elektrik", "lpg-otogaz": "LPG/Otogaz",
+    "oto-aksesuar": "Oto Aksesuar", "tamir-ve-bakim-servisi": "Tamir ve Bakım Servisi",
+    "bakim-servisi": "Bakım Servisi",
+}
+_KAYSERI_LIST_ITEM_RE = re.compile(r'<h2 class="post-title">\s*<a href="([^"]+)"[^>]*>([^<]+)</a>')
+_KAYSERI_NEXT_PAGE_RE = re.compile(r'<a href="([^"]+)"\s*>Sonraki sayfa')
+_KAYSERI_FIRMAINFO_RE = re.compile(r'<div class="firmainfo">(.*?)</div>\s*<div class="yazi_paylas">', re.DOTALL)
+_KAYSERI_ADDRESS_RE = re.compile(r"Adres</span>([^<]{2,150})</li>")
+_KAYSERI_PHONE_RE = re.compile(r'class="telefon"><span>Telefon</span><a href="tel:([^"]+)"')
+
+
+def _scan_kayseri(delay: float) -> list:
+    results = {}  # detail_url -> item, kategoriler arasinda ayni firma tekrar cikabilir
+    for cat_slug, cat_label in KAYSERI_CATEGORIES.items():
+        page_url = f"{KAYSERI_BASE}/firmalar/{cat_slug}/"
+        pages_visited = 0
+        while page_url and pages_visited < 15:  # makul bir tavan, sonsuz döngüye karşı
+            html = _fetch(page_url)
+            pages_visited += 1
+            if not html:
+                break
+            for detail_url, name in _KAYSERI_LIST_ITEM_RE.findall(html):
+                if detail_url not in results:
+                    results[detail_url] = {"name": name.strip(), "category_label": cat_label}
+            next_m = _KAYSERI_NEXT_PAGE_RE.search(html)
+            page_url = next_m.group(1) if next_m else None
+            if page_url:
+                time.sleep(delay)
+
+    items = []
+    for detail_url, info in results.items():
+        time.sleep(delay)
+        detail_html = _fetch(detail_url)
+        if not detail_html:
+            continue
+        box_m = _KAYSERI_FIRMAINFO_RE.search(detail_html)
+        box = box_m.group(1) if box_m else ""
+        addr_m = _KAYSERI_ADDRESS_RE.search(box)
+        phone_m = _KAYSERI_PHONE_RE.search(box)
+        slug = detail_url.rstrip("/").rsplit("/", 1)[-1]
+        items.append({
+            "site_id": f"kayseriyenisanayi_{slug}",
+            "name": info["name"],
+            "shop_type": "directory",
+            "category_label": f"Kayseri Yeni Sanayi Rehberi - {info['category_label']}",
+            "phone": phone_m.group(1).strip() if phone_m else "",
+            "website": "",
+            "address": addr_m.group(1).strip() if addr_m else "",
+            "lat": None,
+            "lon": None,
+            "province": "Kayseri",
+        })
+    return items
+
 
 def search_all(delay: float = 0.5) -> list:
     """Bilinen tüm sanayi sitesi/bölgesel oto rehberi kaynaklarını tarar. search_province'ten
@@ -223,4 +288,10 @@ def search_all(delay: float = 0.5) -> list:
                 item["province"] = source["province"]
             all_results.extend(items)
             time.sleep(delay)
+
+    try:
+        all_results.extend(_scan_kayseri(delay))
+    except Exception as e:
+        print(f"  [sanayi-sitesi] kayseri tarama hatasi - {e}")
+
     return all_results
