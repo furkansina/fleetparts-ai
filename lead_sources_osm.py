@@ -1,3 +1,5 @@
+import time
+
 import requests
 
 # Birden fazla ücretsiz Overpass aynası - biri yavaş/meşgulse diğeri denenir.
@@ -102,28 +104,42 @@ def _parse_elements(data: dict) -> list:
 def _run_query(query: str, mirror_offset: int, province: str, label: str) -> list:
     """Tek bir Overpass sorgusunu birden fazla ayna deneyerek çalıştırır. Hepsi başarısız
     olursa boş liste döner - bu sorgunun başarısız olması ÇAĞIRANIN diğer sorgusunu etkilemez
-    (bkz. search_province: etiket ve isim sorguları birbirinden bağımsız çalışır)."""
+    (bkz. search_province: etiket ve isim sorguları birbirinden bağımsız çalışır).
+
+    NOT: 81 il paralel taranırken (varsayılan 2 iş parçacığı) sadece 2 ücretsiz Overpass aynası
+    aynı anda birden fazla ilin sorgusuna cevap vermeye çalışıyor - bir gerçek taramada Ankara,
+    Ağrı, Elazığ, Erzurum, Giresun, Hatay illerinin TAMAMEN sıfır OSM sonucuyla döndüğü tespit
+    edildi (Ankara'nın tek başına, yüksüz halde 141 sonuç verdiği önceden doğrulanmıştı) - yani
+    aynalar geçici olarak meşgul/rate-limit dönüyordu ve eskiden TEK deneme sonrası pes edilip
+    o il için OSM verisi tamamen kayboluyordu. Şimdi ikisi de başarısız olursa bir miktar
+    bekleyip TÜM aynaları tekrar deniyor (toplam 3 tur) - geçici tıkanıklığı aşmak için yeterli,
+    ama sunucuları gereksiz yormayacak kadar sınırlı."""
     n = len(OVERPASS_MIRRORS)
     ordered_mirrors = [OVERPASS_MIRRORS[(mirror_offset + i) % n] for i in range(n)]
 
-    for mirror in ordered_mirrors:
-        try:
-            # istemci taraf zaman aşımı, sorgunun kendi [timeout:60] değerinden daha kısa OLAMAZ -
-            # aksi halde sunucu henüz bitirmeden istemci pes edip büyük şehir sonuçlarını kaybederdi.
-            res = requests.post(mirror, data={"data": query}, headers=OVERPASS_HEADERS, timeout=75)
-            if res.status_code != 200:
-                print(f"  [{province}/{label}] {mirror}: HTTP {res.status_code}")
-                continue
+    for attempt in range(3):
+        if attempt > 0:
+            time.sleep(8 * attempt)  # 2. turda 8sn, 3. turda 16sn bekle
 
-            data = res.json()
-            if data.get("remark"):
-                print(f"  [{province}/{label}] {mirror}: {data['remark']}")
-                continue
+        for mirror in ordered_mirrors:
+            try:
+                # istemci taraf zaman aşımı, sorgunun kendi [timeout:60] değerinden daha kısa
+                # OLAMAZ - aksi halde sunucu henüz bitirmeden istemci pes edip büyük şehir
+                # sonuçlarını kaybederdi.
+                res = requests.post(mirror, data={"data": query}, headers=OVERPASS_HEADERS, timeout=75)
+                if res.status_code != 200:
+                    print(f"  [{province}/{label}] deneme {attempt + 1}: {mirror}: HTTP {res.status_code}")
+                    continue
 
-            return _parse_elements(data)
-        except Exception as e:
-            print(f"  [{province}/{label}] {mirror}: hata - {e}")
-            continue
+                data = res.json()
+                if data.get("remark"):
+                    print(f"  [{province}/{label}] deneme {attempt + 1}: {mirror}: {data['remark']}")
+                    continue
+
+                return _parse_elements(data)
+            except Exception as e:
+                print(f"  [{province}/{label}] deneme {attempt + 1}: {mirror}: hata - {e}")
+                continue
 
     return []
 
