@@ -918,8 +918,7 @@ async def classify_ambiguous_leads(_: str = Depends(require_admin)):
 CLASSIFY_PRODUCT_BATCH_SIZE = 20
 
 def _slugify_product_key(text: str) -> str:
-    import re as _re
-    slug = _re.sub(r"[^a-z0-9ğüşıöç]+", "_", text.strip().lower())
+    slug = re.sub(r"[^a-z0-9ğüşıöç]+", "_", text.strip().lower())
     return slug.strip("_")[:60] or "urun"
 
 @app.post("/leads/classify-for-product")
@@ -948,7 +947,7 @@ async def classify_leads_for_product(
     candidates = [
         l for l in leads
         if l.get("lead_id") not in existing
-        and (l.get("relevance_score") or 0) >= 15  # bağımsız tamirci tavanının altını baştan ele
+        and (l.get("relevance_score") or 0) > 15  # bağımsız tamirciler en fazla 15 alabiliyor (score_lead'deki tavan) - o tavanı da içeri almamak için sıkı eşitsizlik
         and reviews.get(l.get("lead_id"), {}).get("status") != "reddedildi"
         and (not province or l.get("province") == province)
     ]
@@ -1097,6 +1096,18 @@ async def import_contacts(text: str = Form(...), _: str = Depends(require_admin)
     outreach.save_contacts(contacts)
     outreach.sync_contacts_to_github()
     return {"status": "success", "message": f"{added} kişi eklendi. Toplam: {len(contacts)}"}
+
+@app.post("/contacts/remove")
+async def remove_contact(phone: str = Form(...), _: str = Depends(require_admin)):
+    """Kişi listesinden tek bir kaydı çıkarır (telefon numarasına göre) - örn. lead'den
+    yanlışlıkla eklenmiş ya da artık iletişim kurulmak istenmeyen bir kişi için."""
+    contacts = outreach.load_contacts()
+    phone = phone.strip()
+    remaining = [c for c in contacts if c.get("phone", "").strip() != phone]
+    removed = len(contacts) - len(remaining)
+    outreach.save_contacts(remaining)
+    outreach.sync_contacts_to_github()
+    return {"status": "success", "message": f"{removed} kişi çıkarıldı." if removed else "Kişi bulunamadı.", "removed": removed}
 
 @app.post("/broadcast-generate")
 async def generate_broadcast(_: str = Depends(require_admin)):
