@@ -13,8 +13,11 @@ PROVINCES = [
     "Iğdır", "Yalova", "Karabük", "Kilis", "Osmaniye", "Düzce",
 ]
 
-# Lead adı/isim eşleşmesi için sektör anahtar kelimeleri
+# Lead adı/isim eşleşmesi için sektör anahtar kelimeleri.
+# NOT: "toptan" (wholesale) kasıtlı olarak burada YOK - tek başına çok genel bir kelime,
+# market/tekstil/gıda gibi tamamen alakasız toptancıları da yakalayıp yanlış pozitif üretiyordu
+# (örn. "Bizim Toptan Market"). Diğer kelimelerin hepsi zaten araç/lojistik'e özgü.
 NAME_KEYWORDS_HIGH_VALUE = [
     "nakliye", "lojistik", "dorse", "treyler", "taşımacılık", "transport",
-    "yedek parça", "toptan", "filo",
+    "yedek parça", "filo",
 ]
