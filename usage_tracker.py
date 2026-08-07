@@ -17,7 +17,7 @@ _lock = threading.Lock()
 _cache = {"data": None, "fetched_at": 0}
 CACHE_TTL = 15  # saniye - sık çağrıldığı için (her Groq isteğinden sonra) çok kısa tutuldu
 
-POOLS = ("customer", "bulk")
+POOLS = ("customer", "bulk", "customer2")
 
 
 def _empty_day() -> dict:
@@ -25,10 +25,13 @@ def _empty_day() -> dict:
         "date": str(date.today()),
         "customer": {"total_tokens": 0, "call_count": 0},
         "bulk": {"total_tokens": 0, "call_count": 0},
+        "customer2": {"total_tokens": 0, "call_count": 0},
     }
 
 
 def _is_valid_shape(data) -> bool:
+    # "customer2" eski kayıtlarda (3. hesap eklenmeden önce) yok olabilir - eksikse eksik
+    # sayılmaz, get_today_usage/record_usage aşağıda .setdefault ile tamamlar.
     return isinstance(data, dict) and "date" in data and "customer" in data and "bulk" in data
 
 
@@ -107,6 +110,7 @@ def record_usage(total_tokens: int, pool: str = "customer"):
         today = str(date.today())
         if data.get("date") != today:
             data = _empty_day()
+        data.setdefault(pool, {"total_tokens": 0, "call_count": 0})
         data[pool]["total_tokens"] += total_tokens
         data[pool]["call_count"] += 1
         _save(data)
@@ -127,7 +131,7 @@ def get_today_usage() -> dict:
 
         result = {"date": data["date"], "budget": DAILY_TOKEN_BUDGET}
         for pool in POOLS:
-            p = data[pool]
+            p = data.setdefault(pool, {"total_tokens": 0, "call_count": 0})
             result[pool] = {
                 "total_tokens": p["total_tokens"],
                 "call_count": p["call_count"],
