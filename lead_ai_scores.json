@@ -993,5 +993,105 @@
         "relevance_score": 20,
         "score_reasoning": "Oto aksesuar satışı yapıyor ancak nakliye/lojistik/toptan kategorisinde yer almiyor",
         "classified_at": "2026-08-07T06:07:55.977465+00:00"
+    },
+    "osm_node_9845838028": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça kategorisinde faaliyet gösteren bir firma olduğu için hedef kitleye uygun",
+        "classified_at": "2026-08-07T06:08:00.098387+00:00"
+    },
+    "osm_node_10127168554": {
+        "relevance_score": 90,
+        "score_reasoning": "Lojistik/Nakliye ofisi категорisinde faaliyet gösteren bir firma olduğu için hedef kitleye uygun",
+        "classified_at": "2026-08-07T06:08:00.098387+00:00"
+    },
+    "osm_node_10158121179": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça kategorisinde faaliyet gösteren bir firma olduğu için hedef kitleye uygun",
+        "classified_at": "2026-08-07T06:08:00.098387+00:00"
+    },
+    "osm_node_10941183279": {
+        "relevance_score": 90,
+        "score_reasoning": "Nakliye/Lojistik işinde faaliyet gösteren bir firma olduğu için hedef kitleye uygun",
+        "classified_at": "2026-08-07T06:08:00.098387+00:00"
+    },
+    "osm_node_10941213600": {
+        "relevance_score": 20,
+        "score_reasoning": "Alakasız sektörde (perde imalatı) faaliyet gösteren bir firma olduğu için hedef kitle dışında",
+        "classified_at": "2026-08-07T06:08:00.098387+00:00"
+    },
+    "osm_node_10941249895": {
+        "relevance_score": 95,
+        "score_reasoning": "Nakliye/Lojistik ve filo kiralama işinde faaliyet gösteren bir firma olduğu için hedef kitleye uygun",
+        "classified_at": "2026-08-07T06:08:00.098387+00:00"
+    },
+    "osm_node_10968340931": {
+        "relevance_score": 10,
+        "score_reasoning": "Alakasız sektörde (gıda toptancılığı) faaliyet gösteren bir firma olduğu için hedef kitle dışında",
+        "classified_at": "2026-08-07T06:08:00.098387+00:00"
+    },
+    "osm_node_10968343775": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça kategorisinde faaliyet gösteren bir firma olduğu için hedef kitleye uygun",
+        "classified_at": "2026-08-07T06:08:00.098387+00:00"
+    },
+    "osm_node_11107028972": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça kategorisinde faaliyet gösteren bir firma olduğu için hedef kitleye uygun",
+        "classified_at": "2026-08-07T06:08:00.098387+00:00"
+    },
+    "osm_node_11435202824": {
+        "relevance_score": 90,
+        "score_reasoning": "Lojistik/Nakliye ofisi kategorisinde faaliyet gösteren bir firma olduğu için hedef kitleye uygun",
+        "classified_at": "2026-08-07T06:08:00.098387+00:00"
+    },
+    "osm_node_11517820819": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça kategorisinde faaliyet gösteren bir firma olduğu için hedef kitleye uygun",
+        "classified_at": "2026-08-07T06:08:00.098387+00:00"
+    },
+    "osm_node_11517820820": {
+        "relevance_score": 10,
+        "score_reasoning": "Alakasız sektörde (gıda toptancılığı) faaliyet gösteren bir firma olduğu için hedef kitle dışında",
+        "classified_at": "2026-08-07T06:08:00.098387+00:00"
+    },
+    "osm_node_11517824102": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça kategorisinde faaliyet gösteren bir firma olduğu için hedef kitleye uygun",
+        "classified_at": "2026-08-07T06:08:00.098387+00:00"
+    },
+    "osm_node_11517833049": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça kategorisinde faaliyet gösteren bir firma olduğu için hedef kitleye uygun",
+        "classified_at": "2026-08-07T06:08:00.098387+00:00"
+    },
+    "osm_node_11517931073": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça kategorisinde faaliyet gösteren bir firma olduğu için hedef kitleye uygun",
+        "classified_at": "2026-08-07T06:08:00.098387+00:00"
+    },
+    "osm_node_11556711495": {
+        "relevance_score": 40,
+        "score_reasoning": "Belirsiz kategoride faaliyet gösteren bir firma olduğu için hedef kitleye kısmen uygun",
+        "classified_at": "2026-08-07T06:08:00.098387+00:00"
+    },
+    "osm_node_11747148835": {
+        "relevance_score": 10,
+        "score_reasoning": "Alakasız sektörde (market toptancılığı) faaliyet gösteren bir firma olduğu için hedef kitle dışında",
+        "classified_at": "2026-08-07T06:08:00.098387+00:00"
+    },
+    "osm_node_11747148858": {
+        "relevance_score": 10,
+        "score_reasoning": "Alakasız sektörde (otopark) faaliyet gösteren bir firma olduğu için hedef kitle dışında",
+        "classified_at": "2026-08-07T06:08:00.098387+00:00"
+    },
+    "osm_node_11831443254": {
+        "relevance_score": 60,
+        "score_reasoning": "Oto ekspertiz merkezi olarak faaliyet gösteren bir firma olduğu için hedef kitleye kısmen uygun",
+        "classified_at": "2026-08-07T06:08:00.098387+00:00"
+    },
+    "osm_node_11887736254": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça kategorisinde faaliyet gösteren bir firma olduğu için hedef kitleye uygun",
+        "classified_at": "2026-08-07T06:08:00.098387+00:00"
     }
 }
