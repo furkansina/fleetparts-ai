@@ -1,0 +1,13 @@
+name: Sunucuyu Uyanık Tut
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'  # her 10 dakikada bir - Render ücretsiz plan 15dk hareketsizlikte uykuya dalıyor
+  workflow_dispatch: {}
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Siteyi uyandır/uyanık tut
+        run: curl -sf -m 60 https://fleetparts-ai.onrender.com/usage || echo "Ping basarisiz (site uyaniyor olabilir), sorun degil"
