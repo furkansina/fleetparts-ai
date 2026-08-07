@@ -180,7 +180,8 @@
             const res = await fetch('/usage');
             const u = await res.json();
             const el = document.getElementById('usageBadge');
-            el.innerHTML = `⚡ ${poolBadgeHtml('Müşteri Arama', u.customer)} &nbsp;·&nbsp; ${poolBadgeHtml('Katalog Tarama', u.bulk)}`;
+            const thirdBadge = (u.customer2 && u.customer2.call_count > 0) ? ` &nbsp;·&nbsp; ${poolBadgeHtml('Müşteri Arama (Yedek)', u.customer2)}` : '';
+            el.innerHTML = `⚡ ${poolBadgeHtml('Müşteri Arama', u.customer)} &nbsp;·&nbsp; ${poolBadgeHtml('Katalog Tarama', u.bulk)}${thirdBadge}`;
         } catch (err) { /* sessizce geç, kritik değil */ }
     }
     loadUsageBadge();
