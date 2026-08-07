@@ -503,6 +503,18 @@ async def read_katalog():
 async def get_catalog_endpoint():
     return {"catalog": load_catalog(), "files": os.listdir(CATALOG_DIR)}
 
+@app.get("/katalog-yonetim", response_class=HTMLResponse)
+async def read_katalog_yonetim(_: str = Depends(require_admin)):
+    """Katalog yükleme/görüntüleme - eskiden herkese açık ana sayfadaydı (index.html), gerçek bir
+    güvenlik incelemesinde tespit edildi ki bu, siteyi bulan HERKESİN katalog yükleyip yapay zeka
+    kotasını tüketebilmesi/kataloğa yanlış veri karıştırabilmesi anlamına geliyordu - bu yüzden
+    diğer yönetici sayfalarıyla (leads, broadcast) aynı korumaya alınıp buraya taşındı."""
+    try:
+        with open("katalog-yonetim.html", "r", encoding="utf-8") as f:
+            return f.read()
+    except Exception:
+        return "<h2>Katalog yönetim sayfası bulunamadı</h2>"
+
 CATALOG_SCAN_PROMPT = """
 Bu, ağır vasıta yedek parça kataloğuna ait bir sayfa, fotoğraf veya web sayfası ekran görüntüsü.
 Görselde TEK bir parça olabileceği gibi, bir tabloda/gridde ONLARCA farklı parça da olabilir
@@ -624,7 +636,12 @@ def _scan_catalog_source(filename: str, file_path: str) -> list:
             os.remove(file_path)
 
 @app.post("/upload-catalog-files")
-async def upload_catalog_files(files: list[UploadFile] = File(...)):
+async def upload_catalog_files(files: list[UploadFile] = File(...), _: str = Depends(require_admin)):
+    # NOT: bu endpoint eskiden korumasızdı - ana sayfa (index.html) herkese açık olduğu için
+    # siteyi bulan HERKES katalog yükleyip hem yapay zeka kotasını (bulk havuz) tüketebilir hem
+    # de kataloga yanlış/saçma veri karıştırabilirdi (merge_catalog_items ne gelirse birleştirir).
+    # Gerçek bir güvenlik taramasında tespit edildi - diğer tüm yönetici işlemleriyle (leads,
+    # broadcast vb.) aynı require_admin korumasına alındı.
     # Günlük yapay zeka kotası zaten neredeyse bittiyse (katalog taraması en pahalı işlemdir,
     # her sayfa bir görsel analizi gerektirir) hiç denemeden önceden net bir uyarı ver - aksi
     # halde her dosya tek tek başarısız olur, kullanıcı neden olduğunu anlamadan zaman kaybeder.
