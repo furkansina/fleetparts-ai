@@ -1,3 +1,5 @@
+import re
+
 from provinces import NAME_KEYWORDS_HIGH_VALUE
 from lead_dedupe import is_mobile_phone
 
@@ -9,6 +11,13 @@ SECTOR_LABELS = {
     "car_repair": "Oto Tamir Servisi",
 }
 
+# Anahtar kelimeler kelime sınırıyla (\b) aranır, düz alt-dize (substring) araması DEĞİL.
+# Aksi halde örneğin "filo" kelimesi "Profilo" (gerçek bir beyaz eşya markası) gibi tamamen
+# alakasız isimlerin içinde de eşleşip yanlış pozitif üretiyordu - gerçek bir örnekte tespit edildi.
+_KEYWORD_PATTERN = re.compile(
+    r"\b(" + "|".join(re.escape(k) for k in NAME_KEYWORDS_HIGH_VALUE) + r")\b"
+)
+
 
 def score_lead(raw: dict) -> dict:
     """Kural bazlı skor: OSM'den gelen ham veriyi (isim, kategori, iletişim bilgisi)
@@ -16,7 +25,7 @@ def score_lead(raw: dict) -> dict:
     name_lower = raw.get("name", "").lower()
     shop_type = raw.get("shop_type", "")
 
-    keyword_hit = any(k in name_lower for k in NAME_KEYWORDS_HIGH_VALUE)
+    keyword_hit = bool(_KEYWORD_PATTERN.search(name_lower))
 
     sector_match = 0
     if shop_type == "car_parts":
@@ -65,7 +74,7 @@ def score_lead(raw: dict) -> dict:
     if shop_type in SECTOR_LABELS:
         sector_label = SECTOR_LABELS[shop_type]
     elif keyword_hit:
-        sector_label = "İsim Eşleşmesi (Nakliye/Lojistik/Toptan)"
+        sector_label = "İsim Eşleşmesi (Nakliye/Lojistik/Filo)"
     else:
         sector_label = "Belirsiz"
 
