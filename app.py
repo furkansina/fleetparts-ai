@@ -381,7 +381,8 @@ def match_agent(vision_data: dict) -> dict:
                 }
             if matches:
                 item_copy = matches[0].copy()
-                item_copy["match_reason"] = f"Kesinlik Skoru: %{score} | Doğrulama: {decision}"
+                item_copy["match_score"] = score
+                item_copy["match_evidence"] = decision
                 return item_copy
 
         return {
@@ -421,7 +422,8 @@ def find_by_text(query: str) -> dict:
         }
     if exact_matches:
         item_copy = exact_matches[0].copy()
-        item_copy["match_reason"] = "OEM/katalog kodu ile birebir eşleşme (%100)"
+        item_copy["match_score"] = 100
+        item_copy["match_evidence"] = "OEM/katalog kodu ile birebir eşleşme"
         return item_copy
 
     # 2. Birebir kod eşleşmesi yoksa, yapay zekaya isim/açıklama bazlı eşleştirt (örn: "DAF sol çamurluk")
@@ -462,7 +464,8 @@ def find_by_text(query: str) -> dict:
                 }
             if matches:
                 item_copy = matches[0].copy()
-                item_copy["match_reason"] = f"Kesinlik Skoru: %{score} | Doğrulama: {decision}"
+                item_copy["match_score"] = score
+                item_copy["match_evidence"] = decision
                 return item_copy
 
         return {
