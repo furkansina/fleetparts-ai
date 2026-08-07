@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katalog Yönetimi - FleetParts AI</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: -apple-system, Segoe UI, Arial, sans-serif; background-color: #f4f6f9; color: #333; margin: 0; padding: 20px; }
+        .container { max-width: 900px; margin: auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        h1 { color: #d9534f; text-align: center; }
+        .section { margin-bottom: 30px; padding: 20px; border: 1px solid #ddd; border-radius: 6px; background: #fafafa; }
+        label { font-weight: bold; display: block; margin-top: 10px; }
+        input, button { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 15px; }
+        button { background-color: #d9534f; color: white; font-weight: bold; cursor: pointer; border: none; margin-top: 15px; }
+        button:hover { background-color: #c9302c; }
+        .btn-blue { background-color: #337ab7; }
+        .btn-blue:hover { background-color: #286090; }
+
+        #output { min-height: 40px; }
+        .placeholder { color: #888; font-style: italic; }
+        .loading { color: #337ab7; font-weight: bold; }
+        .loading .dots::after { content: '...'; animation: dots 1.4s steps(4, end) infinite; }
+        @keyframes dots { 0%,20%{content:'.'} 40%{content:'..'} 60%,100%{content:'...'} }
+
+        .card { border-radius: 8px; padding: 18px 20px; margin-bottom: 14px; border-left: 6px solid #ccc; background: white; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+        .card.ok { border-left-color: #28a745; background: #f4fbf6; }
+        .card.err { border-left-color: #d9534f; background: #fdf3f2; }
+        .card-title { font-size: 18px; font-weight: bold; margin: 0 0 10px 0; display: flex; align-items: center; gap: 8px; }
+        .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; margin-left: 6px; }
+        .badge-oem { background: #e9ecef; color: #495057; font-family: monospace; }
+        .badge-stock { background: #d4edda; color: #155724; }
+        .badge-stock.zero { background: #f8d7da; color: #721c24; }
+
+        .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; margin-top: 10px; }
+        .catalog-item { background: white; border: 1px solid #e2e2e2; border-radius: 8px; padding: 14px; box-shadow: 0 2px 4px rgba(0,0,0,0.04); }
+        .catalog-item h4 { margin: 0 0 6px 0; font-size: 15.5px; }
+        .catalog-item .specs { color: #666; font-size: 13px; margin-top: 6px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>📦 Katalog Yönetimi</h1>
+    <div id="usageBadge" style="text-align:center; font-size:12px; color:#888; margin-bottom:14px;"></div>
+
+    <div class="section">
+        <h3>Katalog / PDF / Görsel Yükle</h3>
+        <form id="catalogForm">
+            <input type="file" name="files" multiple accept=".pdf, .png, .jpg, .jpeg" required>
+            <button type="submit">Katalog Dosyalarını İşle ve Ekle</button>
+        </form>
+        <button class="btn-blue" onclick="checkCatalog()">Şu Anki Kataloğu Görüntüle</button>
+    </div>
+
+    <div class="section">
+        <h3>Sonuçlar</h3>
+        <div id="output"><span class="placeholder">İşlem bekleniyor...</span></div>
+    </div>
+</div>
+
+<script>
+    const out = document.getElementById('output');
+
+    function esc(s) {
+        return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    }
+
+    function showLoading(msg) {
+        out.innerHTML = `<div class="loading">${esc(msg)}<span class="dots"></span></div>`;
+    }
+
+    function showPlainError(msg) {
+        out.innerHTML = `<div class="card err"><div class="card-title">❌ Hata</div><div>${esc(msg)}</div></div>`;
+    }
+
+    function renderCatalog(data) {
+        const items = data.catalog || [];
+        if (items.length === 0) {
+            out.innerHTML = `<div class="card"><div class="card-title">⚠️ Katalog Boş</div><div>Henüz hiç parça eklenmemiş.</div></div>`;
+            return;
+        }
+        const cards = items.map(item => `
+            <div class="catalog-item">
+                <h4>${esc(item.name)}</h4>
+                <div><span class="badge badge-oem">${esc(item.oem)}</span> <span class="badge badge-stock ${(item.stock ?? 0) == 0 ? 'zero' : ''}">${esc(item.stock ?? 0)} adet</span></div>
+                <div style="margin-top:6px; color:#555; font-size:13px;">${esc(item.brand || '')}</div>
+                <div class="specs">${esc(item.specs || '')}</div>
+                ${item.source_file ? `<div style="margin-top:6px; color:#999; font-size:11.5px;">📄 ${esc(item.source_file)}</div>` : ''}
+            </div>
+        `).join('');
+        out.innerHTML = `
+            <div class="card ok">
+                <div class="card-title">📦 Kataloğunuz (${items.length} parça)</div>
+                <div class="catalog-grid">${cards}</div>
+            </div>
+        `;
+    }
+
+    function renderUploadResult(data) {
+        const ok = data.status === 'success';
+        out.innerHTML = `
+            <div class="card ${ok ? 'ok' : 'err'}">
+                <div class="card-title">${ok ? '✅' : '❌'} Katalog Yükleme Sonucu</div>
+                <div>${esc(data.message)}</div>
+            </div>
+        `;
+    }
+
+    // Render'ın ücretsiz sunucusu birkaç dakika boş kalınca uykuya dalıyor; ilk istek onu
+    // uyandırırken gerçek ölçümlerde 90 saniyeye kadar sürebiliyor. Bu süreyi rahatça
+    // karşılayacak kadar (toplam ~100sn) otomatik olarak birkaç kez daha deneriz.
+    async function fetchJson(url, options, onRetry) {
+        const maxAttempts = 8;
+        for (let attempt = 0; attempt < maxAttempts; attempt++) {
+            let res;
+            try {
+                res = await fetch(url, options);
+            } catch (networkErr) {
+                if (attempt < maxAttempts - 1) {
+                    if (onRetry) onRetry(attempt);
+                    await new Promise(r => setTimeout(r, 12000));
+                    continue;
+                }
+                throw new Error('Sunucuya ulaşılamadı. İnternet bağlantınızı kontrol edin.');
+            }
+            if (res.status === 401) {
+                throw new Error('Yetkisiz erişim - lütfen sayfayı yenileyip yönetici bilgileriyle giriş yapın.');
+            }
+            if (res.ok) return res.json();
+            if ((res.status === 502 || res.status === 503 || res.status === 504) && attempt < maxAttempts - 1) {
+                if (onRetry) onRetry(attempt);
+                await new Promise(r => setTimeout(r, 12000));
+                continue;
+            }
+            let msg = 'Sunucu hatası';
+            try { const errData = await res.json(); msg = errData.message || errData.detail || msg; } catch {}
+            throw new Error(msg);
+        }
+        throw new Error('Sunucu şu an yanıt vermiyor. Render ücretsiz sunucusu uykudan uyanırken bazen 1-2 dakika sürebiliyor; lütfen birkaç dakika sonra tekrar deneyin.');
+    }
+
+    function wakingUpMessage(baseMsg, attempt) {
+        return attempt < 2
+            ? `${baseMsg} — sunucu uyandırılıyor, biraz sürebilir`
+            : `${baseMsg} — sunucu hâlâ uyanıyor (${attempt + 1}. deneme), lütfen bekleyin`;
+    }
+
+    async function checkCatalog() {
+        showLoading('Katalog yükleniyor');
+        try {
+            const data = await fetchJson('/get-catalog', undefined, (attempt) => showLoading(wakingUpMessage('Katalog yükleniyor', attempt)));
+            renderCatalog(data);
+        } catch (err) {
+            showPlainError(err.message || String(err));
+        }
+    }
+
+    document.getElementById('catalogForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        showLoading('Katalog dosyaları yapay zeka tarafından okunuyor, lütfen bekleyin (birden fazla dosyada biraz sürebilir)');
+
+        try {
+            const data = await fetchJson('/upload-catalog-files', { method: 'POST', body: formData }, (attempt) => showLoading(wakingUpMessage('Katalog dosyaları işleniyor', attempt)));
+            renderUploadResult(data);
+        } catch (err) {
+            showPlainError(err.message || String(err));
+        }
+    });
+
+    function poolBadgeHtml(label, pool) {
+        if (!pool) return '';
+        const color = pool.percent_used > 80 ? '#d9534f' : pool.percent_used > 50 ? '#f0ad4e' : '#888';
+        return `${label}: <b style="color:${color}">%${pool.percent_used}</b> (${pool.total_tokens.toLocaleString('tr-TR')} / 200.000 token)`;
+    }
+
+    async function loadUsageBadge() {
+        try {
+            const res = await fetch('/usage');
+            const u = await res.json();
+            const el = document.getElementById('usageBadge');
+            el.innerHTML = `⚡ ${poolBadgeHtml('Müşteri Arama', u.customer)} &nbsp;·&nbsp; ${poolBadgeHtml('Katalog Tarama', u.bulk)}`;
+        } catch (err) { /* sessizce geç, kritik değil */ }
+    }
+    loadUsageBadge();
+</script>
+
+</body>
+</html>
