@@ -13,9 +13,12 @@ OVERPASS_MIRRORS = [
 OVERPASS_HEADERS = {"Accept": "*/*", "User-Agent": "fleetparts-lead-discovery/1.0"}
 # NOT: "toptan" (wholesale) kasıtlı olarak burada YOK - tek başına çok genel, market/tekstil/gıda
 # gibi alakasız toptancıları da OSM sonuçlarına dahil edip gürültü üretiyordu (örn. "Bizim Toptan Market").
-# "otobüs", "iş makine" ve "tır" işletmenin kendi hedef araç kapsamında (ağır vasıta, tır, kamyon,
+# "otobüs" ve "iş makine" işletmenin kendi hedef araç kapsamında (ağır vasıta, tır, kamyon,
 # iş makinesi ve otobüs) olmasına rağmen aramaya hiç dahil edilmemişti, eklendi.
-NAME_REGEX = "nakliye|lojistik|dorse|yedek parça|kamyon|taşımacılık|transport|treyler|otobüs|iş makine|tır"
+# NOT: "tır" DENENDİ ve KALDIRILDI - Overpass'ın regex'i kelime sınırı koruması olmadan çalıştığı
+# için "Çamlıktır", "Tırkaz" gibi Türkçe'de son derece yaygın "-tır" eki/heceyle biten/başlayan
+# tamamen alakasız isimleri de yakalayıp gerçek bir taramada gürültü ürettiği tespit edildi.
+NAME_REGEX = "nakliye|lojistik|dorse|yedek parça|kamyon|taşımacılık|transport|treyler|otobüs|iş makine"
 
 
 def build_tag_query(province: str) -> str:
