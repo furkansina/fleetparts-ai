@@ -11,6 +11,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from provinces import PROVINCES
 from lead_sources_osm import search_province, OVERPASS_MIRRORS
+from lead_sources_directory import search_province as search_province_directory
 from lead_scoring import score_lead
 from lead_dedupe import dedupe_key
 
@@ -47,7 +48,15 @@ def main():
         # Her iş parçacığı farklı bir Overpass aynasından başlar - aksi halde 3 il aynı anda
         # aynı sunucuya yüklenip rate limit'e (429/timeout) daha kolay takılırdı.
         mirror_offset = idx % len(OVERPASS_MIRRORS)
-        return province, search_province(province, mirror_offset=mirror_offset)
+        osm_results = search_province(province, mirror_offset=mirror_offset)
+        # turkbusinesscenter.com (Türkiye'ye özel B2B firma rehberi) OSM'e tamamlayıcı ikinci
+        # kaynak - OSM'in yakalayamadığı firmaları da bulur. Biri başarısız olsa diğeri etkilenmez.
+        try:
+            directory_results = search_province_directory(province)
+        except Exception as e:
+            print(f"  [{province}/directory] hata - {e}")
+            directory_results = []
+        return province, osm_results, directory_results
 
     # İller aynı anda taranır (varsayılan 3'ü birlikte) - tek bir ilin yavaş/başarısız olması
     # diğerlerini bloklamaz. Eskiden tamamen sıralı + il başına 3sn bekleme vardı (81 ilde
@@ -64,23 +73,34 @@ def main():
             completed += 1
             province = futures[future]
             try:
-                _, raw_results = future.result()
+                _, osm_results, directory_results = future.result()
             except Exception as e:
                 print(f"[{completed}/{len(provinces_to_scan)}] {province}: beklenmeyen hata - {e}")
                 continue
-            print(f"[{completed}/{len(provinces_to_scan)}] Tarandı: {province} ({len(raw_results)} ham sonuç)")
+            print(f"[{completed}/{len(provinces_to_scan)}] Tarandı: {province} "
+                  f"(OSM: {len(osm_results)}, Rehber: {len(directory_results)} ham sonuç)")
+
+            # Her iki kaynaktan gelen sonuçlar aynı şekilde işlenir; hangi kaynaktan geldiği
+            # lead_id öneki (osm_/tbc_) ve 'source' alanıyla ayırt edilir.
+            tagged_results = [("osm", raw) for raw in osm_results] + [("directory", raw) for raw in directory_results]
 
             with lock:
-                for raw in raw_results:
+                for origin, raw in tagged_results:
                     key = dedupe_key(raw["name"], raw.get("phone", ""))
                     if key in existing_keys or key in seen_this_run:
                         continue
                     seen_this_run.add(key)
 
                     scoring = score_lead(raw)
+                    if origin == "osm":
+                        lead_id = f"osm_{raw['osm_id']}"
+                        source = "openstreetmap"
+                    else:
+                        lead_id = raw["site_id"]  # zaten "tbc_" önekli
+                        source = "turkbusinesscenter"
                     lead = {
-                        "lead_id": f"osm_{raw['osm_id']}",
-                        "source": "openstreetmap",
+                        "lead_id": lead_id,
+                        "source": source,
                         "company_name": raw["name"],
                         "entity_type_note": scoring["entity_type_note"],
                         "sector_guess": scoring["sector_label"],
