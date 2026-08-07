@@ -17,7 +17,13 @@ PROVINCES = [
 # NOT: "toptan" (wholesale) kasıtlı olarak burada YOK - tek başına çok genel bir kelime,
 # market/tekstil/gıda gibi tamamen alakasız toptancıları da yakalayıp yanlış pozitif üretiyordu
 # (örn. "Bizim Toptan Market"). Diğer kelimelerin hepsi zaten araç/lojistik'e özgü.
+# "otobüs" ve "iş makinesi/makinası" işletmenin kendi hedef araç kapsamında (ağır vasıta, tır,
+# kamyon, iş makinesi ve otobüs - bkz. vision_agent prompt'u) olmasına rağmen aramaya hiç dahil
+# edilmemişti, eklendi. "TIR" de aynı sebeple eklendi (kısa/büyük harf olduğu için kelime sınırı
+# eşleşmesinde yanlış pozitif riski düşük - "tır" fiili farklı bağlamda genelde küçük harf kullanılır
+# ama biz zaten isimleri lower() yapıp eşleştiriyoruz, bu riski kabul edilebilir kılıyor çünkü
+# şirket isimlerinde "tır" geçen alakasız kelime son derece nadir).
 NAME_KEYWORDS_HIGH_VALUE = [
     "nakliye", "lojistik", "dorse", "treyler", "taşımacılık", "transport",
-    "yedek parça", "filo",
+    "yedek parça", "filo", "otobüs", "iş makinesi", "iş makinası", "tır",
 ]
