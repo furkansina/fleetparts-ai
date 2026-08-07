@@ -477,7 +477,8 @@ def find_by_text(query: str) -> dict:
 async def read_root():
     try:
         with open("index.html", "r", encoding="utf-8") as f:
-            return f.read()
+            html = f.read()
+        return html.replace("__BUSINESS_WHATSAPP_NUMBER__", BUSINESS_WHATSAPP_NUMBER)
     except Exception:
         return "<h2>FleetParts AI - Universal Heavy Duty Master Engine Aktif</h2>"
 
