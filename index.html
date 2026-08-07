@@ -91,6 +91,7 @@
 
 <script>
     const out = document.getElementById('output');
+    const WA_NUMBER = "__BUSINESS_WHATSAPP_NUMBER__";
 
     function esc(s) {
         return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -117,6 +118,7 @@
         const title = isMatched ? 'Ürün Bulundu' : 'Katalogda Bulunamadı';
 
         let kvHtml = '';
+        let contactHtml = '';
         if (isMatched) {
             const stock = matched_product.stock ?? 0;
             const brandRow = matched_product.brand ? `<li><span class="k">Marka</span><span class="v">${esc(matched_product.brand)}</span></li>` : '';
@@ -131,6 +133,13 @@
                 </ul>
                 <div style="color:#555; font-size:13.5px; margin-top:4px;">${esc(matched_product.match_reason || '')}</div>
             `;
+            // Ürün bulununca müşterinin doğrudan yazabileceği bir WhatsApp linki - otomatik mesaj
+            // DEĞİL, müşteri kendi isteğiyle tıklayıp göndermeden önce düzenleyebildiği bir taslak.
+            // İşletme WhatsApp numarası tanımlı değilse (henüz verilmediyse) bu buton hiç görünmez.
+            if (WA_NUMBER && WA_NUMBER.indexOf('__') !== 0) {
+                const waText = encodeURIComponent(`Merhaba, "${matched_product.name}" (OEM: ${matched_product.oem}) parçası hakkında bilgi almak istiyorum.`);
+                contactHtml = `<a href="https://wa.me/${WA_NUMBER}?text=${waText}" target="_blank" style="display:block; text-align:center; background:#25D366; color:white; font-weight:bold; padding:12px; border-radius:6px; text-decoration:none; margin-top:12px;">💬 Bu Parça İçin WhatsApp'tan Yazın</a>`;
+            }
         } else {
             kvHtml = `<div style="color:#555; font-size:14px;">${esc(matched_product && matched_product.match_reason || 'Eşleşme bulunamadı.')}</div>`;
         }
@@ -139,6 +148,7 @@
             <div class="card ${cardClass}">
                 <div class="card-title">${icon} ${title}</div>
                 ${kvHtml}
+                ${contactHtml}
                 <details class="tech">
                     <summary>🔍 Teknik tarama detayları</summary>
                     <pre>${esc(JSON.stringify(vision_analysis, null, 2))}</pre>
