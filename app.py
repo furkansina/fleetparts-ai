@@ -604,9 +604,13 @@ def delete_catalog_item(item_id: str = Form(...), _: str = Depends(require_admin
     return {"status": "success", "message": "Kayıt silindi.", "remaining": len(new_catalog)}
 
 @app.get("/catalog-sources")
-def list_catalog_sources(_: str = Depends(require_admin)):
+def list_catalog_sources():
     """Kaç FARKLI katalog dosyası yüklenmiş ve her birinde kaç ürün var - eski bir katalogu
-    (ör. yeni bir fiyat listesiyle çakışmasın diye) toplu silmeden önce görebilmek için."""
+    (ör. yeni bir fiyat listesiyle çakışmasın diye) toplu silmeden önce görebilmek için.
+    Hassas veri içermediği için (sadece dosya adı + adet, /get-catalog ve /usage gibi) herkese
+    açık - index.html sayfa yüklenirken otomatik çağırıyor, admin korumalı olsaydı her ziyaretçiye
+    istenmeyen bir tarayıcı şifre penceresi çıkardı. Silme işlemi (aşağıdaki uç nokta) admin korumalı
+    kalmaya devam ediyor - sadece görüntüleme herkese açık."""
     catalog = load_catalog()
     counts = {}
     for item in catalog:
