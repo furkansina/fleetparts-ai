@@ -51,6 +51,25 @@ _SERVICE_CATEGORY_PATTERN = re.compile("|".join(re.escape(k) for k in _SERVICE_O
 _PARTS_CATEGORY_PATTERN = re.compile("|".join(re.escape(k) for k in _PARTS_CATEGORY_KEYWORDS))
 
 
+_MIN_SOURCE_YEAR = 2024
+
+
+def _is_stale_source(raw: dict) -> bool:
+    """Bazı kaynaklar (örn. Ankara Oto Sanayi Rehberi) her kayıtta açık bir 'X tarihinde
+    güncellendi' bilgisi veriyor - bazıları yıllar önce güncellenmiş, işletmenin hâlâ faaliyette
+    olduğu garanti değil. Kullanıcı açıkça 2024 öncesi tarihli kayıtların yok sayılmasını istedi.
+    Bu bilgi olmayan kaynaklar (OSM, turkbusinesscenter.com, çoğu sanayi sitesi) için bu kontrol
+    hiç uygulanmaz - yoksa neredeyse tüm veri (tarih bilgisi hiç sunmadıkları için) cezalanırdı."""
+    updated_at = raw.get("source_updated_at", "")
+    if not updated_at:
+        return False
+    try:
+        year = int(updated_at.strip()[-4:])
+        return year < _MIN_SOURCE_YEAR
+    except (ValueError, IndexError):
+        return False
+
+
 def score_lead(raw: dict) -> dict:
     """Kural bazlı skor: OSM'den gelen ham veriyi (isim, kategori, iletişim bilgisi)
     hedef kitle profiline (toptancı/lojistik, bağımsız tamirci DEĞİL) göre puanlar."""
@@ -59,6 +78,17 @@ def score_lead(raw: dict) -> dict:
 
     keyword_hit = bool(_KEYWORD_PATTERN.search(name_lower))
     is_excluded = bool(_EXCLUDE_PATTERN.search(name_lower))
+    is_stale = _is_stale_source(raw)
+
+    if is_stale:
+        return {
+            "relevance_score": 5,
+            "score_breakdown": {"sector_match": 0, "geography": 0, "growth_signal": 0, "data_completeness": 0},
+            "score_reasoning": f"Kaynak kaydı {raw.get('source_updated_at', '')} tarihinden kalma (2024 öncesi) - işletmenin hâlâ faaliyette olduğu belirsiz, düşük öncelik.",
+            "entity_type_note": "Belirsiz",
+            "sector_label": "Eski Kayıt (2024 Öncesi)",
+            "phone_is_mobile": is_mobile_phone(raw.get("phone", "")) if raw.get("phone") else False,
+        }
 
     if is_excluded:
         return {
