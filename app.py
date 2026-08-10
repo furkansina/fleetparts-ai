@@ -147,9 +147,20 @@ def save_catalog(catalog: list):
     with open(CATALOG_FILE, "w", encoding="utf-8") as f:
         json.dump(catalog, f, ensure_ascii=False, indent=4)
 
+# Yedekleme (GitHub'a gönderme) BAŞARISIZ olursa - GitHub token süresi dolmuş/iptal olmuş, GitHub
+# geçici kesinti yaşıyor, ağ sorunu vb. - eskiden bu TAMAMEN SESSİZCE yutuluyordu (bare except).
+# Render'ın diski her yeniden deploy'da sıfırlandığı için bu, "yedekleme aylarca bozuk kalır, kimse
+# fark etmez, sonra bir deploy tetiklenir ve TÜM o süre boyunca eklenen ürünler kaybolur" demek -
+# sessiz veri kaybı riski. Artık son senkronizasyon durumu (başarı/hata + üst üste kaç kez
+# başarısız olduğu) izleniyor ve /usage üzerinden yönetim sayfalarında görünür hale getiriliyor.
+_github_sync_status = {"last_success_at": None, "last_error": None, "consecutive_failures": 0}
+
+
 def sync_catalog_to_github():
     """catalog.json'u GitHub'a yedekler; Render her yeniden deploy olduğunda diski sıfırladığı için kalıcılık böyle sağlanır."""
     if not GITHUB_TOKEN or not GITHUB_REPO:
+        _github_sync_status["last_error"] = "GITHUB_TOKEN veya GITHUB_REPO tanımlı değil - yedekleme hiç aktif değil."
+        _github_sync_status["consecutive_failures"] += 1
         return
     try:
         api_url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/catalog.json"
@@ -163,9 +174,17 @@ def sync_catalog_to_github():
         body = {"message": "Katalog otomatik güncelleme", "content": content_b64}
         if sha:
             body["sha"] = sha
-        requests.put(api_url, headers=headers, json=body, timeout=15)
-    except Exception:
-        pass
+        put_res = requests.put(api_url, headers=headers, json=body, timeout=15)
+        if put_res.status_code not in (200, 201):
+            _github_sync_status["last_error"] = f"GitHub'a yazma başarısız: HTTP {put_res.status_code}"
+            _github_sync_status["consecutive_failures"] += 1
+            return
+        _github_sync_status["last_success_at"] = time.time()
+        _github_sync_status["last_error"] = None
+        _github_sync_status["consecutive_failures"] = 0
+    except Exception as e:
+        _github_sync_status["last_error"] = f"GitHub'a bağlanılamadı: {str(e)}"
+        _github_sync_status["consecutive_failures"] += 1
 
 def _resolve_key_chain(pool: str, use_secondary_model: bool) -> list:
     """`pool`'a göre hangi Groq hesabının/hesaplarının hangi sırayla deneneceğini belirler.
@@ -1329,6 +1348,11 @@ def get_usage():
     for pool in usage_tracker.POOLS:
         if pool in result:
             result[pool]["real_remaining_tokens"] = usage_tracker.get_real_remaining_tokens(pool)
+    # Katalog yedeklemesi (GitHub'a gönderme) sessizce bozulursa - Render'ın diski her yeniden
+    # deploy'da sıfırlandığı için - o güne kadar eklenen HER ŞEY bir sonraki deploy'da kaybolur,
+    # kimse fark etmeden. Bu yüzden son senkronizasyon durumu burada görünür kılınıyor - yönetim
+    # sayfaları 3+ üst üste başarısızlıkta uyarı gösteriyor.
+    result["backup_status"] = dict(_github_sync_status)
     return result
 
 @app.get("/leads-data")
