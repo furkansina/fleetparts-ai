@@ -611,14 +611,20 @@ def merge_catalog_items(catalog: list, new_items: list) -> tuple:
             added += 1
     return catalog, added, updated
 
-def _scan_catalog_source(filename: str, file_path: str) -> list:
+def _scan_catalog_source(filename: str, file_path: str, on_page_done=None) -> list:
     """Bir katalog dosyasını tarar. PDF ise her sayfayı, görselse görselin kendisini tarar;
     her ikisinde de sayfada/görselde kaç parça varsa hepsi çıkarılır (tek parça da olabilir, onlarca da).
     Her çıkarılan parçaya hangi dosyadan (ve PDF'se hangi sayfadan) geldiği 'source_file' alanıyla
     işlenir - ileride aynı ürün birden fazla katalogda geçtiğinde hangisinden alındığı görülebilsin diye.
     İşlem başarılı da olsa başarısız da olsa orijinal yüklenen dosya sonunda diskten silinir
     (veri zaten catalog.json'a işlendi, kaynak dosyayı tutmanın bir faydası yok - Render'ın
-    sınırlı diskini zamanla doldurmasın diye)."""
+    sınırlı diskini zamanla doldurmasın diye).
+
+    `on_page_done` verilirse her sayfa/görsel bittiğinde (o sayfanın ürünleriyle) hemen çağrılır -
+    çağıran bunu kataloğa ANINDA kaydetmek için kullanır. Çok sayfalı bir PDF ortasında sunucu
+    çökerse/yeniden başlarsa (gerçek bir kullanımda oldu - Render kaynak sınırı ya da platform
+    kaynaklı olabilir), TÜM dosyanın sonunu beklemek yerine o ana kadar taranan sayfalar zaten
+    kalıcı olarak kaydedilmiş olur - ne veri ne harcanan token boşa gitmez."""
     try:
         if filename.lower().endswith(".pdf"):
             items = []
@@ -628,6 +634,8 @@ def _scan_catalog_source(filename: str, file_path: str) -> list:
                     for item in page_items:
                         item["source_file"] = f"{filename} (sayfa {page_num})"
                     items.extend(page_items)
+                    if on_page_done:
+                        on_page_done(page_items)
                 finally:
                     if os.path.exists(page_path):
                         os.remove(page_path)
@@ -635,6 +643,8 @@ def _scan_catalog_source(filename: str, file_path: str) -> list:
         items = call_groq_json_array(CATALOG_SCAN_PROMPT, file_path, pool="bulk")
         for item in items:
             item["source_file"] = filename
+        if on_page_done:
+            on_page_done(items)
         return items
     finally:
         if os.path.exists(file_path):
@@ -658,25 +668,34 @@ def _run_catalog_upload_job(job_id: str, saved_paths: list):
     updated_count = 0
     failed = list(job["failed"])
 
+    def save_page_items(page_items):
+        # Her sayfa bitince HEMEN kalıcı olarak kaydedilir (yerel disk + GitHub) - dosyanın
+        # tamamının bitmesini beklemez. Sunucu ortasında yeniden başlasa/çökse bile o ana kadar
+        # taranan sayfalar kaybolmaz, ne veri ne harcanan token boşa gider.
+        nonlocal added_count, updated_count
+        if not page_items:
+            return
+        with CATALOG_WRITE_LOCK:
+            catalog = _load_catalog_from_disk()
+            catalog, added, updated = merge_catalog_items(catalog, page_items)
+            added_count += added
+            updated_count += updated
+            save_catalog(catalog)
+        sync_catalog_to_github()
+        _catalog_cache["data"] = catalog
+        _catalog_cache["fetched_at"] = time.time()
+        with _catalog_jobs_lock:
+            job["pages_done"] += 1
+
     for filename, file_path in saved_paths:
         with _catalog_jobs_lock:
             job["current_file"] = filename
         try:
-            items = _scan_catalog_source(filename, file_path)
-            with CATALOG_WRITE_LOCK:
-                catalog = _load_catalog_from_disk()
-                catalog, added, updated = merge_catalog_items(catalog, items)
-                added_count += added
-                updated_count += updated
-                save_catalog(catalog)
+            _scan_catalog_source(filename, file_path, on_page_done=save_page_items)
         except Exception as e:
             failed.append(f"{filename}: {str(e)}")
         with _catalog_jobs_lock:
             job["done_files"] += 1
-
-    sync_catalog_to_github()
-    _catalog_cache["data"] = _load_catalog_from_disk()
-    _catalog_cache["fetched_at"] = time.time()
 
     message = f"{added_count} adet yeni parça eklendi."
     if updated_count:
@@ -737,6 +756,7 @@ def upload_catalog_files(files: list[UploadFile] = File(...), _: str = Depends(r
             "status": "processing",
             "total_files": len(saved_paths),
             "done_files": 0,
+            "pages_done": 0,
             "current_file": saved_paths[0][0] if saved_paths else None,
             "failed": list(oversized),
             "message": "",
@@ -750,7 +770,14 @@ def get_upload_catalog_status(job_id: str, _: str = Depends(require_admin)):
     with _catalog_jobs_lock:
         job = _catalog_jobs.get(job_id)
         if not job:
-            return {"status": "error", "message": "İş bulunamadı (sunucu yeniden başlamış olabilir)."}
+            # Sunucu tarama ortasında yeniden başlamış olabilir (Render kaynak sınırı vb.) - ama
+            # her sayfa taranır taranmaz kalıcı kaydedildiği için (bkz. _run_catalog_upload_job)
+            # o ana kadarki ilerleme KAYBOLMAZ, sadece iş takibi sıfırlanır. Kullanıcıyı
+            # korkutmak yerine ne yapması gerektiğini net söylüyoruz.
+            return {
+                "status": "error",
+                "message": "Sunucu tarama sırasında yeniden başlamış olabilir. Merak etme, o ana kadar taranan sayfalar zaten kalıcı olarak kaydedildi (\"Şu Anki Kataloğu Görüntüle\" ile kontrol edebilirsin). Aynı dosyayı tekrar yüklersen zaten eklenmiş ürünler tekrar eklenmez, sadece kalanlar taranır."
+            }
         return dict(job)
 
 # ---------------------------------------------------------
