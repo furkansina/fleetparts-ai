@@ -1488,5 +1488,347 @@
         "specs": "Depo Boğazı SCANIA",
         "stock": 25,
         "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+    },
+    {
+        "id": "PRC-1342",
+        "oem": "102002 0",
+        "name": "Fren Körük Lastiği 9NS",
+        "brand": "",
+        "specs": "Fren körük lastiği modeli 9NS",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+    },
+    {
+        "id": "PRC-8812",
+        "oem": "102003 0",
+        "name": "Fren Körük Lastiği 12NS",
+        "brand": "",
+        "specs": "Fren körük lastiği modeli 12NS",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+    },
+    {
+        "id": "PRC-5523",
+        "oem": "102002 1",
+        "name": "Fren Körük Lastiği 9LS",
+        "brand": "",
+        "specs": "Fren körük lastiği modeli 9LS",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+    },
+    {
+        "id": "PRC-3918",
+        "oem": "102003 1",
+        "name": "Fren Körük Lastiği 13LS",
+        "brand": "",
+        "specs": "Fren körük lastiği modeli 13LS",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+    },
+    {
+        "id": "PRC-9934",
+        "oem": "102004 0",
+        "name": "Fren Körük Lastiği 14NS",
+        "brand": "",
+        "specs": "Fren körük lastiği modeli 14NS",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+    },
+    {
+        "id": "PRC-6651",
+        "oem": "102004 1",
+        "name": "Fren Körük Lastiği 14LS",
+        "brand": "",
+        "specs": "Fren körük lastiği modeli 14LS",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+    },
+    {
+        "id": "PRC-4487",
+        "oem": "102005 0",
+        "name": "Fren Körük Lastiği 16NS",
+        "brand": "",
+        "specs": "Fren körük lastiği modeli 16NS",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+    },
+    {
+        "id": "PRC-2291",
+        "oem": "102005 1",
+        "name": "Fren Körük Lastiği 16LS",
+        "brand": "",
+        "specs": "Fren körük lastiği modeli 16LS",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+    },
+    {
+        "id": "PRC-8274",
+        "oem": "102006 0",
+        "name": "Fren Körük Lastiği 18NS",
+        "brand": "",
+        "specs": "Fren körük lastiği 18NS",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+    },
+    {
+        "id": "PRC-3736",
+        "oem": "102006 1",
+        "name": "Fren Körük Lastiği 18LS",
+        "brand": "",
+        "specs": "Fren körük lastiği 18LS",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+    },
+    {
+        "id": "PRC-4182",
+        "oem": "102007 0",
+        "name": "Fren Körük Lastiği 20NS",
+        "brand": "",
+        "specs": "Fren körük lastiği 20NS",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+    },
+    {
+        "id": "PRC-9513",
+        "oem": "102007 1",
+        "name": "Fren Körük Lastiği 20LS",
+        "brand": "",
+        "specs": "Fren körük lastiği 20LS",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+    },
+    {
+        "id": "PRC-1854",
+        "oem": "102008 0",
+        "name": "Fren Körük Lastiği 22NS",
+        "brand": "",
+        "specs": "Fren körük lastiği 22NS",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+    },
+    {
+        "id": "PRC-5275",
+        "oem": "102008 1",
+        "name": "Fren Körük Lastiği 22LS",
+        "brand": "",
+        "specs": "Fren körük lastiği 22LS",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+    },
+    {
+        "id": "PRC-6549",
+        "oem": "102009 0",
+        "name": "Fren Körük Lastiği 24NS",
+        "brand": "",
+        "specs": "Fren körük lastiği 24NS",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+    },
+    {
+        "id": "PRC-4891",
+        "oem": "102009 1",
+        "name": "Fren Körük Lastiği 24LS",
+        "brand": "",
+        "specs": "Fren körük lastiği 24LS",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+    },
+    {
+        "id": "PRC-2036",
+        "oem": "102010 0",
+        "name": "Fren Körük Lastiği 27NS",
+        "brand": "",
+        "specs": "Fren körük lastiği 27NS",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+    },
+    {
+        "id": "PRC-7431",
+        "oem": "102010 1",
+        "name": "Fren Körük Lastiği 27LS",
+        "brand": "",
+        "specs": "Fren körük lastiği 27LS",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+    },
+    {
+        "id": "PRC-1837",
+        "oem": "102011 0",
+        "name": "Fren Körük Lastiği 30NS",
+        "brand": "",
+        "specs": "Fren körük lastiği 30NS",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+    },
+    {
+        "id": "PRC-8376",
+        "oem": "102011 1",
+        "name": "Fren Körük Lastiği 30LS",
+        "brand": "",
+        "specs": "Fren körük lastiği 30LS",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+    },
+    {
+        "id": "PRC-4728",
+        "oem": "102013 0",
+        "name": "Fren Körük Lastiği 30NS",
+        "brand": "",
+        "specs": "Fren körük lastiği 30NS",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+    },
+    {
+        "id": "PRC-2183",
+        "oem": "102013 1",
+        "name": "Fren Körük Lastiği 30LS",
+        "brand": "",
+        "specs": "Fren körük lastiği 30LS",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+    },
+    {
+        "id": "PRC-6592",
+        "oem": "102012 0",
+        "name": "Fren Körük Lastiği 36NS",
+        "brand": "",
+        "specs": "Fren körük lastiği 36NS",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+    },
+    {
+        "id": "PRC-9737",
+        "oem": "102012 1",
+        "name": "Fren Körük Lastiği 36LS",
+        "brand": "",
+        "specs": "Fren körük lastiği 36LS",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+    },
+    {
+        "id": "PRC-4215",
+        "oem": "211034 0",
+        "name": "DEVRE KESİCİ 24V METAL TİP",
+        "brand": "",
+        "specs": "24V metal tipte devre kesici",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+    },
+    {
+        "id": "PRC-2943",
+        "oem": "211036 0",
+        "name": "DEVRE KESİCİ 12V-24V PLASTİK TİP",
+        "brand": "",
+        "specs": "12V-24V plastik tipte devre kesici",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+    },
+    {
+        "id": "PRC-7682",
+        "oem": "211035 0",
+        "name": "DEVRE KESİCİ 24V ZAMAK",
+        "brand": "",
+        "specs": "24V Zamak devre kesici",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+    },
+    {
+        "id": "PRC-1936",
+        "oem": "211035 1",
+        "name": "DEVRE KESİCİ 24V ZAMAK ve TOPRAKLAMA",
+        "brand": "",
+        "specs": "24V Zamak devre kesici ve topraklama",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+    },
+    {
+        "id": "PRC-5418",
+        "oem": "211035 2",
+        "name": "DEVRE KESİCİ 24V ZAMAK METAL BAGLANTI",
+        "brand": "",
+        "specs": "24V Zamak bağlantılı devre kesici",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+    },
+    {
+        "id": "PRC-3852",
+        "oem": "101057 0",
+        "name": "Plastik Hava Tabancası",
+        "brand": "",
+        "specs": "El tip plastik hava tabancası",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+    },
+    {
+        "id": "PRC-9276",
+        "oem": "101057 1",
+        "name": "Plastik Hava Tabancası Uzun Borulu",
+        "brand": "",
+        "specs": "Plastik yapılı uzun borulu hava tabancası",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+    },
+    {
+        "id": "PRC-4633",
+        "oem": "101059 0",
+        "name": "Metal Hava Tabancası",
+        "brand": "",
+        "specs": "El tip metal hava tabancası",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+    },
+    {
+        "id": "PRC-1794",
+        "oem": "101059 1",
+        "name": "Metal Hava Tabancası Uzun Borulu 13cm",
+        "brand": "",
+        "specs": "Metal yapılı hava tabancası 13cm uzun borulu",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+    },
+    {
+        "id": "PRC-6538",
+        "oem": "101059 2",
+        "name": "Metal Hava Tabancası Uzun Borulu 20cm",
+        "brand": "",
+        "specs": "Metal yapılı hava tabancası 20cm uzun borulu",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+    },
+    {
+        "id": "PRC-8312",
+        "oem": "101071 0",
+        "name": "Hava Jaklı Düz",
+        "brand": "",
+        "specs": "Düz model hava jaklı bağlantı elemanı",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+    },
+    {
+        "id": "PRC-2577",
+        "oem": "101071 1",
+        "name": "Hava Jaklı Düz",
+        "brand": "",
+        "specs": "Düz model hava jaklı bağlantı elemanı",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+    },
+    {
+        "id": "PRC-7129",
+        "oem": "101072 0",
+        "name": "Hava Jaklı Bükümlü",
+        "brand": "",
+        "specs": "Bükümlü model hava jaklı bağlantı elemanı",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+    },
+    {
+        "id": "PRC-4963",
+        "oem": "101072 1",
+        "name": "Hava Jaklı Bükümlü",
+        "brand": "",
+        "specs": "Bükümlü model hava jaklı bağlantı elemanı",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
     }
 ]
