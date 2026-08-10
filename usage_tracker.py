@@ -19,6 +19,39 @@ CACHE_TTL = 15  # saniye - sık çağrıldığı için (her Groq isteğinden son
 
 POOLS = ("customer", "bulk", "customer2")
 
+# Groq'un HER yanıtında (200 de olsa hata da olsa) döndürdüğü x-ratelimit-* header'larının en son
+# görülen hali, havuz başına bellekte tutulur. Bizim kendi saydığımız günlük bütçe TAHMİNİ
+# (DAILY_TOKEN_BUDGET, aşağıda) Groq'un gerçek sınırıyla uyuşmayabiliyor - gerçek bir kullanımda
+# tespit edildi: biz "%17 kullanıldı" diyorduk, Groq aynı anda "kota bitti" diyordu. Süreç
+# yeniden başladığında bu önbellek sıfırlanır ama bir sonraki gerçek Groq çağrısıyla hemen
+# kendini tazeler - kalıcı depolamaya (disk/GitHub) yazmaya değecek kritik bir veri değil.
+_rate_limit_cache = {}
+
+
+def record_rate_limit_headers(pool: str, headers) -> None:
+    snapshot = {k: v for k, v in headers.items() if k.lower().startswith("x-ratelimit") or k.lower() == "retry-after"}
+    if snapshot:
+        _rate_limit_cache[pool] = snapshot
+
+
+def get_rate_limit_snapshot(pool: str) -> dict:
+    return dict(_rate_limit_cache.get(pool, {}))
+
+
+def get_real_remaining_tokens(pool: str):
+    """Varsa Groq'un en son bildirdiği GERÇEK kalan token sayısını döndürür (bizim tahminimiz
+    değil). Tam header adı garanti olmadığı için 'remaining' ve 'token' geçen herhangi bir
+    x-ratelimit header'ı esnek şekilde aranır; bulunamazsa None döner (çağıran o zaman kendi
+    tahminine döner)."""
+    for key, value in _rate_limit_cache.get(pool, {}).items():
+        key_l = key.lower()
+        if "remaining" in key_l and "token" in key_l:
+            try:
+                return int(value)
+            except (TypeError, ValueError):
+                continue
+    return None
+
 
 def _empty_day() -> dict:
     return {
