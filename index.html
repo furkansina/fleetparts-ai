@@ -58,6 +58,8 @@
         .catalog-item h4 { margin: 0 0 6px 0; font-size: 15.5px; }
         .catalog-item .specs { color: #666; font-size: 13px; margin-top: 6px; }
         #catalogSearch { font-size: 14px; }
+        .btn-del { width: auto; padding: 6px 12px; margin: 0; font-size: 13px; background: transparent; color: #d9534f; border: 1px solid #f0c0be; border-radius: 4px; cursor: pointer; }
+        .btn-del:hover { background: #fdf3f2; }
     </style>
 </head>
 <body>
@@ -73,6 +75,11 @@
             <button type="submit">Katalog Dosyalarını İşle ve Ekle</button>
         </form>
         <button class="btn-blue" onclick="checkCatalog()" type="button">Şu Anki Kataloğu Görüntüle</button>
+    </div>
+
+    <div class="section">
+        <h3>Yüklenmiş Kataloglar</h3>
+        <div id="catalogSourcesList"><span class="placeholder">Yükleniyor...</span></div>
     </div>
 
     <div class="section">
@@ -191,6 +198,44 @@
                 ${sourceFilesHtml(item)}
             </div>
         `;
+    }
+
+    // Kaç FARKLI katalog dosyası yüklenmiş, her birinde kaç ürün var - eski bir katalogu (ör. yeni
+    // bir fiyat listesiyle çakışmasın diye) tek tıkla kaldırabilmek için. Bu uç nokta admin
+    // korumalı (require_admin) - tarayıcı zaten sayfa yüklenirken şifre sormuş/önbelleklemiş olur.
+    async function loadCatalogSources() {
+        const el = document.getElementById('catalogSourcesList');
+        try {
+            const data = await fetchJson('/catalog-sources');
+            const sources = data.sources || [];
+            if (!sources.length) {
+                el.innerHTML = `<span class="placeholder">Henüz katalog yüklenmemiş.</span>`;
+                return;
+            }
+            el.innerHTML = sources.map(s => `
+                <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid #eee;">
+                    <span>📄 ${esc(s.name)} <span style="color:#888; font-size:12.5px;">(${s.count} ürün)</span></span>
+                    <button type="button" class="btn-del" onclick="deleteCatalogSource('${esc(s.name).replace(/'/g, "\\'")}')" title="Bu kataloğu tamamen kaldır">✕ Kaldır</button>
+                </div>
+            `).join('');
+        } catch (err) {
+            el.innerHTML = `<span class="placeholder">Katalog listesi yüklenemedi (yönetici girişi gerekebilir): ${esc(err.message || String(err))}</span>`;
+        }
+    }
+
+    async function deleteCatalogSource(name) {
+        if (!confirm(`'${name}' kataloğunu kaldırmak istediğine emin misin?\n\nSadece bu katalogda olan ürünler tamamen silinir; başka bir katalogda da geçen ürünler kalır (sadece bu kataloğun referansı kaldırılır).`)) return;
+        try {
+            const fd = new FormData();
+            fd.append('source_name', name);
+            const data = await fetchJson('/delete-catalog-source', { method: 'POST', body: fd });
+            if (data.status !== 'success') { alert(data.message || 'Silinemedi.'); return; }
+            alert(data.message);
+            loadCatalogSources();
+            if (allCatalogItems.length) checkCatalog();
+        } catch (err) {
+            alert(err.message || String(err));
+        }
     }
 
     function renderFilteredCatalog(filterText) {
@@ -403,6 +448,7 @@
         } catch (err) { /* sessizce geç, kritik değil */ }
     }
     loadUsageBadge();
+    loadCatalogSources();
 </script>
 
 </body>
