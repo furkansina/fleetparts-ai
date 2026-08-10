@@ -5,8 +5,8 @@
     "call_count": 1
   },
   "bulk": {
-    "total_tokens": 34085,
-    "call_count": 6
+    "total_tokens": 36516,
+    "call_count": 7
   },
   "customer2": {
     "total_tokens": 0,
