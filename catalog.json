@@ -590,328 +590,328 @@
         "source_file": "dense_catalog_test3.pdf (sayfa 2)"
     },
     {
-        "id": "PRC-6482",
+        "id": "101001-0",
         "oem": "101001-0",
-        "name": "Fren Hava Kaplini Standart Kirmizi M16x1.5",
+        "name": "Fren Hava Kaplini Standart Kırmızı M16x1.5",
         "brand": "",
-        "specs": "Kirmizi, M16x1.5",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-9015",
+        "id": "101002-0",
         "oem": "101002-0",
-        "name": "Fren Hava Kaplini Standart Sari M16x1.5",
+        "name": "Fren Hava Kaplini Standart Sarı M16x1.5",
         "brand": "",
-        "specs": "Sari, M16x1.5",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-3291",
+        "id": "101003-0",
         "oem": "101003-0",
-        "name": "Fren Hava Kaplini Otomatik Kirmizi M16x1.5",
+        "name": "Fren Hava Kaplini Otomatik Kırmızı M16x1.5",
         "brand": "",
-        "specs": "Kirmizi, M16x1.5",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-5127",
+        "id": "101004-0",
         "oem": "101004-0",
-        "name": "Fren Hava Kaplini Otomatik Sari M16x1.5",
+        "name": "Fren Hava Kaplini Otomatik Sarı M16x1.5",
         "brand": "",
-        "specs": "Sari, M16x1.5",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-7403",
+        "id": "101005-0",
         "oem": "101005-0",
-        "name": "Fren Hava Kaplini Standart Kirmizi M22x1.5",
+        "name": "Fren Hava Kaplini Standart Kırmızı M22x1.5",
         "brand": "",
-        "specs": "Kirmizi, M22x1.5",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-8296",
+        "id": "101006-0",
         "oem": "101006-0",
-        "name": "Fren Hava Kaplini Standart Sari M22x1.5",
+        "name": "Fren Hava Kaplini Standart Sarı M22x1.5",
         "brand": "",
-        "specs": "Sari, M22x1.5",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-2735",
+        "id": "101007-0",
         "oem": "101007-0",
-        "name": "Fren Hava Kaplini Otomatik Kirmizi M22x1.5",
+        "name": "Fren Hava Kaplini Otomatik Kırmızı M22x1.5",
         "brand": "",
-        "specs": "Kirmizi, M22x1.5",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-8819",
+        "id": "101008-0",
         "oem": "101008-0",
-        "name": "Fren Hava Kaplini Otomatik Sari M22x1.5",
+        "name": "Fren Hava Kaplini Otomatik Sarı M22x1.5",
         "brand": "",
-        "specs": "Sari, M22x1.5",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-1567",
+        "id": "101009-0",
         "oem": "101009-0",
-        "name": "Fren Hava Kaplini Standart Filtreli Kirmizi M16x1.5 Rekorlu",
+        "name": "Fren Hava Kaplini Standart Filtreli Kırmızı M16x1.5 Rekorlu",
         "brand": "",
-        "specs": "Kirmizi, M16x1.5, Rekorlu",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-4923",
+        "id": "101010-0",
         "oem": "101010-0",
-        "name": "Fren Hava Kaplini Standart Filtreli Sari M16x1.5",
+        "name": "Fren Hava Kaplini Standart Filreli Sarı M16x1.5 Rekorlu",
         "brand": "",
-        "specs": "Sari, M16x1.5",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-6054",
+        "id": "101011-0",
         "oem": "101011-0",
-        "name": "Fren Hava Kaplini Standart Filtreli Kirmizi M16x1.5 Rekorlu",
+        "name": "Fren Hava Kaplini Standart Filtreli Kırmızı M16x1.5",
         "brand": "",
-        "specs": "Kirmizi, M16x1.5, Rekorlu",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-7186",
+        "id": "101012-0",
         "oem": "101012-0",
-        "name": "Fren Hava Kaplini Standart Filtreli Sari M16x1.5",
+        "name": "Fren Hava Kaplini Standart Filtreli Sarı M16x1.5",
         "brand": "",
-        "specs": "Sari, M16x1.5",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-5438",
+        "id": "101001-1",
         "oem": "101001-1",
-        "name": "Fren Hava Kaplini Toz Kapağı Kirmizi",
+        "name": "Fren Hava Kaplini Toz Kapağı Kırmızı",
         "brand": "",
-        "specs": "Kirmizi",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-2197",
+        "id": "101002-1",
         "oem": "101002-1",
-        "name": "Fren Hava Kaplini Toz Kapağı Sari",
+        "name": "Fren Hava Kaplini Toz Kapağı Sarı",
         "brand": "",
-        "specs": "Sari",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-3675",
+        "id": "101001-2",
         "oem": "101001-2",
         "name": "Hava Kaplini Lastiği Standart",
         "brand": "",
-        "specs": "Standart",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-9854",
+        "id": "101009-1",
         "oem": "101009-1",
         "name": "Hava Kaplini Lastiği Filtreli Model",
         "brand": "",
-        "specs": "Filtreli Model",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-6732",
+        "id": "101085-0",
         "oem": "101085-0",
-        "name": "QUICK KAPLiN M22x1.5 SARI",
+        "name": "QUICK KAPLİN M22x1.5 SARI",
         "brand": "",
-        "specs": "M22x1.5, Sari",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-4109",
+        "id": "101085-1",
         "oem": "101085-1",
-        "name": "QUICK KAPLiN M22x1.5 KIRMIZI",
+        "name": "QUICK KAPLİN M22x1.5 KIRMIZI",
         "brand": "",
-        "specs": "M22x1.5, Kirmizi",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-8543",
+        "id": "101025-0",
         "oem": "101025-0",
         "name": "Çabuk Tahliye Valfi M22 x M22 x M22 x 1.5",
         "brand": "",
-        "specs": "M22 x M22 x M22 x 1.5",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-1276",
+        "id": "101026-0",
         "oem": "101026-0",
         "name": "Çabuk Tahliye Valfi M16 x M16 x M22 x 1.5",
         "brand": "",
-        "specs": "M16 x M16 x M22 x 1.5",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-5890",
+        "id": "101027-0",
         "oem": "101027-0",
         "name": "Çabuk Tahliye Valfi M16 x M16 x M16 x 1.5",
         "brand": "",
-        "specs": "M16 x M16 x M16 x 1.5",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-3451",
+        "id": "101028-0",
         "oem": "101028-0",
         "name": "Çabuk Tahliye Valfi 3/8\" x 3/8\" x 3/8\"",
         "brand": "",
-        "specs": "3/8\" x 3/8\" x 3/8\"",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-7624",
+        "id": "101029-0",
         "oem": "101029-0",
         "name": "Çabuk Tahliye Valfi 3/8\" x 3/8\" x 1/2\"",
         "brand": "",
-        "specs": "3/8\" x 3/8\" x 1/2\"",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-9087",
+        "id": "101030-0",
         "oem": "101030-0",
         "name": "Çabuk Tahliye Valfi 1/4\" x 1/4\" x 3/8\"",
         "brand": "",
-        "specs": "1/4\" x 1/4\" x 3/8\"",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-2315",
+        "id": "101031-0",
         "oem": "101031-0",
         "name": "Çabuk Tahliye Valfi 1/4\" x 1/4\" x 1/2\"",
         "brand": "",
-        "specs": "1/4\" x 1/4\" x 1/2\"",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-4567",
+        "id": "101025-1",
         "oem": "101025-1",
         "name": "Çabuk Tahliye Valfi Tamir Takımı",
         "brand": "",
-        "specs": "Tamir Takımı",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-1325",
+        "id": "101035-0",
         "oem": "101035-0",
-        "name": "Fren Hava Hortumu Sari 5,5mt M16x1.5",
+        "name": "Fren Hava Hortumu Sarı 5,5mt M16x1.5",
         "brand": "",
-        "specs": "Sari, 5.5m, M16x1.5, Polyeten",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-8416",
+        "id": "101035-1",
         "oem": "101035-1",
-        "name": "Fren Hava Hortumu Kirmizi 5,5mt M16x1.5",
+        "name": "Fren Hava Hortumu Kırmızı 5,5mt M16x1.5",
         "brand": "",
-        "specs": "Kirmizi, 5.5m, M16x1.5, Polyeten",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-6590",
+        "id": "101035-2",
         "oem": "101035-2",
         "name": "Fren Hava Hortumu Mavi 5,5mt M16x1.5",
         "brand": "",
-        "specs": "Mavi, 5.5m, M16x1.5, Polyeten",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-3219",
+        "id": "101035-4",
         "oem": "101035-4",
-        "name": "Fren Hava Hortumu Siyah/Sari 5,5mt M16x1.5",
+        "name": "Fren Hava Hortumu Siyah/Sarı 5,5mt M16x1.5",
         "brand": "",
-        "specs": "Siyah/Sari, 5.5m, M16x1.5, Polyeten",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-9753",
+        "id": "101035-5",
         "oem": "101035-5",
-        "name": "Fren Hava Hortumu Siyah/Kirmizi 5,5mt M16x1.5",
+        "name": "Fren Hava Hortumu Siyah/Kırmızı 5,5mt M16x1.5",
         "brand": "",
-        "specs": "Siyah/Kirmizi, 5.5m, M16x1.5, Polyeten",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-4682",
+        "id": "101036-0",
         "oem": "101036-0",
-        "name": "Fren Hava Hortumu Sari 5,5mt M22x1.5",
+        "name": "Fren Hava Hortumu Sarı 5,5mt M22x1.5",
         "brand": "",
-        "specs": "Sari, 5.5m, M22x1.5, Polyeten",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-1524",
+        "id": "101036-1",
         "oem": "101036-1",
-        "name": "Fren Hava Hortumu Kirmizi 5,5mt M22x1.5",
+        "name": "Fren Hava Hortumu Kırmızı 5,5mt M22x1.5",
         "brand": "",
-        "specs": "Kirmizi, 5.5m, M22x1.5, Polyeten",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-7896",
+        "id": "101036-2",
         "oem": "101036-2",
         "name": "Fren Hava Hortumu Mavi 5,5mt M22x1.5",
         "brand": "",
-        "specs": "Mavi, 5.5m, M22x1.5, Polyeten",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-2341",
+        "id": "101036-4",
         "oem": "101036-4",
-        "name": "Fren Hava Hortumu Siyah/Sari 5,5mt M22x1.5",
+        "name": "Fren Hava Hortumu Siyah/Sarı 5,5mt M22x1.5",
         "brand": "",
-        "specs": "Siyah/Sari, 5.5m, M22x1.5, Polyeten",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-5679",
+        "id": "101036-5",
         "oem": "101036-5",
-        "name": "Fren Hava Hortumu Siyah/Kirmizi 5,5mt M22x1.5",
+        "name": "Fren Hava Hortumu Siyah/Kırmızı 5,5mt M22x1.5",
         "brand": "",
-        "specs": "Siyah/Kirmizi, 5.5m, M22x1.5, Polyeten",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2, metin katmanindan otomatik cikarildi)"
     },
     {
         "id": "PRC-8342",
@@ -923,885 +923,1425 @@
         "source_file": "GÖÇMEN KATALOG .pdf (sayfa 1)"
     },
     {
-        "id": "PRC-6957",
+        "id": "101038-0",
         "oem": "101038-0",
         "name": "Fren Hava Hortumu Sarı 5,5mt M16x1.5",
         "brand": "",
-        "specs": "Sarı 5,5mt M16x1.5",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-7029",
+        "id": "101038-1",
         "oem": "101038-1",
         "name": "Fren Hava Hortumu Kırmızı 5,5mt M16x1.5",
         "brand": "",
-        "specs": "Kırmızı 5,5mt M16x1.5",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-9911",
+        "id": "101038-2",
         "oem": "101038-2",
         "name": "Fren Hava Hortumu Mavi 5,5mt M16x1.5",
         "brand": "",
-        "specs": "Mavi 5,5mt M16x1.5",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-4828",
+        "id": "101038-4",
         "oem": "101038-4",
         "name": "Fren Hava Hortumu Siyah/Sarı 5,5mt M16x1.5",
         "brand": "",
-        "specs": "Siyah/Sarı 5,5mt M16x1.5",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-3545",
+        "id": "101038-5",
         "oem": "101038-5",
         "name": "Fren Hava Hortumu Siyah/Kırmızı 5,5mt M16x1.5",
         "brand": "",
-        "specs": "Siyah/Kırmızı 5,5mt M16x1.5",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-7584",
+        "id": "101039-0",
         "oem": "101039-0",
         "name": "Fren Hava Hortumu Sarı 5,5mt M22x1.5",
         "brand": "",
-        "specs": "Sarı 5,5mt M22x1.5",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-6866",
+        "id": "101039-1",
         "oem": "101039-1",
         "name": "Fren Hava Hortumu Kırmızı 5,5mt M22x1.5",
         "brand": "",
-        "specs": "Kırmızı 5,5mt M22x1.5",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-4152",
+        "id": "101039-2",
         "oem": "101039-2",
         "name": "Fren Hava Hortumu Mavi 5,5mt M22x1.5",
         "brand": "",
-        "specs": "Mavi 5,5mt M22x1.5",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-3302",
+        "id": "101039-4",
         "oem": "101039-4",
         "name": "Fren Hava Hortumu Siyah/Sarı 5,5mt M22x1.5",
         "brand": "",
-        "specs": "Siyah/Sarı 5,5mt M22x1.5",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-5712",
+        "id": "101039-5",
         "oem": "101039-5",
         "name": "Fren Hava Hortumu Siyah/Kırmızı 5,5mt M22x1.5",
         "brand": "",
-        "specs": "Siyah/Kırmızı 5,5mt M22x1.5",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-9132",
+        "id": "101042-0",
         "oem": "101042-0",
-        "name": "Kabin Temizleme Hortumu PE Plastik Tabancalı Rekorsuz",
+        "name": "Kabin Temizleme Hortumu PE Plastik Tabancalı  Rekorsuz",
         "brand": "",
-        "specs": "PE Plastik Tabancalı Rekorsuz",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-2713",
+        "id": "101042-1",
         "oem": "101042-1",
-        "name": "Kabin Temizleme Hortumu PE Plastik Tabancalı 7/16\"",
+        "name": "Kabin Temizleme Hortumu PE Plastik Tabancalı  7/16\"",
         "brand": "",
-        "specs": "PE Plastik Tabancalı 7/16\"",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-5052",
+        "id": "101042-2",
         "oem": "101042-2",
-        "name": "Kabin Temizleme Hortumu PE Plastik Tabancalı M12x1.5",
+        "name": "Kabin Temizleme Hortumu PE Plastik Tabancalı  M12x1.5",
         "brand": "",
-        "specs": "PE Plastik Tabancalı M12x1.5",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-2093",
+        "id": "101042-3",
         "oem": "101042-3",
-        "name": "Kabin Temizleme Hortumu PE Plastik Tabancalı Axor",
+        "name": "Kabin Temizleme Hortumu PE Plastik Tabancalı  Axor",
         "brand": "",
-        "specs": "PE Plastik Tabancalı Axor",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-1067",
+        "id": "101042-4",
         "oem": "101042-4",
-        "name": "Kabin Temizleme Hortumu PE Plastik Tabancalı Actros",
+        "name": "Kabin Temizleme Hortumu PE Plastik Tabancalı  Actros",
         "brand": "",
-        "specs": "PE Plastik Tabancalı Actros",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-4659",
+        "id": "101042-5",
         "oem": "101042-5",
-        "name": "Kabin Temizleme Hortumu PE Plastik Tabancalı Scania",
+        "name": "Kabin Temizleme Hortumu PE Plastik Tabancalı  Scania",
         "brand": "",
-        "specs": "PE Plastik Tabancalı Scania",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-9361",
+        "id": "101042-6",
         "oem": "101042-6",
-        "name": "Kabin Temizleme Hortumu PE Plastik Tabancalı Renault",
+        "name": "Kabin Temizleme Hortumu PE Plastik Tabancalı  Renault",
         "brand": "",
-        "specs": "PE Plastik Tabancalı Renault",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-2029",
+        "id": "101042-7",
         "oem": "101042-7",
         "name": "Kabin Temizleme Hortumu PE Plastik Tabancalı Iveco",
         "brand": "",
-        "specs": "PE Plastik Tabancalı Iveco",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-7025",
+        "id": "101045-0",
         "oem": "101045-0",
-        "name": "Kabin Temizleme Hortumu PE Metal Tabancalı Rekorsuz",
+        "name": "Kabin Temizleme Hortumu PE Metal Tabancalı  Rekorsuz",
         "brand": "",
-        "specs": "PE Metal Tabancalı Rekorsuz",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-7765",
+        "id": "101045-1",
         "oem": "101045-1",
-        "name": "Kabin Temizleme Hortumu PE Metal Tabancalı 7/16\"",
+        "name": "Kabin Temizleme Hortumu PE Metal Tabancalı  7/16\"",
         "brand": "",
-        "specs": "PE Metal Tabancalı 7/16\"",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-5801",
+        "id": "101045-2",
         "oem": "101045-2",
         "name": "Kabin Temizleme Hortumu PE Metal Tabancalı M12x1.5",
         "brand": "",
-        "specs": "PE Metal Tabancalı M12x1.5",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-4050",
+        "id": "101045-3",
         "oem": "101045-3",
         "name": "Kabin Temizleme Hortumu PE Metal Tabancalı Axor",
         "brand": "",
-        "specs": "PE Metal Tabancalı Axor",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-6537",
+        "id": "101045-4",
         "oem": "101045-4",
-        "name": "Kabin Temizleme Hortumu PE Metal Tabancalı Actros",
+        "name": "Kabin Temizleme Hortumu PE Metal Tabancalı  Actros",
         "brand": "",
-        "specs": "PE Metal Tabancalı Actros",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-4528",
+        "id": "101045-5",
         "oem": "101045-5",
         "name": "Kabin Temizleme Hortumu PE Metal Tabancalı Scania",
         "brand": "",
-        "specs": "PE Metal Tabancalı Scania",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-9429",
+        "id": "101045-6",
         "oem": "101045-6",
-        "name": "Kabin Temizleme Hortumu PE Metal Tabancalı Renault",
+        "name": "Kabin Temizleme Hortumu PE Metal Tabancalı  Renault",
         "brand": "",
-        "specs": "PE Metal Tabancalı Renault",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-6705",
+        "id": "101045-7",
         "oem": "101045-7",
         "name": "Kabin Temizleme Hortumu PE Metal Tabancalı Iveco",
         "brand": "",
-        "specs": "PE Metal Tabancalı Iveco",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-1050",
+        "id": "101055-0",
         "oem": "101055-0",
-        "name": "Kabin Temizleme Hortumu PE 5x8 Sarı Reksorsuz",
+        "name": "Kabin Temizleme Hortumu PE 5x8 Sarı Rekorsuz",
         "brand": "",
-        "specs": "PE 5x8 Sarı Reksorsuz",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-2841",
+        "id": "101055-1",
         "oem": "101055-1",
-        "name": "Kabin Temizleme Hortumu PE 5x8 Kırmızı Reksorsuz",
+        "name": "Kabin Temizleme Hortumu PE 5x8 Kırmızı Rekorsuz",
         "brand": "",
-        "specs": "PE 5x8 Kırmızı Reksorsuz",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-9273",
+        "id": "101055-2",
         "oem": "101055-2",
-        "name": "Kabin Temizleme Hortumu PE 5x8 Mavi Reksorsuz",
+        "name": "Kabin Temizleme Hortumu PE 5x8 Mavi Rekorsuz",
         "brand": "",
-        "specs": "PE 5x8 Mavi Reksorsuz",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-4190",
+        "id": "101055-3",
         "oem": "101055-3",
-        "name": "Kabin Temizleme Hortumu PE 5x8 Siyah Reksorsuz",
+        "name": "Kabin Temizleme Hortumu PE 5x8 Siyah Rekorsuz",
         "brand": "",
-        "specs": "PE 5x8 Siyah Reksorsuz",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-6382",
+        "id": "101056-0",
         "oem": "101056-0",
-        "name": "Kabin Temizleme Hortumu PU 5x8 Sarı Reksorsuz",
+        "name": "Kabin Temizleme Hortumu PU 5x8 Sarı Rekorsuz",
         "brand": "",
-        "specs": "PU 5x8 Sarı Reksorsuz",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-5117",
+        "id": "101056-1",
         "oem": "101056-1",
-        "name": "Kabin Temizleme Hortumu PU 5x8 Kırmızı Reksorsuz",
+        "name": "Kabin Temizleme Hortumu PU 5x8 Kırmızı Rekorsuz",
         "brand": "",
-        "specs": "PU 5x8 Kırmızı Reksorsuz",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-7429",
+        "id": "101056-2",
         "oem": "101056-2",
-        "name": "Kabin Temizleme Hortumu PU 5x8 Mavi Reksorsuz",
+        "name": "Kabin Temizleme Hortumu PU 5x8 Mavi Rekorsuz",
         "brand": "",
-        "specs": "PU 5x8 Mavi Reksorsuz",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-3865",
+        "id": "101056-3",
         "oem": "101056-3",
-        "name": "Kabin Temizleme Hortumu PU 5x8 Siyah Reksorsuz",
+        "name": "Kabin Temizleme Hortumu PU 5x8 Siyah Rekorsuz",
         "brand": "",
-        "specs": "PU 5x8 Siyah Reksorsuz",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-1936",
+        "id": "101067-0",
         "oem": "101067-0",
         "name": "6 mt. Lastik Şişirme Hortumu Mandallı",
         "brand": "",
-        "specs": "6 mt. Lastik Şişirme Hortumu Mandallı",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-8254",
+        "id": "101067-1",
         "oem": "101067-1",
         "name": "9 mt. Lastik Şişirme Hortumu Mandallı",
         "brand": "",
-        "specs": "9 mt. Lastik Şişirme Hortumu Mandallı",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-4598",
+        "id": "101067-2",
         "oem": "101067-2",
         "name": "12 mt. Lastik Şişirme Hortumu Mandallı",
         "brand": "",
-        "specs": "12 mt. Lastik Şişirme Hortumu Mandallı",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-7612",
+        "id": "101067-3",
         "oem": "101067-3",
         "name": "13 mt. Lastik Şişirme Hortumu Mandallı",
         "brand": "",
-        "specs": "13 mt. Lastik Şişirme Hortumu Mandallı",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-3047",
+        "id": "101067-4",
         "oem": "101067-4",
         "name": "15 mt. Lastik Şişirme Hortumu Mandallı",
         "brand": "",
-        "specs": "15 mt. Lastik Şişirme Hortumu Mandallı",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-9183",
+        "id": "101067-5",
         "oem": "101067-5",
         "name": "18 mt. Lastik Şişirme Hortumu Mandallı",
         "brand": "",
-        "specs": "18 mt. Lastik Şişirme Hortumu Mandallı",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-2360",
+        "id": "101067-6",
         "oem": "101067-6",
         "name": "20 mt. Lastik Şişirme Hortumu Mandallı",
         "brand": "",
-        "specs": "20 mt. Lastik Şişirme Hortumu Mandallı",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-5891",
+        "id": "101067-7",
         "oem": "101067-7",
         "name": "24 mt. Lastik Şişirme Hortumu Mandallı",
         "brand": "",
-        "specs": "24 mt. Lastik Şişirme Hortumu Mandallı",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-4129",
+        "id": "101069-0",
         "oem": "101069-0",
         "name": "6 mt. Lastik Şişirme Hortumu Jaklı",
         "brand": "",
-        "specs": "6 mt. Lastik Şişirme Hortumu Jaklı",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-6753",
+        "id": "101069-1",
         "oem": "101069-1",
         "name": "9 mt. Lastik Şişirme Hortumu Jaklı",
         "brand": "",
-        "specs": "9 mt. Lastik Şişirme Hortumu Jaklı",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-8340",
+        "id": "101069-2",
         "oem": "101069-2",
         "name": "12 mt. Lastik Şişirme Hortumu Jaklı",
         "brand": "",
-        "specs": "12 mt. Lastik Şişirme Hortumu Jaklı",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-1597",
+        "id": "101069-3",
         "oem": "101069-3",
         "name": "13 mt. Lastik Şişirme Hortumu Jaklı",
         "brand": "",
-        "specs": "13 mt. Lastik Şişirme Hortumu Jaklı",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-9821",
+        "id": "101069-4",
         "oem": "101069-4",
         "name": "15 mt. Lastik Şişirme Hortumu Jaklı",
         "brand": "",
-        "specs": "15 mt. Lastik Şişirme Hortumu Jaklı",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-5038",
+        "id": "101069-5",
         "oem": "101069-5",
         "name": "18 mt. Lastik Şişirme Hortumu Jaklı",
         "brand": "",
-        "specs": "18 mt. Lastik Şişirme Hortumu Jaklı",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-2164",
+        "id": "101069-6",
         "oem": "101069-6",
         "name": "20 mt. Lastik Şişirme Hortumu Jaklı",
         "brand": "",
-        "specs": "20 mt. Lastik Şişirme Hortumu Jaklı",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-7483",
+        "id": "101069-7",
         "oem": "101069-7",
         "name": "24 mt. Lastik Şişirme Hortumu Jaklı",
         "brand": "",
-        "specs": "24 mt. Lastik Şişirme Hortumu Jaklı",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-3915",
+        "id": "301001 0",
         "oem": "301001 0",
         "name": "Mazot Depo Kapağı Plastik Yuvarlak",
         "brand": "",
-        "specs": "Mazot Depo Kapağı Plastik Yuvarlak",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-6270",
+        "id": "301006 0",
         "oem": "301006 0",
         "name": "Mazot Depo Kapağı Plastik Tırnaklı",
         "brand": "",
-        "specs": "Mazot Depo Kapağı Plastik Tırnaklı",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-4502",
+        "id": "301006 1",
         "oem": "301006 1",
         "name": "Mazot Depo Kapağı Döküm Tırnaklı",
         "brand": "",
-        "specs": "Mazot Depo Kapağı Döküm Tırnaklı",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-8136",
+        "id": "301007 0",
         "oem": "301007 0",
-        "name": "Scania Kilavuzlu Depo Kapağı Krom Çemberli",
+        "name": "Scania Kılavuzlu Depo Kapağı Krom Çemberli",
         "brand": "",
-        "specs": "Scania Kilavuzlu Depo Kapağı Krom Çemberli",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-5948",
+        "id": "301011 0",
         "oem": "301011 0",
         "name": "ADD-Blue Kapak Küçük",
         "brand": "",
-        "specs": "ADD-Blue Kapak Küçük",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-2371",
+        "id": "301012 0",
         "oem": "301012 0",
         "name": "ADD-Blue Kapak Büyük",
         "brand": "",
-        "specs": "ADD-Blue Kapak Büyük",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-6859",
+        "id": "301014 0",
         "oem": "301014 0",
         "name": "Mazot Depo Kapağı Üstten Açılan",
         "brand": "",
-        "specs": "Mazot Depo Kapağı Üstten Açılan",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-9104",
+        "id": "301015 0",
         "oem": "301015 0",
         "name": "Mazot Depo Kapağı Üstten Açılan Axor-Actros Tipi",
         "brand": "",
-        "specs": "Mazot Depo Kapağı Üstten Açılan Axor-Actros Tipi",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-1627",
+        "id": "301016 0",
         "oem": "301016 0",
         "name": "Radyatör Kapağı Plastik",
         "brand": "",
-        "specs": "Radyatör Kapağı Plastik",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-4830",
+        "id": "301017 0",
         "oem": "301017 0",
         "name": "Radyatör Kapağı Sac 2 Köşe",
         "brand": "",
-        "specs": "Radyatör Kapağı Sac 2 Köşe",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-7291",
+        "id": "301018 0",
         "oem": "301018 0",
         "name": "Radyatör Kapağı Sac 4 Köşe",
         "brand": "",
-        "specs": "Radyatör Kapağı Sac 4 Köşe",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-5416",
+        "id": "301019 0",
         "oem": "301019 0",
         "name": "Depo Boğazı 80 mm.",
         "brand": "",
-        "specs": "Depo Boğazı 80 mm.",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-8573",
+        "id": "301020 0",
         "oem": "301020 0",
         "name": "Depo Boğazı SCANIA",
         "brand": "",
-        "specs": "Depo Boğazı SCANIA",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-1382",
+        "id": "102001 0",
         "oem": "102001 0",
         "name": "Fren Körük Lastiği 9NS",
         "brand": "",
-        "specs": "9NS tip fren körük lastiği",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-1893",
+        "id": "102001 1",
         "oem": "102001 1",
         "name": "Fren Körük Lastiği 9LS",
         "brand": "",
-        "specs": "9LS tip fren körük lastiği",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-2847",
+        "id": "102002 0",
         "oem": "102002 0",
         "name": "Fren Körük Lastiği 12NS",
         "brand": "",
-        "specs": "12NS tip fren körük lastiği",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-2491",
+        "id": "102002 1",
         "oem": "102002 1",
         "name": "Fren Körük Lastiği 12LS",
         "brand": "",
-        "specs": "12LS tip fren körük lastiği",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-3028",
+        "id": "102003 0",
         "oem": "102003 0",
         "name": "Fren Körük Lastiği 14NS",
         "brand": "",
-        "specs": "14NS tip fren körük lastiği",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-1074",
+        "id": "102003 1",
         "oem": "102003 1",
         "name": "Fren Körük Lastiği 14LS",
         "brand": "",
-        "specs": "14LS tip fren körük lastiği",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-1925",
+        "id": "102004 0",
         "oem": "102004 0",
         "name": "Fren Körük Lastiği 16NS",
         "brand": "",
-        "specs": "16NS tip fren körük lastiği",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-2675",
+        "id": "102004 1",
         "oem": "102004 1",
         "name": "Fren Körük Lastiği 16LS",
         "brand": "",
-        "specs": "16LS tip fren körük lastiği",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-3194",
+        "id": "102005 0",
         "oem": "102005 0",
         "name": "Fren Körük Lastiği 18NS",
         "brand": "",
-        "specs": "18NS tip fren körük lastiği",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-1236",
+        "id": "102006 0",
         "oem": "102006 0",
         "name": "Fren Körük Lastiği 20NS",
         "brand": "",
-        "specs": "20NS tip fren körük lastiği",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-2369",
+        "id": "102006 1",
         "oem": "102006 1",
         "name": "Fren Körük Lastiği 20LS",
         "brand": "",
-        "specs": "20LS tip fren körük lastiği",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-3082",
+        "id": "102007 0",
         "oem": "102007 0",
         "name": "Fren Körük Lastiği 22NS",
         "brand": "",
-        "specs": "22NS tip fren körük lastiği",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-1453",
+        "id": "102008 0",
         "oem": "102008 0",
         "name": "Fren Körük Lastiği 24NS",
         "brand": "",
-        "specs": "24NS tip fren körük lastiği",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-2175",
+        "id": "102008 1",
         "oem": "102008 1",
         "name": "Fren Körük Lastiği 24LS",
         "brand": "",
-        "specs": "24LS tip fren körük lastiği",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-3318",
+        "id": "102009 0",
         "oem": "102009 0",
         "name": "Fren Körük Lastiği 27NS",
         "brand": "",
-        "specs": "27NS tip fren körük lastiği",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-1926",
+        "id": "102010 0",
         "oem": "102010 0",
         "name": "Fren Körük Lastiği 28LS",
         "brand": "",
-        "specs": "28LS tip fren körük lastiği",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-2740",
+        "id": "102011 0",
         "oem": "102011 0",
         "name": "Fren Körük Lastiği 30NS",
         "brand": "",
-        "specs": "30NS tip fren körük lastiği",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-3891",
+        "id": "102011 1",
         "oem": "102011 1",
         "name": "Fren Körük Lastiği 30LS",
         "brand": "",
-        "specs": "30LS tip fren körük lastiği",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-1058",
+        "id": "102012 0",
         "oem": "102012 0",
         "name": "Fren Körük Lastiği 36NS",
         "brand": "",
-        "specs": "36NS tip fren körük lastiği",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-2647",
+        "id": "102012 1",
         "oem": "102012 1",
         "name": "Fren Körük Lastiği 36LS",
         "brand": "",
-        "specs": "36LS tip fren körük lastiği",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-3215",
+        "id": "102013 0",
         "oem": "102013 0",
         "name": "Fren Körük Lastiği 42NS",
         "brand": "",
-        "specs": "42NS tip fren körük lastiği",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-1860",
+        "id": "211034 0",
         "oem": "211034 0",
         "name": "DEVRE KESİCİ 24V METAL TİP",
         "brand": "",
-        "specs": "24V Metal Tip",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-2534",
+        "id": "211036 0",
         "oem": "211036 0",
-        "name": "DEVRE KESİCİ 12V-24V PLASTİK TİP",
+        "name": "DEVRE KESİCİ 12V-24V PLASTIK TİP",
         "brand": "",
-        "specs": "12V-24V Plastik Tip",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-3490",
+        "id": "211035 0",
         "oem": "211035 0",
         "name": "DEVRE KESİCİ 24V ZAMAK",
         "brand": "",
-        "specs": "24V Zamak",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-1307",
+        "id": "211035 1",
         "oem": "211035 1",
-        "name": "DEVRE KESİCİ 24V ZAMAK ve TOPLAYA...",
+        "name": "DEVRE KESİCİ 24V ZAMAK ve TOPRAKLAMALI",
         "brand": "",
-        "specs": "24V Zamak, Topraklama",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-2058",
+        "id": "211035 2",
         "oem": "211035 2",
         "name": "DEVRE KESİCİ 24V ZAMAK METAL BAGLANTI",
         "brand": "",
-        "specs": "24V Zamak Metal Bağlantı",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-3621",
+        "id": "101057 0",
         "oem": "101057 0",
         "name": "Plastik Hava Tabancası",
         "brand": "",
-        "specs": "Standart Plastik",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-1745",
+        "id": "101057 1",
         "oem": "101057 1",
         "name": "Plastik Hava Tabancası Uzun Borulu",
         "brand": "",
-        "specs": "Uzun Borulu Plastik",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-2193",
+        "id": "101059 0",
         "oem": "101059 0",
         "name": "Metal Hava Tabancası",
         "brand": "",
-        "specs": "Standart Metal",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-3870",
+        "id": "101059 1",
         "oem": "101059 1",
         "name": "Metal Hava Tabancası Uzun Borulu 13cm",
         "brand": "",
-        "specs": "Uzun Borulu 13cm",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-1492",
+        "id": "101059 2",
         "oem": "101059 2",
         "name": "Metal Hava Tabancası Uzun Borulu 20cm",
         "brand": "",
-        "specs": "Uzun Borulu 20cm",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-2801",
+        "id": "101071 0",
         "oem": "101071 0",
-        "name": "Hava Jaklı Düz",
+        "name": "Hava Jakı Düz",
         "brand": "",
-        "specs": "Düz",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-3102",
+        "id": "101071 1",
         "oem": "101071 1",
-        "name": "Hava Jaklı Düz",
+        "name": "Hava Jakı Düz",
         "brand": "",
-        "specs": "Düz",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-1576",
+        "id": "101072 0",
         "oem": "101072 0",
-        "name": "Hava Jaklı Bükümlü",
+        "name": "Hava Jakı Bükümlü",
         "brand": "",
-        "specs": "Bükümlü",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5, metin katmanindan otomatik cikarildi)"
     },
     {
-        "id": "PRC-2438",
+        "id": "101072 1",
         "oem": "101072 1",
-        "name": "Hava Jaklı Bükümlü",
+        "name": "Hava Jakı Bükümlü",
         "brand": "",
-        "specs": "Bükümlü",
-        "stock": 25,
-        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5)"
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 5, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "201001 0",
+        "oem": "201001 0",
+        "name": "ELEKTRİK KABLOSU PE METAL FİŞLİ N TİPİ 5.5mt",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 6, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "201003 0",
+        "oem": "201003 0",
+        "name": "ELEKTRİK KABLOSU PE METAL FİŞLİ S TİPİ 5.5mt",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 6, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "201005 0",
+        "oem": "201005 0",
+        "name": "ELEKTRİK KABLOSU PE PLASTİK FİŞLİ N TİPİ 5.5mt",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 6, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "201007 0",
+        "oem": "201007 0",
+        "name": "ELEKTRİK KABLOSU PE PLASTİK FİŞLİ S TİPİ 5.5mt",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 6, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "201019 0",
+        "oem": "201019 0",
+        "name": "ELEKTRİK KABLOSU PU METAL FİŞLİ N TİPİ 4.5mt STD.",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 6, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "201019 1",
+        "oem": "201019 1",
+        "name": "ELEKTRİK KABLOSU PU METAL FİŞLİ N TİPİ 4.5mt KALIN",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 6, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "201022 0",
+        "oem": "201022 0",
+        "name": "ELEKTRİK KABLOSU PU METAL FİŞLİ S TİPİ 4.5mt STD.",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 6, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "201022 1",
+        "oem": "201022 1",
+        "name": "ELEKTRİK KABLOSU PU METAL FİŞLİ S TİPİ 4.5mt KALIN",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 6, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "201025 0",
+        "oem": "201025 0",
+        "name": "ELEKTRİK KABLOSU PU PLASTİK FİŞLİ N TİPİ 4.5mt STD.",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 6, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "201025 1",
+        "oem": "201025 1",
+        "name": "ELEKTRİK KABLOSU PU PLASTİK FİŞLİ N TİPİ 4.5mt KALIN",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 6, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "201028 0",
+        "oem": "201028 0",
+        "name": "ELEKTRİK KABLOSU PU PLASTİK FİŞLİ S TİPİ 4.5mt STD.",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 6, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "201028 1",
+        "oem": "201028 1",
+        "name": "ELEKTRİK KABLOSU PU METAL FİŞLİ S TİPİ 4.5mt KALIN",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 6, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "201043 0",
+        "oem": "201043 0",
+        "name": "ABS KABLOSU PU 5 FİŞLİ 4,5mt STD.",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 6, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "201043 1",
+        "oem": "201043 1",
+        "name": "ABS KABLOSU PU 5 FİŞLİ 4,5mt KALIN",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 6, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "201046 0",
+        "oem": "201046 0",
+        "name": "EBS KABLOSU PU 7 FİŞLİ 4,5mt STD.",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 6, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "201046 1",
+        "oem": "201046 1",
+        "name": "EBS KABLOSU PU 7 FİŞLİ 4,5mt KALIN",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 6, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "201052 0",
+        "oem": "201052 0",
+        "name": "ELEKTRİK KABLOSU PU 15 FİŞLİ 4,5mt STD.",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 6, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "201052 1",
+        "oem": "201052 1",
+        "name": "ELEKTRİK KABLOSU PU 15 FİŞLİ 4,5mt KALIN",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 6, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "201055 0",
+        "oem": "201055 0",
+        "name": "ADAPTOR KABLO PU METAL FİŞLİ 4.5mt STD. (DAMPERLİ)",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 6, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "201055 1",
+        "oem": "201055 1",
+        "name": "ADAPTOR KABLO PU METAL FİŞLİ 4.5mt KALIN (DAMPERLİ)",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 6, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "201058 0",
+        "oem": "201058 0",
+        "name": "ADAPTOR KABLO PU PLASTİK FİŞLİ 4.5mt STD. (DAMPERLİ)",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 6, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "201058 1",
+        "oem": "201058 1",
+        "name": "ADAPTOR KABLO PU PLASTİK FİŞLİ 4.5mt KALIN (DAMPERLİ)",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 6, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "201067 0",
+        "oem": "201067 0",
+        "name": "ADAPTOR KABLO PU METAL FİŞLİ 4.5mt STD.",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 6, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "201067 1",
+        "oem": "201067 1",
+        "name": "ADAPTOR KABLO PU METAL FİŞLİ 4.5mt KALIN",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 6, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "201070 0",
+        "oem": "201070 0",
+        "name": "ADAPTOR KABLO PU PLASTİK FİŞLİ 4.5mt STD.",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 6, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "201070 1",
+        "oem": "201070 1",
+        "name": "ADAPTOR KABLO PU PLASTİK FİŞLİ 4.5mt KALIN",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 6, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "201106 0",
+        "oem": "201106 0",
+        "name": "ELEKTRİK KABLOSU PU PLS. PRES BASKI FİŞ N TİPİ 4.5mt STD.",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 6, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "201106 1",
+        "oem": "201106 1",
+        "name": "ELEKTRİK KABLOSU PU PLS. PRES BASKI FİŞ N TİPİ 4.5mt KALIN",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 6, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "201109 0",
+        "oem": "201109 0",
+        "name": "ELEKTRİK KABLOSU PU PLS. PRES BASKI FİŞ S TİPİ 4.5mt STD.",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 6, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "201109 1",
+        "oem": "201109 1",
+        "name": "ELEKTRİK KABLOSU PU PLS. PRES BASKI FİŞ S TİPİ 4.5mt KALIN",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 6, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "201112 0",
+        "oem": "201112 0",
+        "name": "ADAPTOR KABLO PU PRES BASKI FİŞ 4.5mt STD.",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 6, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "201112 1",
+        "oem": "201112 1",
+        "name": "ADAPTOR KABLO PU PRES BASKI FİŞ 4.5mt KALIN",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 6, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "201115 0",
+        "oem": "201115 0",
+        "name": "ADAPTOR KABLO PU PRES BASKI FİŞ 4.5mt STD. (DAMPERLİ)",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 6, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "201115 1",
+        "oem": "201115 1",
+        "name": "ADAPTOR KABLO PU PRES BASKI FİŞ 4.5mt KALIN (DAMPERLİ)",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 6, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "211001 0",
+        "oem": "211001 0",
+        "name": "ELEKTRİK FİŞİ METAL N TİPİ 24V VİDALİ TİP",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 7, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "211002 0",
+        "oem": "211002 0",
+        "name": "ELEKTRİK FİŞİ METAL S TİPİ 24V VİDALİ TİP",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 7, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "211007 0",
+        "oem": "211007 0",
+        "name": "ELEKTRİK FİŞİ PLASTİK N TİPİ 24V VİDALİ TİP",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 7, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "211008 0",
+        "oem": "211008 0",
+        "name": "ELEKTRİK FİŞİ PLASTİK S TİPİ 24V VİDALİ TİP",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 7, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "211013 0",
+        "oem": "211013 0",
+        "name": "ELEKTRİK SOKETİ METAL N TİPİ 24V VİDALİ TİP",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 7, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "211014 0",
+        "oem": "211014 0",
+        "name": "ELEKTRİK SOKETİ METAL S TİPİ 24V VİDALİ TİP",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 7, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "211015 0",
+        "oem": "211015 0",
+        "name": "ELEKTRİK SOKETİ PLASTİK N TİPİ 24V VİDALI TİP",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 7, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "211016 0",
+        "oem": "211016 0",
+        "name": "ELEKTRİK SOKETİ PLASTİK S TİPİ 24V VİDALI TİP",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 7, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "211017 0",
+        "oem": "211017 0",
+        "name": "ELEKTRİK SOKETİ METAL N TİPİ 24V VİDALI TİP YENİ MODEL",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 7, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "211018 0",
+        "oem": "211018 0",
+        "name": "ELEKTRİK SOKETİ METAL S TİPİ 24V VİDALI TİP YENİ MODEL",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 7, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "211013 1",
+        "oem": "211013 1",
+        "name": "ELEKTRİK SOKETİ METAL N TİPİ 24V TERMİNALLİ TİP",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 7, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "211014 1",
+        "oem": "211014 1",
+        "name": "ELEKTRİK SOKETİ METAL S TİPİ 24V TERMİNALLİ TİP",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 7, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "211015 1",
+        "oem": "211015 1",
+        "name": "ELEKTRİK SOKETİ PLASTİK N TİPİ 24V TERMİNALLİ TİP",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 7, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "211016 1",
+        "oem": "211016 1",
+        "name": "ELEKTRİK SOKETİ PLASTİK S TİPİ 24V TERMİNALLİ TİP",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 7, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "211025 0",
+        "oem": "211025 0",
+        "name": "ABS FİŞİ 5 PİM 24V VİDALI TİP",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 7, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "211025 1",
+        "oem": "211025 1",
+        "name": "ABS FİŞİ 5 PİM 24V CRIMP (EZME) TİP",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 7, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "211026 0",
+        "oem": "211026 0",
+        "name": "EBS FİŞİ 7 PİM 24V VİDALI TİP",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 7, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "211026 1",
+        "oem": "211026 1",
+        "name": "EBS FİŞİ 7 PİM 24V CRIMP (EZME) TİP",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 7, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "211027 0",
+        "oem": "211027 0",
+        "name": "ELEKTRİK FİŞİ 15 PİM 24V VİDALI TİP",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 7, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "211027 1",
+        "oem": "211027 1",
+        "name": "ELEKTRİK FİŞİ 15 PİM 24V CRIMP (EZME) TİP",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 7, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "211028 0",
+        "oem": "211028 0",
+        "name": "ABS SOKETİ 5 PİM 24V VİDALI TİP",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 7, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "211028 1",
+        "oem": "211028 1",
+        "name": "ABS SOKETİ 5 PİM 24V CRIMP (EZME) TİP",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 7, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "211029 0",
+        "oem": "211029 0",
+        "name": "EBS SOKETİ 7 PİM 24V VİDALI TİP",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 7, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "211029 1",
+        "oem": "211029 1",
+        "name": "EBS SOKETİ 7 PİM 24V CRIMP (EZME) TİP",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 7, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "211030 0",
+        "oem": "211030 0",
+        "name": "ELEKTRİK SOKETİ 15 PİM 24V VİDALI TİP",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 7, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "211030 1",
+        "oem": "211030 1",
+        "name": "ELEKTRİK SOKETİ 15 PİM 24V CRIMP (EZME) TİP",
+        "brand": "",
+        "specs": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 7, metin katmanindan otomatik cikarildi)"
     }
 ]
