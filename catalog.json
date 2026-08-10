@@ -40,12 +40,17 @@
         "stock": 25
     },
     {
-        "id": "PRC-4829",
+        "id": "PRC-5512",
         "oem": "61-611175",
-        "name": "7 Çekirdekli Poliüretan Elektrik Kablosu, 24V, ISO 3731 Uygun S Tipi Plastik EJR Fişli",
-        "brand": "OEM-BELİRSİZ",
-        "specs": "7 pin polyurethane (PU) electrical cable, \"S\" type plastic EJR plugs, 24V, 4m working length, compatible with ISO 3731",
-        "stock": 25
+        "name": "7’LI POLIURETAN (PUR) ELEKTRIK KABLOSU, 24V, “S” TIP PLASTIK EJR FİŞLER",
+        "brand": "",
+        "specs": "7 PIN, POLYURETHANE (PU), 24V, “S” TYPE PLASTIC EJR PLUGS, ACC. ISO 3731, 4m WORKING LENGTH",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 5)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 5)"
+        ]
     },
     {
         "id": "PRC-8472",
@@ -10284,16 +10289,706 @@
         ]
     },
     {
-        "id": "PRC-5510",
+        "id": "PRC-3937",
         "oem": "61-141001",
-        "name": "PARK SOKETİ",
+        "name": "Plastik EJR Fişli Adaptör Kablo",
         "brand": "",
-        "specs": "ABS, EBS, 15’Lİ FİŞLER İÇİN",
+        "specs": "15’liden 2x7’liye, ISO 12098 -> ISO 1185 + ISO 3731, 4m",
         "price": "",
         "stock": 1,
-        "source_file": "Asaska_Katalog_2024.pdf (sayfa 2)",
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 3)",
         "source_files": [
-            "Asaska_Katalog_2024.pdf (sayfa 2)"
+            "Asaska_Katalog_2024.pdf (sayfa 2)",
+            "Asaska_Katalog_2024.pdf (sayfa 3)"
+        ]
+    },
+    {
+        "id": "PRC-1024",
+        "oem": "61-641237",
+        "name": "15’Lİ POLİÜRETAN (PUR) KABLO, 24V",
+        "brand": "",
+        "specs": "Siyah koruyucu plastik, 3m çalışma uzunluğu, ISO 12098’e uygun 12x1,0 + 3x2,5 mm2",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 3)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 3)"
+        ]
+    },
+    {
+        "id": "PRC-2058",
+        "oem": "61-711194",
+        "name": "Adaptör Kablo 15’liden 2 x 7’liye, 24V",
+        "brand": "",
+        "specs": "Polüüretan (PUR), tüm pimler dolu, ISO 12098 – ISO 1185 + ISO 3731, 3m çalışma uzunluğu, 5x1,5 + 2x4,0 mm2",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 3)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 3)"
+        ]
+    },
+    {
+        "id": "PRC-3092",
+        "oem": "60-30039.50",
+        "name": "15’Lİ POLİÜRETAN (PUR) KABLO",
+        "brand": "",
+        "specs": "4m çalışma uzunluğu, Fişler ISO 12098’e uygun, 12x1 + 3x2,5mm",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 3)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 3)"
+        ]
+    },
+    {
+        "id": "PRC-4048",
+        "oem": "60-30057.50",
+        "name": "Kısa Adaptör (15’li Soket’ten 2x7’li Fişlere)",
+        "brand": "",
+        "specs": "15-pin 24V Soket (ISO 12098) -> 2x 7-Pin Fiş (ISO 1185 + ISO 3731)",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 3)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 3)"
+        ]
+    },
+    {
+        "id": "PRC-5231",
+        "oem": "61-241010",
+        "name": "Vidalı Pimler",
+        "brand": "",
+        "specs": "Sabit vidalı terminaller",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 3)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 3)"
+        ]
+    },
+    {
+        "id": "PRC-6347",
+        "oem": "61-141053",
+        "name": "15’Lİ SOKET, ADR / GGVS",
+        "brand": "",
+        "specs": "ISO 12098’e uygun, Vidalı pimler",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 3)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 3)"
+        ]
+    },
+    {
+        "id": "PRC-7482",
+        "oem": "61-241024",
+        "name": "Sıkmalı Pimler",
+        "brand": "",
+        "specs": "Crimp terminals (Kısmen kırpmalı terminaller)",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 3)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 3)"
+        ]
+    },
+    {
+        "id": "PRC-5159",
+        "oem": "60-30058.50",
+        "name": "Kısa Adaptör (15’li Soket’ten 7’li Fişe)",
+        "brand": "",
+        "specs": "15-pin Soket (ISO 12098) -> 7-Pin Fiş (ISO 1185)",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 3)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 3)"
+        ]
+    },
+    {
+        "id": "PRC-9604",
+        "oem": "60-30059.50",
+        "name": "Plastik Fişli Adaptör Kablo",
+        "brand": "",
+        "specs": "15’liden 2x7’liye, ISO 12098 -> ISO 1185 + ISO 3731, 4m connection length",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 3)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 3)"
+        ]
+    },
+    {
+        "id": "PRC-1715",
+        "oem": "61-141137",
+        "name": "15’Lİ SOKET, EKONOMİK, ADR",
+        "brand": "",
+        "specs": "ISO 12098’e uygun, Sıkmalı pimler",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 3)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 3)"
+        ]
+    },
+    {
+        "id": "PRC-2826",
+        "oem": "61-141247",
+        "name": "15’Lİ SOKET, EKSPERT, %100 SU GEÇİRMEZ, ADR",
+        "brand": "",
+        "specs": "ISO 12098’e uygun, Sıkmalı pimler, Tekli silikonlar",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 3)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 3)"
+        ]
+    },
+    {
+        "id": "PRC-6260",
+        "oem": "61-311038",
+        "name": "Park Soketi ABS, EBS",
+        "brand": "",
+        "specs": "15’li fişler için, ABS malzeme",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 3)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 3)"
+        ]
+    },
+    {
+        "id": "PRC-1024",
+        "oem": "60-30072.50",
+        "name": "7’Lİ POLİÜRETAN (PUR) ELEKTRİK KABLOSU, 24V, “N” TİPİ ALÜMİNYUM FİŞLER",
+        "brand": "",
+        "specs": "24V, ISO 1185'e uygun, 4m Çalışma Uzunluğu, Alüminyum, N Tipi",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 4)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 4)"
+        ]
+    },
+    {
+        "id": "PRC-8392",
+        "oem": "60-30074.50",
+        "name": "7’Lİ POLİÜRETAN (PUR) ELEKTRİK KABLOSU, 24V, “N” TİPİ PLASTİK FİŞLER",
+        "brand": "",
+        "specs": "24V, ISO 1185'e uygun, 4m Çalışma Uzunluğu, Plastik, N Tipi",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 4)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 4)"
+        ]
+    },
+    {
+        "id": "PRC-6715",
+        "oem": "60-30020.50",
+        "name": "POLİÜRETAN (PUR) KABLO, FİŞSİZ",
+        "brand": "",
+        "specs": "Fişsiz, Polyurethane (PU)",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 4)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 4)"
+        ]
+    },
+    {
+        "id": "PRC-4201",
+        "oem": "60-30073.50",
+        "name": "7’Lİ POLİÜRETAN (PUR) ELEKTRİK KABLOSU, 24V, “S” TİPİ ALÜMİNYUM FİŞLER",
+        "brand": "",
+        "specs": "24V, ISO 3731'e uygun, 4m Çalışma Uzunluğu, Alüminyum, S Tipi",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 4)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 4)"
+        ]
+    },
+    {
+        "id": "PRC-5590",
+        "oem": "60-30075.50",
+        "name": "7’Lİ POLİÜRETAN (PUR) ELEKTRİK KABLOSU, 24V, “S” TİPİ PLASTİK FİŞLER",
+        "brand": "",
+        "specs": "24V, ISO 3731'e uygun, 4m Çalışma Uzunluğu, Plastik, S Tipi",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 4)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 4)"
+        ]
+    },
+    {
+        "id": "PRC-3318",
+        "oem": "60-00010",
+        "name": "ALÜMİNYUM 7’Lİ “N” TİPİ FİŞ",
+        "brand": "",
+        "specs": "ISO 1185'e uygun, Vidalı Pimler, Alüminyum",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 4)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 4)"
+        ]
+    },
+    {
+        "id": "PRC-7742",
+        "oem": "60-00020",
+        "name": "ALÜMİNYUM 7’Lİ “N” TİPİ SOKET",
+        "brand": "",
+        "specs": "ISO 1185'e uygun, Vidalı Pimler, Alüminyum",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 4)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 4)"
+        ]
+    },
+    {
+        "id": "PRC-9981",
+        "oem": "60-00012",
+        "name": "PLASTİK 7’Lİ “N” TİPİ FİŞ",
+        "brand": "",
+        "specs": "ISO 1185'e uygun, Vidalı Pimler, Plastik",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 4)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 4)"
+        ]
+    },
+    {
+        "id": "PRC-2245",
+        "oem": "60-00022",
+        "name": "PLASTİK 7’Lİ “N” TİPİ SOKET",
+        "brand": "",
+        "specs": "ISO 1185'e uygun, Vidalı Pimler, Plastik",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 4)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 4)"
+        ]
+    },
+    {
+        "id": "PRC-1156",
+        "oem": "60-00011",
+        "name": "ALÜMİNYUM 7’Lİ “S” TİPİ FİŞ",
+        "brand": "",
+        "specs": "ISO 3731'e uygun, Vidalı Pimler, Alüminyum",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 4)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 4)"
+        ]
+    },
+    {
+        "id": "PRC-8834",
+        "oem": "60-00021",
+        "name": "ALÜMİNYUM 7’Lİ “S” TİPİ SOKET",
+        "brand": "",
+        "specs": "ISO 3731'e uygun, Vidalı Pimler, Alüminyum",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 4)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 4)"
+        ]
+    },
+    {
+        "id": "PRC-6629",
+        "oem": "60-00013",
+        "name": "PLASTİK 7’Lİ “S” TİPİ FİŞ",
+        "brand": "",
+        "specs": "ISO 3731'e uygun, Vidalı Pimler, Plastik",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 4)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 4)"
+        ]
+    },
+    {
+        "id": "PRC-4077",
+        "oem": "60-00023",
+        "name": "PLASTİK 7’Lİ “S” TİPİ FİŞ",
+        "brand": "",
+        "specs": "ISO 3731'e uygun, Vidalı Pimler, Plastik",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 4)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 4)"
+        ]
+    },
+    {
+        "id": "PRC-3847",
+        "oem": "60-30078.50",
+        "name": "7’LI POLIURETAN (PUR) ELEKTRIK KABLOSU, 24V, “N” TIP PLASTIK EJR FİŞLER",
+        "brand": "",
+        "specs": "7 PIN, POLYURETHANE (PUR), 24V, “N” TYPE PLASTIC EJR PLUGS, ACC. ISO 1185, 4m WORKING LENGTH",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 5)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 5)"
+        ]
+    },
+    {
+        "id": "PRC-9201",
+        "oem": "61-611176",
+        "name": "7’LI POLIURETAN (PUR) ELEKTRIK KABLOSU, 24V, “N” TIP PLASTIK EJR FİŞLER",
+        "brand": "",
+        "specs": "7 PIN, POLYURETHANE (PU), 24V, “N” TYPE PLASTIC EJR PLUGS, ACC. ISO 1185, 4m WORKING LENGTH",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 5)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 5)"
+        ]
+    },
+    {
+        "id": "PRC-7734",
+        "oem": "60-30079.50",
+        "name": "7’LI POLIURETAN (PUR) ELEKTRIK KABLOSU, 24V, “S” TIP PLASTIK EJR FİŞLER",
+        "brand": "",
+        "specs": "7 PIN, POLYURETHANE (PU), 24V, “S” TYPE PLASTIC EJR PLUGS, ACC. ISO 3731, 4m WORKING LENGTH",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 5)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 5)"
+        ]
+    },
+    {
+        "id": "PRC-1129",
+        "oem": "61-211111",
+        "name": "VİDALI PİMLER",
+        "brand": "",
+        "specs": "SCREW TERMINALS, ELECTRIC",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 5)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 5)"
+        ]
+    },
+    {
+        "id": "PRC-4483",
+        "oem": "61-111062",
+        "name": "VİDALI PİMLER",
+        "brand": "",
+        "specs": "SCREW TERMINALS, ELECTRIC",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 5)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 5)"
+        ]
+    },
+    {
+        "id": "PRC-6625",
+        "oem": "61-211009",
+        "name": "VİDALI PİMLER",
+        "brand": "",
+        "specs": "SCREW TERMINALS",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 5)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 5)"
+        ]
+    },
+    {
+        "id": "PRC-8842",
+        "oem": "61-111081",
+        "name": "VİDALI PİMLER",
+        "brand": "",
+        "specs": "SCREW TERMINALS",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 5)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 5)"
+        ]
+    },
+    {
+        "id": "PRC-2291",
+        "oem": "61-211112",
+        "name": "YASSI PİMLER",
+        "brand": "",
+        "specs": "FLAT TERMINALS",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 5)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 5)"
+        ]
+    },
+    {
+        "id": "PRC-5576",
+        "oem": "61-111009",
+        "name": "YASSI PİMLER",
+        "brand": "",
+        "specs": "FLAT TERMINALS, SCREW TERMINALS",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 5)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 5)"
+        ]
+    },
+    {
+        "id": "PRC-3318",
+        "oem": "61-211027",
+        "name": "YASSI PİMLER",
+        "brand": "",
+        "specs": "FLAT TERMINALS",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 5)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 5)"
+        ]
+    },
+    {
+        "id": "PRC-9945",
+        "oem": "61-111128",
+        "name": "YASSI PİMLER",
+        "brand": "",
+        "specs": "FLAT TERMINALS",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 5)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 5)"
+        ]
+    },
+    {
+        "id": "PRC-1157",
+        "oem": "",
+        "name": "PLASTIK 7’LI “N” TIP FİŞ",
+        "brand": "",
+        "specs": "PLASTIC 7 PIN “N” TYPE PLUG, ACC. ISO 1185",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 5)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 5)"
+        ]
+    },
+    {
+        "id": "PRC-6684",
+        "oem": "",
+        "name": "PLASTIK 7’LI “N” TIP SOKET",
+        "brand": "",
+        "specs": "PLASTIC 7 PIN “N” TYPE SOCKET, ACC. ISO 1185",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 5)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 5)"
+        ]
+    },
+    {
+        "id": "PRC-2239",
+        "oem": "",
+        "name": "ALUMINYUM 7’LI “N” TIP FİŞ",
+        "brand": "",
+        "specs": "ALUMINIUM 7 PIN “N” TYPE PLUG, ACC. ISO 1185",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 5)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 5)"
+        ]
+    },
+    {
+        "id": "PRC-7751",
+        "oem": "",
+        "name": "ALUMINYUM 7’LI “N” TIP SOKET",
+        "brand": "",
+        "specs": "ALUMINIUM 7 PIN “N” TYPE SOCKET, ACC. ISO 1185",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 5)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 5)"
+        ]
+    },
+    {
+        "id": "PRC-4412",
+        "oem": "61-211013",
+        "name": "VİDALI PİMLER",
+        "brand": "",
+        "specs": "SCREW TERMINALS",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 5)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 5)"
+        ]
+    },
+    {
+        "id": "PRC-8893",
+        "oem": "61-111083",
+        "name": "VİDALI PİMLER",
+        "brand": "",
+        "specs": "SCREW TERMINALS",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 5)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 5)"
+        ]
+    },
+    {
+        "id": "PRC-5528",
+        "oem": "61-211028",
+        "name": "YASSI PİMLER",
+        "brand": "",
+        "specs": "FLAT TERMINALS",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 5)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 5)"
+        ]
+    },
+    {
+        "id": "PRC-1174",
+        "oem": "61-111129",
+        "name": "YASSI PİMLER",
+        "brand": "",
+        "specs": "FLAT TERMINALS",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 5)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 5)"
+        ]
+    },
+    {
+        "id": "PRC-6635",
+        "oem": "",
+        "name": "ALUMINYUM 7’LI “S” TIP FİŞ",
+        "brand": "",
+        "specs": "ALUMINIUM 7 PIN “S” TYPE PLUG, ACC. ISO 3731",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 5)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 5)"
+        ]
+    },
+    {
+        "id": "PRC-9982",
+        "oem": "",
+        "name": "ALUMINYUM 7’LI “S” TIP SOKET",
+        "brand": "",
+        "specs": "ALUMINIUM 7 PIN “S” TYPE SOCKET, ACC. ISO 3731",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 5)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 5)"
+        ]
+    },
+    {
+        "id": "PRC-2246",
+        "oem": "61-211113",
+        "name": "VİDALI PİMLER",
+        "brand": "",
+        "specs": "SCREW TERMINALS",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 5)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 5)"
+        ]
+    },
+    {
+        "id": "PRC-7719",
+        "oem": "61-111063",
+        "name": "VİDALI PİMLER",
+        "brand": "",
+        "specs": "SCREW TERMINALS",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 5)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 5)"
+        ]
+    },
+    {
+        "id": "PRC-3385",
+        "oem": "61-211114",
+        "name": "YASSI PİMLER",
+        "brand": "",
+        "specs": "FLAT TERMINALS",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 5)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 5)"
+        ]
+    },
+    {
+        "id": "PRC-5567",
+        "oem": "61-111016",
+        "name": "YASSI PİMLER",
+        "brand": "",
+        "specs": "FLAT TERMINALS",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 5)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 5)"
+        ]
+    },
+    {
+        "id": "PRC-8823",
+        "oem": "",
+        "name": "PLASTIK 7’LI “S” TIP FİŞ",
+        "brand": "",
+        "specs": "PLASTIC 7 PIN “S” TYPE PLUGS, ACC. ISO 3731",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 5)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 5)"
+        ]
+    },
+    {
+        "id": "PRC-1198",
+        "oem": "",
+        "name": "PLASTIK 7’LI “S” TIP SOKET",
+        "brand": "",
+        "specs": "PLASTIC 7 PIN “S” TYPE SOCKET, ACC. ISO 3731",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 5)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 5)"
+        ]
+    },
+    {
+        "id": "PRC-4456",
+        "oem": "61-111027",
+        "name": "PARK SOKET",
+        "brand": "",
+        "specs": "PARK SOCKET FOR N TYPE AND S TYPE PLUGS",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 5)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 5)"
         ]
     }
 ]
