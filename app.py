@@ -640,6 +640,56 @@ def _scan_catalog_source(filename: str, file_path: str) -> list:
         if os.path.exists(file_path):
             os.remove(file_path)
 
+# Katalog taraması (özellikle çok sayfalı bir PDF) birkaç dakika sürebilir - bunu TEK bir HTTP
+# isteği içinde bekletmek gerçek bir kullanımda sürekli başarısız oluyordu (Render'ın önündeki
+# proxy/worker, uzun süre yanıt gelmeyen istekleri belirli bir süre sonra kesiyor - istemci bunu
+# "sunucu uyandırılıyor" sanıp TÜM dosyayı BAŞTAN yeniden gönderiyordu, bu da hem asla
+# bitmeyen bir döngü hem de gereksiz tekrarlanan token harcaması demekti, gerçek bir denemede
+# tespit edildi). Çözüm: yükleme isteği dosyaları kaydedip HEMEN bir "iş no" ile döner, gerçek
+# tarama arka planda bir iş parçacığında devam eder, istemci ayrı bir uç noktadan (durum sorgusu)
+# birkaç saniyede bir "ne durumda" diye sorar - hiçbir tek istek uzun süre açık kalmaz.
+_catalog_jobs = {}
+_catalog_jobs_lock = threading.Lock()
+
+
+def _run_catalog_upload_job(job_id: str, saved_paths: list):
+    job = _catalog_jobs[job_id]
+    added_count = 0
+    updated_count = 0
+    failed = list(job["failed"])
+
+    for filename, file_path in saved_paths:
+        with _catalog_jobs_lock:
+            job["current_file"] = filename
+        try:
+            items = _scan_catalog_source(filename, file_path)
+            with CATALOG_WRITE_LOCK:
+                catalog = _load_catalog_from_disk()
+                catalog, added, updated = merge_catalog_items(catalog, items)
+                added_count += added
+                updated_count += updated
+                save_catalog(catalog)
+        except Exception as e:
+            failed.append(f"{filename}: {str(e)}")
+        with _catalog_jobs_lock:
+            job["done_files"] += 1
+
+    sync_catalog_to_github()
+    _catalog_cache["data"] = _load_catalog_from_disk()
+    _catalog_cache["fetched_at"] = time.time()
+
+    message = f"{added_count} adet yeni parça eklendi."
+    if updated_count:
+        message += f" {updated_count} adet zaten katalogda vardı, bilgileri güncellendi."
+    if failed:
+        message += f" {len(failed)} dosya işlenemedi: " + "; ".join(failed)
+
+    with _catalog_jobs_lock:
+        job["status"] = "success" if (added_count > 0 or updated_count > 0 or not failed) else "error"
+        job["message"] = message
+        job["current_file"] = None
+
+
 @app.post("/upload-catalog-files")
 def upload_catalog_files(files: list[UploadFile] = File(...), _: str = Depends(require_admin)):
     # NOT: bu endpoint eskiden korumasızdı - ana sayfa (index.html) herkese açık olduğu için
@@ -681,43 +731,27 @@ def upload_catalog_files(files: list[UploadFile] = File(...), _: str = Depends(r
             continue
         saved_paths.append((file.filename, file_path))
 
-    added_count = 0
-    updated_count = 0
-    failed = list(oversized)
+    job_id = uuid.uuid4().hex
+    with _catalog_jobs_lock:
+        _catalog_jobs[job_id] = {
+            "status": "processing",
+            "total_files": len(saved_paths),
+            "done_files": 0,
+            "current_file": saved_paths[0][0] if saved_paths else None,
+            "failed": list(oversized),
+            "message": "",
+        }
+    threading.Thread(target=_run_catalog_upload_job, args=(job_id, saved_paths), daemon=True).start()
+    return {"status": "processing", "job_id": job_id, "total_files": len(saved_paths)}
 
-    # Dosyalar TEK TEK (art arda) taranır - biri başarısız olursa diğerleri yine de etkilenmez.
-    # Not: eskiden 3 dosya aynı anda taranıyordu, ama Groq'un dakikalık token (TPM) kotası çok düşük
-    # (8000) olduğu için birden fazla görsel isteği aynı anda gidince kotaya takılındığı gerçek bir
-    # yüklemede tespit edildi - tek tek işlemek her isteğin kendi doğal süresi kadar boşluk bırakıp
-    # kotanın kendini toparlamasına izin veriyor, bu da güvenilirliği hız kaybından daha önemli kılıyor.
-    with ThreadPoolExecutor(max_workers=1) as executor:
-        future_to_name = {executor.submit(_scan_catalog_source, name, path): name for name, path in saved_paths}
-        for future in as_completed(future_to_name):
-            filename = future_to_name[future]
-            try:
-                items = future.result()
-                with CATALOG_WRITE_LOCK:
-                    catalog = _load_catalog_from_disk()  # yazma işlemi lokal diskten yapılır (GitHub ağ gecikmesine bağımlı olmasın); başka bir yükleme isteği aynı anda kaydetmiş olabileceğinden en güncel hali diskten oku
-                    catalog, added, updated = merge_catalog_items(catalog, items)
-                    added_count += added
-                    updated_count += updated
-                    save_catalog(catalog)  # her başarılı dosyadan sonra hemen kaydet, ilerleme kaybolmasın
-            except Exception as e:
-                failed.append(f"{filename}: {str(e)}")
 
-    sync_catalog_to_github()
-    # Az önce diske yazdığımız kesin doğru hali önbelleğe hemen yansıt - GitHub'a gidip gelmeyi
-    # veya önbellek süresinin dolmasını beklemeden hemen sonraki okuma (örn. /get-catalog) güncel veriyi görsün
-    _catalog_cache["data"] = _load_catalog_from_disk()
-    _catalog_cache["fetched_at"] = time.time()
-
-    message = f"{added_count} adet yeni parça eklendi."
-    if updated_count:
-        message += f" {updated_count} adet zaten katalogda vardı, bilgileri güncellendi."
-    if failed:
-        message += f" {len(failed)} dosya işlenemedi: " + "; ".join(failed)
-
-    return {"status": "success" if (added_count > 0 or updated_count > 0 or not failed) else "error", "message": message}
+@app.get("/upload-catalog-status/{job_id}")
+def get_upload_catalog_status(job_id: str, _: str = Depends(require_admin)):
+    with _catalog_jobs_lock:
+        job = _catalog_jobs.get(job_id)
+        if not job:
+            return {"status": "error", "message": "İş bulunamadı (sunucu yeniden başlamış olabilir)."}
+        return dict(job)
 
 # ---------------------------------------------------------
 # FAZ 2: LEAD KEŞFİ / İNCELEME (korumalı admin sayfaları)
