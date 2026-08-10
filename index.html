@@ -290,32 +290,57 @@
                 job = await fetchJson(`/upload-catalog-status/${jobId}`);
             } catch (err) {
                 showPlainError(err.message || String(err));
-                return;
+                return null;
             }
             if (job.status === 'processing') {
                 showUploadProgress(job);
                 continue;
             }
-            renderUploadResult(job);
+            return job;
+        }
+    }
+
+    // Çok sayfalı büyük bir katalog taranırken sunucu ara sıra kendiliğinden yeniden başlayabiliyor
+    // (gerçek kullanımda tespit edildi - iş takibi o an sıfırlanıyor, ama taranan sayfalar zaten
+    // kalıcı kaydedildiği için hiçbir şey kaybolmuyor). Eskiden bu durumda kullanıcı bir hata mesajı
+    // görüp AYNI dosyayı elle tekrar yüklemek zorunda kalıyordu - "sürekli PDF göndermek zorunda
+    // kalmamalıyım" geri bildirimi üzerine artık bunu tarayıcı KENDİSİ otomatik yapıyor: aynı
+    // dosyalar (input hâlâ seçili) otomatik olarak tekrar gönderilir, kullanıcı hiçbir şey yapmaz.
+    async function runCatalogUpload(formData) {
+        const maxResumeAttempts = 40;
+        for (let resumeAttempt = 0; resumeAttempt < maxResumeAttempts; resumeAttempt++) {
+            showLoading(resumeAttempt === 0 ? 'Dosyalar yükleniyor' : `Sunucu kısa süreliğine yeniden başladı, kaldığı yerden otomatik devam ediliyor (${resumeAttempt + 1}. deneme)`);
+            let data;
+            try {
+                data = await fetchJson('/upload-catalog-files', { method: 'POST', body: formData }, (attempt) => showLoading(wakingUpMessage('Dosyalar yükleniyor', attempt)));
+            } catch (err) {
+                showPlainError(err.message || String(err));
+                return;
+            }
+            if (data.status === 'error') {
+                renderUploadResult(data);
+                return;
+            }
+            const result = await pollUploadJob(data.job_id);
+            if (!result) return;
+            if (result.status === 'success') {
+                renderUploadResult(result);
+                return;
+            }
+            if (result.status === 'error' && result.resumable) {
+                await new Promise(r => setTimeout(r, 5000));
+                continue;
+            }
+            renderUploadResult(result);
             return;
         }
+        showPlainError('Sunucu arka arkaya yeniden başladı, otomatik deneme sınırına ulaşıldı. Az önce eklenmiş ürünler kayıp değil - "Şu Anki Kataloğu Görüntüle" ile kontrol edip birkaç dakika sonra aynı dosyayı tekrar yükleyebilirsin.');
     }
 
     document.getElementById('catalogForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
-        showLoading('Dosyalar yükleniyor');
-
-        try {
-            const data = await fetchJson('/upload-catalog-files', { method: 'POST', body: formData }, (attempt) => showLoading(wakingUpMessage('Dosyalar yükleniyor', attempt)));
-            if (data.status === 'error') {
-                renderUploadResult(data);
-                return;
-            }
-            await pollUploadJob(data.job_id);
-        } catch (err) {
-            showPlainError(err.message || String(err));
-        }
+        await runCatalogUpload(formData);
     });
 
     function poolBadgeHtml(label, pool) {
