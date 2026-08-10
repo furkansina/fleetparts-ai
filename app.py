@@ -715,61 +715,104 @@ def render_pdf_pages_to_images(pdf_path: str, filename: str = None, already_scan
             if page_label in already_scanned:
                 continue
             page = doc[page_index]
-            page_text = page.get_text()  # varsa metin katmanı - ücretsiz/anında ayrıştırma denemesi için
+            page_words = page.get_text("words")  # konumlu kelimeler - ücretsiz/anında tablo çıkarımı için
             pix = page.get_pixmap(matrix=zoom_matrix)
             page_path = os.path.join(CATALOG_DIR, f"{base_name}_sayfa{page_num}.png")
             pix.save(page_path)
             del pix
-            yield page_num, page_label, page_path, page_text
+            yield page_num, page_label, page_path, page_words
     finally:
         doc.close()
 
 
-def _try_extract_text_table(page_text: str) -> list:
+# Ürün kodu deseni: harf öneki olabilir (örn. "ORP 4011"), rakam bloğu, aralarda boşluk/tire
+# olabilir ("101001-0" / "101001 0"), sonda tek harf/hane eki olabilir ("4016 A").
+_CODE_RE = re.compile(r"^[A-ZÇĞİÖŞÜ]{0,5}\s?\d{3,7}([\s\-]\d{1,3})?\s?[A-Z]{0,2}$")
+# Aynı hücrede kod ve isim bitişik kalmışsa ("ORP 4016 A Test Aparatı...") ayırmak için.
+_CODE_PREFIX_RE = re.compile(r"^([A-ZÇĞİÖŞÜ]{0,5}\s?\d{3,7}([\s\-]\d{1,3})?\s?[A-Z]{0,2})\s+(.*)$")
+_PRICE_RE = re.compile(r"^₺?\s?[\d.,]+\s?(TL)?$", re.IGNORECASE)
+_TABLE_HEADER_WORDS = {"ürün kodu", "ürün adı", "birim fiyat", "fiyat", "kod", "açıklama", "adet", "stok"}
+
+
+def _rows_by_position(page_words: list) -> list:
+    """Konumlu kelimeleri (page.get_text('words')) Y koordinatına göre satırlara, her satır
+    içinde de X boşluğuna göre hücrelere gruplar. Sıralı düz metin çıkarımının (page.get_text())
+    KARIŞTIRDIĞI çok sütunlu PDF tablolarını (gerçek bir örnekte doğrulandı: kod/fiyat sütunu ile
+    ürün adı sütunu ayrı metin bloklarında olup satır sırası tamamen karışıyordu) satırların
+    gerçek görsel konumuna bakarak doğru şekilde yeniden inşa eder - sütun sayısı/sırası PDF'ten
+    PDF'e değişse bile çalışır."""
+    if not page_words:
+        return []
+    rows = {}
+    for w in page_words:
+        y_key = round(w[1] / 3) * 3
+        rows.setdefault(y_key, []).append(w)
+    row_cells = []
+    for y_key in sorted(rows.keys()):
+        row_words = sorted(rows[y_key], key=lambda w: w[0])
+        cells = [[row_words[0]]]
+        for w in row_words[1:]:
+            if w[0] - cells[-1][-1][2] > 12:
+                cells.append([w])
+            else:
+                cells[-1].append(w)
+        row_cells.append([" ".join(w[4] for w in cell).strip() for cell in cells])
+    return row_cells
+
+
+def _interpret_table_row(cells: list):
+    """Bir satırın hücrelerini (sırası/sayısı değişebilir) kod/isim/fiyat olarak yorumlar."""
+    cells = [c for c in cells if turkish_lower(c) not in _TABLE_HEADER_WORDS]
+    if not cells:
+        return None
+    code, name_parts, price = None, [], None
+    for cell in cells:
+        if code is None and _CODE_RE.match(cell):
+            code = cell
+            continue
+        if code is None:
+            m = _CODE_PREFIX_RE.match(cell)
+            if m:
+                code = m.group(1).strip()
+                if m.group(3).strip():
+                    name_parts.append(m.group(3).strip())
+                continue
+        if _PRICE_RE.match(cell):
+            price = cell
+        elif cell:
+            name_parts.append(cell)
+    if not code:
+        return None
+    return {"code": code, "name": " ".join(name_parts).strip(), "price": price}
+
+
+def _try_extract_text_table(page_words: list, min_rows: int = 4, min_coverage: float = 0.6) -> list:
     """Sayfanın metin katmanından (varsa - taranmış bir görsel DEĞİL, dijital olarak oluşturulmuş
-    bir PDF'se) doğrudan ürün listesi çıkarmayı dener. Bu, ağır vasıta yedek parça/fiyat listesi
-    PDF'lerinde ÇOK yaygın bir düzen (gerçek 2 katalogda da doğrulandı: kod+isim art arda satırlar,
-    ya da kod+fiyat art arda satırlar). Başarılı olursa Groq'a HİÇ görsel gönderilmez - o sayfa için
-    sıfır token harcanır, sıfır kota riski, saniyeler içinde biter.
+    bir PDF'se) doğrudan, konuma dayalı tablo yeniden inşasıyla ürün listesi çıkarmayı dener. Bu,
+    ağır vasıta yedek parça/fiyat listesi PDF'lerinde ÇOK yaygın bir düzen (gerçek 2 katalogda da
+    doğrulandı - biri basit tek sütun kod+isim, diğeri kod/isim/fiyatın AYRI metin bloklarında
+    olduğu çok sütunlu bir tablo, ikisi de doğru ayrıştırıldı). Başarılı olursa Groq'a HİÇ görsel
+    gönderilmez - o sayfa için sıfır token harcanır, sıfır kota riski, saniyeler içinde biter.
 
     GÜVENLİK İLKESİ: yanlış/uydurma veri üretmektense hiç veri üretmemek her zaman tercih edilir.
-    Bu yüzden sadece satırların BÜYÜK ÇOĞUNLUĞU (>= %70) net bir kod+değer deseniyle temiz şekilde
-    eşleşirse kabul edilir; aksi halde None döner ve çağıran normal (yapay zeka ile) taramaya
-    düşer - hiçbir zaman belirsiz/karışık bir sayfa için tahmini veri uydurulmaz."""
-    raw_lines = [l.strip() for l in page_text.split("\n") if l.strip()]
-    HEADER_WORDS = {"ürün kodu", "ürün adı", "birim fiyat", "fiyat", "kod", "açıklama"}
-    lines = [l for l in raw_lines if turkish_lower(l) not in HEADER_WORDS]
-    if len(lines) < 6:
+    Bu yüzden sadece satırların BÜYÜK ÇOĞUNLUĞU (>= %60) net bir kod içeren satır olarak
+    yorumlanabilirse kabul edilir; aksi halde None döner ve çağıran normal (yapay zeka ile)
+    taramaya güvenle düşer."""
+    row_cells = _rows_by_position(page_words)
+    if len(row_cells) < min_rows:
         return None
-
-    # Kod deseni: harf öneki olabilir (örn. "ORP 4011"), rakam bloğu, aralarda boşluk/tire olabilir
-    # (örn. "101001-0" ya da "101001 0"), sonda tek harf/hane eki olabilir (örn. "4016 A").
-    code_re = re.compile(r"^[A-ZÇĞİÖŞÜ]{0,5}\s?\d{3,7}[\s\-]?\d{0,2}\s?[A-Z]{0,2}$")
-    price_re = re.compile(r"^₺?\s?[\d.,]+\s?(TL)?$", re.IGNORECASE)
-
-    def extract_pairs():
-        items, i = [], 0
-        while i < len(lines) - 1:
-            code, value = lines[i], lines[i + 1]
-            if code_re.match(code) and not code_re.match(value):
-                items.append((code, value))
-                i += 2
-            else:
-                i += 1
-        return items
-
-    pairs = extract_pairs()
-    coverage = (len(pairs) * 2) / len(lines) if lines else 0
-    if not pairs or coverage < 0.7:
+    interpreted = [_interpret_table_row(r) for r in row_cells]
+    good = [x for x in interpreted if x is not None]
+    coverage = len(good) / len(row_cells) if row_cells else 0
+    if coverage < min_coverage or not good:
         return None
-
     result = []
-    for code, value in pairs:
-        is_price = bool(price_re.match(value))
+    for x in good:
+        name = x["name"] or (f"{x['code']} (fiyat: {x['price']})" if x["price"] else x["code"])
         result.append({
-            "id": code,
-            "oem": code,
-            "name": f"{code} (fiyat: {value})" if is_price else value,
+            "id": x["code"],
+            "oem": x["code"],
+            "name": name,
             "brand": "",
             "specs": "",
             "stock": 1,
@@ -831,13 +874,13 @@ def _scan_catalog_source(filename: str, file_path: str, on_page_done=None) -> li
                 if isinstance(item.get("source_file"), str) and item["source_file"].startswith(f"{filename} (sayfa ")
             }
             items = []
-            for _page_num, page_label, page_path, page_text in render_pdf_pages_to_images(file_path, filename=filename, already_scanned=already_scanned):
+            for _page_num, page_label, page_path, page_words in render_pdf_pages_to_images(file_path, filename=filename, already_scanned=already_scanned):
                 try:
                     # ÖNCE ücretsiz yolu dene: sayfanın gerçek bir metin katmanı varsa (taranmış
                     # görsel değil, dijital olarak oluşturulmuş bir fiyat listesi/katalogsa - gerçek
                     # kullanımda çok yaygın çıktı) Groq'a HİÇ gitmeden anında ve bedavaya çıkarılır.
                     # Güvenilir bir eşleşme yoksa (None) normal yapay zeka taramasına düşülür.
-                    page_items = _try_extract_text_table(page_text)
+                    page_items = _try_extract_text_table(page_words)
                     if page_items is None:
                         page_items = call_groq_json_array(CATALOG_SCAN_PROMPT, page_path, pool="bulk")
                     for item in page_items:
