@@ -41,6 +41,16 @@ def require_admin(credentials: HTTPBasicCredentials = Depends(security)):
 GROQ_API_KEY = os.environ.get("GROQ_API_KEY", "")            # Ana hesap - MÜŞTERİ havuzunun birincil anahtarı
 GROQ_API_KEY_BULK = os.environ.get("GROQ_API_KEY_BULK", "")  # İkinci (varsa) hesap - SADECE toplu iş (katalog tarama) için ayrılmış
 GROQ_API_KEY_THIRD = os.environ.get("GROQ_API_KEY_THIRD", "")  # Üçüncü (varsa) hesap - müşteri havuzunun 2. yedeği, kota hiç bitmesin diye ekstra güvence
+# SINIRSIZ EK HESAP DESTEĞİ: ileride kota gerçekten yetersiz kalırsa, KOD DEĞİŞİKLİĞİ YAPMADAN
+# Render'a GROQ_API_KEY_4, GROQ_API_KEY_5, ... (20'ye kadar) isimli yeni bir env var eklemek
+# yeterli - otomatik olarak zincire eklenir. Bu, "her yeni ihtiyaçta tekrar kod yazman gerekmesin"
+# isteği için kalıcı bir çözüm.
+GROQ_EXTRA_KEYS = []
+for _i in range(4, 21):
+    _extra = os.environ.get(f"GROQ_API_KEY_{_i}", "")
+    if _extra:
+        GROQ_EXTRA_KEYS.append((f"extra{_i}", _extra))
+        usage_tracker.register_pool(f"extra{_i}")
 GROQ_VISION_MODEL = "qwen/qwen3.6-27b"     # Görsel gerektiren işler (parça fotoğrafı, katalog sayfası) - hesap başına günlük 200K token kotası
 GROQ_TEXT_MODEL = "llama-3.3-70b-versatile"  # Sadece iç/toplu kullanım (lead ön-değerlendirme) - AYRI, 100K token kotası
 
@@ -177,6 +187,7 @@ def _resolve_key_chain(pool: str, use_secondary_model: bool) -> list:
         chain.append(("customer", GROQ_API_KEY))
         if GROQ_API_KEY_THIRD:
             chain.append(("customer2", GROQ_API_KEY_THIRD))
+        chain.extend(GROQ_EXTRA_KEYS)
         return chain
     chain = [("customer", GROQ_API_KEY)]
     if GROQ_API_KEY_BULK:
@@ -185,6 +196,7 @@ def _resolve_key_chain(pool: str, use_secondary_model: bool) -> list:
         # 3. hesap - müşteri havuzunun 2. yedeği. Ana VE bulk hesabın ikisi de günlük kotasını
         # doldurursa devreye girer, kota tükenmesine karşı ekstra güvence.
         chain.append(("customer2", GROQ_API_KEY_THIRD))
+    chain.extend(GROQ_EXTRA_KEYS)
     return chain
 
 def call_groq_api(prompt: str, image_path: str = None, use_secondary_model: bool = False, pool: str = "customer", max_output_tokens: int = None) -> str:
