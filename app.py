@@ -165,9 +165,19 @@ def _resolve_key_chain(pool: str, use_secondary_model: bool) -> list:
         # llama modeli zaten ayrı bir model/kota (havuz ayrımından bağımsız), her zaman ana hesap üzerinden
         return [("customer", GROQ_API_KEY)]
     if pool == "bulk":
+        # NOT: bulk havuzu ÖNCEDEN kasıtlı olarak SADECE ikinci hesabı kullanıyordu (ana müşteri
+        # hesabına asla dokunmasın diye). Ama gerçek kullanımda Groq'un GERÇEK günlük limitinin
+        # bizim varsaydığımızdan (200K) çok daha düşük olduğu ortaya çıktı - katalog taraması tek
+        # hesapla güne sığmıyor. Müşteri hesabı bugün neredeyse hiç kullanılmadığı için (boşta
+        # duran kapasite), katalog taraması artık kendi hesabı bitince müşteri hesabına da
+        # düşebiliyor - müşteri arama önceliğini korumak için hâlâ EN SON denenen hesap bu.
+        chain = []
         if GROQ_API_KEY_BULK:
-            return [("bulk", GROQ_API_KEY_BULK)]
-        return [("customer", GROQ_API_KEY)]  # ikinci hesap henüz tanımlanmadı, geçici olarak ana hesabı kullan
+            chain.append(("bulk", GROQ_API_KEY_BULK))
+        chain.append(("customer", GROQ_API_KEY))
+        if GROQ_API_KEY_THIRD:
+            chain.append(("customer2", GROQ_API_KEY_THIRD))
+        return chain
     chain = [("customer", GROQ_API_KEY)]
     if GROQ_API_KEY_BULK:
         chain.append(("bulk", GROQ_API_KEY_BULK))
@@ -526,6 +536,11 @@ Görselde TEK bir parça olabileceği gibi, bir tabloda/gridde ONLARCA farklı p
 (farklı ölçü, renk veya varyant olarak listelenmiş olsa bile HER SATIR/HER VARYANT ayrı bir parçadır).
 Görseldeki HER BİR parçayı tek tek tara ve çıkar. Görselde hiç parça yoksa (kapak sayfası, boş sayfa vb.) boş liste döndür.
 
+ÖNEMLİ - YOĞUN TABLO SAYFALARI: Sayfada çok sayıda satır/ürün varsa (örn. 15-30+ satırlık bir
+fiyat listesi tablosu), 'specs' alanını KISA tut (tek kısa cümle veya birkaç kelime, uzun teknik
+açıklama YAZMA) - yanıt uzunluğu sınırlı, çok sayıda ürünü TAM ve EKSİKSİZ çıkarmak, az sayıda
+ürünü uzun uzun anlatmaktan çok daha önemli. Hiçbir satırı ASLA atlama.
+
 Bir üründe birden fazla kod görünüyorsa (kendi kod sistemi + üretici/OEM referans numarası gibi),
 'oem' alanına en belirgin/asıl ürün kodunu yaz.
 
@@ -548,14 +563,61 @@ SADECE şu JSON yapısında bir DİZİ (array) döndür, başka hiçbir şey yaz
 ]
 """
 
+def _salvage_partial_json_objects(text: str) -> list:
+    """Model yanıtı (çok yoğun/kalabalık bir sayfa yüzünden) max_tokens sınırına takılıp
+    yarıda kesilirse, dizinin kapanış ']' işareti hiç gelmez ve normal json.loads tamamen
+    başarısız olur - halbuki dizinin İLK N ÖĞESİ genelde tam ve geçerlidir, sadece SONUNCU
+    (yarım kalan) öğe bozuktur. Köşeli parantez derinliğini elle sayarak dizideki her TAM
+    {...} nesnesini tek tek çıkarır, sadece yarım kalan son nesneyi atar - böylece bir sayfada
+    30 üründen 29'u tam çıkmışsa o 29'u kaybetmeyiz, sadece 1 tanesini."""
+    items = []
+    depth = 0
+    obj_start = None
+    in_string = False
+    escape = False
+    for i, ch in enumerate(text):
+        if in_string:
+            if escape:
+                escape = False
+            elif ch == "\\":
+                escape = True
+            elif ch == '"':
+                in_string = False
+            continue
+        if ch == '"':
+            in_string = True
+        elif ch == "{":
+            if depth == 0:
+                obj_start = i
+            depth += 1
+        elif ch == "}":
+            depth -= 1
+            if depth == 0 and obj_start is not None:
+                try:
+                    obj = json.loads(text[obj_start:i + 1])
+                    if isinstance(obj, dict):
+                        items.append(obj)
+                except (ValueError, json.JSONDecodeError):
+                    pass
+                obj_start = None
+    return items
+
 def extract_json_array(raw_text: str) -> list:
     clean_text = raw_text.replace("```json", "").replace("```", "").strip()
     start = clean_text.find("[")
-    end = clean_text.rfind("]") + 1
-    if start == -1 or end <= start:
+    if start == -1:
         raise ValueError(f"Yanıtta JSON dizisi bulunamadı: {raw_text[:200]!r}")
-    data = json.loads(clean_text[start:end])
-    return data if isinstance(data, list) else []
+    end = clean_text.rfind("]") + 1
+    if end > start:
+        try:
+            data = json.loads(clean_text[start:end])
+            return data if isinstance(data, list) else []
+        except (ValueError, json.JSONDecodeError):
+            pass  # tam dizi bozuk (muhtemelen yarıda kesilmiş) - aşağıda parça parça kurtarmayı dene
+    salvaged = _salvage_partial_json_objects(clean_text[start + 1:])
+    if not salvaged:
+        raise ValueError(f"Yanıtta geçerli JSON dizisi bulunamadı: {raw_text[:200]!r}")
+    return salvaged
 
 def call_groq_json_array(prompt: str, image_path: str = None, use_secondary_model: bool = False, pool: str = "customer") -> list:
     last_error = None
@@ -734,17 +796,19 @@ def upload_catalog_files(files: list[UploadFile] = File(...), _: str = Depends(r
     # Günlük yapay zeka kotası zaten neredeyse bittiyse (katalog taraması en pahalı işlemdir,
     # her sayfa bir görsel analizi gerektirir) hiç denemeden önceden net bir uyarı ver - aksi
     # halde her dosya tek tek başarısız olur, kullanıcı neden olduğunu anlamadan zaman kaybeder.
-    # Katalog taraması "bulk" havuzunu kullanır (ikinci hesap tanımlıysa ona, yoksa ana hesaba
-    # düşer) - hangi havuzu gerçekten kullanacaksa onun kalan bütçesine bakılır.
+    # Katalog taraması artık bulk->customer->customer2 zincirini deniyor (bkz. _resolve_key_chain) -
+    # zincirdeki HERHANGİ bir hesapta yer varsa engelleme, gerçek tarama sırasında zaten sıradaki
+    # hesaba geçilecek. Gerçek bir kullanımda tespit edildi: kendi saydığımız token tahmini
+    # Groq'un gerçek günlük limitinden farklı çıkabiliyor, bu yüzden bu kontrol sadece kaba bir
+    # ön uyarı - asıl güvence tarama sırasındaki otomatik hesap geçişi.
     usage = usage_tracker.get_today_usage()
-    check_pool = "bulk" if GROQ_API_KEY_BULK else "customer"
-    pool_usage = usage.get(check_pool, {})
-    if pool_usage.get("remaining_estimate", usage_tracker.DAILY_TOKEN_BUDGET) < 2000:
+    chain_pools = {label for label, _ in _resolve_key_chain("bulk", False)}
+    any_room = any(usage.get(p, {}).get("remaining_estimate", usage_tracker.DAILY_TOKEN_BUDGET) >= 2000 for p in chain_pools)
+    if not any_room:
         return {
             "status": "error",
-            "message": f"Bugünkü yapay zeka kullanım kotası doldu (%{pool_usage.get('percent_used', 0)} kullanıldı). "
-                       f"Katalog taraması en çok token harcayan işlem olduğu için şu an güvenilir çalışmaz. "
-                       f"Kota gece (Groq sıfırlama saatinde) yenilenir, o zaman tekrar deneyin."
+            "message": "Bugünkü yapay zeka kullanım kotası (denenen tüm hesaplarda) doldu. "
+                       "Kota gece (Groq sıfırlama saatinde) yenilenir, o zaman tekrar deneyin."
         }
 
     saved_paths = []
