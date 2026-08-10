@@ -800,12 +800,19 @@ def _run_catalog_upload_job(job_id: str, saved_paths: list):
     added_count = 0
     updated_count = 0
     failed = list(job["failed"])
+    pages_since_sync = 0
+    last_sync_time = time.time()
 
     def save_page_items(page_items):
-        # Her sayfa bitince HEMEN kalıcı olarak kaydedilir (yerel disk + GitHub) - dosyanın
-        # tamamının bitmesini beklemez. Sunucu ortasında yeniden başlasa/çökse bile o ana kadar
-        # taranan sayfalar kaybolmaz, ne veri ne harcanan token boşa gider.
-        nonlocal added_count, updated_count
+        # Her sayfa bitince HEMEN yerel diske kaydedilir - dosyanın tamamının bitmesini beklemez.
+        # GitHub'a gönderme (asıl kalıcılık - Render'ın diski her yeniden deploy'da sıfırlanıyor)
+        # ise her sayfada DEĞİL, en fazla birkaç sayfada bir yapılır: GitHub'a PUT edilen içerik
+        # TÜM kataloğun o anki hali (delta değil), katalog büyüdükçe (yüzlerce sayfa/ürün) bu
+        # her sayfada tekrar tekrar büyüyen bir yükü ağa göndermek demekti - gerçek bir kullanımda
+        # yoğun bir dosyada bunun toplam süreyi ciddi uzattığı ve sunucunun sayfa sayfa
+        # ilerlerken periyodik olarak yeniden başlamasıyla çakıştığı gözlemlendi. Yine de veri
+        # KAYBI riski yok: yerel kayıt her sayfada oluyor, sadece GitHub'a itme seyrekleştirildi.
+        nonlocal added_count, updated_count, pages_since_sync, last_sync_time
         if not page_items:
             return
         with CATALOG_WRITE_LOCK:
@@ -814,9 +821,13 @@ def _run_catalog_upload_job(job_id: str, saved_paths: list):
             added_count += added
             updated_count += updated
             save_catalog(catalog)
-        sync_catalog_to_github()
         _catalog_cache["data"] = catalog
         _catalog_cache["fetched_at"] = time.time()
+        pages_since_sync += 1
+        if pages_since_sync >= 3 or (time.time() - last_sync_time) >= 20:
+            sync_catalog_to_github()
+            pages_since_sync = 0
+            last_sync_time = time.time()
         with _catalog_jobs_lock:
             job["pages_done"] += 1
 
@@ -829,6 +840,10 @@ def _run_catalog_upload_job(job_id: str, saved_paths: list):
             failed.append(f"{filename}: {str(e)}")
         with _catalog_jobs_lock:
             job["done_files"] += 1
+
+    if pages_since_sync:
+        # Son birkaç sayfa henüz GitHub'a itilmediyse (seyreltme yüzünden) işin sonunda kesin itilir.
+        sync_catalog_to_github()
 
     message = f"{added_count} adet yeni parça eklendi."
     if updated_count:
