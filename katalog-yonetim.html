@@ -107,6 +107,38 @@
         `;
     }
 
+    function showUploadProgress(job) {
+        const pct = job.total_files ? Math.round((job.done_files / job.total_files) * 100) : 0;
+        const current = job.current_file ? ` — şu an: ${esc(job.current_file)}` : '';
+        out.innerHTML = `
+            <div class="loading">Katalog taranıyor: ${job.done_files}/${job.total_files} dosya (%${pct})${current}<span class="dots"></span></div>
+            <div style="color:#888; font-size:12px; margin-top:6px;">Çok sayfalı PDF'ler birkaç dakika sürebilir, sayfayı kapatmadan bekleyin.</div>
+        `;
+    }
+
+    // Yükleme isteği dosyaları alıp HEMEN bir iş no ile döner - gerçek tarama arka planda devam
+    // eder, biz durumunu birkaç saniyede bir soruyoruz. Eskiden tek bir uzun istek bekleniyordu,
+    // bu da Render'ın uzun süren istekleri kesmesi yüzünden sürekli "baştan yeniden gönderme"
+    // döngüsüne giriyordu (gerçek bir denemede tespit edildi) - artık tek istek hep kısa sürüyor.
+    async function pollUploadJob(jobId) {
+        while (true) {
+            await new Promise(r => setTimeout(r, 3000));
+            let job;
+            try {
+                job = await fetchJson(`/upload-catalog-status/${jobId}`);
+            } catch (err) {
+                showPlainError(err.message || String(err));
+                return;
+            }
+            if (job.status === 'processing') {
+                showUploadProgress(job);
+                continue;
+            }
+            renderUploadResult(job);
+            return;
+        }
+    }
+
     // Render'ın ücretsiz sunucusu birkaç dakika boş kalınca uykuya dalıyor; ilk istek onu
     // uyandırırken gerçek ölçümlerde 90 saniyeye kadar sürebiliyor. Bu süreyi rahatça
     // karşılayacak kadar (toplam ~100sn) otomatik olarak birkaç kez daha deneriz.
@@ -159,11 +191,15 @@
     document.getElementById('catalogForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
-        showLoading('Katalog dosyaları yapay zeka tarafından okunuyor, lütfen bekleyin (birden fazla dosyada biraz sürebilir)');
+        showLoading('Dosyalar yükleniyor');
 
         try {
-            const data = await fetchJson('/upload-catalog-files', { method: 'POST', body: formData }, (attempt) => showLoading(wakingUpMessage('Katalog dosyaları işleniyor', attempt)));
-            renderUploadResult(data);
+            const data = await fetchJson('/upload-catalog-files', { method: 'POST', body: formData }, (attempt) => showLoading(wakingUpMessage('Dosyalar yükleniyor', attempt)));
+            if (data.status === 'error') {
+                renderUploadResult(data);
+                return;
+            }
+            await pollUploadJob(data.job_id);
         } catch (err) {
             showPlainError(err.message || String(err));
         }
