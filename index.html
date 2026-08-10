@@ -56,6 +56,7 @@
         .catalog-item { background: white; border: 1px solid #e2e2e2; border-radius: 8px; padding: 14px; box-shadow: 0 2px 4px rgba(0,0,0,0.04); }
         .catalog-item h4 { margin: 0 0 6px 0; font-size: 15.5px; }
         .catalog-item .specs { color: #666; font-size: 13px; margin-top: 6px; }
+        #catalogSearch { font-size: 14px; }
     </style>
 </head>
 <body>
@@ -163,13 +164,12 @@
         `;
     }
 
-    function renderCatalog(data) {
-        const items = data.catalog || [];
-        if (items.length === 0) {
-            out.innerHTML = `<div class="card warn"><div class="card-title">⚠️ Katalog Boş</div><div>Henüz hiç parça eklenmemiş.</div></div>`;
-            return;
-        }
-        const cards = items.map(item => `
+    // Katalog büyüdükçe (yüzlerce ürün) elle scroll edip aramak pratik olmaktan çıkıyor - tüm
+    // liste bellekte tutulup isim/OEM/marka/kaynak dosyaya göre ANINDA (sunucuya gitmeden) filtrelenir.
+    let allCatalogItems = [];
+
+    function catalogItemCardHtml(item) {
+        return `
             <div class="catalog-item">
                 <h4>${esc(item.name)}</h4>
                 <div><span class="badge badge-oem">${esc(item.oem)}</span> <span class="badge badge-stock ${(item.stock ?? 0) == 0 ? 'zero' : ''}">${esc(item.stock ?? 0)} adet</span></div>
@@ -177,13 +177,35 @@
                 <div class="specs">${esc(item.specs || '')}</div>
                 ${item.source_file ? `<div style="margin-top:6px; color:#999; font-size:11.5px;">📄 ${esc(item.source_file)}</div>` : ''}
             </div>
-        `).join('');
+        `;
+    }
+
+    function renderFilteredCatalog(filterText) {
+        const q = (filterText || '').trim().toLocaleLowerCase('tr-TR');
+        const filtered = !q ? allCatalogItems : allCatalogItems.filter(item => {
+            const hay = `${item.name || ''} ${item.oem || ''} ${item.id || ''} ${item.brand || ''} ${item.specs || ''} ${item.source_file || ''}`.toLocaleLowerCase('tr-TR');
+            return hay.includes(q);
+        });
+        const grid = document.getElementById('catalogGrid');
+        const countEl = document.getElementById('catalogCount');
+        if (countEl) countEl.textContent = q ? `${filtered.length} / ${allCatalogItems.length} parça` : `${allCatalogItems.length} parça`;
+        if (grid) grid.innerHTML = filtered.length ? filtered.map(catalogItemCardHtml).join('') : `<div class="placeholder">Aramayla eşleşen ürün yok.</div>`;
+    }
+
+    function renderCatalog(data) {
+        allCatalogItems = data.catalog || [];
+        if (allCatalogItems.length === 0) {
+            out.innerHTML = `<div class="card warn"><div class="card-title">⚠️ Katalog Boş</div><div>Henüz hiç parça eklenmemiş.</div></div>`;
+            return;
+        }
         out.innerHTML = `
             <div class="card ok">
-                <div class="card-title">📦 Kataloğunuz (${items.length} parça)</div>
-                <div class="catalog-grid">${cards}</div>
+                <div class="card-title">📦 Kataloğunuz (<span id="catalogCount">${allCatalogItems.length} parça</span>)</div>
+                <input id="catalogSearch" type="text" placeholder="🔎 İsim, OEM kodu, marka veya kaynak dosyaya göre ara..." style="margin-bottom:10px;" oninput="renderFilteredCatalog(this.value)">
+                <div class="catalog-grid" id="catalogGrid"></div>
             </div>
         `;
+        renderFilteredCatalog('');
     }
 
     function renderUploadResult(data) {
@@ -345,8 +367,12 @@
 
     function poolBadgeHtml(label, pool) {
         if (!pool) return '';
+        if (pool.real_remaining_tokens != null) {
+            const color = pool.real_remaining_tokens < 5000 ? '#d9534f' : pool.real_remaining_tokens < 20000 ? '#f0ad4e' : '#888';
+            return `${label}: <b style="color:${color}">${pool.real_remaining_tokens.toLocaleString('tr-TR')} token kaldı</b> (Groq'tan canlı)`;
+        }
         const color = pool.percent_used > 80 ? '#d9534f' : pool.percent_used > 50 ? '#f0ad4e' : '#888';
-        return `${label}: <b style="color:${color}">%${pool.percent_used}</b> (${pool.total_tokens.toLocaleString('tr-TR')} / 200.000 token)`;
+        return `${label}: <b style="color:${color}">%${pool.percent_used}</b> (tahmini, ${pool.total_tokens.toLocaleString('tr-TR')} token kullanıldı)`;
     }
 
     async function loadUsageBadge() {
