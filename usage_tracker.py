@@ -139,7 +139,9 @@ def _sync_to_github():
             body["sha"] = sha
         requests.put(api_url, headers=headers, json=body, timeout=10)
     except Exception:
-        pass
+        pass  # kullanım sayacı yedeklemesi kritik değil (en kötü ihtimalle sayaç sıfırlanır,
+        # katalog verisi gibi kalıcı kaybolmaz) - bu yüzden burada ayrı bir durum takibi eklenmedi,
+        # asıl kritik olan katalog yedeklemesi app.py'deki _github_sync_status ile izleniyor.
 
 
 def record_usage(total_tokens: int, pool: str = "customer"):
