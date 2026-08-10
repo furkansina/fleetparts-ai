@@ -17,7 +17,15 @@ _lock = threading.Lock()
 _cache = {"data": None, "fetched_at": 0}
 CACHE_TTL = 15  # saniye - sık çağrıldığı için (her Groq isteğinden sonra) çok kısa tutuldu
 
-POOLS = ("customer", "bulk", "customer2")
+POOLS = ["customer", "bulk", "customer2"]
+
+
+def register_pool(label: str) -> None:
+    """Sabit 3 hesaba (customer/bulk/customer2) ek olarak Render'a eklenen HERHANGİ bir ek Groq
+    hesabını (ör. GROQ_API_KEY_4, _5, ...) kullanım takibine dahil eder - bu çağrılmadan bir pool
+    ile record_usage() çağrılırsa kullanım sessizce 'customer' havuzuna yanlış yazılırdı."""
+    if label not in POOLS:
+        POOLS.append(label)
 
 # Groq'un HER yanıtında (200 de olsa hata da olsa) döndürdüğü x-ratelimit-* header'larının en son
 # görülen hali, havuz başına bellekte tutulur. Bizim kendi saydığımız günlük bütçe TAHMİNİ
