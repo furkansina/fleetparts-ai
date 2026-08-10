@@ -912,5 +912,14 @@
         "specs": "Siyah/Kirmizi, 5.5m, M22x1.5, Polyeten",
         "stock": 25,
         "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+    },
+    {
+        "id": "PRC-8342",
+        "oem": "OEM-BELİRSİZ",
+        "name": "+GF+ Georg Fischer Araba Bağlantı Parçası",
+        "brand": "+GF+",
+        "specs": "Georg Fischer tır bağlantı ekipmanı",
+        "stock": 7,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 1)"
     }
 ]
