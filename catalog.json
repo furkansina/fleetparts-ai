@@ -10165,5 +10165,135 @@
         "price": "",
         "stock": 1,
         "source_file": "GÖÇMEN KATALOG .pdf (sayfa 36, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PRC-4821",
+        "oem": "60-30047.50",
+        "name": "EBS 7’Lİ POLİÜRETAN (PUR) KABLO",
+        "brand": "",
+        "specs": "KIRMIZI KORUYUCU PLASTİK, 4m ÇALIŞMA UZUNLUĞU, FİŞLER ISO 7638’E UYGUN 5x1,5 + 2x2,5mm",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 2)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 2)"
+        ]
+    },
+    {
+        "id": "PRC-9305",
+        "oem": "60-30048.50",
+        "name": "EBS KABLO, FİŞSİZ",
+        "brand": "",
+        "specs": "EBS CABLE, WITHOUT PLUGS",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 2)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 2)"
+        ]
+    },
+    {
+        "id": "PRC-1210",
+        "oem": "61-241070",
+        "name": "VİDALI PİMLER",
+        "brand": "",
+        "specs": "SCREW TERMINALS",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 2)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 2)"
+        ]
+    },
+    {
+        "id": "PRC-6142",
+        "oem": "61-141070",
+        "name": "ABS 5’Lİ / EBS 7’Lİ SOKET, ADR/GGVS",
+        "brand": "",
+        "specs": "ISO 7638’E UYGUN VİDALI PİMLER",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 2)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 2)"
+        ]
+    },
+    {
+        "id": "PRC-5538",
+        "oem": "61-241077",
+        "name": "ABS 5’Lİ / EBS 7’Lİ FİŞ, ADR/GGVS",
+        "brand": "",
+        "specs": "ISO 7638’E UYGUN",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 2)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 2)"
+        ]
+    },
+    {
+        "id": "PRC-7792",
+        "oem": "61-141135",
+        "name": "EBS 7’Lİ POLİÜRETAN (PUR) KABLO, 24V",
+        "brand": "",
+        "specs": "SİYAH KORUYUCU PLASTİK, 3m ÇALIŞMA UZUNLUĞU, ISO 7638-1’E UYGUN 5x1,5 + 2x4,0 mm2",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 2)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 2)"
+        ]
+    },
+    {
+        "id": "PRC-2219",
+        "oem": "61-141248",
+        "name": "7’Lİ EBS SOKET, EKSPERT, %100 SU GEÇİRMEZ, ADR",
+        "brand": "",
+        "specs": "ISO 7638’E UYGUN, SIKMALI PİMLER, TEKLİ SİLİKONLAR",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 2)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 2)"
+        ]
+    },
+    {
+        "id": "PRC-3356",
+        "oem": "60-30045.50",
+        "name": "ABS 5’Lİ POLİÜRETAN (PUR) KABLO",
+        "brand": "",
+        "specs": "SİYAH KORUYUCU PLASTİK, 4m ÇALIŞMA UZUNLUĞU, FİŞLER ISO 7638’E UYGUN 3x1,5 + 2x2,5mm",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 2)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 2)"
+        ]
+    },
+    {
+        "id": "PRC-4472",
+        "oem": "60-30046.50",
+        "name": "ABS KABLO, FİŞSİZ",
+        "brand": "",
+        "specs": "ABS CABLE, WITHOUT PLUGS",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 2)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 2)"
+        ]
+    },
+    {
+        "id": "PRC-5510",
+        "oem": "61-141001",
+        "name": "PARK SOKETİ",
+        "brand": "",
+        "specs": "ABS, EBS, 15’Lİ FİŞLER İÇİN",
+        "price": "",
+        "stock": 1,
+        "source_file": "Asaska_Katalog_2024.pdf (sayfa 2)",
+        "source_files": [
+            "Asaska_Katalog_2024.pdf (sayfa 2)"
+        ]
     }
 ]
