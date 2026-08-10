@@ -49,6 +49,13 @@
 
         .fail-list { margin-top: 10px; font-size: 13.5px; color: #721c24; }
         .fail-list li { margin-bottom: 4px; }
+
+        .btn-blue { background-color: #337ab7; }
+        .btn-blue:hover { background-color: #286090; }
+        .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; margin-top: 10px; }
+        .catalog-item { background: white; border: 1px solid #e2e2e2; border-radius: 8px; padding: 14px; box-shadow: 0 2px 4px rgba(0,0,0,0.04); }
+        .catalog-item h4 { margin: 0 0 6px 0; font-size: 15.5px; }
+        .catalog-item .specs { color: #666; font-size: 13px; margin-top: 6px; }
     </style>
 </head>
 <body>
@@ -56,6 +63,15 @@
 <div class="container">
     <h1>FleetParts AI 🚚</h1>
     <div id="usageBadge" style="text-align:center; font-size:12px; color:#888; margin-bottom:14px;"></div>
+
+    <div class="section">
+        <h3>Katalog / PDF / Görsel Yükle</h3>
+        <form id="catalogForm">
+            <input type="file" name="files" multiple accept=".pdf, .png, .jpg, .jpeg" required>
+            <button type="submit">Katalog Dosyalarını İşle ve Ekle</button>
+        </form>
+        <button class="btn-blue" onclick="checkCatalog()" type="button">Şu Anki Kataloğu Görüntüle</button>
+    </div>
 
     <div class="section">
         <h3>Parça Fotoğrafı İncele & Katalogda Bul</h3>
@@ -147,6 +163,48 @@
         `;
     }
 
+    function renderCatalog(data) {
+        const items = data.catalog || [];
+        if (items.length === 0) {
+            out.innerHTML = `<div class="card warn"><div class="card-title">⚠️ Katalog Boş</div><div>Henüz hiç parça eklenmemiş.</div></div>`;
+            return;
+        }
+        const cards = items.map(item => `
+            <div class="catalog-item">
+                <h4>${esc(item.name)}</h4>
+                <div><span class="badge badge-oem">${esc(item.oem)}</span> <span class="badge badge-stock ${(item.stock ?? 0) == 0 ? 'zero' : ''}">${esc(item.stock ?? 0)} adet</span></div>
+                <div style="margin-top:6px; color:#555; font-size:13px;">${esc(item.brand || '')}</div>
+                <div class="specs">${esc(item.specs || '')}</div>
+                ${item.source_file ? `<div style="margin-top:6px; color:#999; font-size:11.5px;">📄 ${esc(item.source_file)}</div>` : ''}
+            </div>
+        `).join('');
+        out.innerHTML = `
+            <div class="card ok">
+                <div class="card-title">📦 Kataloğunuz (${items.length} parça)</div>
+                <div class="catalog-grid">${cards}</div>
+            </div>
+        `;
+    }
+
+    function renderUploadResult(data) {
+        const ok = data.status === 'success';
+        out.innerHTML = `
+            <div class="card ${ok ? 'ok' : 'err'}">
+                <div class="card-title">${ok ? '✅' : '❌'} Katalog Yükleme Sonucu</div>
+                <div>${esc(data.message)}</div>
+            </div>
+        `;
+    }
+
+    function showUploadProgress(job) {
+        const pct = job.total_files ? Math.round((job.done_files / job.total_files) * 100) : 0;
+        const current = job.current_file ? ` — şu an: ${esc(job.current_file)}` : '';
+        out.innerHTML = `
+            <div class="loading">Katalog taranıyor: ${job.done_files}/${job.total_files} dosya (%${pct})${current}<span class="dots"></span></div>
+            <div style="color:#888; font-size:12px; margin-top:6px;">Çok sayfalı PDF'ler birkaç dakika sürebilir, sayfayı kapatmadan bekleyin.</div>
+        `;
+    }
+
     // Render'ın ücretsiz sunucusu birkaç dakika boş kalınca uykuya dalıyor; ilk istek onu
     // uyandırırken gerçek ölçümlerde 90 saniyeye kadar sürebiliyor (JSON yerine bir hata
     // sayfası dönebiliyor ya da bağlantı zaman aşımına uğrayabiliyor). Kullanıcıya çirkin bir
@@ -165,6 +223,9 @@
                     continue;
                 }
                 throw new Error('Sunucuya ulaşılamıyor. İnternet bağlantınızı kontrol edin, sorun devam ederse birkaç dakika sonra tekrar deneyin.');
+            }
+            if (res.status === 401) {
+                throw new Error('Bu işlem sadece yöneticiye açık - tarayıcının sorduğu kullanıcı adı/şifreyi girin (sayfayı yenileyip tekrar deneyin).');
             }
             const contentType = res.headers.get('content-type') || '';
             if (contentType.includes('application/json')) {
@@ -200,6 +261,57 @@
         try {
             const data = await fetchJson('/process-part', { method: 'POST', body: formData }, (attempt) => showLoading(wakingUpMessage('Parça analiz ediliyor', attempt)));
             renderProcessPartResult(data);
+        } catch (err) {
+            showPlainError(err.message || String(err));
+        }
+    });
+
+    async function checkCatalog() {
+        showLoading('Katalog yükleniyor');
+        try {
+            const data = await fetchJson('/get-catalog', undefined, (attempt) => showLoading(wakingUpMessage('Katalog yükleniyor', attempt)));
+            renderCatalog(data);
+        } catch (err) {
+            showPlainError(err.message || String(err));
+        }
+    }
+
+    // Yükleme isteği dosyaları alıp HEMEN bir iş no ile döner - gerçek tarama (çok sayfalı bir
+    // PDF birkaç dakika sürebilir) arka planda devam eder, biz durumunu birkaç saniyede bir
+    // soruyoruz. Eskiden tek bir uzun istek bekleniyordu, bu da Render'ın uzun süren istekleri
+    // kesmesi yüzünden sürekli "baştan yeniden gönderme" döngüsüne giriyordu (gerçek bir
+    // denemede tespit edildi) - artık tek istek hep kısa sürüyor.
+    async function pollUploadJob(jobId) {
+        while (true) {
+            await new Promise(r => setTimeout(r, 3000));
+            let job;
+            try {
+                job = await fetchJson(`/upload-catalog-status/${jobId}`);
+            } catch (err) {
+                showPlainError(err.message || String(err));
+                return;
+            }
+            if (job.status === 'processing') {
+                showUploadProgress(job);
+                continue;
+            }
+            renderUploadResult(job);
+            return;
+        }
+    }
+
+    document.getElementById('catalogForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        showLoading('Dosyalar yükleniyor');
+
+        try {
+            const data = await fetchJson('/upload-catalog-files', { method: 'POST', body: formData }, (attempt) => showLoading(wakingUpMessage('Dosyalar yükleniyor', attempt)));
+            if (data.status === 'error') {
+                renderUploadResult(data);
+                return;
+            }
+            await pollUploadJob(data.job_id);
         } catch (err) {
             showPlainError(err.message || String(err));
         }
