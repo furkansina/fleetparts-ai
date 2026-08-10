@@ -485,7 +485,7 @@ def find_by_text(query: str) -> dict:
 # FASTAPI ENDPOINT MİMARİSİ
 # ---------------------------------------------------------
 @app.get("/", response_class=HTMLResponse)
-async def read_root():
+def read_root():
     try:
         with open("index.html", "r", encoding="utf-8") as f:
             html = f.read()
@@ -494,7 +494,7 @@ async def read_root():
         return "<h2>FleetParts AI - Universal Heavy Duty Master Engine Aktif</h2>"
 
 @app.get("/katalog", response_class=HTMLResponse)
-async def read_katalog():
+def read_katalog():
     """Herkese açık, giriş gerektirmeyen katalog vitrini - soğuk lead'lerin kendi
     WhatsApp'larından ilk temas kurabileceği (opt-in) sayfa."""
     try:
@@ -505,11 +505,11 @@ async def read_katalog():
         return "<h2>Katalog sayfası bulunamadı</h2>"
 
 @app.get("/get-catalog")
-async def get_catalog_endpoint():
+def get_catalog_endpoint():
     return {"catalog": load_catalog(), "files": os.listdir(CATALOG_DIR)}
 
 @app.get("/katalog-yonetim", response_class=HTMLResponse)
-async def read_katalog_yonetim(_: str = Depends(require_admin)):
+def read_katalog_yonetim(_: str = Depends(require_admin)):
     """Katalog yükleme/görüntüleme - eskiden herkese açık ana sayfadaydı (index.html), gerçek bir
     güvenlik incelemesinde tespit edildi ki bu, siteyi bulan HERKESİN katalog yükleyip yapay zeka
     kotasını tüketebilmesi/kataloğa yanlış veri karıştırabilmesi anlamına geliyordu - bu yüzden
@@ -641,7 +641,7 @@ def _scan_catalog_source(filename: str, file_path: str) -> list:
             os.remove(file_path)
 
 @app.post("/upload-catalog-files")
-async def upload_catalog_files(files: list[UploadFile] = File(...), _: str = Depends(require_admin)):
+def upload_catalog_files(files: list[UploadFile] = File(...), _: str = Depends(require_admin)):
     # NOT: bu endpoint eskiden korumasızdı - ana sayfa (index.html) herkese açık olduğu için
     # siteyi bulan HERKES katalog yükleyip hem yapay zeka kotasını (bulk havuz) tüketebilir hem
     # de kataloga yanlış/saçma veri karıştırabilirdi (merge_catalog_items ne gelirse birleştirir).
@@ -723,7 +723,7 @@ async def upload_catalog_files(files: list[UploadFile] = File(...), _: str = Dep
 # FAZ 2: LEAD KEŞFİ / İNCELEME (korumalı admin sayfaları)
 # ---------------------------------------------------------
 @app.get("/leads", response_class=HTMLResponse)
-async def read_leads(_: str = Depends(require_admin)):
+def read_leads(_: str = Depends(require_admin)):
     try:
         with open("leads.html", "r", encoding="utf-8") as f:
             return f.read()
@@ -731,14 +731,14 @@ async def read_leads(_: str = Depends(require_admin)):
         return "<h2>Lead sayfası bulunamadı</h2>"
 
 @app.get("/usage")
-async def get_usage():
+def get_usage():
     """Bugünkü tahmini Groq token kullanımını döndürür (gerçek API yanıtlarından toplanır).
     Hassas veri içermediği için (sadece toplam token sayısı) herkese açık - hem public
     index.html hem admin sayfaları burayı kullanıyor."""
     return usage_tracker.get_today_usage()
 
 @app.get("/leads-data")
-async def get_leads_data(_: str = Depends(require_admin)):
+def get_leads_data(_: str = Depends(require_admin)):
     leads = lead_store.load_leads()
     reviews = lead_store.load_lead_reviews()
     ai_scores = lead_store.load_lead_ai_scores()
@@ -758,7 +758,7 @@ async def get_leads_data(_: str = Depends(require_admin)):
     return {"leads": merged}
 
 @app.post("/leads/{lead_id}/status")
-async def update_lead_status(
+def update_lead_status(
     lead_id: str,
     status: str = Form(...),
     note: str = Form(""),
@@ -775,7 +775,7 @@ async def update_lead_status(
     return {"status": "success"}
 
 @app.post("/leads/bulk-status")
-async def bulk_update_lead_status(
+def bulk_update_lead_status(
     lead_ids: str = Form(...),  # virgülle ayrılmış id listesi
     status: str = Form(...),
     _: str = Depends(require_admin)
@@ -792,7 +792,7 @@ async def bulk_update_lead_status(
     return {"status": "success", "message": f"{len(ids)} lead güncellendi."}
 
 @app.post("/leads/add-to-contacts")
-async def add_leads_to_contacts(
+def add_leads_to_contacts(
     lead_ids: str = Form(...),  # virgülle ayrılmış id listesi
     _: str = Depends(require_admin)
 ):
@@ -840,7 +840,7 @@ async def add_leads_to_contacts(
     return {"status": "success", "message": message, "added": added}
 
 @app.get("/leads-export")
-async def export_leads_csv(_: str = Depends(require_admin)):
+def export_leads_csv(_: str = Depends(require_admin)):
     """Kataloğu Excel'de açılabilir CSV olarak indirir - sahada kağıt/excel üzerinden çalışmak için."""
     leads = lead_store.load_leads()
     reviews = lead_store.load_lead_reviews()
@@ -882,7 +882,7 @@ CLASSIFY_SCORE_MIN = 20
 CLASSIFY_SCORE_MAX = 60
 
 @app.post("/leads/classify-ambiguous")
-async def classify_ambiguous_leads(_: str = Depends(require_admin)):
+def classify_ambiguous_leads(_: str = Depends(require_admin)):
     """Kural bazlı skorlamanın net karar veremediği (ne çok yüksek ne çok düşük skorlu)
     lead'leri Groq ile toplu değerlendirir. Zaten değerlendirilmiş olanları tekrar sormaz."""
     leads = lead_store.load_leads()
@@ -951,7 +951,7 @@ def _slugify_product_key(text: str) -> str:
     return slug.strip("_")[:60] or "urun"
 
 @app.post("/leads/classify-for-product")
-async def classify_leads_for_product(
+def classify_leads_for_product(
     product_description: str = Form(...),
     province: str = Form(""),  # boşsa tüm iller, doluysa sadece o ile bakılır (token tasarrufu)
     _: str = Depends(require_admin)
@@ -1047,7 +1047,7 @@ async def classify_leads_for_product(
         return {"status": "error", "message": str(e), "remaining": len(candidates), "product_key": product_key}
 
 @app.get("/leads-product-scores/{product_key}")
-async def get_leads_product_scores(product_key: str, _: str = Depends(require_admin)):
+def get_leads_product_scores(product_key: str, _: str = Depends(require_admin)):
     """Belirli bir ürün sorgusu için o ana kadar hesaplanmış tüm lead skorlarını döndürür
     (leads.html bunu 'remaining' 0 olana kadar tekrar tekrar çağırdıktan sonra sonucu göstermek için kullanır)."""
     product_scores = lead_store.load_lead_product_scores()
@@ -1057,7 +1057,7 @@ async def get_leads_product_scores(product_key: str, _: str = Depends(require_ad
     return {"status": "success", "product_description": entry.get("product_description", ""), "scores": entry.get("scores", {})}
 
 @app.get("/leads-product-queries")
-async def list_leads_product_queries(_: str = Depends(require_admin)):
+def list_leads_product_queries(_: str = Depends(require_admin)):
     """Daha önce sorgulanmış tüm ürünlerin listesini döndürür - kullanıcı aynı ürünü tekrar
     yazmadan önceki bir sorguyu seçip devam edebilsin diye."""
     product_scores = lead_store.load_lead_product_scores()
@@ -1069,7 +1069,7 @@ async def list_leads_product_queries(_: str = Depends(require_admin)):
     }
 
 @app.post("/trigger-discovery")
-async def trigger_discovery(_: str = Depends(require_admin)):
+def trigger_discovery(_: str = Depends(require_admin)):
     """GitHub Actions'taki haftalık tarama workflow'unu elle (anında) tetikler."""
     if not GITHUB_TOKEN or not GITHUB_REPO:
         return {"status": "error", "message": "GitHub bağlantısı yapılandırılmamış."}
@@ -1087,7 +1087,7 @@ async def trigger_discovery(_: str = Depends(require_admin)):
 # FAZ 1: MEVCUT MÜŞTERİLERE ÇEŞİTLİ İÇERİK (korumalı admin sayfaları)
 # ---------------------------------------------------------
 @app.get("/broadcast", response_class=HTMLResponse)
-async def read_broadcast(_: str = Depends(require_admin)):
+def read_broadcast(_: str = Depends(require_admin)):
     try:
         with open("broadcast.html", "r", encoding="utf-8") as f:
             return f.read()
@@ -1095,14 +1095,14 @@ async def read_broadcast(_: str = Depends(require_admin)):
         return "<h2>Sayfa bulunamadı</h2>"
 
 @app.get("/broadcast-data")
-async def get_broadcast_data(_: str = Depends(require_admin)):
+def get_broadcast_data(_: str = Depends(require_admin)):
     return {
         "contacts": outreach.load_contacts(),
         "log": sorted(outreach.load_broadcast_log(), key=lambda x: x.get("created_at", ""), reverse=True),
     }
 
 @app.post("/contacts/import")
-async def import_contacts(text: str = Form(...), _: str = Depends(require_admin)):
+def import_contacts(text: str = Form(...), _: str = Depends(require_admin)):
     """'İsim, Telefon' formatında satır satır yapıştırılan kişileri mevcut listeye ekler."""
     contacts = outreach.load_contacts()
     existing_phones = {c.get("phone", "").strip() for c in contacts}
@@ -1127,7 +1127,7 @@ async def import_contacts(text: str = Form(...), _: str = Depends(require_admin)
     return {"status": "success", "message": f"{added} kişi eklendi. Toplam: {len(contacts)}"}
 
 @app.post("/contacts/remove")
-async def remove_contact(phone: str = Form(...), _: str = Depends(require_admin)):
+def remove_contact(phone: str = Form(...), _: str = Depends(require_admin)):
     """Kişi listesinden tek bir kaydı çıkarır (telefon numarasına göre) - örn. lead'den
     yanlışlıkla eklenmiş ya da artık iletişim kurulmak istenmeyen bir kişi için."""
     contacts = outreach.load_contacts()
@@ -1139,7 +1139,7 @@ async def remove_contact(phone: str = Form(...), _: str = Depends(require_admin)
     return {"status": "success", "message": f"{removed} kişi çıkarıldı." if removed else "Kişi bulunamadı.", "removed": removed}
 
 @app.post("/broadcast-generate")
-async def generate_broadcast(_: str = Depends(require_admin)):
+def generate_broadcast(_: str = Depends(require_admin)):
     """Groq ile dönüşümlü (statik olmayan) bir taslak mesaj önerir - kullanıcı gönderim öncesi düzenleyebilir."""
     import random
     angle = random.choice(outreach.BROADCAST_ANGLES)
@@ -1156,7 +1156,7 @@ async def generate_broadcast(_: str = Depends(require_admin)):
         return {"status": "error", "message": str(e)}
 
 @app.post("/broadcast/save")
-async def save_broadcast(message: str = Form(...), origin: str = Form("manuel"), _: str = Depends(require_admin)):
+def save_broadcast(message: str = Form(...), origin: str = Form("manuel"), _: str = Depends(require_admin)):
     """Bir taslağı (AI önerili veya sıfırdan yazılmış) geçmişe 'gönderildi' olarak kaydeder."""
     log = outreach.load_broadcast_log()
     entry = {
@@ -1171,7 +1171,7 @@ async def save_broadcast(message: str = Form(...), origin: str = Form("manuel"),
     return {"status": "success"}
 
 @app.post("/process-part")
-async def process_part(
+def process_part(
     file: UploadFile = File(None),
     query: str = Form("")
 ):
