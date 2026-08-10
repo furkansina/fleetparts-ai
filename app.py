@@ -603,6 +603,55 @@ def delete_catalog_item(item_id: str = Form(...), _: str = Depends(require_admin
     _catalog_cache["fetched_at"] = time.time()
     return {"status": "success", "message": "Kayıt silindi.", "remaining": len(new_catalog)}
 
+@app.get("/catalog-sources")
+def list_catalog_sources(_: str = Depends(require_admin)):
+    """Kaç FARKLI katalog dosyası yüklenmiş ve her birinde kaç ürün var - eski bir katalogu
+    (ör. yeni bir fiyat listesiyle çakışmasın diye) toplu silmeden önce görebilmek için."""
+    catalog = load_catalog()
+    counts = {}
+    for item in catalog:
+        bases = {_catalog_base_name(s) for s in _item_sources(item) if s}
+        for base in bases:
+            counts[base] = counts.get(base, 0) + 1
+    sources = [{"name": name, "count": count} for name, count in sorted(counts.items())]
+    return {"sources": sources}
+
+@app.post("/delete-catalog-source")
+def delete_catalog_source(source_name: str = Form(...), _: str = Depends(require_admin)):
+    """Belirli bir yüklenen katalog dosyasına ait TÜM ürünleri kaldırır - eski bir katalogu/fiyat
+    listesini yenisiyle değiştirirken kullanmak için. Bir ürün BAŞKA bir katalogda da geçiyorsa
+    (source_files birden fazla kaynak içeriyorsa) ürün SİLİNMEZ, sadece bu kataloğun referansı
+    kaldırılır - ürün hâlâ geçerli olduğu diğer katalog(lar) üzerinden erişilebilir kalır."""
+    with CATALOG_WRITE_LOCK:
+        catalog = _load_catalog_from_disk()
+        new_catalog = []
+        removed_count = 0
+        updated_count = 0
+        for item in catalog:
+            sources = _item_sources(item)
+            remaining = [s for s in sources if _catalog_base_name(s) != source_name]
+            if sources and not remaining:
+                removed_count += 1
+                continue  # bu ürünün TEK kaynağı silinen katalogdu - ürün tamamen çıkarılır
+            if len(remaining) != len(sources):
+                item["source_files"] = remaining
+                if _catalog_base_name(item.get("source_file", "")) == source_name and remaining:
+                    item["source_file"] = remaining[-1]
+                updated_count += 1
+            new_catalog.append(item)
+        if removed_count == 0 and updated_count == 0:
+            return {"status": "error", "message": f"'{source_name}' adlı bir katalog bulunamadı."}
+        save_catalog(new_catalog)
+    sync_catalog_to_github()
+    _catalog_cache["data"] = new_catalog
+    _catalog_cache["fetched_at"] = time.time()
+    return {
+        "status": "success",
+        "message": f"'{source_name}' kaldırıldı: {removed_count} ürün tamamen silindi"
+                   + (f", {updated_count} ürün (başka katalogda da olduğu için) güncellendi" if updated_count else "") + ".",
+        "remaining_total": len(new_catalog),
+    }
+
 @app.get("/katalog-yonetim", response_class=HTMLResponse)
 def read_katalog_yonetim(_: str = Depends(require_admin)):
     """Katalog yükleme/görüntüleme - eskiden herkese açık ana sayfadaydı (index.html), gerçek bir
@@ -954,12 +1003,35 @@ def _try_extract_text_table(page_words: list, min_rows: int = 4, min_coverage: f
 
 CATALOG_WRITE_LOCK = threading.Lock()  # istekler arası paylaşılan kilit - iki ayrı yükleme isteği aynı anda gelirse birbirinin kaydını ezmesin diye
 
+def _catalog_base_name(source_file) -> str:
+    """'GÖÇMEN KATALOG .pdf (sayfa 3, metin katmanından...)' -> 'GÖÇMEN KATALOG .pdf' - sayfa/
+    açıklama ekini atıp ürünün hangi YÜKLENEN DOSYADAN geldiğini bulur. Katalog bazında gruplama
+    (kaç farklı katalog var) ve katalog bazında toplu silme için kullanılır."""
+    if not isinstance(source_file, str) or not source_file:
+        return ""
+    idx = source_file.find(" (sayfa")
+    return source_file[:idx].strip() if idx != -1 else source_file.strip()
+
+
+def _item_sources(item: dict) -> list:
+    """Bir ürünün geldiği TÜM kaynak dosyaları döndürür - yeni 'source_files' alanı varsa onu,
+    yoksa (eski/tek kaynaklı kayıtlar) tekil 'source_file' alanından türetir."""
+    sources = list(item.get("source_files") or [])
+    if item.get("source_file") and item["source_file"] not in sources:
+        sources.append(item["source_file"])
+    return sources
+
+
 def merge_catalog_items(catalog: list, new_items: list) -> tuple:
     """Yeni taranan parçaları kataloğa ekler. Aynı OEM koduna sahip bir parça (aynı ürün iki farklı
     katalog dosyasında/sayfasında geçmişse) tekrar eklenmez, mevcut kayıt güncellenir - katalogda
     aynı ürünün birden fazla kopyası birikmesin diye. OEM kodu boş/'OEM-BELİRSİZ' olan parçalar
     güvenilir şekilde eşleştirilemeyeceği için (yanlışlıkla farklı iki ürünü birleştirmemek adına)
-    her zaman yeni kayıt olarak eklenir."""
+    her zaman yeni kayıt olarak eklenir.
+
+    Bir ürün BİRDEN FAZLA katalogda geçiyorsa (aynı OEM, farklı yükleme) - gerçek bir kullanımda
+    istendi - tüm kaynaklar 'source_files' listesinde BİRİKTİRİLİR, üzerine yazılmaz. 'source_file'
+    (tekil) alanı geriye dönük uyumluluk için en son/asıl kaynağı göstermeye devam eder."""
     oem_index = {
         str(item.get("oem", "")).strip().lower(): idx
         for idx, item in enumerate(catalog)
@@ -971,9 +1043,13 @@ def merge_catalog_items(catalog: list, new_items: list) -> tuple:
         oem_key = str(new_item.get("oem", "")).strip().lower()
         is_known_oem = bool(oem_key) and oem_key != "oem-belirsiz"
         if is_known_oem and oem_key in oem_index:
+            existing = catalog[oem_index[oem_key]]
+            merged_sources = sorted(set(_item_sources(existing)) | set(_item_sources(new_item)))
+            new_item["source_files"] = merged_sources
             catalog[oem_index[oem_key]] = new_item
             updated += 1
         else:
+            new_item["source_files"] = _item_sources(new_item)
             catalog.append(new_item)
             if is_known_oem:
                 oem_index[oem_key] = len(catalog) - 1
