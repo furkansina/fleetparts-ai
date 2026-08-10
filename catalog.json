@@ -588,5 +588,329 @@
         "specs": "Hortum Adaptörü, Ölçü: M12x1,5 - O6 x 1,0 mm",
         "stock": 25,
         "source_file": "dense_catalog_test3.pdf (sayfa 2)"
+    },
+    {
+        "id": "PRC-6482",
+        "oem": "101001-0",
+        "name": "Fren Hava Kaplini Standart Kirmizi M16x1.5",
+        "brand": "",
+        "specs": "Kirmizi, M16x1.5",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+    },
+    {
+        "id": "PRC-9015",
+        "oem": "101002-0",
+        "name": "Fren Hava Kaplini Standart Sari M16x1.5",
+        "brand": "",
+        "specs": "Sari, M16x1.5",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+    },
+    {
+        "id": "PRC-3291",
+        "oem": "101003-0",
+        "name": "Fren Hava Kaplini Otomatik Kirmizi M16x1.5",
+        "brand": "",
+        "specs": "Kirmizi, M16x1.5",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+    },
+    {
+        "id": "PRC-5127",
+        "oem": "101004-0",
+        "name": "Fren Hava Kaplini Otomatik Sari M16x1.5",
+        "brand": "",
+        "specs": "Sari, M16x1.5",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+    },
+    {
+        "id": "PRC-7403",
+        "oem": "101005-0",
+        "name": "Fren Hava Kaplini Standart Kirmizi M22x1.5",
+        "brand": "",
+        "specs": "Kirmizi, M22x1.5",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+    },
+    {
+        "id": "PRC-8296",
+        "oem": "101006-0",
+        "name": "Fren Hava Kaplini Standart Sari M22x1.5",
+        "brand": "",
+        "specs": "Sari, M22x1.5",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+    },
+    {
+        "id": "PRC-2735",
+        "oem": "101007-0",
+        "name": "Fren Hava Kaplini Otomatik Kirmizi M22x1.5",
+        "brand": "",
+        "specs": "Kirmizi, M22x1.5",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+    },
+    {
+        "id": "PRC-8819",
+        "oem": "101008-0",
+        "name": "Fren Hava Kaplini Otomatik Sari M22x1.5",
+        "brand": "",
+        "specs": "Sari, M22x1.5",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+    },
+    {
+        "id": "PRC-1567",
+        "oem": "101009-0",
+        "name": "Fren Hava Kaplini Standart Filtreli Kirmizi M16x1.5 Rekorlu",
+        "brand": "",
+        "specs": "Kirmizi, M16x1.5, Rekorlu",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+    },
+    {
+        "id": "PRC-4923",
+        "oem": "101010-0",
+        "name": "Fren Hava Kaplini Standart Filtreli Sari M16x1.5",
+        "brand": "",
+        "specs": "Sari, M16x1.5",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+    },
+    {
+        "id": "PRC-6054",
+        "oem": "101011-0",
+        "name": "Fren Hava Kaplini Standart Filtreli Kirmizi M16x1.5 Rekorlu",
+        "brand": "",
+        "specs": "Kirmizi, M16x1.5, Rekorlu",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+    },
+    {
+        "id": "PRC-7186",
+        "oem": "101012-0",
+        "name": "Fren Hava Kaplini Standart Filtreli Sari M16x1.5",
+        "brand": "",
+        "specs": "Sari, M16x1.5",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+    },
+    {
+        "id": "PRC-5438",
+        "oem": "101001-1",
+        "name": "Fren Hava Kaplini Toz Kapağı Kirmizi",
+        "brand": "",
+        "specs": "Kirmizi",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+    },
+    {
+        "id": "PRC-2197",
+        "oem": "101002-1",
+        "name": "Fren Hava Kaplini Toz Kapağı Sari",
+        "brand": "",
+        "specs": "Sari",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+    },
+    {
+        "id": "PRC-3675",
+        "oem": "101001-2",
+        "name": "Hava Kaplini Lastiği Standart",
+        "brand": "",
+        "specs": "Standart",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+    },
+    {
+        "id": "PRC-9854",
+        "oem": "101009-1",
+        "name": "Hava Kaplini Lastiği Filtreli Model",
+        "brand": "",
+        "specs": "Filtreli Model",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+    },
+    {
+        "id": "PRC-6732",
+        "oem": "101085-0",
+        "name": "QUICK KAPLiN M22x1.5 SARI",
+        "brand": "",
+        "specs": "M22x1.5, Sari",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+    },
+    {
+        "id": "PRC-4109",
+        "oem": "101085-1",
+        "name": "QUICK KAPLiN M22x1.5 KIRMIZI",
+        "brand": "",
+        "specs": "M22x1.5, Kirmizi",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+    },
+    {
+        "id": "PRC-8543",
+        "oem": "101025-0",
+        "name": "Çabuk Tahliye Valfi M22 x M22 x M22 x 1.5",
+        "brand": "",
+        "specs": "M22 x M22 x M22 x 1.5",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+    },
+    {
+        "id": "PRC-1276",
+        "oem": "101026-0",
+        "name": "Çabuk Tahliye Valfi M16 x M16 x M22 x 1.5",
+        "brand": "",
+        "specs": "M16 x M16 x M22 x 1.5",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+    },
+    {
+        "id": "PRC-5890",
+        "oem": "101027-0",
+        "name": "Çabuk Tahliye Valfi M16 x M16 x M16 x 1.5",
+        "brand": "",
+        "specs": "M16 x M16 x M16 x 1.5",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+    },
+    {
+        "id": "PRC-3451",
+        "oem": "101028-0",
+        "name": "Çabuk Tahliye Valfi 3/8\" x 3/8\" x 3/8\"",
+        "brand": "",
+        "specs": "3/8\" x 3/8\" x 3/8\"",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+    },
+    {
+        "id": "PRC-7624",
+        "oem": "101029-0",
+        "name": "Çabuk Tahliye Valfi 3/8\" x 3/8\" x 1/2\"",
+        "brand": "",
+        "specs": "3/8\" x 3/8\" x 1/2\"",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+    },
+    {
+        "id": "PRC-9087",
+        "oem": "101030-0",
+        "name": "Çabuk Tahliye Valfi 1/4\" x 1/4\" x 3/8\"",
+        "brand": "",
+        "specs": "1/4\" x 1/4\" x 3/8\"",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+    },
+    {
+        "id": "PRC-2315",
+        "oem": "101031-0",
+        "name": "Çabuk Tahliye Valfi 1/4\" x 1/4\" x 1/2\"",
+        "brand": "",
+        "specs": "1/4\" x 1/4\" x 1/2\"",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+    },
+    {
+        "id": "PRC-4567",
+        "oem": "101025-1",
+        "name": "Çabuk Tahliye Valfi Tamir Takımı",
+        "brand": "",
+        "specs": "Tamir Takımı",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+    },
+    {
+        "id": "PRC-1325",
+        "oem": "101035-0",
+        "name": "Fren Hava Hortumu Sari 5,5mt M16x1.5",
+        "brand": "",
+        "specs": "Sari, 5.5m, M16x1.5, Polyeten",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+    },
+    {
+        "id": "PRC-8416",
+        "oem": "101035-1",
+        "name": "Fren Hava Hortumu Kirmizi 5,5mt M16x1.5",
+        "brand": "",
+        "specs": "Kirmizi, 5.5m, M16x1.5, Polyeten",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+    },
+    {
+        "id": "PRC-6590",
+        "oem": "101035-2",
+        "name": "Fren Hava Hortumu Mavi 5,5mt M16x1.5",
+        "brand": "",
+        "specs": "Mavi, 5.5m, M16x1.5, Polyeten",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+    },
+    {
+        "id": "PRC-3219",
+        "oem": "101035-4",
+        "name": "Fren Hava Hortumu Siyah/Sari 5,5mt M16x1.5",
+        "brand": "",
+        "specs": "Siyah/Sari, 5.5m, M16x1.5, Polyeten",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+    },
+    {
+        "id": "PRC-9753",
+        "oem": "101035-5",
+        "name": "Fren Hava Hortumu Siyah/Kirmizi 5,5mt M16x1.5",
+        "brand": "",
+        "specs": "Siyah/Kirmizi, 5.5m, M16x1.5, Polyeten",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+    },
+    {
+        "id": "PRC-4682",
+        "oem": "101036-0",
+        "name": "Fren Hava Hortumu Sari 5,5mt M22x1.5",
+        "brand": "",
+        "specs": "Sari, 5.5m, M22x1.5, Polyeten",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+    },
+    {
+        "id": "PRC-1524",
+        "oem": "101036-1",
+        "name": "Fren Hava Hortumu Kirmizi 5,5mt M22x1.5",
+        "brand": "",
+        "specs": "Kirmizi, 5.5m, M22x1.5, Polyeten",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+    },
+    {
+        "id": "PRC-7896",
+        "oem": "101036-2",
+        "name": "Fren Hava Hortumu Mavi 5,5mt M22x1.5",
+        "brand": "",
+        "specs": "Mavi, 5.5m, M22x1.5, Polyeten",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+    },
+    {
+        "id": "PRC-2341",
+        "oem": "101036-4",
+        "name": "Fren Hava Hortumu Siyah/Sari 5,5mt M22x1.5",
+        "brand": "",
+        "specs": "Siyah/Sari, 5.5m, M22x1.5, Polyeten",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
+    },
+    {
+        "id": "PRC-5679",
+        "oem": "101036-5",
+        "name": "Fren Hava Hortumu Siyah/Kirmizi 5,5mt M22x1.5",
+        "brand": "",
+        "specs": "Siyah/Kirmizi, 5.5m, M22x1.5, Polyeten",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 2)"
     }
 ]
