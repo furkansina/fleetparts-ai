@@ -243,6 +243,9 @@ def call_groq_api(prompt: str, image_path: str = None, use_secondary_model: bool
         for attempt in range(3):
             try:
                 res = requests.post("https://api.groq.com/openai/v1/chat/completions", json=payload, headers=headers, timeout=60)
+                # Groq'un GERÇEK kota durumunu (kendi tahminimiz değil) her yanıtta yakala - bkz.
+                # usage_tracker.get_real_remaining_tokens ve modül üstü not.
+                usage_tracker.record_rate_limit_headers(key_label, res.headers)
                 if res.status_code == 200:
                     data = res.json()
                     usage_tracker.record_usage(data.get("usage", {}).get("total_tokens", 0), pool=key_label)
@@ -352,18 +355,60 @@ def vision_agent(image_path: str) -> dict:
 # ---------------------------------------------------------
 # EVRENSEL AJAN 2: UNIVERSAL PRECISION MATCHER
 # ---------------------------------------------------------
+def _select_search_candidates(catalog: list, keywords: list, exact_codes: set = None, max_candidates: int = 30) -> list:
+    """Eşleştirme prompt'una TÜM kataloğu gömmek yerine makul bir aday alt kümesi seçer.
+    Katalog küçükken (onlarca ürün) sorun yaratmıyordu, ama büyüdükçe (yüzlerce/binlerce ürün,
+    art arda birden fazla katalog PDF'i yüklendikçe kaçınılmaz) her TEK arama isteği Groq'un
+    dakikalık token sınırını (TPM) aşıp sürekli 413/429 ile başarısız olmaya başlardı - gerçek
+    bir kullanımda yoğun TEK bir katalog sayfası bile bu sınırları zorluyordu, tüm katalog çok
+    daha büyük olacaktı. `exact_codes` içindeki OEM/id'lerle eşleşenler HER ZAMAN dahil edilir
+    (LLM'in kod-çakışması/OCR-hatası kontrolünü kaybetmemek için); geri kalan yer anahtar
+    kelimelerle (kategori/isim) en çok örtüşen ürünlerle doldurulur."""
+    exact_codes = {turkish_lower(c) for c in (exact_codes or set()) if c}
+    exact_items, exact_ids, rest = [], set(), []
+    for item in catalog:
+        oem = turkish_lower(str(item.get("oem", "")).strip())
+        pid = turkish_lower(str(item.get("id", "")).strip())
+        if exact_codes and (oem in exact_codes or pid in exact_codes):
+            exact_items.append(item)
+            exact_ids.add(id(item))
+        else:
+            rest.append(item)
+
+    words = [turkish_lower(w) for w in keywords if w and len(w) > 2]
+    scored = []
+    for item in rest:
+        hay = turkish_lower(" ".join(str(item.get(f, "")) for f in ("name", "specs", "brand", "oem", "id")))
+        hits = sum(1 for w in words if w in hay)
+        if hits:
+            scored.append((hits, item))
+    scored.sort(key=lambda t: -t[0])
+
+    remaining_slots = max(0, max_candidates - len(exact_items))
+    candidates = exact_items + [item for _, item in scored[:remaining_slots]]
+    if not candidates:
+        # Ne kod eşleşmesi ne anahtar kelime örtüşmesi oldu - körü körüne göndermemek için
+        # yine de bir örneklem gönder, LLM'in "hiçbir aday yoktu" deyip NOT_IN_CATALOG demesi
+        # boş prompt göndermekten daha güvenli/tutarlı.
+        candidates = catalog[:max_candidates]
+    return candidates
+
+
 def match_agent(vision_data: dict) -> dict:
     catalog = load_catalog()
     if not catalog:
         return {"id": "NOT_IN_CATALOG", "name": "Katalog Boş", "match_reason": "Veritabanında kayıtlı ürün bulunamadı."}
+
+    keywords = [vision_data.get("universal_category", ""), vision_data.get("exact_name_classification", "")]
+    candidates = _select_search_candidates(catalog, keywords, exact_codes=set(vision_data.get("ocr_extracted_codes", []) or []))
 
     prompt = f"""
     Sen sıfır hata toleransına sahip kurumsal bir parça eşleştirme motorusun.
     Müşterinin sahadan gönderdiği parçanın tarama verisi:
     {json.dumps(vision_data, ensure_ascii=False)}
 
-    Sistemimizdeki Tüm Parça Katalog Veritabanı:
-    {json.dumps(catalog, ensure_ascii=False)}
+    Sistemimizdeki Parça Katalog Veritabanından İlgili Adaylar ({len(candidates)}/{len(catalog)} kayıt - kod eşleşmesi ve kategori benzerliğine göre önceden daraltıldı):
+    {json.dumps(candidates, ensure_ascii=False)}
 
     EŞLEŞTİRME PRENSİPLERİ:
     1. OEM / KOD EŞLEŞMESİ: Tarama verisindeki 'ocr_extracted_codes' içindeki herhangi bir kod katalogdaki 'oem' veya 'id' ile uyuşuyorsa YÜKSEK bir güven skoru (90-100) VER, FAKAT önce şu kritik kontrolü yap: eşleşen katalog ürününün kategorisi/'specs' bilgisi ile taranan parçanın 'universal_category', 'topology_map' ve 'geometry_and_material' bilgisi AÇIKÇA ÇELİŞİYORSA (örn. kod bir "hava valfi"ne ait ama taranan parça net biçimde bir "fren balatası" görünümündeyse), bu muhtemelen bir OCR OKUMA HATASI sonucu tesadüfi bir KOD ÇAKIŞMASIDIR - bu durumda güven skorunu 40'ın altına düşür ve decision_logic'te bu çelişkiyi açıkça belirt ("Kod eşleşti ama fiziksel özellikler uyuşmuyor, muhtemelen OCR hatası" gibi).
@@ -442,13 +487,14 @@ def find_by_text(query: str) -> dict:
         return item_copy
 
     # 2. Birebir kod eşleşmesi yoksa, yapay zekaya isim/açıklama bazlı eşleştirt (örn: "DAF sol çamurluk")
+    candidates = _select_search_candidates(catalog, query.split())
     prompt = f"""
     Sen sıfır hata toleransına sahip kurumsal bir parça eşleştirme motorusun.
     Sahadaki kullanıcı, elinde fotoğraf olmadan şu metni yazdı: "{query}"
     Bu metin bir OEM kodu, marka+parça adı (örn: "DAF sol çamurluk") veya serbest bir açıklama olabilir.
 
-    Sistemimizdeki Tüm Parça Katalog Veritabanı:
-    {json.dumps(catalog, ensure_ascii=False)}
+    Sistemimizdeki Parça Katalog Veritabanından İlgili Adaylar ({len(candidates)}/{len(catalog)} kayıt - anahtar kelime benzerliğine göre önceden daraltıldı):
+    {json.dumps(candidates, ensure_ascii=False)}
 
     EŞLEŞTİRME PRENSİPLERİ:
     1. Yazılan metin katalogdaki 'oem' veya 'id' alanıyla TAM olarak uyuyorsa güven skoru yüksek olmalıdır (bu zaten kod içinde ayrıca kontrol edildi, buraya gelmiş olması tam eşleşme OLMADIĞI anlamına gelir). SADECE KISMİ/parçalı bir kod benzerliği varsa (örn. birkaç hane ortak) bunu asla yüksek güven sayma - kısmi kod benzerliği yanlış parça riski taşır, güven skorunu en fazla 50-60 civarında tut ve NOT_IN_CATALOG'a düşmesine izin ver.
@@ -629,21 +675,36 @@ def call_groq_json_array(prompt: str, image_path: str = None, use_secondary_mode
             last_error = e
     raise Exception(f"Model geçerli JSON dizisi döndürmedi: {last_error}")
 
-def render_pdf_pages_to_images(pdf_path: str) -> list:
-    """PDF'in her sayfasını PNG görsele çevirir, geçici dosya yollarını döndürür."""
-    page_paths = []
+def render_pdf_pages_to_images(pdf_path: str, filename: str = None, already_scanned: set = None):
+    """PDF'in her sayfasını PNG görsele çevirir, sayfa numarası/etiketi/yolunu tek tek (generator
+    olarak) üretir. ÖNEMLİ: eskiden TÜM sayfalar tek seferde (bir liste doldurulup) render edilip
+    öyle döndürülüyordu - 40 sayfalık yoğun bir PDF'de bu, herhangi bir Groq çağrısı başlamadan
+    ÖNCE tek bir sürekli CPU/bellek yüklü blok oluşturuyordu ve gerçek bir kullanımda Render'ın
+    süreci ortasında yeniden başlatmasına (muhtemelen kaynak sınırı) yol açtığı tespit edildi.
+    Artık her sayfa SIRAYLA render edilip hemen kullanılıyor, Groq çağrılarıyla iç içe - tek
+    seferde bellekte/CPU'da en fazla bir sayfa var.
+
+    `already_scanned` (bu dosyanın 'filename (sayfa N)' etiketli, daha önce başarıyla taranmış
+    sayfalarının kümesi) verilirse o sayfalar hiç render edilmeden (fitz/PNG maliyeti olmadan)
+    atlanır - aynı dosyayı ikinci kez yüklerken zaten bitmiş sayfaları boşuna render edip zaman/
+    CPU harcamamak için."""
+    already_scanned = already_scanned or set()
+    base_name = os.path.splitext(os.path.basename(pdf_path))[0]
+    zoom_matrix = fitz.Matrix(2.0, 2.0)  # ~144 DPI, OCR için yeterli netlik
     doc = fitz.open(pdf_path)
     try:
-        base_name = os.path.splitext(os.path.basename(pdf_path))[0]
-        zoom_matrix = fitz.Matrix(2.0, 2.0)  # ~144 DPI, OCR için yeterli netlik
         for page_index in range(len(doc)):
+            page_num = page_index + 1
+            page_label = f"{filename} (sayfa {page_num})"
+            if page_label in already_scanned:
+                continue
             pix = doc[page_index].get_pixmap(matrix=zoom_matrix)
-            page_path = os.path.join(CATALOG_DIR, f"{base_name}_sayfa{page_index + 1}.png")
+            page_path = os.path.join(CATALOG_DIR, f"{base_name}_sayfa{page_num}.png")
             pix.save(page_path)
-            page_paths.append(page_path)
+            del pix
+            yield page_num, page_label, page_path
     finally:
         doc.close()
-    return page_paths
 
 CATALOG_WRITE_LOCK = threading.Lock()  # istekler arası paylaşılan kilit - iki ayrı yükleme isteği aynı anda gelirse birbirinin kaydını ezmesin diye
 
@@ -700,12 +761,7 @@ def _scan_catalog_source(filename: str, file_path: str, on_page_done=None) -> li
                 if isinstance(item.get("source_file"), str) and item["source_file"].startswith(f"{filename} (sayfa ")
             }
             items = []
-            for page_num, page_path in enumerate(render_pdf_pages_to_images(file_path), start=1):
-                page_label = f"{filename} (sayfa {page_num})"
-                if page_label in already_scanned:
-                    if os.path.exists(page_path):
-                        os.remove(page_path)
-                    continue
+            for _page_num, page_label, page_path in render_pdf_pages_to_images(file_path, filename=filename, already_scanned=already_scanned):
                 try:
                     page_items = call_groq_json_array(CATALOG_SCAN_PROMPT, page_path, pool="bulk")
                     for item in page_items:
@@ -803,7 +859,12 @@ def upload_catalog_files(files: list[UploadFile] = File(...), _: str = Depends(r
     # ön uyarı - asıl güvence tarama sırasındaki otomatik hesap geçişi.
     usage = usage_tracker.get_today_usage()
     chain_pools = {label for label, _ in _resolve_key_chain("bulk", False)}
-    any_room = any(usage.get(p, {}).get("remaining_estimate", usage_tracker.DAILY_TOKEN_BUDGET) >= 2000 for p in chain_pools)
+
+    def _remaining(pool):
+        real = usage_tracker.get_real_remaining_tokens(pool)
+        return real if real is not None else usage.get(pool, {}).get("remaining_estimate", usage_tracker.DAILY_TOKEN_BUDGET)
+
+    any_room = any(_remaining(p) >= 2000 for p in chain_pools)
     if not any_room:
         return {
             "status": "error",
@@ -874,8 +935,17 @@ def read_leads(_: str = Depends(require_admin)):
 def get_usage():
     """Bugünkü tahmini Groq token kullanımını döndürür (gerçek API yanıtlarından toplanır).
     Hassas veri içermediği için (sadece toplam token sayısı) herkese açık - hem public
-    index.html hem admin sayfaları burayı kullanıyor."""
-    return usage_tracker.get_today_usage()
+    index.html hem admin sayfaları burayı kullanıyor.
+
+    Her havuz için ayrıca `real_remaining_tokens` alanı var - bizim kendi saydığımız
+    `remaining_estimate` bir TAHMİN, bu alan ise (varsa) Groq'un bu süreçte en son gördüğü
+    GERÇEK rate-limit header değeri. İkisi arasında büyük fark varsa DAILY_TOKEN_BUDGET
+    varsayımının güncellenmesi gerektiğinin işaretidir."""
+    result = usage_tracker.get_today_usage()
+    for pool in usage_tracker.POOLS:
+        if pool in result:
+            result[pool]["real_remaining_tokens"] = usage_tracker.get_real_remaining_tokens(pool)
+    return result
 
 @app.get("/leads-data")
 def get_leads_data(_: str = Depends(require_admin)):
