@@ -714,13 +714,67 @@ def render_pdf_pages_to_images(pdf_path: str, filename: str = None, already_scan
             page_label = f"{filename} (sayfa {page_num})"
             if page_label in already_scanned:
                 continue
-            pix = doc[page_index].get_pixmap(matrix=zoom_matrix)
+            page = doc[page_index]
+            page_text = page.get_text()  # varsa metin katmanı - ücretsiz/anında ayrıştırma denemesi için
+            pix = page.get_pixmap(matrix=zoom_matrix)
             page_path = os.path.join(CATALOG_DIR, f"{base_name}_sayfa{page_num}.png")
             pix.save(page_path)
             del pix
-            yield page_num, page_label, page_path
+            yield page_num, page_label, page_path, page_text
     finally:
         doc.close()
+
+
+def _try_extract_text_table(page_text: str) -> list:
+    """Sayfanın metin katmanından (varsa - taranmış bir görsel DEĞİL, dijital olarak oluşturulmuş
+    bir PDF'se) doğrudan ürün listesi çıkarmayı dener. Bu, ağır vasıta yedek parça/fiyat listesi
+    PDF'lerinde ÇOK yaygın bir düzen (gerçek 2 katalogda da doğrulandı: kod+isim art arda satırlar,
+    ya da kod+fiyat art arda satırlar). Başarılı olursa Groq'a HİÇ görsel gönderilmez - o sayfa için
+    sıfır token harcanır, sıfır kota riski, saniyeler içinde biter.
+
+    GÜVENLİK İLKESİ: yanlış/uydurma veri üretmektense hiç veri üretmemek her zaman tercih edilir.
+    Bu yüzden sadece satırların BÜYÜK ÇOĞUNLUĞU (>= %70) net bir kod+değer deseniyle temiz şekilde
+    eşleşirse kabul edilir; aksi halde None döner ve çağıran normal (yapay zeka ile) taramaya
+    düşer - hiçbir zaman belirsiz/karışık bir sayfa için tahmini veri uydurulmaz."""
+    raw_lines = [l.strip() for l in page_text.split("\n") if l.strip()]
+    HEADER_WORDS = {"ürün kodu", "ürün adı", "birim fiyat", "fiyat", "kod", "açıklama"}
+    lines = [l for l in raw_lines if turkish_lower(l) not in HEADER_WORDS]
+    if len(lines) < 6:
+        return None
+
+    # Kod deseni: harf öneki olabilir (örn. "ORP 4011"), rakam bloğu, aralarda boşluk/tire olabilir
+    # (örn. "101001-0" ya da "101001 0"), sonda tek harf/hane eki olabilir (örn. "4016 A").
+    code_re = re.compile(r"^[A-ZÇĞİÖŞÜ]{0,5}\s?\d{3,7}[\s\-]?\d{0,2}\s?[A-Z]{0,2}$")
+    price_re = re.compile(r"^₺?\s?[\d.,]+\s?(TL)?$", re.IGNORECASE)
+
+    def extract_pairs():
+        items, i = [], 0
+        while i < len(lines) - 1:
+            code, value = lines[i], lines[i + 1]
+            if code_re.match(code) and not code_re.match(value):
+                items.append((code, value))
+                i += 2
+            else:
+                i += 1
+        return items
+
+    pairs = extract_pairs()
+    coverage = (len(pairs) * 2) / len(lines) if lines else 0
+    if not pairs or coverage < 0.7:
+        return None
+
+    result = []
+    for code, value in pairs:
+        is_price = bool(price_re.match(value))
+        result.append({
+            "id": code,
+            "oem": code,
+            "name": f"{code} (fiyat: {value})" if is_price else value,
+            "brand": "",
+            "specs": "",
+            "stock": 1,
+        })
+    return result
 
 CATALOG_WRITE_LOCK = threading.Lock()  # istekler arası paylaşılan kilit - iki ayrı yükleme isteği aynı anda gelirse birbirinin kaydını ezmesin diye
 
@@ -777,9 +831,15 @@ def _scan_catalog_source(filename: str, file_path: str, on_page_done=None) -> li
                 if isinstance(item.get("source_file"), str) and item["source_file"].startswith(f"{filename} (sayfa ")
             }
             items = []
-            for _page_num, page_label, page_path in render_pdf_pages_to_images(file_path, filename=filename, already_scanned=already_scanned):
+            for _page_num, page_label, page_path, page_text in render_pdf_pages_to_images(file_path, filename=filename, already_scanned=already_scanned):
                 try:
-                    page_items = call_groq_json_array(CATALOG_SCAN_PROMPT, page_path, pool="bulk")
+                    # ÖNCE ücretsiz yolu dene: sayfanın gerçek bir metin katmanı varsa (taranmış
+                    # görsel değil, dijital olarak oluşturulmuş bir fiyat listesi/katalogsa - gerçek
+                    # kullanımda çok yaygın çıktı) Groq'a HİÇ gitmeden anında ve bedavaya çıkarılır.
+                    # Güvenilir bir eşleşme yoksa (None) normal yapay zeka taramasına düşülür.
+                    page_items = _try_extract_text_table(page_text)
+                    if page_items is None:
+                        page_items = call_groq_json_array(CATALOG_SCAN_PROMPT, page_path, pool="bulk")
                     for item in page_items:
                         item["source_file"] = page_label
                     items.extend(page_items)
