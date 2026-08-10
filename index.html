@@ -66,6 +66,7 @@
 
 <div class="container">
     <h1>FleetParts AI 🚚</h1>
+    <div id="backupWarning"></div>
     <div id="usageBadge" style="text-align:center; font-size:12px; color:#888; margin-bottom:14px;"></div>
 
     <div class="section">
@@ -434,6 +435,19 @@
         return `${label}: <b style="color:${color}">%${pool.percent_used}</b> (tahmini, ${pool.total_tokens.toLocaleString('tr-TR')} token kullanıldı)`;
     }
 
+    // Katalog yedeklemesi (GitHub'a gönderme) sessizce bozulursa, Render'ın diski her yeniden
+    // deploy'da sıfırlandığı için o güne kadarki TÜM ilerleme kaybolabilir - kimse fark etmeden.
+    // Üst üste 3+ başarısızlıkta burada net bir uyarı gösteriliyor ki fark edilsin (sadece gerçek
+    // bir sorun varsa görünür, normalde bu alan tamamen boş - müşterileri rahatsız etmez).
+    function renderBackupWarning(status) {
+        const el = document.getElementById('backupWarning');
+        if (!el) return;
+        if (!status || status.consecutive_failures < 3) { el.innerHTML = ''; return; }
+        el.innerHTML = `<div class="card err"><div class="card-title">⚠️ Katalog Yedeklemesi Bozuk</div>
+            <div>Katalog GitHub'a son ${status.consecutive_failures} denemedir yedeklenemiyor. Sunucu yeniden başlarsa (ki zaman zaman kendiliğinden oluyor) o ana kadarki yeni eklenen ürünler kaybolabilir.
+            ${status.last_error ? `<br><span style="color:#888; font-size:12.5px;">Sebep: ${esc(status.last_error)}</span>` : ''}</div></div>`;
+    }
+
     async function loadUsageBadge() {
         try {
             const res = await fetch('/usage');
@@ -445,6 +459,7 @@
             // ekstra yedeği, ayrı bir rozet olarak karışıklık yaratmasın diye sessizce arkada durur.
             const thirdBadge = (u.customer2 && u.customer2.call_count > 0) ? ` &nbsp;·&nbsp; ${poolBadgeHtml('Müşteri Arama (Yedek)', u.customer2)}` : '';
             el.innerHTML = `⚡ ${poolBadgeHtml('Müşteri Arama', u.customer)} &nbsp;·&nbsp; ${poolBadgeHtml('Katalog Tarama', u.bulk)}${thirdBadge}`;
+            renderBackupWarning(u.backup_status);
         } catch (err) { /* sessizce geç, kritik değil */ }
     }
     loadUsageBadge();
