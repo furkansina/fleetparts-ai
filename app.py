@@ -620,6 +620,7 @@ SADECE şu JSON yapısında bir DİZİ (array) döndür, başka hiçbir şey yaz
         "name": "Parçanın adı (varsa ölçü/renk/varyant bilgisiyle birlikte)",
         "brand": "SADECE görselde açıkça yazılı olan üretici/marka adı - yoksa/emin değilsen kesinlikle boş string",
         "specs": "Ölçüler, bağlantı tipi, malzeme ve diğer teknik detaylar",
+        "price": "Görselde/katalogda AÇIKÇA yazılı fiyat varsa (ör. '₺150,00' veya '150 TL') aynen yaz - yoksa/emin değilsen kesinlikle boş string, ASLA fiyat uydurma",
         "stock": 25
     }
 ]
@@ -831,13 +832,14 @@ def _try_extract_text_table(page_words: list, min_rows: int = 4, min_coverage: f
     for x in good:
         if not x["name"] and not x["price"]:
             continue
-        name = x["name"] or f"{x['code']} (fiyat: {x['price']})"
+        name = x["name"] or x["code"]
         result.append({
             "id": x["code"],
             "oem": x["code"],
             "name": name,
             "brand": "",
             "specs": "",
+            "price": x["price"] or "",
             "stock": 1,
         })
     return result or None
