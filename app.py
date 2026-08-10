@@ -725,11 +725,13 @@ def render_pdf_pages_to_images(pdf_path: str, filename: str = None, already_scan
         doc.close()
 
 
-# Ürün kodu deseni: harf öneki olabilir (örn. "ORP 4011"), rakam bloğu, aralarda boşluk/tire
-# olabilir ("101001-0" / "101001 0"), sonda tek harf/hane eki olabilir ("4016 A").
-_CODE_RE = re.compile(r"^[A-ZÇĞİÖŞÜ]{0,5}\s?\d{3,7}([\s\-]\d{1,3})?\s?[A-Z]{0,2}$")
+# Ürün kodu deseni: harf öneki olabilir (örn. "ORP 4011"), rakam bloğu (3-10 hane - gerçek OEM
+# kodları hem kısa dahili kodlar "4011" hem uzun OEM numaraları "9433340115" olabiliyor, gerçek
+# katalogda doğrulandı), aralarda boşluk/tire olabilir ("101001-0" / "101001 0"), sonda tek
+# harf/hane eki olabilir ("4016 A").
+_CODE_RE = re.compile(r"^[A-ZÇĞİÖŞÜ]{0,5}\s?\d{3,10}([\s\-]\d{1,3})?\s?[A-Z]{0,2}$")
 # Aynı hücrede kod ve isim bitişik kalmışsa ("ORP 4016 A Test Aparatı...") ayırmak için.
-_CODE_PREFIX_RE = re.compile(r"^([A-ZÇĞİÖŞÜ]{0,5}\s?\d{3,7}([\s\-]\d{1,3})?\s?[A-Z]{0,2})\s+(.*)$")
+_CODE_PREFIX_RE = re.compile(r"^([A-ZÇĞİÖŞÜ]{0,5}\s?\d{3,10}([\s\-]\d{1,3})?\s?[A-Z]{0,2})\s+(.*)$")
 _PRICE_RE = re.compile(r"^₺?\s?[\d.,]+\s?(TL)?$", re.IGNORECASE)
 _TABLE_HEADER_WORDS = {"ürün kodu", "ürün adı", "birim fiyat", "fiyat", "kod", "açıklama", "adet", "stok"}
 
@@ -802,13 +804,34 @@ def _try_extract_text_table(page_words: list, min_rows: int = 4, min_coverage: f
     if len(row_cells) < min_rows:
         return None
     interpreted = [_interpret_table_row(r) for r in row_cells]
-    good = [x for x in interpreted if x is not None]
-    coverage = len(good) / len(row_cells) if row_cells else 0
+
+    # Yetim satır birleştirme: bazı PDF'lerde kod ve isim aynı Y hizasında değil, art arda 2 AYRI
+    # satırda duruyor (gerçek bir örnekte doğrulandı) - bir satırda SADECE kod (isim/fiyat boş),
+    # bitişiğinde SADECE düz metin (kod OLMAYAN) varsa bunları tek ürün say.
+    for i, item in enumerate(interpreted):
+        if not isinstance(item, dict) or item["name"] or item["price"]:
+            continue
+        for j in (i + 1, i - 1):
+            if 0 <= j < len(interpreted) and interpreted[j] is None:
+                candidate = " ".join(row_cells[j]).strip()
+                if candidate and not _CODE_RE.match(candidate) and not _PRICE_RE.match(candidate):
+                    item["name"] = candidate
+                    interpreted[j] = "_MERGED_"
+                    break
+
+    good = [x for x in interpreted if x is not None and x != "_MERGED_"]
+    merged_count = sum(1 for x in interpreted if x == "_MERGED_")
+    coverage = (len(good) + merged_count) / len(row_cells) if row_cells else 0
     if coverage < min_coverage or not good:
         return None
+    # Ne isim ne fiyat bulunan (sadece çıplak bir kod) öğeler anlamsız - muhtemelen karmaşık bir
+    # çoklu-kod satırının ayrıştırma artığı, gerçek bir örnekte gözlemlendi. "kod (isim: kod)"
+    # gibi anlamsız bir kayıt kataloğa eklenmesin diye bunlar sessizce atılır.
     result = []
     for x in good:
-        name = x["name"] or (f"{x['code']} (fiyat: {x['price']})" if x["price"] else x["code"])
+        if not x["name"] and not x["price"]:
+            continue
+        name = x["name"] or f"{x['code']} (fiyat: {x['price']})"
         result.append({
             "id": x["code"],
             "oem": x["code"],
@@ -817,7 +840,7 @@ def _try_extract_text_table(page_words: list, min_rows: int = 4, min_coverage: f
             "specs": "",
             "stock": 1,
         })
-    return result
+    return result or None
 
 CATALOG_WRITE_LOCK = threading.Lock()  # istekler arası paylaşılan kilit - iki ayrı yükleme isteği aynı anda gelirse birbirinin kaydını ezmesin diye
 
