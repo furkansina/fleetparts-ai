@@ -251,6 +251,14 @@ def call_groq_api(prompt: str, image_path: str = None, use_secondary_model: bool
     last_error = ""
     daily_exhausted_count = 0
     for key_label, api_key in key_chain:
+        # Groq panelinden doğrulanan günlük 1000 İSTEK sınırına (token'dan ayrı) bu hesap zaten
+        # yaklaştıysa, boşuna bir istek daha atıp 429 almak yerine doğrudan zincirdeki bir sonraki
+        # hesaba geç - hem zaman hem gereksiz bir başarısız istek kazandırır.
+        today_usage = usage_tracker.get_today_usage()
+        if today_usage.get(key_label, {}).get("requests_remaining_estimate", usage_tracker.DAILY_REQUEST_BUDGET) < 3:
+            last_error = f"{key_label} hesabının günlük istek sayısı sınırına yaklaştı, atlanıyor."
+            daily_exhausted_count += 1
+            continue
         headers = {
             "Content-Type": "application/json",
             "Authorization": f"Bearer {api_key}",
@@ -1135,15 +1143,22 @@ def upload_catalog_files(files: list[UploadFile] = File(...), _: str = Depends(r
     usage = usage_tracker.get_today_usage()
     chain_pools = {label for label, _ in _resolve_key_chain("bulk", False)}
 
-    def _remaining(pool):
+    def _remaining_tokens(pool):
         real = usage_tracker.get_real_remaining_tokens(pool)
         return real if real is not None else usage.get(pool, {}).get("remaining_estimate", usage_tracker.DAILY_TOKEN_BUDGET)
 
-    any_room = any(_remaining(p) >= 2000 for p in chain_pools)
+    def _remaining_requests(pool):
+        # Groq'un kendi panelinden doğrulandı (2026-08-10): günlük 1000 İSTEK sınırı da var, sadece
+        # token değil - "kota bitti" hatalarının bir kısmı aslında bu sınırdan kaynaklanmış olabilir,
+        # önceden hiç takip edilmiyordu. Katalog taraması sayfa başına 1 istek olduğu için (Tier 2/3),
+        # yüzlerce sayfalı bir katalogda bu, token sınırından ÖNCE tükenebilir.
+        return usage.get(pool, {}).get("requests_remaining_estimate", usage_tracker.DAILY_REQUEST_BUDGET)
+
+    any_room = any(_remaining_tokens(p) >= 2000 and _remaining_requests(p) >= 5 for p in chain_pools)
     if not any_room:
         return {
             "status": "error",
-            "message": "Bugünkü yapay zeka kullanım kotası (denenen tüm hesaplarda) doldu. "
+            "message": "Bugünkü yapay zeka kullanım kotası (denenen tüm hesaplarda, token veya günlük istek sayısı) doldu. "
                        "Kota gece (Groq sıfırlama saatinde) yenilenir, o zaman tekrar deneyin."
         }
 
