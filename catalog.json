@@ -4724,7 +4724,7 @@
         "name": "SOL STOP LAMBASI V2",
         "brand": "",
         "specs": "",
-        "price": "12.12264",
+        "price": "",
         "stock": 1,
         "source_file": "GÖÇMEN KATALOG .pdf (sayfa 38, metin katmanindan otomatik cikarildi)"
     },
@@ -4734,7 +4734,7 @@
         "name": "SAĞ STOP LAMBASI V2",
         "brand": "",
         "specs": "",
-        "price": "12.12265",
+        "price": "",
         "stock": 1,
         "source_file": "GÖÇMEN KATALOG .pdf (sayfa 38, metin katmanindan otomatik cikarildi)"
     },
@@ -4761,7 +4761,7 @@
     {
         "id": "1699301",
         "oem": "1699301",
-        "name": "D70.7107 SAĞ FAR CF - XF 105",
+        "name": "SAĞ FAR CF - XF 105",
         "brand": "",
         "specs": "",
         "price": "",
@@ -4771,7 +4771,7 @@
     {
         "id": "1699300",
         "oem": "1699300",
-        "name": "D70.7106 SOL FAR CF - XF 105",
+        "name": "SOL FAR CF - XF 105",
         "brand": "",
         "specs": "",
         "price": "",
@@ -4781,7 +4781,7 @@
     {
         "id": "1328861",
         "oem": "1328861",
-        "name": "D70.7091 SAĞ SİS XF - CF",
+        "name": "SAĞ SİS XF - CF",
         "brand": "",
         "specs": "",
         "price": "",
@@ -4791,7 +4791,7 @@
     {
         "id": "1328860",
         "oem": "1328860",
-        "name": "D70.7090 SOL SİS XF - CF",
+        "name": "SOL SİS XF - CF",
         "brand": "",
         "specs": "",
         "price": "",
@@ -4801,7 +4801,7 @@
     {
         "id": "1725271",
         "oem": "1725271",
-        "name": "D70.7109 SAĞ SİS XF 105",
+        "name": "SAĞ SİS XF 105",
         "brand": "",
         "specs": "",
         "price": "",
@@ -4811,7 +4811,7 @@
     {
         "id": "1725270",
         "oem": "1725270",
-        "name": "D70.7108 SOL SİS XF 105",
+        "name": "SOL SİS XF 105",
         "brand": "",
         "specs": "",
         "price": "",
@@ -4821,7 +4821,7 @@
     {
         "id": "1625985",
         "oem": "1625985",
-        "name": "D70.7172 SOL STOP LAMBASI",
+        "name": "SOL STOP LAMBASI",
         "brand": "",
         "specs": "",
         "price": "",
@@ -4831,7 +4831,7 @@
     {
         "id": "1625986",
         "oem": "1625986",
-        "name": "D70.7173 SAĞ STOP LAMBASI",
+        "name": "SAĞ STOP LAMBASI",
         "brand": "",
         "specs": "",
         "price": "",
@@ -8519,7 +8519,7 @@
     {
         "id": "9305200007",
         "oem": "9305200007",
-        "name": "MB50.5304 ARKA TEKERÜSTÜ ÇAMURLUĞU SOL&SAĞ",
+        "name": "ARKA TEKERÜSTÜ ÇAMURLUĞU SOL&SAĞ",
         "brand": "",
         "specs": "",
         "price": "",
@@ -8529,7 +8529,7 @@
     {
         "id": "9305200019",
         "oem": "9305200019",
-        "name": "MB50.5305 ÇAMURLUK ÖN SOL",
+        "name": "ÇAMURLUK ÖN SOL",
         "brand": "",
         "specs": "",
         "price": "",
@@ -8539,7 +8539,7 @@
     {
         "id": "9305200119",
         "oem": "9305200119",
-        "name": "MB50.5306 ÇAMURLUK ÖN SAĞ",
+        "name": "ÇAMURLUK ÖN SAĞ",
         "brand": "",
         "specs": "",
         "price": "",
@@ -8549,7 +8549,7 @@
     {
         "id": "9415220167",
         "oem": "9415220167",
-        "name": "MB50.5365 ÇAMURLUK LASTİĞİ",
+        "name": "ÇAMURLUK LASTİĞİ",
         "brand": "",
         "specs": "",
         "price": "",
@@ -8559,7 +8559,7 @@
     {
         "id": "9305210097",
         "oem": "9305210097",
-        "name": "MB50.5596 ÇAMURLUK BRAKETİ ÖN",
+        "name": "ÇAMURLUK BRAKETİ ÖN",
         "brand": "",
         "specs": "",
         "price": "",
@@ -8569,7 +8569,7 @@
     {
         "id": "9305210197",
         "oem": "9305210197",
-        "name": "MB50.5597 ÇAMURLUK BRAKETİ ARKA",
+        "name": "ÇAMURLUK BRAKETİ ARKA",
         "brand": "",
         "specs": "",
         "price": "",
@@ -8579,7 +8579,7 @@
     {
         "id": "9605200067",
         "oem": "9605200067",
-        "name": "MB50.5702 ÇAMURLUK LASTİĞİ",
+        "name": "ÇAMURLUK LASTİĞİ",
         "brand": "",
         "specs": "",
         "price": "",
@@ -8589,7 +8589,7 @@
     {
         "id": "9605200007",
         "oem": "9605200007",
-        "name": "MB50.5651 ÇAMURLUK ÜST",
+        "name": "ÇAMURLUK ÜST",
         "brand": "",
         "specs": "",
         "price": "",
@@ -8599,7 +8599,7 @@
     {
         "id": "9605200019",
         "oem": "9605200019",
-        "name": "MB50.5652 ARKA ÇAMURLUK ÖN SOL",
+        "name": "ARKA ÇAMURLUK ÖN SOL",
         "brand": "",
         "specs": "",
         "price": "",
@@ -8609,7 +8609,7 @@
     {
         "id": "9605200119",
         "oem": "9605200119",
-        "name": "MB50.5653 ARKA ÇAMURLUK ÖN SAĞ",
+        "name": "ARKA ÇAMURLUK ÖN SAĞ",
         "brand": "",
         "specs": "",
         "price": "",
@@ -8619,7 +8619,7 @@
     {
         "id": "9605200520",
         "oem": "9605200520",
-        "name": "MB50.5654 ARKA ÇAMURLUK ARKA SOL&SAĞ",
+        "name": "ARKA ÇAMURLUK ARKA SOL&SAĞ",
         "brand": "",
         "specs": "",
         "price": "",
@@ -8629,7 +8629,7 @@
     {
         "id": "1357599",
         "oem": "1357599",
-        "name": "S80.8009 ARKA ÇAMURLUK SOL",
+        "name": "ARKA ÇAMURLUK SOL",
         "brand": "",
         "specs": "",
         "price": "",
@@ -8639,7 +8639,7 @@
     {
         "id": "1357600",
         "oem": "1357600",
-        "name": "S80.8010 ARKA ÇAMURLUK SAĞ",
+        "name": "ARKA ÇAMURLUK SAĞ",
         "brand": "",
         "specs": "",
         "price": "",
@@ -8649,7 +8649,7 @@
     {
         "id": "1395276",
         "oem": "1395276",
-        "name": "S80.8025 ARKA ÇAMURLUK SAĞ&SOL",
+        "name": "ARKA ÇAMURLUK SAĞ&SOL",
         "brand": "",
         "specs": "",
         "price": "",
@@ -8659,7 +8659,7 @@
     {
         "id": "1383858",
         "oem": "1383858",
-        "name": "S80.8132 ÇAMURLUK LASTİĞİ",
+        "name": "ÇAMURLUK LASTİĞİ",
         "brand": "",
         "specs": "",
         "price": "",
@@ -8669,7 +8669,7 @@
     {
         "id": "1383520",
         "oem": "1383520",
-        "name": "S80.8171 ÇAMURLUK BAĞLANTI DEMİRİ",
+        "name": "ÇAMURLUK BAĞLANTI DEMİRİ",
         "brand": "",
         "specs": "",
         "price": "",
@@ -8679,7 +8679,7 @@
     {
         "id": "1328935",
         "oem": "1328935",
-        "name": "D70.7044 TEKERÜSTÜ ÇAMURLUĞU",
+        "name": "TEKERÜSTÜ ÇAMURLUĞU",
         "brand": "",
         "specs": "",
         "price": "",
@@ -8689,7 +8689,7 @@
     {
         "id": "1328934",
         "oem": "1328934",
-        "name": "D70.7045 ARKA ÇAMURLUK",
+        "name": "ARKA ÇAMURLUK",
         "brand": "",
         "specs": "",
         "price": "",
@@ -8699,7 +8699,7 @@
     {
         "id": "1340450",
         "oem": "1340450",
-        "name": "D70.7128 ÇAMURLUK LASTİĞİ",
+        "name": "ÇAMURLUK LASTİĞİ",
         "brand": "",
         "specs": "",
         "price": "",
@@ -8709,7 +8709,7 @@
     {
         "id": "1875553",
         "oem": "1875553",
-        "name": "D70.7217 ÇAMURLUK ARKA SOL",
+        "name": "ÇAMURLUK ARKA SOL",
         "brand": "",
         "specs": "",
         "price": "",
@@ -8719,7 +8719,7 @@
     {
         "id": "1875554",
         "oem": "1875554",
-        "name": "D70.7218 ÇAMURLUK ARKA SAĞ",
+        "name": "ÇAMURLUK ARKA SAĞ",
         "brand": "",
         "specs": "",
         "price": "",
@@ -8729,7 +8729,7 @@
     {
         "id": "1875549",
         "oem": "1875549",
-        "name": "D70.7223 ÇAMURLUK ÖN SOL",
+        "name": "ÇAMURLUK ÖN SOL",
         "brand": "",
         "specs": "",
         "price": "",
@@ -8739,7 +8739,7 @@
     {
         "id": "1875550",
         "oem": "1875550",
-        "name": "D70.7224 ÇAMURLUK ÖN SAĞ",
+        "name": "ÇAMURLUK ÖN SAĞ",
         "brand": "",
         "specs": "",
         "price": "",
@@ -8759,7 +8759,7 @@
     {
         "id": "1927847",
         "oem": "1927847",
-        "name": "D70.7231 ÇAMURLUK LASTİĞİ",
+        "name": "ÇAMURLUK LASTİĞİ",
         "brand": "",
         "specs": "",
         "price": "",
@@ -8799,7 +8799,7 @@
     {
         "id": "41213696",
         "oem": "41213696",
-        "name": "IV90.9124 ÇAMURLUK LASTİĞİ",
+        "name": "ÇAMURLUK LASTİĞİ",
         "brand": "",
         "specs": "",
         "price": "",
@@ -8809,7 +8809,7 @@
     {
         "id": "41218983",
         "oem": "41218983",
-        "name": "IV90.9125 ÇAMURLUK KAPAĞI ARKA SOL",
+        "name": "ÇAMURLUK KAPAĞI ARKA SOL",
         "brand": "",
         "specs": "",
         "price": "",
@@ -8819,7 +8819,7 @@
     {
         "id": "41218984",
         "oem": "41218984",
-        "name": "IV90.9126 ÇAMURLUK KAPAĞI ARKA SAĞ",
+        "name": "ÇAMURLUK KAPAĞI ARKA SAĞ",
         "brand": "",
         "specs": "",
         "price": "",
@@ -8829,7 +8829,7 @@
     {
         "id": "41213721",
         "oem": "41213721",
-        "name": "IV90.9127 ÇAMURLUK KAPAĞI ÖN SOL",
+        "name": "ÇAMURLUK KAPAĞI ÖN SOL",
         "brand": "",
         "specs": "",
         "price": "",
@@ -8839,7 +8839,7 @@
     {
         "id": "41213720",
         "oem": "41213720",
-        "name": "IV90.9128 ÇAMURLUK KAPAĞI ÖN SAĞ",
+        "name": "ÇAMURLUK KAPAĞI ÖN SAĞ",
         "brand": "",
         "specs": "",
         "price": "",
@@ -8852,7 +8852,7 @@
         "name": "ÇAMULUK LASTiGi YM.",
         "brand": "",
         "specs": "",
-        "price": "12.12107",
+        "price": "",
         "stock": 1,
         "source_file": "GÖÇMEN KATALOG .pdf (sayfa 31, metin katmanindan otomatik cikarildi)"
     },
@@ -8862,7 +8862,7 @@
         "name": "ÇAMURLUK ÇEKİCİ ÜST YM.",
         "brand": "",
         "specs": "",
-        "price": "12.12108",
+        "price": "",
         "stock": 1,
         "source_file": "GÖÇMEN KATALOG .pdf (sayfa 31, metin katmanindan otomatik cikarildi)"
     },
@@ -8872,7 +8872,7 @@
         "name": "ÇAMURLUK ÇEKİCİ YAN YM.",
         "brand": "",
         "specs": "",
-        "price": "12.12110",
+        "price": "",
         "stock": 1,
         "source_file": "GÖÇMEN KATALOG .pdf (sayfa 31, metin katmanindan otomatik cikarildi)"
     },
@@ -8912,7 +8912,7 @@
         "name": "ÇEKİCİ ÇAMURLUK ARKA",
         "brand": "",
         "specs": "",
-        "price": "12.12346",
+        "price": "",
         "stock": 1,
         "source_file": "GÖÇMEN KATALOG .pdf (sayfa 31, metin katmanindan otomatik cikarildi)"
     },
@@ -8922,7 +8922,7 @@
         "name": "ÇEKİCİ ÇAMURLUK ÖN",
         "brand": "",
         "specs": "",
-        "price": "12.12347",
+        "price": "",
         "stock": 1,
         "source_file": "GÖÇMEN KATALOG .pdf (sayfa 31, metin katmanindan otomatik cikarildi)"
     },
@@ -8932,7 +8932,7 @@
         "name": "ÇAMURLUK LASTİĞİ",
         "brand": "",
         "specs": "",
-        "price": "12.12348",
+        "price": "",
         "stock": 1,
         "source_file": "GÖÇMEN KATALOG .pdf (sayfa 31, metin katmanindan otomatik cikarildi)"
     },
@@ -8942,7 +8942,7 @@
         "name": "ÇAMURLUK KOLU",
         "brand": "",
         "specs": "",
-        "price": "12.12349",
+        "price": "",
         "stock": 1,
         "source_file": "GÖÇMEN KATALOG .pdf (sayfa 31, metin katmanindan otomatik cikarildi)"
     },
@@ -8969,7 +8969,7 @@
     {
         "id": "9448800104",
         "oem": "9448800104",
-        "name": "MB50.5420 TAMPON SOL",
+        "name": "TAMPON SOL",
         "brand": "",
         "specs": "",
         "price": "",
@@ -8979,7 +8979,7 @@
     {
         "id": "9448800204",
         "oem": "9448800204",
-        "name": "MB50.5421 TAMPON SAĞ",
+        "name": "TAMPON SAĞ",
         "brand": "",
         "specs": "",
         "price": "",
@@ -8989,7 +8989,7 @@
     {
         "id": "9448850725",
         "oem": "9448850725",
-        "name": "MB50.5423 KARLIK SOL BEYAZ BOYALI",
+        "name": "KARLIK SOL BEYAZ BOYALI",
         "brand": "",
         "specs": "",
         "price": "",
@@ -8999,7 +8999,7 @@
     {
         "id": "9448850125",
         "oem": "9448850125",
-        "name": "MB50.5424 KARLIK SAĞ BEYAZ BOYALI",
+        "name": "KARLIK SAĞ BEYAZ BOYALI",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9009,7 +9009,7 @@
     {
         "id": "9448850525",
         "oem": "9448850525",
-        "name": "MB50.5621 KARLIK SOL SİS DELİKLİ BEYAZ BOYALI",
+        "name": "KARLIK SOL SİS DELİKLİ BEYAZ BOYALI",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9019,7 +9019,7 @@
     {
         "id": "9448850625",
         "oem": "9448850625",
-        "name": "MB50.5622 KARLIK SAĞ SİS DELİKLİ BEYAZ BOYALI",
+        "name": "KARLIK SAĞ SİS DELİKLİ BEYAZ BOYALI",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9029,7 +9029,7 @@
     {
         "id": "9446660101",
         "oem": "9446660101",
-        "name": "MB50.5521 BASAMAK ALT SOL BEYAZ BOYALI",
+        "name": "BASAMAK ALT SOL BEYAZ BOYALI",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9039,7 +9039,7 @@
     {
         "id": "9446660201",
         "oem": "9446660201",
-        "name": "MB50.5522 BASAMAK ALT SAĞ BEYAZ BOYALI",
+        "name": "BASAMAK ALT SAĞ BEYAZ BOYALI",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9049,7 +9049,7 @@
     {
         "id": "9406660128",
         "oem": "9406660128",
-        "name": "MB50.5604 BASAMAK SACI ÜST",
+        "name": "BASAMAK SACI ÜST",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9059,7 +9059,7 @@
     {
         "id": "9406660428",
         "oem": "9406660428",
-        "name": "MB50.5605 BASAMAK SACI ALT",
+        "name": "BASAMAK SACI ALT",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9069,7 +9069,7 @@
     {
         "id": "9448810701",
         "oem": "9448810701",
-        "name": "MB50.5609 ÖN TEKER ÇAMURLUĞU SOL",
+        "name": "ÖN TEKER ÇAMURLUĞU SOL",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9079,7 +9079,7 @@
     {
         "id": "9448810801",
         "oem": "9448810801",
-        "name": "MB50.5610 ÖN TEKER ÇAMURLUĞU SAĞ",
+        "name": "ÖN TEKER ÇAMURLUĞU SAĞ",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9089,7 +9089,7 @@
     {
         "id": "0008101879",
         "oem": "0008101879",
-        "name": "MB50.5683 AXOR BÜYÜK AYNA KOMPLE SOL",
+        "name": "AXOR BÜYÜK AYNA KOMPLE SOL",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9099,7 +9099,7 @@
     {
         "id": "0008101679",
         "oem": "0008101679",
-        "name": "MB50.5684 AXOR BÜYÜK AYNA KOMPLE SAĞ",
+        "name": "AXOR BÜYÜK AYNA KOMPLE SAĞ",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9149,7 +9149,7 @@
     {
         "id": "1723519",
         "oem": "1723519",
-        "name": "S80.8191 SCANIA SAĞ AYNA KOMPLE",
+        "name": "SCANIA SAĞ AYNA KOMPLE",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9159,7 +9159,7 @@
     {
         "id": "1504678",
         "oem": "1504678",
-        "name": "S80.8192 SCANIA KAPI ÜSTÜ AYNA",
+        "name": "SCANIA KAPI ÜSTÜ AYNA",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9169,7 +9169,7 @@
     {
         "id": "1689347",
         "oem": "1689347",
-        "name": "D70.7166 DAF CF - XF105 KÜÇÜK AYNA KOMPLE",
+        "name": "DAF CF - XF105 KÜÇÜK AYNA KOMPLE",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9179,7 +9179,7 @@
     {
         "id": "1689348",
         "oem": "1689348",
-        "name": "D70.7167 DAF CF - XF105 BÜYÜK AYNA KOMPLE",
+        "name": "DAF CF - XF105 BÜYÜK AYNA KOMPLE",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9189,7 +9189,7 @@
     {
         "id": "9418202761",
         "oem": "9418202761",
-        "name": "MB50.5335 AXOR - ACTROS FAR SARI SİNYALLİ SOL",
+        "name": "AXOR - ACTROS FAR SARI SİNYALLİ SOL",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9199,7 +9199,7 @@
     {
         "id": "9418202861",
         "oem": "9418202861",
-        "name": "MB50.5336 AXOR - ACTROS FAR SARI SİNYALLİ SAĞ",
+        "name": "AXOR - ACTROS FAR SARI SİNYALLİ SAĞ",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9209,7 +9209,7 @@
     {
         "id": "9408200161",
         "oem": "9408200161",
-        "name": "MB50.5417 AXOR SOL FAR",
+        "name": "AXOR SOL FAR",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9219,7 +9219,7 @@
     {
         "id": "9408200261",
         "oem": "9408200261",
-        "name": "MB50.5418 AXOR SAĞ FAR",
+        "name": "AXOR SAĞ FAR",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9249,7 +9249,7 @@
     {
         "id": "9438201461",
         "oem": "9438201461",
-        "name": "MB50.5630 ACTROS MP3 SOL FAR",
+        "name": "ACTROS MP3 SOL FAR",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9259,7 +9259,7 @@
     {
         "id": "9438201561",
         "oem": "9438201561",
-        "name": "MB50.5631 ACTROS MP3 SAĞ FAR",
+        "name": "ACTROS MP3 SAĞ FAR",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9269,7 +9269,7 @@
     {
         "id": "9438200056",
         "oem": "9438200056",
-        "name": "MB50.5415 ACTROS MP2 - MP2 SOL SİS FARI",
+        "name": "ACTROS MP2 - MP2 SOL SİS FARI",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9279,7 +9279,7 @@
     {
         "id": "9438200156",
         "oem": "9438200156",
-        "name": "MB50.5416 ACTROS MP2 - MP2 SAĞ SİS FARI",
+        "name": "ACTROS MP2 - MP2 SAĞ SİS FARI",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9289,7 +9289,7 @@
     {
         "id": "9608200439",
         "oem": "9608200439",
-        "name": "MB50.5768 ACTROS MP4 SOL FAR MANUEL",
+        "name": "ACTROS MP4 SOL FAR MANUEL",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9299,7 +9299,7 @@
     {
         "id": "9608200539",
         "oem": "9608200539",
-        "name": "MB50.5769 ACTROS MP4 SAĞ FAR MANUEL",
+        "name": "ACTROS MP4 SAĞ FAR MANUEL",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9309,7 +9309,7 @@
     {
         "id": "9408200056",
         "oem": "9408200056",
-        "name": "MB50.5678 AXOR SİS SOL",
+        "name": "AXOR SİS SOL",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9319,7 +9319,7 @@
     {
         "id": "9408200156",
         "oem": "9408200156",
-        "name": "MB50.5679 AXOR SİS SAĞ",
+        "name": "AXOR SİS SAĞ",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9329,7 +9329,7 @@
     {
         "id": "9408200321",
         "oem": "9408200321",
-        "name": "MB50.5403 AXOR SİNYAL SOL",
+        "name": "AXOR SİNYAL SOL",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9339,7 +9339,7 @@
     {
         "id": "9408200421",
         "oem": "9408200421",
-        "name": "MB50.5404 AXOR SİNYAL SAĞ",
+        "name": "AXOR SİNYAL SAĞ",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9349,7 +9349,7 @@
     {
         "id": "9408200221",
         "oem": "9408200221",
-        "name": "MB50.5680 AXOR BASAMAK SİNYALİ TESİSATLI",
+        "name": "AXOR BASAMAK SİNYALİ TESİSATLI",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9369,7 +9369,7 @@
     {
         "id": "99463244",
         "oem": "99463244",
-        "name": "IV90.9218 STOP LAMBASI SAĞ",
+        "name": "STOP LAMBASI SAĞ",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9379,7 +9379,7 @@
     {
         "id": "99463242",
         "oem": "99463242",
-        "name": "IV90.9217 STOP LAMBASI SOL",
+        "name": "STOP LAMBASI SOL",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9389,7 +9389,7 @@
     {
         "id": "1732510",
         "oem": "1732510",
-        "name": "S80.8181 SAĞ FAR SİNYALLİ",
+        "name": "SAĞ FAR SİNYALLİ",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9399,7 +9399,7 @@
     {
         "id": "1732509",
         "oem": "1732509",
-        "name": "S80.8180 SOL FAR SİNYALLİ",
+        "name": "SOL FAR SİNYALLİ",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9409,7 +9409,7 @@
     {
         "id": "1349784",
         "oem": "1349784",
-        "name": "S80.8129 SAĞ SİNYAL DUYLU",
+        "name": "SAĞ SİNYAL DUYLU",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9419,7 +9419,7 @@
     {
         "id": "1349783",
         "oem": "1349783",
-        "name": "S80.8128 SOL SİNYAL DUYLU",
+        "name": "SOL SİNYAL DUYLU",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9429,7 +9429,7 @@
     {
         "id": "1852573",
         "oem": "1852573",
-        "name": "S80.8252 SAĞ SİS DIŞ",
+        "name": "SAĞ SİS DIŞ",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9439,7 +9439,7 @@
     {
         "id": "1852572",
         "oem": "1852572",
-        "name": "S80.8251 SOL SİS DIŞ",
+        "name": "SOL SİS DIŞ",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9449,7 +9449,7 @@
     {
         "id": "1852570",
         "oem": "1852570",
-        "name": "S80.8250 SAĞ SİS İÇ",
+        "name": "SAĞ SİS İÇ",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9459,7 +9459,7 @@
     {
         "id": "1852569",
         "oem": "1852569",
-        "name": "S80.8249 SOL SİS İÇ",
+        "name": "SOL SİS İÇ",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9489,7 +9489,7 @@
     {
         "id": "1521683",
         "oem": "1521683",
-        "name": "S80.8248 SİNYAL R&L",
+        "name": "SİNYAL R&L",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9499,7 +9499,7 @@
     {
         "id": "1436867",
         "oem": "1436867",
-        "name": "S80.8166 STOP LAMBASI SOL E.M.",
+        "name": "STOP LAMBASI SOL E.M.",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9509,7 +9509,7 @@
     {
         "id": "1436868",
         "oem": "1436868",
-        "name": "S80.8167 STOP LAMBASI SAĞ E.M.",
+        "name": "STOP LAMBASI SAĞ E.M.",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9519,7 +9519,7 @@
     {
         "id": "1756754",
         "oem": "1756754",
-        "name": "S80.8328 STOP LAMBASI SOL",
+        "name": "STOP LAMBASI SOL",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9529,7 +9529,7 @@
     {
         "id": "1756757",
         "oem": "1756757",
-        "name": "S80.8329 STOP LAMBASI SAĞ",
+        "name": "STOP LAMBASI SAĞ",
         "brand": "",
         "specs": "",
         "price": "",
@@ -9542,7 +9542,7 @@
         "name": "SİNYAL V1 R&L",
         "brand": "",
         "specs": "",
-        "price": "12.12144",
+        "price": "",
         "stock": 1,
         "source_file": "GÖÇMEN KATALOG .pdf (sayfa 37, metin katmanindan otomatik cikarildi)"
     },
@@ -9552,7 +9552,7 @@
         "name": "SARI SİNYAL V1 R&L",
         "brand": "",
         "specs": "",
-        "price": "12.12154",
+        "price": "",
         "stock": 1,
         "source_file": "GÖÇMEN KATALOG .pdf (sayfa 37, metin katmanindan otomatik cikarildi)"
     },
@@ -9562,7 +9562,7 @@
         "name": "POZİSYON LAMBASI R&L",
         "brand": "",
         "specs": "",
-        "price": "12.12232",
+        "price": "",
         "stock": 1,
         "source_file": "GÖÇMEN KATALOG .pdf (sayfa 37, metin katmanindan otomatik cikarildi)"
     },
@@ -9572,7 +9572,7 @@
         "name": "SAĞ FAR V2",
         "brand": "",
         "specs": "",
-        "price": "12.12250",
+        "price": "",
         "stock": 1,
         "source_file": "GÖÇMEN KATALOG .pdf (sayfa 37, metin katmanindan otomatik cikarildi)"
     },
@@ -9582,7 +9582,7 @@
         "name": "SOL FAR V2",
         "brand": "",
         "specs": "",
-        "price": "12.12249",
+        "price": "",
         "stock": 1,
         "source_file": "GÖÇMEN KATALOG .pdf (sayfa 37, metin katmanindan otomatik cikarildi)"
     },
@@ -9592,7 +9592,7 @@
         "name": "SAĞ SİNYAL ÇERÇEVELİ V2",
         "brand": "",
         "specs": "",
-        "price": "12.12201",
+        "price": "",
         "stock": 1,
         "source_file": "GÖÇMEN KATALOG .pdf (sayfa 37, metin katmanindan otomatik cikarildi)"
     },
@@ -9602,7 +9602,7 @@
         "name": "SOL SİNYAL ÇERÇEVELİ V2",
         "brand": "",
         "specs": "",
-        "price": "12.12200",
+        "price": "",
         "stock": 1,
         "source_file": "GÖÇMEN KATALOG .pdf (sayfa 37, metin katmanindan otomatik cikarildi)"
     },
@@ -9612,7 +9612,7 @@
         "name": "SAĞ SİNYAL ÇERÇEVELİ V3",
         "brand": "",
         "specs": "",
-        "price": "12.12367",
+        "price": "",
         "stock": 1,
         "source_file": "GÖÇMEN KATALOG .pdf (sayfa 37, metin katmanindan otomatik cikarildi)"
     },
@@ -9622,7 +9622,7 @@
         "name": "SOL SİNYAL ÇERÇEVELİ V3",
         "brand": "",
         "specs": "",
-        "price": "12.12366",
+        "price": "",
         "stock": 1,
         "source_file": "GÖÇMEN KATALOG .pdf (sayfa 37, metin katmanindan otomatik cikarildi)"
     },
@@ -9632,7 +9632,7 @@
         "name": "SAĞ FAR V3",
         "brand": "",
         "specs": "",
-        "price": "12.12373",
+        "price": "",
         "stock": 1,
         "source_file": "GÖÇMEN KATALOG .pdf (sayfa 37, metin katmanindan otomatik cikarildi)"
     },
@@ -9642,7 +9642,7 @@
         "name": "SOL FAR V3",
         "brand": "",
         "specs": "",
-        "price": "12.12372",
+        "price": "",
         "stock": 1,
         "source_file": "GÖÇMEN KATALOG .pdf (sayfa 37, metin katmanindan otomatik cikarildi)"
     },
@@ -9652,7 +9652,7 @@
         "name": "SAĞ SİS V3",
         "brand": "",
         "specs": "",
-        "price": "12.12375",
+        "price": "",
         "stock": 1,
         "source_file": "GÖÇMEN KATALOG .pdf (sayfa 37, metin katmanindan otomatik cikarildi)"
     },
@@ -9662,8 +9662,688 @@
         "name": "SOL SİS V3",
         "brand": "",
         "specs": "",
-        "price": "12.12374",
+        "price": "",
         "stock": 1,
         "source_file": "GÖÇMEN KATALOG .pdf (sayfa 37, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "101042-0 Kabin Temizleme Hortumu PE Plastik Tabancalı Rekorsuz",
+        "oem": "101042-0 Kabin Temizleme Hortumu PE Plastik Tabancalı Rekorsuz",
+        "name": "Kabin Temizleme Hortumu PE Plastik Tabancalı Rekorsuz",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "101042-1 Kabin Temizleme Hortumu PE Plastik Tabancalı 7/16\"",
+        "oem": "101042-1 Kabin Temizleme Hortumu PE Plastik Tabancalı 7/16\"",
+        "name": "Kabin Temizleme Hortumu PE Plastik Tabancalı 7/16\"",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "101042-2 Kabin Temizleme Hortumu PE Plastik Tabancalı M12x1.5",
+        "oem": "101042-2 Kabin Temizleme Hortumu PE Plastik Tabancalı M12x1.5",
+        "name": "Kabin Temizleme Hortumu PE Plastik Tabancalı M12x1.5",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "101042-3 Kabin Temizleme Hortumu PE Plastik Tabancalı Axor",
+        "oem": "101042-3 Kabin Temizleme Hortumu PE Plastik Tabancalı Axor",
+        "name": "Kabin Temizleme Hortumu PE Plastik Tabancalı Axor",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "101042-4 Kabin Temizleme Hortumu PE Plastik Tabancalı Actros",
+        "oem": "101042-4 Kabin Temizleme Hortumu PE Plastik Tabancalı Actros",
+        "name": "Kabin Temizleme Hortumu PE Plastik Tabancalı Actros",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "101042-5 Kabin Temizleme Hortumu PE Plastik Tabancalı Scania",
+        "oem": "101042-5 Kabin Temizleme Hortumu PE Plastik Tabancalı Scania",
+        "name": "Kabin Temizleme Hortumu PE Plastik Tabancalı Scania",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "101042-6 Kabin Temizleme Hortumu PE Plastik Tabancalı Renault",
+        "oem": "101042-6 Kabin Temizleme Hortumu PE Plastik Tabancalı Renault",
+        "name": "Kabin Temizleme Hortumu PE Plastik Tabancalı Renault",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "101042-7 Kabin Temizleme Hortumu PE Plastik Tabancalı Iveco",
+        "oem": "101042-7 Kabin Temizleme Hortumu PE Plastik Tabancalı Iveco",
+        "name": "Kabin Temizleme Hortumu PE Plastik Tabancalı Iveco",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "101045-0 Kabin Temizleme Hortumu PE Metal Tabancalı Rekorsuz",
+        "oem": "101045-0 Kabin Temizleme Hortumu PE Metal Tabancalı Rekorsuz",
+        "name": "Kabin Temizleme Hortumu PE Metal Tabancalı Rekorsuz",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "101045-1 Kabin Temizleme Hortumu PE Metal Tabancalı 7/16\"",
+        "oem": "101045-1 Kabin Temizleme Hortumu PE Metal Tabancalı 7/16\"",
+        "name": "Kabin Temizleme Hortumu PE Metal Tabancalı 7/16\"",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "101045-2 Kabin Temizleme Hortumu PE Metal Tabancalı M12x1.5",
+        "oem": "101045-2 Kabin Temizleme Hortumu PE Metal Tabancalı M12x1.5",
+        "name": "Kabin Temizleme Hortumu PE Metal Tabancalı M12x1.5",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "101045-3 Kabin Temizleme Hortumu PE Metal Tabancalı Axor",
+        "oem": "101045-3 Kabin Temizleme Hortumu PE Metal Tabancalı Axor",
+        "name": "Kabin Temizleme Hortumu PE Metal Tabancalı Axor",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "101045-4 Kabin Temizleme Hortumu PE Metal Tabancalı Actros",
+        "oem": "101045-4 Kabin Temizleme Hortumu PE Metal Tabancalı Actros",
+        "name": "Kabin Temizleme Hortumu PE Metal Tabancalı Actros",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "101045-5 Kabin Temizleme Hortumu PE Metal Tabancalı Scania",
+        "oem": "101045-5 Kabin Temizleme Hortumu PE Metal Tabancalı Scania",
+        "name": "Kabin Temizleme Hortumu PE Metal Tabancalı Scania",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "101045-6 Kabin Temizleme Hortumu PE Metal Tabancalı Renault",
+        "oem": "101045-6 Kabin Temizleme Hortumu PE Metal Tabancalı Renault",
+        "name": "Kabin Temizleme Hortumu PE Metal Tabancalı Renault",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "101045-7 Kabin Temizleme Hortumu PE Metal Tabancalı Iveco",
+        "oem": "101045-7 Kabin Temizleme Hortumu PE Metal Tabancalı Iveco",
+        "name": "Kabin Temizleme Hortumu PE Metal Tabancalı Iveco",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PU-04",
+        "oem": "PU-04",
+        "name": "4 mm",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 10, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PUT-04",
+        "oem": "PUT-04",
+        "name": "4 mm",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 10, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PU-06",
+        "oem": "PU-06",
+        "name": "6 mm",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 10, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PUT-06",
+        "oem": "PUT-06",
+        "name": "6 mm",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 10, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PU-08",
+        "oem": "PU-08",
+        "name": "8 mm",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 10, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PUT-08",
+        "oem": "PUT-08",
+        "name": "8 mm",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 10, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PU-10",
+        "oem": "PU-10",
+        "name": "10 mm",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 10, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PUT-10",
+        "oem": "PUT-10",
+        "name": "10 mm",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 10, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PU-12",
+        "oem": "PU-12",
+        "name": "12 mm",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 10, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PUT-12",
+        "oem": "PUT-12",
+        "name": "12 mm",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 10, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PU-16",
+        "oem": "PU-16",
+        "name": "16 mm",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 10, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PUT-16",
+        "oem": "PUT-16",
+        "name": "16 mm",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 10, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PCM - G06 12 x 1,5",
+        "oem": "PCM - G06 12 x 1,5",
+        "name": "12 x 1,5",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 11, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PLM - G06 12 x 1,5",
+        "oem": "PLM - G06 12 x 1,5",
+        "name": "12 x 1,5",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 11, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PCM - G06 14 x 1,5",
+        "oem": "PCM - G06 14 x 1,5",
+        "name": "14 x 1,5",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 11, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PLM - G06 14 x 1,5",
+        "oem": "PLM - G06 14 x 1,5",
+        "name": "14 x 1,5",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 11, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PCM - G06 16 x 1,5",
+        "oem": "PCM - G06 16 x 1,5",
+        "name": "16 x 1,5",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 11, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PLM - G06 16 x 1,5",
+        "oem": "PLM - G06 16 x 1,5",
+        "name": "16 x 1,5",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 11, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PCM - G08 10 x 1,5",
+        "oem": "PCM - G08 10 x 1,5",
+        "name": "10 x 1,5",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 11, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PLM - G08 10 x 1,5",
+        "oem": "PLM - G08 10 x 1,5",
+        "name": "10 x 1,5",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 11, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PCM - G08 12 x 1,5",
+        "oem": "PCM - G08 12 x 1,5",
+        "name": "12 x 1,5",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 11, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PLM - G08 12 x 1,5",
+        "oem": "PLM - G08 12 x 1,5",
+        "name": "12 x 1,5",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 11, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PCM - G08 14 x 1,5",
+        "oem": "PCM - G08 14 x 1,5",
+        "name": "14 x 1,5",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 11, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PLM - G08 14 x 1,5",
+        "oem": "PLM - G08 14 x 1,5",
+        "name": "14 x 1,5",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 11, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PCM - G08 16 x 1,5",
+        "oem": "PCM - G08 16 x 1,5",
+        "name": "16 x 1,5",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 11, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PLM - G08 16 x 1,5",
+        "oem": "PLM - G08 16 x 1,5",
+        "name": "16 x 1,5",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 11, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PCM - G08 22 x 1,5",
+        "oem": "PCM - G08 22 x 1,5",
+        "name": "22 x 1,5",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 11, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PLM - G08 22 x 1,5",
+        "oem": "PLM - G08 22 x 1,5",
+        "name": "22 x 1,5",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 11, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PCM - G10 10 x 1,5",
+        "oem": "PCM - G10 10 x 1,5",
+        "name": "10 x 1,5",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 11, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PLM - G10 10 x 1,5",
+        "oem": "PLM - G10 10 x 1,5",
+        "name": "10 x 1,5",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 11, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PCM - G10 12 x 1,5",
+        "oem": "PCM - G10 12 x 1,5",
+        "name": "12 x 1,5",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 11, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PLM - G10 12 x 1,5",
+        "oem": "PLM - G10 12 x 1,5",
+        "name": "12 x 1,5",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 11, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PCM - G10 14 x 1,5",
+        "oem": "PCM - G10 14 x 1,5",
+        "name": "14 x 1,5",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 11, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PLM - G10 14 x 1,5",
+        "oem": "PLM - G10 14 x 1,5",
+        "name": "14 x 1,5",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 11, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PCM - G10 16 x 1,5",
+        "oem": "PCM - G10 16 x 1,5",
+        "name": "16 x 1,5",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 11, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PLM - G10 16 x 1,5",
+        "oem": "PLM - G10 16 x 1,5",
+        "name": "16 x 1,5",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 11, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PCM - G10 22 x 1,5",
+        "oem": "PCM - G10 22 x 1,5",
+        "name": "22 x 1,5",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 11, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PLM - G10 22 x 1,5",
+        "oem": "PLM - G10 22 x 1,5",
+        "name": "22 x 1,5",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 11, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PCM - G12 10 x 1,5",
+        "oem": "PCM - G12 10 x 1,5",
+        "name": "10 x 1,5",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 11, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PLM - G12 10 x 1,5",
+        "oem": "PLM - G12 10 x 1,5",
+        "name": "10 x 1,5",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 11, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PCM - G12 12 x 1,5",
+        "oem": "PCM - G12 12 x 1,5",
+        "name": "12 x 1,5",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 11, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PLM - G12 12 x 1,5",
+        "oem": "PLM - G12 12 x 1,5",
+        "name": "12 x 1,5",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 11, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PCM - G12 14 x 1,5",
+        "oem": "PCM - G12 14 x 1,5",
+        "name": "14 x 1,5",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 11, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PLM - G12 14 x 1,5",
+        "oem": "PLM - G12 14 x 1,5",
+        "name": "14 x 1,5",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 11, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PCM - G12 16 x 1,5",
+        "oem": "PCM - G12 16 x 1,5",
+        "name": "16 x 1,5",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 11, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PLM - G12 16 x 1,5",
+        "oem": "PLM - G12 16 x 1,5",
+        "name": "16 x 1,5",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 11, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PCM - G12 22 x 1,5",
+        "oem": "PCM - G12 22 x 1,5",
+        "name": "22 x 1,5",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 11, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "PLM - G12 22 x 1,5",
+        "oem": "PLM - G12 22 x 1,5",
+        "name": "22 x 1,5",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 11, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "331008510 ABS ÇEMBERİ BPW SAC",
+        "oem": "331008510 ABS ÇEMBERİ BPW SAC",
+        "name": "ABS ÇEMBERİ BPW SAC",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 25, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "331008510 ABS ÇEMBERİ BPW DÖKÜM",
+        "oem": "331008510 ABS ÇEMBERİ BPW DÖKÜM",
+        "name": "ABS ÇEMBERİ BPW DÖKÜM",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 25, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "504181096 IV90.9115 SAĞ SİS KOMPLE",
+        "oem": "504181096 IV90.9115 SAĞ SİS KOMPLE",
+        "name": "IV90.9115 SAĞ SİS KOMPLE",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 36, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "504181096 IV90.9116 SOL SİS KOMPLE",
+        "oem": "504181096 IV90.9116 SOL SİS KOMPLE",
+        "name": "IV90.9116 SOL SİS KOMPLE",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 36, metin katmanindan otomatik cikarildi)"
     }
 ]
