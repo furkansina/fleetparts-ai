@@ -729,12 +729,21 @@ def render_pdf_pages_to_images(pdf_path: str, filename: str = None, already_scan
 # Ürün kodu deseni: harf öneki olabilir (örn. "ORP 4011"), rakam bloğu (3-10 hane - gerçek OEM
 # kodları hem kısa dahili kodlar "4011" hem uzun OEM numaraları "9433340115" olabiliyor, gerçek
 # katalogda doğrulandı), aralarda boşluk/tire olabilir ("101001-0" / "101001 0"), sonda tek
-# harf/hane eki olabilir ("4016 A").
-_CODE_RE = re.compile(r"^[A-ZÇĞİÖŞÜ]{0,5}\s?\d{3,10}([\s\-]\d{1,3})?\s?[A-Z]{0,2}$")
+# harf/hane eki olabilir ("4016 A"). İKİNCİ desen: harf-tire-harf+hane tip kodları ("PCM - G06",
+# "PLM - G10" - metrik rekor/bağlantı tip+ölçü kodları, gerçek katalogda doğrulandı).
+_CODE_RE = re.compile(
+    r"^[A-ZÇĞİÖŞÜ]{0,5}\s?\d{3,10}([\s\-]\d{1,3})?\s?[A-Z]{0,2}$"
+    r"|^[A-ZÇĞİÖŞÜ]{1,6}\s?-\s?[A-ZÇĞİÖŞÜ]{0,2}\d{1,4}$"
+)
 # Aynı hücrede kod ve isim bitişik kalmışsa ("ORP 4016 A Test Aparatı...") ayırmak için.
 _CODE_PREFIX_RE = re.compile(r"^([A-ZÇĞİÖŞÜ]{0,5}\s?\d{3,10}([\s\-]\d{1,3})?\s?[A-Z]{0,2})\s+(.*)$")
 _PRICE_RE = re.compile(r"^₺?\s?[\d.,]+\s?(TL)?$", re.IGNORECASE)
 _TABLE_HEADER_WORDS = {"ürün kodu", "ürün adı", "birim fiyat", "fiyat", "kod", "açıklama", "adet", "stok"}
+# Bazı bağlantı-parçası tablolarında "tip" (harf, hiç rakamsız - ör. "PC", "PL") ve "ölçü"
+# (ör. "1/8 - 04") AYRI hücrelerde duruyor, ikisi birlikte gerçek ürün kodunu oluşturuyor -
+# gerçek katalogda doğrulandı.
+_TYPE_PREFIX_RE = re.compile(r"^[A-ZÇĞİÖŞÜ]{1,4}$")
+_SIZE_SPEC_RE = re.compile(r"^[\d/]+(\s?[-x]\s?[\d/,.]+)+$")
 
 
 def _rows_by_position(page_words: list) -> list:
@@ -763,30 +772,47 @@ def _rows_by_position(page_words: list) -> list:
     return row_cells
 
 
-def _interpret_table_row(cells: list):
-    """Bir satırın hücrelerini (sırası/sayısı değişebilir) kod/isim/fiyat olarak yorumlar."""
+def _interpret_table_row(cells: list) -> list:
+    """Bir satırın hücrelerini kod/isim/fiyat öğelerine yorumlar. TEK satırda BİRDEN FAZLA ürün
+    olabilir (gerçek bir örnekte doğrulandı: sayfada 2 mini-tablo yan yana duruyor, her satırda
+    'KOD1, ölçü1, KOD2, ölçü2' şeklinde 2 ayrı ürün art arda) - her yeni kod hücresi görüldüğünde
+    önceki öğe kapatılıp yeni bir öğe başlatılır, böylece hem tek hem çoklu ürünlü satırlar aynı
+    mantıkla doğru ayrıştırılır."""
     cells = [c for c in cells if turkish_lower(c) not in _TABLE_HEADER_WORDS]
-    if not cells:
-        return None
-    code, name_parts, price = None, [], None
-    for cell in cells:
-        if code is None and _CODE_RE.match(cell):
-            code = cell
+    items = []
+    current = None
+    i = 0
+    while i < len(cells):
+        cell = cells[i]
+        # "PC" + "1/8 - 04" gibi tip+ölçü ayrı hücrelerde ikili kod - birlikte tek kod say.
+        if _TYPE_PREFIX_RE.match(cell) and i + 1 < len(cells) and _SIZE_SPEC_RE.match(cells[i + 1]):
+            if current:
+                items.append(current)
+            current = {"code": f"{cell} {cells[i + 1]}", "name": "", "price": None}
+            i += 2
             continue
-        if code is None:
+        if _CODE_RE.match(cell):
+            if current:
+                items.append(current)
+            current = {"code": cell, "name": "", "price": None}
+            i += 1
+            continue
+        if current is None:
             m = _CODE_PREFIX_RE.match(cell)
             if m:
-                code = m.group(1).strip()
-                if m.group(3).strip():
-                    name_parts.append(m.group(3).strip())
+                current = {"code": m.group(1).strip(), "name": m.group(3).strip(), "price": None}
+                i += 1
                 continue
+            i += 1
+            continue  # kod hiç başlamadan gelen hücre (başlık artığı vb.) - atla
         if _PRICE_RE.match(cell):
-            price = cell
+            current["price"] = cell
         elif cell:
-            name_parts.append(cell)
-    if not code:
-        return None
-    return {"code": code, "name": " ".join(name_parts).strip(), "price": price}
+            current["name"] = (current["name"] + " " + cell).strip()
+        i += 1
+    if current:
+        items.append(current)
+    return items
 
 
 def _try_extract_text_table(page_words: list, min_rows: int = 4, min_coverage: float = 0.6) -> list:
@@ -804,39 +830,53 @@ def _try_extract_text_table(page_words: list, min_rows: int = 4, min_coverage: f
     row_cells = _rows_by_position(page_words)
     if len(row_cells) < min_rows:
         return None
-    interpreted = [_interpret_table_row(r) for r in row_cells]
+    row_items = [_interpret_table_row(r) for r in row_cells]  # her satır -> [] veya [öğe, ...]
 
     # Yetim satır birleştirme: bazı PDF'lerde kod ve isim aynı Y hizasında değil, art arda 2 AYRI
-    # satırda duruyor (gerçek bir örnekte doğrulandı) - bir satırda SADECE kod (isim/fiyat boş),
-    # bitişiğinde SADECE düz metin (kod OLMAYAN) varsa bunları tek ürün say.
-    for i, item in enumerate(interpreted):
-        if not isinstance(item, dict) or item["name"] or item["price"]:
+    # satırda duruyor (gerçek bir örnekte doğrulandı) - bir satırda SADECE (tek) kod (isim/fiyat
+    # boş), bitişiğinde SADECE düz metin (kod OLMAYAN, boş satır) varsa bunları tek ürün say.
+    for i, items in enumerate(row_items):
+        if len(items) != 1 or items[0]["name"] or items[0]["price"]:
             continue
         for j in (i + 1, i - 1):
-            if 0 <= j < len(interpreted) and interpreted[j] is None:
+            if 0 <= j < len(row_items) and row_items[j] == []:
                 candidate = " ".join(row_cells[j]).strip()
                 if candidate and not _CODE_RE.match(candidate) and not _PRICE_RE.match(candidate):
-                    item["name"] = candidate
-                    interpreted[j] = "_MERGED_"
+                    items[0]["name"] = candidate
+                    row_items[j] = "_MERGED_"
                     break
 
-    good = [x for x in interpreted if x is not None and x != "_MERGED_"]
-    merged_count = sum(1 for x in interpreted if x == "_MERGED_")
-    coverage = (len(good) + merged_count) / len(row_cells) if row_cells else 0
-    if coverage < min_coverage or not good:
+    explained = sum(1 for items in row_items if items not in ([], "_MERGED_"))
+    merged_count = sum(1 for items in row_items if items == "_MERGED_")
+    coverage = (explained + merged_count) / len(row_cells) if row_cells else 0
+    all_items = [x for items in row_items if items not in ([], "_MERGED_") for x in items]
+    if coverage < min_coverage or not all_items:
         return None
     # Ne isim ne fiyat bulunan (sadece çıplak bir kod) öğeler anlamsız - muhtemelen karmaşık bir
     # çoklu-kod satırının ayrıştırma artığı, gerçek bir örnekte gözlemlendi. "kod (isim: kod)"
     # gibi anlamsız bir kayıt kataloğa eklenmesin diye bunlar sessizce atılır.
+    #
+    # ÖNEMLİ: bazı bağlantı-parçası tablolarında AYNI "kod" hücresi birden fazla satırda tekrar
+    # eder, çünkü asıl benzersiz tanımlayıcı kod+ölçü İKİSİ birden (ör. "PCM - G06" satırı hem
+    # "12 x 1,5" hem "14 x 1,5" ölçüsüyle ayrı ayrı geçiyor) - gerçek katalogda doğrulandı. Kod
+    # tek başına tekrar edip OEM eşleşmesiyle kataloğun kendi üzerine yazmasını (veri kaybını)
+    # önlemek için, aynı sayfada tekrar eden bir kod görülürse ölçü/isim koda eklenerek
+    # benzersizleştirilir.
+    seen_codes = {}
+    for x in all_items:
+        seen_codes[x["code"]] = seen_codes.get(x["code"], 0) + 1
+
     result = []
-    for x in good:
+    for x in all_items:
         if not x["name"] and not x["price"]:
             continue
-        name = x["name"] or x["code"]
+        code = x["code"]
+        if seen_codes.get(code, 0) > 1 and x["name"]:
+            code = f"{code} {x['name']}"
         result.append({
-            "id": x["code"],
-            "oem": x["code"],
-            "name": name,
+            "id": code,
+            "oem": code,
+            "name": x["name"] or x["code"],
             "brand": "",
             "specs": "",
             "price": x["price"] or "",
