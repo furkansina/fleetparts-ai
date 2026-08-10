@@ -1155,5 +1155,338 @@
         "specs": "PE Metal Tabancalı Iveco",
         "stock": 25,
         "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+    },
+    {
+        "id": "PRC-1050",
+        "oem": "101055-0",
+        "name": "Kabin Temizleme Hortumu PE 5x8 Sarı Reksorsuz",
+        "brand": "",
+        "specs": "PE 5x8 Sarı Reksorsuz",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+    },
+    {
+        "id": "PRC-2841",
+        "oem": "101055-1",
+        "name": "Kabin Temizleme Hortumu PE 5x8 Kırmızı Reksorsuz",
+        "brand": "",
+        "specs": "PE 5x8 Kırmızı Reksorsuz",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+    },
+    {
+        "id": "PRC-9273",
+        "oem": "101055-2",
+        "name": "Kabin Temizleme Hortumu PE 5x8 Mavi Reksorsuz",
+        "brand": "",
+        "specs": "PE 5x8 Mavi Reksorsuz",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+    },
+    {
+        "id": "PRC-4190",
+        "oem": "101055-3",
+        "name": "Kabin Temizleme Hortumu PE 5x8 Siyah Reksorsuz",
+        "brand": "",
+        "specs": "PE 5x8 Siyah Reksorsuz",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+    },
+    {
+        "id": "PRC-6382",
+        "oem": "101056-0",
+        "name": "Kabin Temizleme Hortumu PU 5x8 Sarı Reksorsuz",
+        "brand": "",
+        "specs": "PU 5x8 Sarı Reksorsuz",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+    },
+    {
+        "id": "PRC-5117",
+        "oem": "101056-1",
+        "name": "Kabin Temizleme Hortumu PU 5x8 Kırmızı Reksorsuz",
+        "brand": "",
+        "specs": "PU 5x8 Kırmızı Reksorsuz",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+    },
+    {
+        "id": "PRC-7429",
+        "oem": "101056-2",
+        "name": "Kabin Temizleme Hortumu PU 5x8 Mavi Reksorsuz",
+        "brand": "",
+        "specs": "PU 5x8 Mavi Reksorsuz",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+    },
+    {
+        "id": "PRC-3865",
+        "oem": "101056-3",
+        "name": "Kabin Temizleme Hortumu PU 5x8 Siyah Reksorsuz",
+        "brand": "",
+        "specs": "PU 5x8 Siyah Reksorsuz",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+    },
+    {
+        "id": "PRC-1936",
+        "oem": "101067-0",
+        "name": "6 mt. Lastik Şişirme Hortumu Mandallı",
+        "brand": "",
+        "specs": "6 mt. Lastik Şişirme Hortumu Mandallı",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+    },
+    {
+        "id": "PRC-8254",
+        "oem": "101067-1",
+        "name": "9 mt. Lastik Şişirme Hortumu Mandallı",
+        "brand": "",
+        "specs": "9 mt. Lastik Şişirme Hortumu Mandallı",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+    },
+    {
+        "id": "PRC-4598",
+        "oem": "101067-2",
+        "name": "12 mt. Lastik Şişirme Hortumu Mandallı",
+        "brand": "",
+        "specs": "12 mt. Lastik Şişirme Hortumu Mandallı",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+    },
+    {
+        "id": "PRC-7612",
+        "oem": "101067-3",
+        "name": "13 mt. Lastik Şişirme Hortumu Mandallı",
+        "brand": "",
+        "specs": "13 mt. Lastik Şişirme Hortumu Mandallı",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+    },
+    {
+        "id": "PRC-3047",
+        "oem": "101067-4",
+        "name": "15 mt. Lastik Şişirme Hortumu Mandallı",
+        "brand": "",
+        "specs": "15 mt. Lastik Şişirme Hortumu Mandallı",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+    },
+    {
+        "id": "PRC-9183",
+        "oem": "101067-5",
+        "name": "18 mt. Lastik Şişirme Hortumu Mandallı",
+        "brand": "",
+        "specs": "18 mt. Lastik Şişirme Hortumu Mandallı",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+    },
+    {
+        "id": "PRC-2360",
+        "oem": "101067-6",
+        "name": "20 mt. Lastik Şişirme Hortumu Mandallı",
+        "brand": "",
+        "specs": "20 mt. Lastik Şişirme Hortumu Mandallı",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+    },
+    {
+        "id": "PRC-5891",
+        "oem": "101067-7",
+        "name": "24 mt. Lastik Şişirme Hortumu Mandallı",
+        "brand": "",
+        "specs": "24 mt. Lastik Şişirme Hortumu Mandallı",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+    },
+    {
+        "id": "PRC-4129",
+        "oem": "101069-0",
+        "name": "6 mt. Lastik Şişirme Hortumu Jaklı",
+        "brand": "",
+        "specs": "6 mt. Lastik Şişirme Hortumu Jaklı",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+    },
+    {
+        "id": "PRC-6753",
+        "oem": "101069-1",
+        "name": "9 mt. Lastik Şişirme Hortumu Jaklı",
+        "brand": "",
+        "specs": "9 mt. Lastik Şişirme Hortumu Jaklı",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+    },
+    {
+        "id": "PRC-8340",
+        "oem": "101069-2",
+        "name": "12 mt. Lastik Şişirme Hortumu Jaklı",
+        "brand": "",
+        "specs": "12 mt. Lastik Şişirme Hortumu Jaklı",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+    },
+    {
+        "id": "PRC-1597",
+        "oem": "101069-3",
+        "name": "13 mt. Lastik Şişirme Hortumu Jaklı",
+        "brand": "",
+        "specs": "13 mt. Lastik Şişirme Hortumu Jaklı",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+    },
+    {
+        "id": "PRC-9821",
+        "oem": "101069-4",
+        "name": "15 mt. Lastik Şişirme Hortumu Jaklı",
+        "brand": "",
+        "specs": "15 mt. Lastik Şişirme Hortumu Jaklı",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+    },
+    {
+        "id": "PRC-5038",
+        "oem": "101069-5",
+        "name": "18 mt. Lastik Şişirme Hortumu Jaklı",
+        "brand": "",
+        "specs": "18 mt. Lastik Şişirme Hortumu Jaklı",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+    },
+    {
+        "id": "PRC-2164",
+        "oem": "101069-6",
+        "name": "20 mt. Lastik Şişirme Hortumu Jaklı",
+        "brand": "",
+        "specs": "20 mt. Lastik Şişirme Hortumu Jaklı",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+    },
+    {
+        "id": "PRC-7483",
+        "oem": "101069-7",
+        "name": "24 mt. Lastik Şişirme Hortumu Jaklı",
+        "brand": "",
+        "specs": "24 mt. Lastik Şişirme Hortumu Jaklı",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+    },
+    {
+        "id": "PRC-3915",
+        "oem": "301001 0",
+        "name": "Mazot Depo Kapağı Plastik Yuvarlak",
+        "brand": "",
+        "specs": "Mazot Depo Kapağı Plastik Yuvarlak",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+    },
+    {
+        "id": "PRC-6270",
+        "oem": "301006 0",
+        "name": "Mazot Depo Kapağı Plastik Tırnaklı",
+        "brand": "",
+        "specs": "Mazot Depo Kapağı Plastik Tırnaklı",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+    },
+    {
+        "id": "PRC-4502",
+        "oem": "301006 1",
+        "name": "Mazot Depo Kapağı Döküm Tırnaklı",
+        "brand": "",
+        "specs": "Mazot Depo Kapağı Döküm Tırnaklı",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+    },
+    {
+        "id": "PRC-8136",
+        "oem": "301007 0",
+        "name": "Scania Kilavuzlu Depo Kapağı Krom Çemberli",
+        "brand": "",
+        "specs": "Scania Kilavuzlu Depo Kapağı Krom Çemberli",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+    },
+    {
+        "id": "PRC-5948",
+        "oem": "301011 0",
+        "name": "ADD-Blue Kapak Küçük",
+        "brand": "",
+        "specs": "ADD-Blue Kapak Küçük",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+    },
+    {
+        "id": "PRC-2371",
+        "oem": "301012 0",
+        "name": "ADD-Blue Kapak Büyük",
+        "brand": "",
+        "specs": "ADD-Blue Kapak Büyük",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+    },
+    {
+        "id": "PRC-6859",
+        "oem": "301014 0",
+        "name": "Mazot Depo Kapağı Üstten Açılan",
+        "brand": "",
+        "specs": "Mazot Depo Kapağı Üstten Açılan",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+    },
+    {
+        "id": "PRC-9104",
+        "oem": "301015 0",
+        "name": "Mazot Depo Kapağı Üstten Açılan Axor-Actros Tipi",
+        "brand": "",
+        "specs": "Mazot Depo Kapağı Üstten Açılan Axor-Actros Tipi",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+    },
+    {
+        "id": "PRC-1627",
+        "oem": "301016 0",
+        "name": "Radyatör Kapağı Plastik",
+        "brand": "",
+        "specs": "Radyatör Kapağı Plastik",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+    },
+    {
+        "id": "PRC-4830",
+        "oem": "301017 0",
+        "name": "Radyatör Kapağı Sac 2 Köşe",
+        "brand": "",
+        "specs": "Radyatör Kapağı Sac 2 Köşe",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+    },
+    {
+        "id": "PRC-7291",
+        "oem": "301018 0",
+        "name": "Radyatör Kapağı Sac 4 Köşe",
+        "brand": "",
+        "specs": "Radyatör Kapağı Sac 4 Köşe",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+    },
+    {
+        "id": "PRC-5416",
+        "oem": "301019 0",
+        "name": "Depo Boğazı 80 mm.",
+        "brand": "",
+        "specs": "Depo Boğazı 80 mm.",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
+    },
+    {
+        "id": "PRC-8573",
+        "oem": "301020 0",
+        "name": "Depo Boğazı SCANIA",
+        "brand": "",
+        "specs": "Depo Boğazı SCANIA",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 4)"
     }
 ]
