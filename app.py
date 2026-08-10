@@ -624,15 +624,30 @@ def _scan_catalog_source(filename: str, file_path: str, on_page_done=None) -> li
     çağıran bunu kataloğa ANINDA kaydetmek için kullanır. Çok sayfalı bir PDF ortasında sunucu
     çökerse/yeniden başlarsa (gerçek bir kullanımda oldu - Render kaynak sınırı ya da platform
     kaynaklı olabilir), TÜM dosyanın sonunu beklemek yerine o ana kadar taranan sayfalar zaten
-    kalıcı olarak kaydedilmiş olur - ne veri ne harcanan token boşa gitmez."""
+    kalıcı olarak kaydedilmiş olur - ne veri ne harcanan token boşa gitmez.
+
+    ÖNEMLİ: aynı dosya (aynı orijinal ad) ikinci kez yüklenirse - örn. kota bitip yarıda kalan
+    bir taramayı tamamlamak için - daha önce başarıyla taranmış sayfalar TEKRAR Groq'a
+    gönderilmez, kataloğun kendisinden ('source_file' alanına bakarak) hangi sayfaların zaten
+    işlendiği anlaşılır ve atlanır. Gerçek bir kullanımda tespit edildi: bu kontrol olmadan her
+    yeniden deneme TÜM dosyayı baştan tarıyor, kotayı gereksiz yere 2-3 kat hızlı tüketiyordu."""
     try:
         if filename.lower().endswith(".pdf"):
+            already_scanned = {
+                item.get("source_file") for item in _load_catalog_from_disk()
+                if isinstance(item.get("source_file"), str) and item["source_file"].startswith(f"{filename} (sayfa ")
+            }
             items = []
             for page_num, page_path in enumerate(render_pdf_pages_to_images(file_path), start=1):
+                page_label = f"{filename} (sayfa {page_num})"
+                if page_label in already_scanned:
+                    if os.path.exists(page_path):
+                        os.remove(page_path)
+                    continue
                 try:
                     page_items = call_groq_json_array(CATALOG_SCAN_PROMPT, page_path, pool="bulk")
                     for item in page_items:
-                        item["source_file"] = f"{filename} (sayfa {page_num})"
+                        item["source_file"] = page_label
                     items.extend(page_items)
                     if on_page_done:
                         on_page_done(page_items)
