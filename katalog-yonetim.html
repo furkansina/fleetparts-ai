@@ -110,9 +110,10 @@
     function showUploadProgress(job) {
         const pct = job.total_files ? Math.round((job.done_files / job.total_files) * 100) : 0;
         const current = job.current_file ? ` — şu an: ${esc(job.current_file)}` : '';
+        const pagesInfo = job.pages_done ? ` (${job.pages_done} sayfa tarandı)` : '';
         out.innerHTML = `
-            <div class="loading">Katalog taranıyor: ${job.done_files}/${job.total_files} dosya (%${pct})${current}<span class="dots"></span></div>
-            <div style="color:#888; font-size:12px; margin-top:6px;">Çok sayfalı PDF'ler birkaç dakika sürebilir, sayfayı kapatmadan bekleyin.</div>
+            <div class="loading">Katalog taranıyor: ${job.done_files}/${job.total_files} dosya (%${pct})${pagesInfo}${current}<span class="dots"></span></div>
+            <div style="color:#888; font-size:12px; margin-top:6px;">Çok sayfalı PDF'ler birkaç dakika sürebilir, sayfayı kapatmadan bekleyin. Her sayfa taranır taranmaz hemen kalıcı olarak kaydediliyor, hiçbir ilerleme kaybolmaz.</div>
         `;
     }
 
