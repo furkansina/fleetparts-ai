@@ -82,6 +82,10 @@ _ANKARA_BLOCK_RE = re.compile(
 )
 _ANKARA_PHONE_RE = re.compile(r"Telefon:\s*([0-9][0-9 \-]{8,20})")
 _ANKARA_ADDRESS_RE = re.compile(r"Adres:\s*([^<]{5,150})</td>")
+# Site her firma kaydında "Bu firmanın bilgileri X tarihinde güncellendi" diye açık bir tarih
+# veriyor - bazıları yıllar önce güncellenmiş, hâlâ faaliyette olduğu garanti değil. Bu tarihi
+# çıkarıp lead'e ekliyoruz ki hem arayüzde görülebilsin hem puanlamada eskilik cezası uygulanabilsin.
+_ANKARA_UPDATED_RE = re.compile(r"<strong>(\d{2}\.\d{2}\.\d{4})</strong>\s*\r?\n?\s*tarihinde güncellendi")
 
 _SANKO_BLOCK_RE = re.compile(
     r'<p class="text-orange fw-600 mb-1 fs-16">\s*<span><strong>([^<]+)</strong></span></p>'
@@ -117,6 +121,8 @@ def _parse_ankara(html: str, category_label: str) -> list:
         phone = phone_m.group(1).split("-")[0].strip() if phone_m else ""
         addr_m = _ANKARA_ADDRESS_RE.search(tail)
         address = addr_m.group(1).strip() if addr_m else ""
+        updated_m = _ANKARA_UPDATED_RE.search(tail)
+        source_updated_at = updated_m.group(1) if updated_m else ""
         firm_no = detail_path.rsplit("-f", 1)[-1]
         results.append({
             "site_id": f"ankaraotosanayi_{firm_no}",
@@ -128,6 +134,7 @@ def _parse_ankara(html: str, category_label: str) -> list:
             "address": address,
             "lat": None,
             "lon": None,
+            "source_updated_at": source_updated_at,
         })
     return results
 
