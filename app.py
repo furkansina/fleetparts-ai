@@ -187,7 +187,7 @@ def _resolve_key_chain(pool: str, use_secondary_model: bool) -> list:
         chain.append(("customer2", GROQ_API_KEY_THIRD))
     return chain
 
-def call_groq_api(prompt: str, image_path: str = None, use_secondary_model: bool = False, pool: str = "customer") -> str:
+def call_groq_api(prompt: str, image_path: str = None, use_secondary_model: bool = False, pool: str = "customer", max_output_tokens: int = None) -> str:
     """Groq (OpenAI uyumlu) chat completions uç noktasına istek atan evrensel bağlantı yöneticisi.
     Varsayılan olarak HER ŞEY kanıtlanmış qwen modelinde kalır (müşteriye giden satış mesajı, eşleştirme
     gibi kritik çıktılarda kalite/güvenilirlik kotadan daha önemli). Sadece açıkça `use_secondary_model=True`
@@ -232,7 +232,10 @@ def call_groq_api(prompt: str, image_path: str = None, use_secondary_model: bool
         model = GROQ_VISION_MODEL
         # Metin tabanlı çağrılar (satış mesajı, eşleştirme kararı) çok daha kısa çıktı üretir -
         # düşük tutmak dakikalık kotadan (TPM) daha az pay harcar, diğer isteklere yer bırakır.
-        payload = {"model": model, "reasoning_effort": "none", "max_tokens": 2500, "messages": [{"role": "user", "content": prompt}]}
+        # max_output_tokens verilirse (ör. bir sayfa dolusu ürün listesi çıkarımı) bu varsayılan
+        # aşılır - görsel girdi olmadığı için (bu dal sadece metin) TPM bütçesinde zaten daha çok
+        # boşluk var, görsel yoldan (4500) daha fazlasına bile izin verilebilir.
+        payload = {"model": model, "reasoning_effort": "none", "max_tokens": max_output_tokens or 2500, "messages": [{"role": "user", "content": prompt}]}
     last_error = ""
     daily_exhausted_count = 0
     for key_label, api_key in key_chain:
@@ -626,6 +629,51 @@ SADECE şu JSON yapısında bir DİZİ (array) döndür, başka hiçbir şey yaz
 ]
 """
 
+# KADEMELİ TARAMA - ORTA KATMAN: sabit regex kalıpları (_try_extract_text_table) her PDF
+# düzenini tanıyamaz - kullanıcı "çok farklı katalog atacağım, her birinde çalışmalı" dediği için
+# her yeni format için elle yeni bir regex eklemek ölçeklenmez (kök neden bu). Regex başarısız
+# olduğunda ama sayfanın GERÇEK bir metin katmanı varsa, görseli Groq'a göndermek yerine
+# ÇIKARILMIŞ METNİ gönderiyoruz - görsel girdi ~2500-3000 token tutarken metin girdisi genelde
+# birkaç yüz token tutuyor (çok daha ucuz), ÜSTELİK Groq'un kendi anlama gücü sayede regex'in
+# tanımadığı HERHANGİ bir tablo/liste düzenini de çözebiliyor - yeni bir kod yazmaya gerek kalmaz.
+CATALOG_TEXT_SCAN_PROMPT_TEMPLATE = """
+Aşağıda bir ağır vasıta yedek parça kataloğu/fiyat listesi PDF sayfasından çıkarılmış metin var.
+Satırlar 'satır: hücre1 | hücre2 | hücre3' formatında - PDF'teki gerçek konuma göre satır/hücre
+olarak yeniden yapılandırıldı (sütun sırası/sayısı düzenden düzene değişebilir).
+
+METİN:
+---
+{page_text}
+---
+
+Bu metindeki HER ürünü/parçayı çıkar. Her satır genelde bir ürün kodu, ürün adı/ölçüsü ve
+(varsa) fiyat içerir - ama düzen sayfadan sayfaya değişebilir, örüntüyü kendin anlamaya çalış.
+Bir satırda birden fazla ürün yan yana olabilir (ör. iki mini-tablo yan yana duruyorsa). Metinde
+hiç ürün/kod YOKSA (başlık sayfası, düz açıklama metni, teknik çizim notu vb.) boş liste döndür.
+
+SADECE şu JSON yapısında bir DİZİ döndür, başka hiçbir şey yazma:
+[
+    {{
+        "id": "PRC-" + rasgele 4 haneli sayı,
+        "oem": "Parçanın kod/OEM numarası (Yoksa 'OEM-BELİRSİZ')",
+        "name": "Parçanın adı (varsa ölçü/renk/varyant bilgisiyle birlikte)",
+        "brand": "SADECE metinde açıkça yazılı üretici/marka adı - yoksa/emin değilsen kesinlikle boş string",
+        "specs": "Ölçüler, bağlantı tipi, malzeme ve diğer teknik detaylar",
+        "price": "Metinde açıkça yazılı fiyat varsa aynen yaz - yoksa kesinlikle boş string, ASLA fiyat uydurma",
+        "stock": 1
+    }}
+]
+"""
+
+
+def _page_words_to_text_block(page_words: list) -> str:
+    """Konumlu kelimeleri (satır/hücre olarak yeniden inşa edilmiş) Groq'un okuyabileceği düz bir
+    metin bloğuna çevirir - _rows_by_position ile aynı satır/hücre mantığını kullanır, böylece
+    regex'in çözemediği bir düzende bile Groq'a en azından DOĞRU SIRALANMIŞ satırlar gider."""
+    row_cells = _rows_by_position(page_words)
+    lines = [f"satır {i + 1}: " + " | ".join(cells) for i, cells in enumerate(row_cells)]
+    return "\n".join(lines)
+
 def _salvage_partial_json_objects(text: str) -> list:
     """Model yanıtı (çok yoğun/kalabalık bir sayfa yüzünden) max_tokens sınırına takılıp
     yarıda kesilirse, dizinin kapanış ']' işareti hiç gelmez ve normal json.loads tamamen
@@ -682,10 +730,10 @@ def extract_json_array(raw_text: str) -> list:
         raise ValueError(f"Yanıtta geçerli JSON dizisi bulunamadı: {raw_text[:200]!r}")
     return salvaged
 
-def call_groq_json_array(prompt: str, image_path: str = None, use_secondary_model: bool = False, pool: str = "customer") -> list:
+def call_groq_json_array(prompt: str, image_path: str = None, use_secondary_model: bool = False, pool: str = "customer", max_output_tokens: int = None) -> list:
     last_error = None
     for attempt in range(2):
-        raw_text = call_groq_api(prompt, image_path, use_secondary_model=use_secondary_model, pool=pool)
+        raw_text = call_groq_api(prompt, image_path, use_secondary_model=use_secondary_model, pool=pool, max_output_tokens=max_output_tokens)
         try:
             return extract_json_array(raw_text)
         except (ValueError, json.JSONDecodeError) as e:
@@ -941,11 +989,27 @@ def _scan_catalog_source(filename: str, file_path: str, on_page_done=None) -> li
             items = []
             for _page_num, page_label, page_path, page_words in render_pdf_pages_to_images(file_path, filename=filename, already_scanned=already_scanned):
                 try:
-                    # ÖNCE ücretsiz yolu dene: sayfanın gerçek bir metin katmanı varsa (taranmış
-                    # görsel değil, dijital olarak oluşturulmuş bir fiyat listesi/katalogsa - gerçek
-                    # kullanımda çok yaygın çıktı) Groq'a HİÇ gitmeden anında ve bedavaya çıkarılır.
-                    # Güvenilir bir eşleşme yoksa (None) normal yapay zeka taramasına düşülür.
+                    # 3 KADEMELİ TARAMA (en ucuzdan en pahalıya):
+                    # 1) ÜCRETSİZ: sabit regex/konum kalıpları (_try_extract_text_table) - sayfanın
+                    #    gerçek bir metin katmanı varsa ve düzen daha önce görülmüş bir kalıba
+                    #    uyuyorsa Groq'a HİÇ gitmeden anında ve bedavaya çıkarılır.
+                    # 2) UCUZ AI: regex tanıyamadı ama metin katmanı VARSA, sayfanın GÖRSELİ yerine
+                    #    ÇIKARILMIŞ METNİ Groq'a gönderilir - metin girdisi görselden çok daha az
+                    #    token tutar, ÜSTELİK Groq regex'in tanımadığı HERHANGİ bir tablo düzenini
+                    #    de anlayabilir - kullanıcı "çok farklı katalog atacağım" dediği için yeni
+                    #    her format için elle regex eklemek yerine bu kademe genel çözümü sağlar.
+                    # 3) PAHALI AI GÖRSEL: sayfada hiç metin katmanı yoksa (gerçekten taranmış bir
+                    #    görsel/fotoğrafsa) tek çare budur, eskisi gibi çalışır.
                     page_items = _try_extract_text_table(page_words)
+                    if page_items is None and page_words:
+                        text_block = _page_words_to_text_block(page_words)
+                        prompt = CATALOG_TEXT_SCAN_PROMPT_TEMPLATE.format(page_text=text_block)
+                        try:
+                            # Görsel yok, TPM bütçesinde daha fazla boşluk var - 4500'den (görsel
+                            # yolu) daha yüksek bir çıktı sınırı verilebilir, yoğun sayfalar için.
+                            page_items = call_groq_json_array(prompt, pool="bulk", max_output_tokens=6000)
+                        except Exception:
+                            page_items = None  # metin tabanlı deneme de başarısız oldu - görsel yola düş
                     if page_items is None:
                         page_items = call_groq_json_array(CATALOG_SCAN_PROMPT, page_path, pool="bulk")
                     for item in page_items:
