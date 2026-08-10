@@ -199,6 +199,19 @@ def _resolve_key_chain(pool: str, use_secondary_model: bool) -> list:
     chain.extend(GROQ_EXTRA_KEYS)
     return chain
 
+def _customer_safe_error(e: Exception) -> str:
+    """Müşteriye gösterilecek hata mesajını temizler. `call_groq_api`'nin bazı dallarında Groq'un
+    HAM HTTP yanıt gövdesi hata mesajına gömülüyor (ör. 'Groq isteği başarısız oldu: HTTP 500 ...:
+    {ham json}') - bu, kurum/iç kimlik bilgisi gibi teknik detaylar içerebilir ve doğrudan
+    müşteriye gösterilmemeli. Elle yazılmış, zaten müşteriye uygun olan mesajlar (ör. 'kota doldu')
+    olduğu gibi geçer; ham/teknik olanlar genel, güvenli bir mesajla değiştirilir."""
+    msg = str(e)
+    raw_technical_markers = ("Groq isteği başarısız oldu", "Groq Bağlantı Hatası", "Model geçerli JSON")
+    if any(marker in msg for marker in raw_technical_markers):
+        return "Şu anda bu işlemi tamamlayamadık. Lütfen birkaç dakika sonra tekrar deneyin ya da OEM kodu/parça adıyla arayın."
+    return msg
+
+
 def call_groq_api(prompt: str, image_path: str = None, use_secondary_model: bool = False, pool: str = "customer", max_output_tokens: int = None) -> str:
     """Groq (OpenAI uyumlu) chat completions uç noktasına istek atan evrensel bağlantı yöneticisi.
     Varsayılan olarak HER ŞEY kanıtlanmış qwen modelinde kalır (müşteriye giden satış mesajı, eşleştirme
@@ -1803,7 +1816,7 @@ def process_part(
             }
         }
     except Exception as e:
-        return {"status": "error", "message": f"Kritik Sistem Hatası: {str(e)}"}
+        return {"status": "error", "message": f"Kritik Sistem Hatası: {_customer_safe_error(e)}"}
     finally:
         if file_path and os.path.exists(file_path):
             try:
