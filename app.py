@@ -931,6 +931,7 @@ def get_upload_catalog_status(job_id: str, _: str = Depends(require_admin)):
             # korkutmak yerine ne yapması gerektiğini net söylüyoruz.
             return {
                 "status": "error",
+                "resumable": True,
                 "message": "Sunucu tarama sırasında yeniden başlamış olabilir. Merak etme, o ana kadar taranan sayfalar zaten kalıcı olarak kaydedildi (\"Şu Anki Kataloğu Görüntüle\" ile kontrol edebilirsin). Aynı dosyayı tekrar yüklersen zaten eklenmiş ürünler tekrar eklenmez, sadece kalanlar taranır."
             }
         return dict(job)
