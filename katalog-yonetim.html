@@ -31,6 +31,7 @@
         .badge-oem { background: #e9ecef; color: #495057; font-family: monospace; }
         .badge-stock { background: #d4edda; color: #155724; }
         .badge-stock.zero { background: #f8d7da; color: #721c24; }
+        .badge-price { background: #fff3cd; color: #856404; font-weight: bold; }
 
         .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; margin-top: 10px; }
         .catalog-item { background: white; border: 1px solid #e2e2e2; border-radius: 8px; padding: 14px; box-shadow: 0 2px 4px rgba(0,0,0,0.04); }
@@ -91,7 +92,7 @@
                     <h4 style="flex:1;">${esc(item.name)}</h4>
                     ${deleteBtn}
                 </div>
-                <div><span class="badge badge-oem">${esc(item.oem)}</span> <span class="badge badge-stock ${(item.stock ?? 0) == 0 ? 'zero' : ''}">${esc(item.stock ?? 0)} adet</span></div>
+                <div><span class="badge badge-oem">${esc(item.oem)}</span> <span class="badge badge-stock ${(item.stock ?? 0) == 0 ? 'zero' : ''}">${esc(item.stock ?? 0)} adet</span>${item.price ? ` <span class="badge badge-price">${esc(item.price)}</span>` : ''}</div>
                 <div style="margin-top:6px; color:#555; font-size:13px;">${esc(item.brand || '')}</div>
                 <div class="specs">${esc(item.specs || '')}</div>
                 ${item.source_file ? `<div style="margin-top:6px; color:#999; font-size:11.5px;">📄 ${esc(item.source_file)}</div>` : ''}
