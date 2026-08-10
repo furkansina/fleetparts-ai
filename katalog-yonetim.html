@@ -58,6 +58,11 @@
     </div>
 
     <div class="section">
+        <h3>Yüklenmiş Kataloglar</h3>
+        <div id="catalogSourcesList"><span class="placeholder">Yükleniyor...</span></div>
+    </div>
+
+    <div class="section">
         <h3>Sonuçlar</h3>
         <div id="output"><span class="placeholder">İşlem bekleniyor...</span></div>
     </div>
@@ -82,6 +87,14 @@
     // liste bellekte tutulup isim/OEM/marka/kaynak dosyaya göre ANINDA (sunucuya gitmeden) filtrelenir.
     let allCatalogItems = [];
 
+    function sourceFilesHtml(item) {
+        // Bir ürün birden fazla katalogda geçiyorsa (aynı OEM, farklı yükleme) HEPSİ gösterilir -
+        // tek kaynak varsa eskisi gibi tek satır, birden fazlaysa hepsi alt alta listelenir.
+        const sources = (item.source_files && item.source_files.length) ? item.source_files : (item.source_file ? [item.source_file] : []);
+        if (!sources.length) return '';
+        return `<div style="margin-top:6px; color:#999; font-size:11.5px;">${sources.map(s => `📄 ${esc(s)}`).join('<br>')}</div>`;
+    }
+
     function catalogItemCardHtml(item, withDelete) {
         const deleteBtn = withDelete
             ? `<button type="button" class="btn-del" onclick="deleteCatalogItem('${esc(String(item.id)).replace(/'/g, "\\'")}')" title="Bu kaydı sil">🗑</button>`
@@ -95,15 +108,52 @@
                 <div><span class="badge badge-oem">${esc(item.oem)}</span> <span class="badge badge-stock ${(item.stock ?? 0) == 0 ? 'zero' : ''}">${esc(item.stock ?? 0)} adet</span>${item.price ? ` <span class="badge badge-price">${esc(item.price)}</span>` : ''}</div>
                 <div style="margin-top:6px; color:#555; font-size:13px;">${esc(item.brand || '')}</div>
                 <div class="specs">${esc(item.specs || '')}</div>
-                ${item.source_file ? `<div style="margin-top:6px; color:#999; font-size:11.5px;">📄 ${esc(item.source_file)}</div>` : ''}
+                ${sourceFilesHtml(item)}
             </div>
         `;
     }
 
+    async function loadCatalogSources() {
+        const el = document.getElementById('catalogSourcesList');
+        try {
+            const data = await fetchJson('/catalog-sources');
+            const sources = data.sources || [];
+            if (!sources.length) {
+                el.innerHTML = `<span class="placeholder">Henüz katalog yüklenmemiş.</span>`;
+                return;
+            }
+            el.innerHTML = sources.map(s => `
+                <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid #eee;">
+                    <span>📄 ${esc(s.name)} <span style="color:#888; font-size:12.5px;">(${s.count} ürün)</span></span>
+                    <button type="button" class="btn-del" onclick="deleteCatalogSource('${esc(s.name).replace(/'/g, "\\'")}')" title="Bu kataloğu tamamen kaldır">✕ Kaldır</button>
+                </div>
+            `).join('');
+        } catch (err) {
+            el.innerHTML = `<span class="placeholder">Katalog listesi yüklenemedi: ${esc(err.message || String(err))}</span>`;
+        }
+    }
+
+    async function deleteCatalogSource(name) {
+        if (!confirm(`'${name}' kataloğunu kaldırmak istediğine emin misin?\n\nSadece bu katalogda olan ürünler tamamen silinir; başka bir katalogda da geçen ürünler kalır (sadece bu kataloğun referansı kaldırılır).`)) return;
+        try {
+            const fd = new FormData();
+            fd.append('source_name', name);
+            const data = await fetchJson('/delete-catalog-source', { method: 'POST', body: fd });
+            if (data.status !== 'success') { alert(data.message || 'Silinemedi.'); return; }
+            alert(data.message);
+            loadCatalogSources();
+            if (allCatalogItems.length) checkCatalog();
+        } catch (err) {
+            alert(err.message || String(err));
+        }
+    }
+    loadCatalogSources();
+
     function renderFilteredCatalog(filterText) {
         const q = (filterText || '').trim().toLocaleLowerCase('tr-TR');
         const filtered = !q ? allCatalogItems : allCatalogItems.filter(item => {
-            const hay = `${item.name || ''} ${item.oem || ''} ${item.id || ''} ${item.brand || ''} ${item.specs || ''} ${item.source_file || ''}`.toLocaleLowerCase('tr-TR');
+            const sources = (item.source_files && item.source_files.length) ? item.source_files.join(' ') : (item.source_file || '');
+            const hay = `${item.name || ''} ${item.oem || ''} ${item.id || ''} ${item.brand || ''} ${item.specs || ''} ${sources}`.toLocaleLowerCase('tr-TR');
             return hay.includes(q);
         });
         const grid = document.getElementById('catalogGrid');
