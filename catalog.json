@@ -921,5 +921,239 @@
         "specs": "Georg Fischer tır bağlantı ekipmanı",
         "stock": 7,
         "source_file": "GÖÇMEN KATALOG .pdf (sayfa 1)"
+    },
+    {
+        "id": "PRC-6957",
+        "oem": "101038-0",
+        "name": "Fren Hava Hortumu Sarı 5,5mt M16x1.5",
+        "brand": "",
+        "specs": "Sarı 5,5mt M16x1.5",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+    },
+    {
+        "id": "PRC-7029",
+        "oem": "101038-1",
+        "name": "Fren Hava Hortumu Kırmızı 5,5mt M16x1.5",
+        "brand": "",
+        "specs": "Kırmızı 5,5mt M16x1.5",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+    },
+    {
+        "id": "PRC-9911",
+        "oem": "101038-2",
+        "name": "Fren Hava Hortumu Mavi 5,5mt M16x1.5",
+        "brand": "",
+        "specs": "Mavi 5,5mt M16x1.5",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+    },
+    {
+        "id": "PRC-4828",
+        "oem": "101038-4",
+        "name": "Fren Hava Hortumu Siyah/Sarı 5,5mt M16x1.5",
+        "brand": "",
+        "specs": "Siyah/Sarı 5,5mt M16x1.5",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+    },
+    {
+        "id": "PRC-3545",
+        "oem": "101038-5",
+        "name": "Fren Hava Hortumu Siyah/Kırmızı 5,5mt M16x1.5",
+        "brand": "",
+        "specs": "Siyah/Kırmızı 5,5mt M16x1.5",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+    },
+    {
+        "id": "PRC-7584",
+        "oem": "101039-0",
+        "name": "Fren Hava Hortumu Sarı 5,5mt M22x1.5",
+        "brand": "",
+        "specs": "Sarı 5,5mt M22x1.5",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+    },
+    {
+        "id": "PRC-6866",
+        "oem": "101039-1",
+        "name": "Fren Hava Hortumu Kırmızı 5,5mt M22x1.5",
+        "brand": "",
+        "specs": "Kırmızı 5,5mt M22x1.5",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+    },
+    {
+        "id": "PRC-4152",
+        "oem": "101039-2",
+        "name": "Fren Hava Hortumu Mavi 5,5mt M22x1.5",
+        "brand": "",
+        "specs": "Mavi 5,5mt M22x1.5",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+    },
+    {
+        "id": "PRC-3302",
+        "oem": "101039-4",
+        "name": "Fren Hava Hortumu Siyah/Sarı 5,5mt M22x1.5",
+        "brand": "",
+        "specs": "Siyah/Sarı 5,5mt M22x1.5",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+    },
+    {
+        "id": "PRC-5712",
+        "oem": "101039-5",
+        "name": "Fren Hava Hortumu Siyah/Kırmızı 5,5mt M22x1.5",
+        "brand": "",
+        "specs": "Siyah/Kırmızı 5,5mt M22x1.5",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+    },
+    {
+        "id": "PRC-9132",
+        "oem": "101042-0",
+        "name": "Kabin Temizleme Hortumu PE Plastik Tabancalı Rekorsuz",
+        "brand": "",
+        "specs": "PE Plastik Tabancalı Rekorsuz",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+    },
+    {
+        "id": "PRC-2713",
+        "oem": "101042-1",
+        "name": "Kabin Temizleme Hortumu PE Plastik Tabancalı 7/16\"",
+        "brand": "",
+        "specs": "PE Plastik Tabancalı 7/16\"",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+    },
+    {
+        "id": "PRC-5052",
+        "oem": "101042-2",
+        "name": "Kabin Temizleme Hortumu PE Plastik Tabancalı M12x1.5",
+        "brand": "",
+        "specs": "PE Plastik Tabancalı M12x1.5",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+    },
+    {
+        "id": "PRC-2093",
+        "oem": "101042-3",
+        "name": "Kabin Temizleme Hortumu PE Plastik Tabancalı Axor",
+        "brand": "",
+        "specs": "PE Plastik Tabancalı Axor",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+    },
+    {
+        "id": "PRC-1067",
+        "oem": "101042-4",
+        "name": "Kabin Temizleme Hortumu PE Plastik Tabancalı Actros",
+        "brand": "",
+        "specs": "PE Plastik Tabancalı Actros",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+    },
+    {
+        "id": "PRC-4659",
+        "oem": "101042-5",
+        "name": "Kabin Temizleme Hortumu PE Plastik Tabancalı Scania",
+        "brand": "",
+        "specs": "PE Plastik Tabancalı Scania",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+    },
+    {
+        "id": "PRC-9361",
+        "oem": "101042-6",
+        "name": "Kabin Temizleme Hortumu PE Plastik Tabancalı Renault",
+        "brand": "",
+        "specs": "PE Plastik Tabancalı Renault",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+    },
+    {
+        "id": "PRC-2029",
+        "oem": "101042-7",
+        "name": "Kabin Temizleme Hortumu PE Plastik Tabancalı Iveco",
+        "brand": "",
+        "specs": "PE Plastik Tabancalı Iveco",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+    },
+    {
+        "id": "PRC-7025",
+        "oem": "101045-0",
+        "name": "Kabin Temizleme Hortumu PE Metal Tabancalı Rekorsuz",
+        "brand": "",
+        "specs": "PE Metal Tabancalı Rekorsuz",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+    },
+    {
+        "id": "PRC-7765",
+        "oem": "101045-1",
+        "name": "Kabin Temizleme Hortumu PE Metal Tabancalı 7/16\"",
+        "brand": "",
+        "specs": "PE Metal Tabancalı 7/16\"",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+    },
+    {
+        "id": "PRC-5801",
+        "oem": "101045-2",
+        "name": "Kabin Temizleme Hortumu PE Metal Tabancalı M12x1.5",
+        "brand": "",
+        "specs": "PE Metal Tabancalı M12x1.5",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+    },
+    {
+        "id": "PRC-4050",
+        "oem": "101045-3",
+        "name": "Kabin Temizleme Hortumu PE Metal Tabancalı Axor",
+        "brand": "",
+        "specs": "PE Metal Tabancalı Axor",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+    },
+    {
+        "id": "PRC-6537",
+        "oem": "101045-4",
+        "name": "Kabin Temizleme Hortumu PE Metal Tabancalı Actros",
+        "brand": "",
+        "specs": "PE Metal Tabancalı Actros",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+    },
+    {
+        "id": "PRC-4528",
+        "oem": "101045-5",
+        "name": "Kabin Temizleme Hortumu PE Metal Tabancalı Scania",
+        "brand": "",
+        "specs": "PE Metal Tabancalı Scania",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+    },
+    {
+        "id": "PRC-9429",
+        "oem": "101045-6",
+        "name": "Kabin Temizleme Hortumu PE Metal Tabancalı Renault",
+        "brand": "",
+        "specs": "PE Metal Tabancalı Renault",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
+    },
+    {
+        "id": "PRC-6705",
+        "oem": "101045-7",
+        "name": "Kabin Temizleme Hortumu PE Metal Tabancalı Iveco",
+        "brand": "",
+        "specs": "PE Metal Tabancalı Iveco",
+        "stock": 25,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 3)"
     }
 ]
