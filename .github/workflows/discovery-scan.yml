@@ -24,7 +24,12 @@ jobs:
 
       - name: Taramayı çalıştır
         run: python scripts/run_discovery.py
-        timeout-minutes: 45
+        # NOT: 45dk gercek bir kosuda YETERSIZ cikti (2026-08-10) - Overpass sunuculari o gun
+        # cok yavasti, eklenen retry/backoff mantigi (veri kaybini onlemek icin gerekli) taramayi
+        # guvenilir ama daha uzun surdurebiliyor. Is "if: always()" ile commit adimina her turlu
+        # ulasiyor (yarim kalsa bile o ana kadarki ilerleme kaybolmuyor), ama zaman asimina
+        # ugramadan TAM bitmesi icin bolluk payi verildi.
+        timeout-minutes: 150
 
       - name: Değişiklikleri commit et
         if: always()
