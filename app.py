@@ -564,6 +564,22 @@ def read_katalog():
 def get_catalog_endpoint():
     return {"catalog": load_catalog(), "files": os.listdir(CATALOG_DIR)}
 
+@app.post("/delete-catalog-item")
+def delete_catalog_item(item_id: str = Form(...), _: str = Depends(require_admin)):
+    """Yapay zeka taramasının ürettiği hatalı/alakasız bir kaydı (ör. bir kapak sayfasındaki
+    logonun yanlışlıkla parça sanılması) katalogdan çıkarmak için - eskiden bunun için hiçbir
+    yol yoktu, kötü bir kayıt kalıcı olarak katalogda takılı kalıyordu."""
+    with CATALOG_WRITE_LOCK:
+        catalog = _load_catalog_from_disk()
+        new_catalog = [item for item in catalog if str(item.get("id")) != str(item_id)]
+        if len(new_catalog) == len(catalog):
+            return {"status": "error", "message": f"'{item_id}' id'li bir kayıt bulunamadı."}
+        save_catalog(new_catalog)
+    sync_catalog_to_github()
+    _catalog_cache["data"] = new_catalog
+    _catalog_cache["fetched_at"] = time.time()
+    return {"status": "success", "message": "Kayıt silindi.", "remaining": len(new_catalog)}
+
 @app.get("/katalog-yonetim", response_class=HTMLResponse)
 def read_katalog_yonetim(_: str = Depends(require_admin)):
     """Katalog yükleme/görüntüleme - eskiden herkese açık ana sayfadaydı (index.html), gerçek bir
@@ -1412,6 +1428,14 @@ def process_part(
         if file:
             with open(file_path, "wb") as buffer:
                 shutil.copyfileobj(file.file, buffer)
+
+            # Katalog yüklemesiyle aynı sınır (Groq görsel API'sinin kabul ettiği sabit boyut) -
+            # eskiden burada hiç kontrol yoktu, modern bir telefonun ham/yüksek çözünürlüklü
+            # fotoğrafı (20MB+) hem gereksiz yere yavaş base64 kodlamaya hem de Groq'tan anlamsız
+            # bir hataya yol açabilirdi; müşteriye net bir mesajla erken kesiyoruz.
+            size_mb = os.path.getsize(file_path) / (1024 * 1024)
+            if size_mb > MAX_UPLOAD_MB:
+                return {"status": "error", "message": f"Fotoğraf çok büyük ({size_mb:.1f}MB, {MAX_UPLOAD_MB}MB sınırını aşıyor). Lütfen daha düşük çözünürlükte veya sıkıştırılmış bir fotoğraf yükleyin."}
 
             # 1. Aşama: Evrensel Endüstriyel Tarama & OCR
             vision_res = vision_agent(file_path)
