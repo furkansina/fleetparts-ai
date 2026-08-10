@@ -11,7 +11,13 @@ GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
 GITHUB_REPO = os.environ.get("GITHUB_REPO", "")
 
 USAGE_FILE = "token_usage.json"
-DAILY_TOKEN_BUDGET = 200000  # Groq ücretsiz kotanın (hesap başına) günlük token sınırı
+# Groq'un console.groq.com/settings/limits panelinden DOĞRULANDI (2026-08-10, qwen/qwen3.6-27b):
+# 30 istek/dk, 1000 istek/gün, 8000 token/dk, 200.000 token/gün. Token sınırı zaten doğru
+# tahmin edilmişti; asıl GÖZDEN KAÇAN sınır GÜNLÜK İSTEK SAYISIYDI (aşağıda DAILY_REQUEST_BUDGET) -
+# "kota bitti" hatalarının bir kısmının aslında token değil istek sınırından kaynaklanmış
+# olabileceği ihtimali bunun eklenmesiyle artık takip edilebiliyor.
+DAILY_TOKEN_BUDGET = 200000    # Groq ücretsiz kotanın (hesap başına) günlük TOKEN sınırı (TPD)
+DAILY_REQUEST_BUDGET = 1000    # Groq ücretsiz kotanın (hesap başına) günlük İSTEK sayısı sınırı (RPD)
 
 _lock = threading.Lock()
 _cache = {"data": None, "fetched_at": 0}
@@ -179,6 +185,8 @@ def get_today_usage() -> dict:
                 "budget": DAILY_TOKEN_BUDGET,
                 "remaining_estimate": max(0, DAILY_TOKEN_BUDGET - p["total_tokens"]),
                 "percent_used": round(100 * p["total_tokens"] / DAILY_TOKEN_BUDGET, 1),
+                "request_budget": DAILY_REQUEST_BUDGET,
+                "requests_remaining_estimate": max(0, DAILY_REQUEST_BUDGET - p["call_count"]),
             }
 
         result["total_tokens"] = result["customer"]["total_tokens"]
