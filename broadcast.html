@@ -371,10 +371,48 @@
                     <button class="btn-confirm" onclick="confirmSentCurrent()" ${queueOpenedCurrent ? '' : 'disabled title="Önce WhatsApp\'ta açıp gönderin"'}>✓ Gönderdim</button>
                     <button class="btn-skip" onclick="skipCurrent()">⏭️ Atla</button>
                 </div>
+                ${apiConfigured ? `
+                <div class="btn-row" style="margin-top:8px; border-top:1px solid #eee; padding-top:8px;">
+                    <button class="btn-ai" onclick="sendRemainingViaApi()">🤖 Kalan ${queue.length - queueIndex} Kişiyi Otomatik Gönder (API)</button>
+                </div>
+                ` : ''}
             </div>
         `;
         renderTodayStats();
     }
+
+    async function sendRemainingViaApi() {
+        const remaining = queue.slice(queueIndex);
+        if (remaining.length === 0) return;
+        if (!confirm(`${remaining.length} kişiye WhatsApp Business API üzerinden onaylı şablonla otomatik gönderim yapılacak. Devam edilsin mi?`)) return;
+        const btn = event.target;
+        btn.disabled = true;
+        btn.textContent = 'Gönderiliyor...';
+        try {
+            const res = await fetch('/broadcast/send-via-api', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: 'contacts=' + encodeURIComponent(JSON.stringify(remaining.map(c => ({ name: c.name, phone: c.phone })))),
+            });
+            const data = await res.json();
+            if (data.status !== 'success') { alert('Hata: ' + data.message); btn.disabled = false; return; }
+            (data.results || []).forEach((r, i) => {
+                if (r.status === 'success') {
+                    appendSentLog({ name: remaining[i].name, phone: remaining[i].phone, message: remaining[i].message, sentAt: new Date().toISOString(), via: 'api' });
+                }
+            });
+            queueIndex = queue.length;
+            queueSentCount += data.sent;
+            saveQueueState();
+            alert(`${data.sent} kişiye gönderildi, ${data.failed} başarısız oldu.`);
+            renderQueue();
+        } catch (err) {
+            alert('İstek başarısız: ' + err.message);
+            btn.disabled = false;
+            btn.textContent = '🤖 Kalanları Otomatik Gönder (API)';
+        }
+    }
+    window.sendRemainingViaApi = sendRemainingViaApi;
 
     function openWhatsAppForCurrent() {
         const c = queue[queueIndex];
@@ -596,6 +634,12 @@
     loadUsageBadge();
     renderResumeBanner();
     renderTodayStats();
+
+    // WhatsApp Business Platform (Cloud API) yapılandırılmışsa (WHATSAPP_BUSINESS_TOKEN vb.)
+    // kuyrukta otomatik gönderim seçeneği belirir - yapılandırılmadığı sürece (şu anki durum)
+    // hiçbir şey değişmez, mevcut elle wa.me akışı aynen çalışmaya devam eder.
+    let apiConfigured = false;
+    fetch('/whatsapp-api-status').then(r => r.json()).then(d => { apiConfigured = !!d.configured; if (queueActive) renderQueue(); }).catch(() => {});
 
     // Kuyruk aktifken sekmeyi kapatma/yenileme öncesi ekstra bir uyarı - localStorage zaten ilerlemeyi
     // kaydediyor ama kullanıcı yine de bilerek ayrılsın diye (tarayıcılar özel metni göstermese de
