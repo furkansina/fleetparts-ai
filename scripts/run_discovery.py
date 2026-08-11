@@ -17,7 +17,7 @@ from lead_sources_sanayisitesi_platform import search_all as search_sanayisitesi
 from lead_sources_find_com_tr import search_all as search_find_com_tr
 import lead_sources_google_places
 from lead_scoring import score_lead
-from lead_dedupe import dedupe_key
+from lead_dedupe import dedupe_key, sanitize_phone
 
 LEADS_FILE = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "leads.json")
 
@@ -127,6 +127,7 @@ def main():
 
             with lock:
                 for origin, raw in tagged_results:
+                    raw["phone"] = sanitize_phone(raw.get("phone", ""))
                     key = dedupe_key(raw["name"], raw.get("phone", ""))
                     if key in existing_keys or key in seen_this_run:
                         continue
@@ -164,6 +165,7 @@ def main():
             sanayi_results = []
         print(f"  Sanayi sitesi ham sonuç: {len(sanayi_results)}")
     for raw in sanayi_results:
+        raw["phone"] = sanitize_phone(raw.get("phone", ""))
         key = dedupe_key(raw["name"], raw.get("phone", ""))
         if key in existing_keys or key in seen_this_run:
             continue
@@ -191,6 +193,7 @@ def main():
             platform_results = []
         print(f"  sanayisitesi.com.tr ham sonuç: {len(platform_results)}")
     for raw in platform_results:
+        raw["phone"] = sanitize_phone(raw.get("phone", ""))
         key = dedupe_key(raw["name"], raw.get("phone", ""))
         if key in existing_keys or key in seen_this_run:
             continue
@@ -222,6 +225,7 @@ def main():
             find_results = []
         print(f"  find.com.tr ham sonuç: {len(find_results)}")
     for raw in find_results:
+        raw["phone"] = sanitize_phone(raw.get("phone", ""))
         key = dedupe_key(raw["name"], raw.get("phone", ""))
         if key in existing_keys or key in seen_this_run:
             continue
@@ -247,6 +251,7 @@ def main():
             gplaces_results = []
         print(f"  Google Places ham sonuç: {len(gplaces_results)}")
         for raw in gplaces_results:
+            raw["phone"] = sanitize_phone(raw.get("phone", ""))
             key = dedupe_key(raw["name"], raw.get("phone", ""))
             if key in existing_keys or key in seen_this_run:
                 continue
