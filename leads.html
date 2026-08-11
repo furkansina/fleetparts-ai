@@ -20,7 +20,7 @@
         .bulk-bar button { width: auto; margin: 0; padding: 6px 12px; font-size: 13px; border: none; border-radius: 4px; cursor: pointer; background: #495057; color: white; }
         .bulk-bar button:hover { background: #5a6268; }
 
-        .lead-card { background: white; border-radius: 8px; padding: 16px 20px; margin-bottom: 12px; border-left: 6px solid #ccc; box-shadow: 0 2px 6px rgba(0,0,0,0.06); display: flex; gap: 12px; }
+        .lead-card { background: white; border-radius: 8px; padding: 16px 20px; margin-bottom: 12px; border-left: 6px solid #ccc; box-shadow: 0 2px 6px rgba(0,0,0,0.06); display: flex; gap: 12px; align-items: flex-start; }
         .lead-checkbox { margin-top: 3px; width: auto; }
         .lead-card-body { flex: 1; min-width: 0; }
         .lead-card.score-high { border-left-color: #28a745; }
@@ -58,6 +58,10 @@
         .lead-actions input[type=text] { flex: 1; min-width: 160px; padding: 7px 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 13px; }
 
         .placeholder { text-align: center; color: #888; padding: 40px; }
+        .load-more-wrap { text-align: center; padding: 18px 0 30px; }
+        .load-more-wrap button { padding: 10px 22px; border: none; border-radius: 6px; background: #337ab7; color: white; font-size: 14px; font-weight: bold; cursor: pointer; }
+        .load-more-wrap button:hover { background: #286090; }
+        .load-more-wrap .hint { display: block; margin-top: 6px; font-size: 12px; color: #888; }
     </style>
 </head>
 <body>
@@ -71,6 +75,7 @@
         <button id="scanBtn" onclick="triggerScan()" style="width:auto; margin:0; padding:8px 16px; background:#337ab7; color:white; border:none; border-radius:4px; cursor:pointer;">🔍 Şimdi Tara</button>
         <a href="/leads-export" style="width:auto; margin:0; padding:8px 16px; background:#28a745; color:white; border-radius:4px; text-decoration:none; font-size:14px; font-weight:bold;">⬇️ CSV İndir</a>
         <button id="classifyBtn" onclick="classifyAmbiguous()" style="width:auto; margin:0; padding:8px 16px; background:#6f42c1; color:white; border:none; border-radius:4px; cursor:pointer;">🤖 Belirsizleri AI ile Netleştir</button>
+        <button id="classifyStopBtn" onclick="stopClassifyAmbiguous()" style="display:none; width:auto; margin:0; padding:8px 12px; background:#6c757d; color:white; border:none; border-radius:4px; cursor:pointer;">⏹️ Durdur</button>
         <button id="coverageBtn" onclick="toggleCoveragePanel()" style="width:auto; margin:0; padding:8px 16px; background:#5a6268; color:white; border:none; border-radius:4px; cursor:pointer;">🗺️ İl Bazlı Kapsama</button>
         <input type="text" id="nameSearch" placeholder="Firma adında ara..." style="min-width:160px;">
         <select id="statusFilter">
@@ -101,6 +106,11 @@
             <b>İl bazlı lead sayısı</b>
             <span style="color:#888; font-size:12px;">81 ilin tamamı haftalık taranır (OSM + firma rehberi); bir ilde sayı düşük/sıfırsa filtre eksik değildir, o ilde henüz az/hiç kayıt bulunamamış demektir.</span>
         </div>
+        <div style="font-size:11.5px; color:#888; margin-bottom:8px;">
+            <span style="color:#d9534f;">●</span> 0 lead &nbsp;
+            <span style="color:#f0ad4e;">●</span> 1-4 lead &nbsp;
+            <span style="color:#28a745;">●</span> 5+ lead &nbsp;·&nbsp; bir ile tıklayınca o ile göre filtreler
+        </div>
         <div id="coverageGrid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); gap:4px 12px; max-height:280px; overflow-y:auto;"></div>
     </div>
 
@@ -108,6 +118,7 @@
         <div class="row">
             <input type="text" id="productInput" placeholder="Örn: Hortum adaptörü, ya da IVECO S-WAY LED far sağ...">
             <button id="productBtn" onclick="classifyForProduct()">🎯 Bu Ürüne Göre Sırala</button>
+            <button id="productStopBtn" onclick="stopClassifyForProduct()" class="clear" style="display:none;">⏹️ Durdur</button>
             <button class="clear" onclick="clearProductFilter()">Temizle</button>
             <span class="active-tag" id="activeProductTag"></span>
         </div>
@@ -155,6 +166,15 @@
     let productScores = {};  // lead_id -> {product_fit_score, product_fit_reasoning}
     let lastFilteredIds = [];  // en son renderLeads() sonucu ekranda görünen (filtrelenmiş) lead id'leri
 
+    // Binlerce lead kartını aynı anda DOM'a basmak (bir filtrede kolayca 3000+ olabiliyor) telefon/
+    // tablette sayfayı kilitleyip kaydırmayı kullanılamaz hale getiriyordu (gerçek testte 390px
+    // genişlikte tek sayfa 1.2 milyon piksel boyunda çıktı). Bu yüzden liste sayfalanarak render
+    // edilir; "select all filtered" gibi toplu işlemler yine TÜM filtrelenmiş sonuç üzerinde çalışır,
+    // sadece ekrana basılan kart sayısı sınırlıdır.
+    const LEADS_PAGE_SIZE = 60;
+    const LEADS_PAGE_INCREMENT = 150;
+    let visibleLeadCount = LEADS_PAGE_SIZE;
+
     function updateBulkBar() {
         const bar = document.getElementById('bulkBar');
         const count = document.getElementById('bulkCount');
@@ -195,6 +215,7 @@
 
     async function bulkSet(status) {
         if (selectedIds.size === 0) return;
+        if (selectedIds.size > 200 && !confirm(`${selectedIds.size} lead'in durumunu birden "${status}" yapmak üzeresiniz. Bu büyük bir toplu işlem - emin misiniz?`)) return;
         const formData = new FormData();
         formData.append('lead_ids', Array.from(selectedIds).join(','));
         formData.append('status', status);
@@ -215,6 +236,7 @@
 
     async function addSelectedToContacts() {
         if (selectedIds.size === 0) return;
+        if (selectedIds.size > 200 && !confirm(`${selectedIds.size} lead'i Kişi Listesine (WhatsApp) eklemek üzeresiniz. Bu büyük bir toplu işlem - emin misiniz?`)) return;
         const formData = new FormData();
         formData.append('lead_ids', Array.from(selectedIds).join(','));
         try {
@@ -251,6 +273,15 @@
         return last10.startsWith('5');
     }
     window.isMobilePhone = isMobilePhone;
+
+    // NOT: renderLeads() kendisi sayfalama sayacına dokunmaz - filtre değişince sıfırlamak için
+    // resetPagingAndRender() kullanılır. (addEventListener(..., renderLeads) doğrudan bağlanırsa
+    // callback'e Event nesnesi argüman olarak geçer; bunu "keepPaging" gibi yorumlamak kırılgan
+    // olurdu, o yüzden reset işini ayrı, açık bir fonksiyona taşıdık.)
+    function resetPagingAndRender() {
+        visibleLeadCount = LEADS_PAGE_SIZE;
+        renderLeads();
+    }
 
     function renderLeads() {
         const statusVal = document.getElementById('statusFilter').value;
@@ -295,7 +326,8 @@
             return;
         }
 
-        list.innerHTML = filtered.map(l => {
+        const toRender = filtered.slice(0, visibleLeadCount);
+        let cardsHtml = toRender.map(l => {
             const cls = scoreClass(l.relevance_score ?? 0);
             const growthHtml = l.growth_signal
                 ? `<div class="growth-tag">📈 ${esc(l.growth_signal.type || 'büyüme sinyali')}</div>`
@@ -354,7 +386,24 @@
                 </div>
             `;
         }).join('');
+
+        if (filtered.length > toRender.length) {
+            const remaining = filtered.length - toRender.length;
+            cardsHtml += `
+                <div class="load-more-wrap">
+                    <button onclick="loadMoreLeads()">⬇️ Daha Fazla Göster (+${Math.min(LEADS_PAGE_INCREMENT, remaining)})</button>
+                    <span class="hint">${toRender.length} / ${filtered.length} lead gösteriliyor — performans için sayfalanıyor, "Ekrandaki tüm filtrelenmiş lead'leri seç" yine de tümünü seçer</span>
+                </div>
+            `;
+        }
+        list.innerHTML = cardsHtml;
     }
+
+    function loadMoreLeads() {
+        visibleLeadCount += LEADS_PAGE_INCREMENT;
+        renderLeads();
+    }
+    window.loadMoreLeads = loadMoreLeads;
 
     function provinceCounts() {
         const counts = {};
@@ -402,7 +451,7 @@
 
     function filterByProvinceFromCoverage(province) {
         document.getElementById('provinceFilter').value = province;
-        renderLeads();
+        resetPagingAndRender();
     }
     window.filterByProvinceFromCoverage = filterByProvinceFromCoverage;
 
@@ -412,7 +461,7 @@
             const data = await res.json();
             allLeads = data.leads || [];
             populateProvinceFilter();
-            renderLeads();
+            resetPagingAndRender();
             if (coveragePanelOpen) renderCoveragePanel();
         } catch (err) {
             document.getElementById('leadList').innerHTML = '<div class="placeholder">Yüklenemedi: ' + esc(String(err)) + '</div>';
@@ -452,12 +501,19 @@
     }
     window.triggerScan = triggerScan;
 
+    let classifyAmbiguousStopFlag = false;
     async function classifyAmbiguous() {
         const btn = document.getElementById('classifyBtn');
+        const stopBtn = document.getElementById('classifyStopBtn');
         btn.disabled = true;
+        classifyAmbiguousStopFlag = false;
+        stopBtn.style.display = '';
         let total = 0;
+        let prevRemaining = null;
+        let stallCount = 0;
         try {
             while (true) {
+                if (classifyAmbiguousStopFlag) break;
                 btn.textContent = `Değerlendiriliyor... (${total} tamamlandı)`;
                 const res = await fetch('/leads/classify-ambiguous', { method: 'POST' });
                 const data = await res.json();
@@ -466,29 +522,55 @@
                     break;
                 }
                 total += data.classified || 0;
+                // Sunucu ilerlemeyi kaydetmiyorsa 'remaining' azalmaz ve bu döngü AI kotasını
+                // sonsuza kadar tüketir. İki ardışık çağrıda ilerleme yoksa güvenlik için durdurulur.
+                if (prevRemaining !== null && data.remaining >= prevRemaining) {
+                    stallCount++;
+                    if (stallCount >= 2) {
+                        alert('Uyarı: Sunucu ilerleme kaydetmiyor gibi görünüyor (kalan sayı azalmadı). Olası bir sunucu hatası olabilir, işlem güvenlik için durduruldu.');
+                        break;
+                    }
+                } else {
+                    stallCount = 0;
+                }
+                prevRemaining = data.remaining;
                 if (!data.remaining || data.remaining <= 0) break;
             }
-            alert(`Tamamlandı: ${total} lead netleştirildi.`);
+            if (!classifyAmbiguousStopFlag) alert(`Tamamlandı: ${total} lead netleştirildi.`);
             if (total > 0) loadLeads();
         } catch (err) {
             alert('Hata: ' + err);
         } finally {
             btn.disabled = false;
             btn.textContent = '🤖 Belirsizleri AI ile Netleştir';
+            stopBtn.style.display = 'none';
         }
     }
     window.classifyAmbiguous = classifyAmbiguous;
 
+    function stopClassifyAmbiguous() {
+        classifyAmbiguousStopFlag = true;
+    }
+    window.stopClassifyAmbiguous = stopClassifyAmbiguous;
+
+    let classifyProductStopFlag = false;
     async function classifyForProduct() {
         const productDescription = document.getElementById('productInput').value.trim();
         if (!productDescription) { alert('Lütfen bir ürün adı/açıklaması girin.'); return; }
         const province = document.getElementById('provinceFilter').value;
         const btn = document.getElementById('productBtn');
+        const stopBtn = document.getElementById('productStopBtn');
         btn.disabled = true;
+        classifyProductStopFlag = false;
+        stopBtn.style.display = '';
         let total = 0;
         let productKey = null;
+        let prevRemaining = null;
+        let stallCount = 0;
+        let askedAboutScale = false;
         try {
             while (true) {
+                if (classifyProductStopFlag) break;
                 btn.textContent = `Değerlendiriliyor... (${total} tamamlandı)`;
                 const formData = new FormData();
                 formData.append('product_description', productDescription);
@@ -501,6 +583,34 @@
                 }
                 productKey = data.product_key;
                 total += data.classified || 0;
+
+                // İl filtresi seçilmemişse binlerce lead AI ile tek tek değerlendirilmeye çalışılır -
+                // bu hem çok uzun sürer hem de günlük AI kotasının büyük kısmını tek sorguda tüketebilir
+                // (gerçek testte: il filtresi olmadan 3470 lead "kalan" çıktı). İlk yanıttan sonra kalan
+                // sayı yüksekse kullanıcı bilgilendirilip onay istenir.
+                if (!askedAboutScale && !province && data.remaining > 200) {
+                    askedAboutScale = true;
+                    const proceed = confirm(
+                        `Bu ürün için hâlâ ${data.remaining} lead değerlendirilecek (il filtresi seçilmediği için TÜM iller taranıyor).\n\n` +
+                        `Bu işlem uzun sürebilir ve günlük AI kotasının büyük bir kısmını kullanabilir. Önce bir İL seçip filtrelemeniz önerilir.\n\n` +
+                        `Yine de tüm illerde devam edilsin mi?`
+                    );
+                    if (!proceed) break;
+                }
+
+                // Sunucu bu lead'ler için ilerlemeyi kaydetmiyorsa 'remaining' azalmaz ve bu döngü aynı
+                // lead'leri tekrar tekrar değerlendirip AI kotasını sonsuza kadar tüketir. İki ardışık
+                // çağrıda ilerleme yoksa güvenlik için otomatik durdurulur.
+                if (prevRemaining !== null && data.remaining >= prevRemaining) {
+                    stallCount++;
+                    if (stallCount >= 2) {
+                        alert('Uyarı: Sunucu bu ürün için ilerleme kaydetmiyor gibi görünüyor (kalan sayı azalmadı). Bilinen bir sunucu tarafı sorun olabilir - işlem güvenlik için durduruldu.');
+                        break;
+                    }
+                } else {
+                    stallCount = 0;
+                }
+                prevRemaining = data.remaining;
                 if (!data.remaining || data.remaining <= 0) break;
             }
             if (productKey) {
@@ -512,6 +622,8 @@
                     activeProductDescription = scoreData.product_description || productDescription;
                     document.getElementById('activeProductTag').textContent = `🎯 Aktif filtre: "${activeProductDescription}"`;
                     renderLeads();
+                } else if (total > 0) {
+                    alert('Değerlendirme yapıldı ama sonuçlar okunamadı: ' + (scoreData.message || 'bilinmeyen hata') + '\n\nBu bir sunucu tarafı sorun olabilir.');
                 }
             }
         } catch (err) {
@@ -519,9 +631,15 @@
         } finally {
             btn.disabled = false;
             btn.textContent = '🎯 Bu Ürüne Göre Sırala';
+            stopBtn.style.display = 'none';
         }
     }
     window.classifyForProduct = classifyForProduct;
+
+    function stopClassifyForProduct() {
+        classifyProductStopFlag = true;
+    }
+    window.stopClassifyForProduct = stopClassifyForProduct;
 
     function clearProductFilter() {
         activeProductKey = null;
@@ -533,12 +651,12 @@
     }
     window.clearProductFilter = clearProductFilter;
 
-    document.getElementById('statusFilter').addEventListener('change', renderLeads);
-    document.getElementById('provinceFilter').addEventListener('change', renderLeads);
-    document.getElementById('phoneOnlyFilter').addEventListener('change', renderLeads);
-    document.getElementById('mobileOnlyFilter').addEventListener('change', renderLeads);
-    document.getElementById('minScoreFilter').addEventListener('input', renderLeads);
-    document.getElementById('nameSearch').addEventListener('input', renderLeads);
+    document.getElementById('statusFilter').addEventListener('change', resetPagingAndRender);
+    document.getElementById('provinceFilter').addEventListener('change', resetPagingAndRender);
+    document.getElementById('phoneOnlyFilter').addEventListener('change', resetPagingAndRender);
+    document.getElementById('mobileOnlyFilter').addEventListener('change', resetPagingAndRender);
+    document.getElementById('minScoreFilter').addEventListener('input', resetPagingAndRender);
+    document.getElementById('nameSearch').addEventListener('input', resetPagingAndRender);
 
     function poolBadgeHtml(label, pool) {
         if (!pool) return '';
