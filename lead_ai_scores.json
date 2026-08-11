@@ -1673,5 +1673,105 @@
         "relevance_score": 25,
         "score_reasoning": "Oto markalarına özel yedek parça satıcıları olduğu için uygunluk skoru düşüktür.",
         "classified_at": "2026-08-11T08:19:03.397204+00:00"
+    },
+    "tbc_sms-otomotiv-37548": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça toptancısı olarak görünüyor",
+        "classified_at": "2026-08-11T08:19:11.539451+00:00"
+    },
+    "tbc_profflpg-34442": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça toptancısı olarak görünüyor",
+        "classified_at": "2026-08-11T08:19:11.539451+00:00"
+    },
+    "tbc_sms-otomotiv-31314": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça toptancısı olarak görünüyor, fakat aynı isimdeki başka bir firmanın tekrarı olabilir",
+        "classified_at": "2026-08-11T08:19:11.539451+00:00"
+    },
+    "tbc_aksoy-bay-otomotiv-enerji-31224": {
+        "relevance_score": 70,
+        "score_reasoning": "Oto yedek parça satıcısı olabilir, fakat enerji sistemleri de satıyor",
+        "classified_at": "2026-08-11T08:19:11.539451+00:00"
+    },
+    "tbc_sultandagli-mercedes-benz-ozel-30480": {
+        "relevance_score": 40,
+        "score_reasoning": "Bağımsız servis olarak görünüyor, ancak oto yedek parça satıyor olabilir",
+        "classified_at": "2026-08-11T08:19:11.539451+00:00"
+    },
+    "tbc_2a-brc-izmir-starotogaz-26738": {
+        "relevance_score": 30,
+        "score_reasoning": "LPG montaj servisi olarak görünüyor, oto yedek parça satmak dışında bir iş yapılıyor",
+        "classified_at": "2026-08-11T08:19:11.539451+00:00"
+    },
+    "tbc_fiat-merkez-servis-26079": {
+        "relevance_score": 20,
+        "score_reasoning": "Bağımsız servis olarak görünüyor, oto yedek parça satmak için uygun değil",
+        "classified_at": "2026-08-11T08:19:11.539451+00:00"
+    },
+    "tbc_oto-perk-a-s-25876": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça toptancısı olarak görünüyor",
+        "classified_at": "2026-08-11T08:19:11.539451+00:00"
+    },
+    "tbc_izmir-senkromec-sanayi-tic-22662": {
+        "relevance_score": 60,
+        "score_reasoning": "Oto yedek parça satıcısı olabilir, fakat diğer sanayi ürünleri de satıyor",
+        "classified_at": "2026-08-11T08:19:11.539451+00:00"
+    },
+    "tbc_tuncaprm-loj-dis-tic-12410": {
+        "relevance_score": 90,
+        "score_reasoning": "Oto yedek parça toptancısı ve lojistik firması olarak görünüyor",
+        "classified_at": "2026-08-11T08:19:11.539451+00:00"
+    },
+    "tbc_buzcuogullari-ltd-sti-6758": {
+        "relevance_score": 50,
+        "score_reasoning": "Oto yedek parça satıcısı olabilir, fakat yeterli bilgi yok",
+        "classified_at": "2026-08-11T08:19:11.539451+00:00"
+    },
+    "tbc_fam-x-tuning-kayseri-43496": {
+        "relevance_score": 20,
+        "score_reasoning": "Tuning firması olarak görünüyor, oto yedek parça satmak dışında bir iş yapılıyor",
+        "classified_at": "2026-08-11T08:19:11.539451+00:00"
+    },
+    "tbc_aslar-motorlu-araclar-san-50285": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça toptancısı olarak görünüyor",
+        "classified_at": "2026-08-11T08:19:11.539451+00:00"
+    },
+    "tbc_aracdeposu-49779": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça toptancısı olarak görünüyor",
+        "classified_at": "2026-08-11T08:19:11.539451+00:00"
+    },
+    "tbc_arslan-yurtturk-is-makinalari-49069": {
+        "relevance_score": 60,
+        "score_reasoning": "İş makinaları satıcısı olarak görünüyor, fakat oto yedek parça satıyor olabilir",
+        "classified_at": "2026-08-11T08:19:11.539451+00:00"
+    },
+    "tbc_parca-ofisi-47127": {
+        "relevance_score": 90,
+        "score_reasoning": "Oto yedek parça toptancısı olarak görünüyor",
+        "classified_at": "2026-08-11T08:19:11.539451+00:00"
+    },
+    "tbc_gunesli-garaj-46076": {
+        "relevance_score": 20,
+        "score_reasoning": "Bağımsız servis olarak görünüyor, oto yedek parça satmak için uygun değil",
+        "classified_at": "2026-08-11T08:19:11.539451+00:00"
+    },
+    "tbc_cihan-oto-ltd-sti-44983": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça toptancısı olarak görünüyor",
+        "classified_at": "2026-08-11T08:19:11.539451+00:00"
+    },
+    "tbc_sdt-sarper-makina-sanayi-44385": {
+        "relevance_score": 50,
+        "score_reasoning": "Makina satıcısı olarak görünüyor, fakat oto yedek parça satıyor olabilir",
+        "classified_at": "2026-08-11T08:19:11.539451+00:00"
+    },
+    "tbc_gurkan-kriko-43661": {
+        "relevance_score": 10,
+        "score_reasoning": "Kriko satıcısı olarak görünüyor, oto yedek parça satmak dışında bir iş yapılıyor",
+        "classified_at": "2026-08-11T08:19:11.539451+00:00"
     }
 }
