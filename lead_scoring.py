@@ -25,10 +25,37 @@ _KEYWORD_PATTERN = re.compile(
 # nakliyat - küçük araçlarla çalışan bireysel taşınma firmaları, toptan parça alıcısı değiller)
 # ve seyahat acenteleriyle (araç filosu olmayan) dolu çıktı - gerçek bir testte tespit edildi.
 # Bu kelimeler geçen firmalar hedef kitle DIŞI sayılır, sektör eşleşmesi olsa bile.
-_EXCLUDE_KEYWORDS = ["evden eve", "turizm", "seyahat", "travel", "tur operatör"]
+#
+# GENİŞLETME (2026-08-11, gerçek canlı veride tespit edildi): aynı geniş "tasimacilik-nakliye"/
+# "otomotiv-yan-sanayi" rehber kategorileri altında "Car Lease Rent A Car" (araç kiralama, skor
+# 65!) ve "Menderes Kiralık Asansör Mobilya Asansörü" (mobilya/eşya taşıma asansörü kiralama,
+# yedek parçayla hiç ilgisi yok, skor 65!) gibi TAMAMEN alakasız firmalar üst sıralara çıktı.
+# Kök neden: bu liste önceden sadece "evden eve nakliyat/turizm" örneklerine göre kurulmuştu,
+# aynı kategori altındaki diğer alakasız iş kollarını (araç/ekipman kiralama, sigorta, muayene,
+# sürücü kursu, ikinci el galeri) kapsamıyordu. Bu liste bir kere genişletildiği için düzeltme
+# TÜM şehirler/kaynaklar için aynı anda geçerli olur - şehir başına ayrı ayrı uğraşmaya gerek yok.
+_EXCLUDE_KEYWORDS = [
+    "evden eve", "turizm", "seyahat", "travel", "tur operatör",
+    "rent a car", "rent-a-car", "araç kiralama", "arac kiralama", "oto kiralama",
+    "asansör", "asansor",
+    "sürücü kursu", "surucu kursu", "ehliyet kursu",
+    "araç muayene", "arac muayene", "tüvtürk", "tuvturk",
+    "sigorta", "kasko",
+    "ekspertiz",
+    "oto galeri", "araba galerisi",
+    "detaylı temizlik", "detayli temizlik", "oto kuaför", "oto kuafor",
+    "emlak", "gayrimenkul",
+]
 _EXCLUDE_PATTERN = re.compile(
     r"\b(" + "|".join(re.escape(k) for k in _EXCLUDE_KEYWORDS) + r")\b"
 )
+
+# Bir işletme adı hem "tamir/servis" hem "yıkama" sinyali taşıyorsa (örn. "Atak Lastik Tamiri ve
+# Oto Yıkama") bu küçük ölçekli, perakende/işçilik odaklı bir esnaf dükkanıdır - toptan parça
+# alıcısı değildir. Bare "yıkama" tek başına evrensel dışlama listesine KONULMADI çünkü büyük bir
+# yedek parça/lojistik firmasının adında yan hizmet olarak geçebilir (yanlış pozitif riski); bu
+# yüzden sadece tamir/servis sinyaliyle BİRLİKTE göründüğünde anlamlı sayılır.
+_WASH_KEYWORDS_RE = re.compile(r"\b(yıkama|yikama|oto\s*kuaför|oto\s*kuafor)\b")
 
 # İşletme sahibinin (baba) oğluna WhatsApp'ta AÇIKÇA belirttiği hedef kitle tanımı: "sanayideki
 # yedek parçacılar VE tamirciler" reddedildi - hedef "Anadolu'daki toptan ve perakendeciler" ile
@@ -100,6 +127,9 @@ def score_lead(raw: dict) -> dict:
             "phone_is_mobile": is_mobile_phone(raw.get("phone", "")) if raw.get("phone") else False,
         }
 
+    category_label_lower = turkish_lower(raw.get("category_label", ""))
+    has_parts_signal = bool(_PARTS_CATEGORY_PATTERN.search(category_label_lower)) or keyword_hit
+
     sector_match = 0
     if shop_type == "car_parts":
         sector_match += 30
@@ -114,24 +144,41 @@ def score_lead(raw: dict) -> dict:
         # sürekli mekanik/hidrolik parça ihtiyacı olan, ağır vasıta ekosisteminin bir parçası.
         sector_match += 30
     if shop_type == "directory":
-        # turkbusinesscenter.com gibi bir B2B firma rehberinden geliyor - sitenin kendisi zaten
-        # firmayı "Otomotiv Yedek Parça" veya "Taşımacılık/Nakliye" kategorisine kaydetmiş,
-        # bu OSM'in shop=car_parts etiketi kadar güçlü bir sinyal.
-        sector_match += 30
+        # DEĞİŞTİ (2026-08-11): turkbusinesscenter.com/sanayisitesi.com.tr gibi rehberlerden gelen
+        # kategori etiketi ÖNCEDEN körü körüne +30 alıyordu - bu, "Car Lease Rent A Car" ve
+        # "Menderes Kiralık Asansör" gibi TAMAMEN alakasız firmaların (kendilerini geniş bir
+        # "Taşımacılık/Nakliye" ya da "Otomotiv Yan Sanayi" şemsiyesine kaydetmiş olsalar bile)
+        # yüksek skor almasına yol açtı - rehber sitelerin kendi kategorizasyonu firma-beyanlı ve
+        # güvenilmez çıktı. Artık taban güven payı düşürüldü (15); TAM güven (30) sadece isimde
+        # veya kategori etiketinde GERÇEK bir parça/hedef kitle sinyali (has_parts_signal) varsa
+        # veriliyor - yani rehber kaydı TEK BAŞINA artık yeterli değil, ek bir doğrulama istiyor.
+        sector_match += 30 if has_parts_signal else 15
     if keyword_hit:
         sector_match += 25
 
-    category_label_lower = turkish_lower(raw.get("category_label", ""))
     is_service_only_category = (
         shop_type == "directory"
         and bool(_SERVICE_CATEGORY_PATTERN.search(category_label_lower))
         and not bool(_PARTS_CATEGORY_PATTERN.search(category_label_lower))
     )
 
+    # İsimde hem tamir/servis hem yıkama sinyali birlikte geçiyorsa (bkz. _WASH_KEYWORDS_RE notu)
+    # küçük ölçekli bir esnaf dükkanıdır - "Lastikçi" (tyres) etiketiyle gelse bile toptan alıcı
+    # değildir. Gerçek bir örnekte tespit edildi: "Atak Lastik Tamiri ve Oto Yıkama" (tyres, +20
+    # taban puanla skor 50'ye çıkmıştı).
+    is_wash_and_repair_shop = (
+        bool(_WASH_KEYWORDS_RE.search(name_lower))
+        and bool(_SERVICE_CATEGORY_PATTERN.search(name_lower))
+    )
+
     # Bağımsız tamirci/servis tespiti: OSM'de "car_repair" kategorisinde OLMASI ya da rehber
-    # kaynağında saf servis/tamir kategorisinde (parça satışı belirtilmeden) OLMASI, VE
-    # toptan/lojistik/filo gibi hiçbir hedef kitle sinyali yoksa hedef dışı say
-    is_independent_repair = (shop_type == "car_repair" or is_service_only_category) and not keyword_hit
+    # kaynağında saf servis/tamir kategorisinde (parça satışı belirtilmeden) OLMASI, ya da
+    # tamir+yıkama birlikte geçen küçük esnaf dükkanı olması, VE toptan/lojistik/filo gibi hiçbir
+    # hedef kitle sinyali yoksa hedef dışı say
+    is_independent_repair = (
+        (shop_type == "car_repair" or is_service_only_category or is_wash_and_repair_shop)
+        and not keyword_hit
+    )
 
     phone = raw.get("phone", "")
     phone_is_mobile = is_mobile_phone(phone) if phone else False
