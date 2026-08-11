@@ -206,12 +206,24 @@ def score_lead(raw: dict) -> dict:
 
     geography = 20  # il filtresiyle zaten kapsam içinde, sabit puan
 
-    if is_independent_repair:
+    # BUG (2026-08-11, kullanıcı "isimleri kontrol et, saçma sapan kişiler gelmesin" diye canlı
+    # veride yakaladı): sector_match hiçbir kategoriden/isimden puan almadığında (ör. OSM'de
+    # "Ombay Çorap İmalatı", "Gözde Kuruyemiş ve Şekerleme" gibi otomotivle TAMAMEN alakasız
+    # işletmeler) bile, sabit geography (20) + telefon/adres varlığı TEK BAŞINA 30-35 puana
+    # ulaşıp panelin varsayılan görünürlük eşiğini (30) geçebiliyordu - yani HİÇBİR alaka
+    # sinyali olmayan bir işletme sadece "ilde kayıtlı + telefonu var" diye görünür oluyordu.
+    # Artık sector_match==0 (gerçekten hiçbir sinyal yok) durumu da bağımsız tamirci gibi düşük
+    # bir tavana (15) sabitleniyor - geography bonusu yalnızca EN AZ bir sektör sinyali varsa verilir.
+    has_no_sector_signal = sector_match == 0
+
+    if is_independent_repair or has_no_sector_signal:
         relevance_score = min(15, sector_match + data_completeness)
-        if is_service_only_category:
+        if is_independent_repair and is_service_only_category:
             reasoning = f"'{raw.get('category_label', '')}' hizmet/tamir odaklı bir kategori görünüyor (parça satışı belirtilmemiş) - hedef kitle dışı, düşük öncelik."
-        else:
+        elif is_independent_repair:
             reasoning = "Bağımsız oto tamir servisi görünüyor - hedef kitle dışı (sanayideki tamirciler), düşük öncelik."
+        else:
+            reasoning = "İsminde veya kategorisinde ağır vasıta yedek parça/lojistik ile ilgili hiçbir sinyal bulunamadı - alakasız bir işletme olabilir, düşük öncelik."
         entity_type_note = "Belirsiz"
     else:
         relevance_score = min(100, sector_match + geography + data_completeness)
