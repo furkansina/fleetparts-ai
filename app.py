@@ -1600,6 +1600,16 @@ def classify_ambiguous_leads(_: str = Depends(require_admin)):
 
 CLASSIFY_PRODUCT_BATCH_SIZE = 20
 
+def _safe_product_fit_score(value) -> int:
+    """AI'dan gelen skor bazen sayı yerine metin/karışık alan olarak dönebiliyor (örn. reasoning
+    metni score alanına kaymış) - int() direkt patlarsa tüm batch (20 lead) kaydedilmeden
+    kayboluyordu. Artık geçersiz/aralık dışı değer tek bir lead'i 0'a düşürür, batch'in geri
+    kalanını etkilemez."""
+    try:
+        return max(0, min(100, int(float(value))))
+    except (TypeError, ValueError):
+        return 0
+
 def _slugify_product_key(text: str) -> str:
     slug = re.sub(r"[^a-z0-9ğüşıöç]+", "_", text.strip().lower())
     return slug.strip("_")[:60] or "urun"
@@ -1678,12 +1688,14 @@ def classify_leads_for_product(
         if product_key not in product_scores:
             product_scores[product_key] = {"product_description": product_description, "classified_at": now, "scores": {}}
         for r in results:
+            if not isinstance(r, dict):
+                continue
             lid = r.get("lead_id")
             if not lid:
                 continue
             product_scores[product_key]["scores"][lid] = {
-                "product_fit_score": int(r.get("product_fit_score", 0)),
-                "product_fit_reasoning": r.get("product_fit_reasoning", ""),
+                "product_fit_score": _safe_product_fit_score(r.get("product_fit_score", 0)),
+                "product_fit_reasoning": str(r.get("product_fit_reasoning", "")),
                 "classified_at": now,
             }
         product_scores[product_key]["classified_at"] = now
