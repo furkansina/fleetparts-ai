@@ -2373,5 +2373,105 @@
         "relevance_score": 80,
         "score_reasoning": "Ağır vasıta yedek parça satışı yapıyor, hedef kitle ile uyumlu görünüyor",
         "classified_at": "2026-08-11T11:48:37.118360+00:00"
+    },
+    "ankaraotosanayi_779": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto aksesuar ve yedek parça satışı yapıyor, hedef kitlemize uygun görünüyor",
+        "classified_at": "2026-08-11T11:48:45.198173+00:00"
+    },
+    "ankaraotosanayi_1480": {
+        "relevance_score": 90,
+        "score_reasoning": "Yetkili satıcı olarakoto yedek parça satışı yapıyor, hedef kitlemize uygun görünüyor",
+        "classified_at": "2026-08-11T11:48:45.198173+00:00"
+    },
+    "ankaraotosanayi_824": {
+        "relevance_score": 40,
+        "score_reasoning": "Otomatik şanzıman satışı yapıyor, ancak büyük araçlara ait yedek parça değil",
+        "classified_at": "2026-08-11T11:48:45.198173+00:00"
+    },
+    "ankaraotosanayi_407": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça satışı yapıyor, hedef kitlemize uygun görünüyor",
+        "classified_at": "2026-08-11T11:48:45.198173+00:00"
+    },
+    "ankaraotosanayi_1069": {
+        "relevance_score": 60,
+        "score_reasoning": "Belirli markalara ait yedek parça satışı yapıyor, ancak büyük araçlara ait yedek parça değil",
+        "classified_at": "2026-08-11T11:48:45.198173+00:00"
+    },
+    "ankaraotosanayi_210": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça satışı yapıyor, hedef kitlemize uygun görünüyor",
+        "classified_at": "2026-08-11T11:48:45.198173+00:00"
+    },
+    "ankaraotosanayi_616": {
+        "relevance_score": 50,
+        "score_reasoning": "Oto yedek parça ve boya malzemeleri satışı yapıyor, ancak boya malzemeleri bizim hedef kitlemize uygun değil",
+        "classified_at": "2026-08-11T11:48:45.198173+00:00"
+    },
+    "ankaraotosanayi_623": {
+        "relevance_score": 70,
+        "score_reasoning": "Belirli markalara ait yedek parça satışı yapıyor, hedef kitlemize kısmen uygun görünüyor",
+        "classified_at": "2026-08-11T11:48:45.198173+00:00"
+    },
+    "ankaraotosanayi_896": {
+        "relevance_score": 70,
+        "score_reasoning": "Belirli markalara ait yedek parça satışı yapıyor, hedef kitlemize kısmen uygun görünüyor",
+        "classified_at": "2026-08-11T11:48:45.198173+00:00"
+    },
+    "ankaraotosanayi_1074": {
+        "relevance_score": 30,
+        "score_reasoning": "Çıkma yedek parça satışı yapıyor, hedef kitlemize uygun değil",
+        "classified_at": "2026-08-11T11:48:45.198173+00:00"
+    },
+    "ankaraotosanayi_122": {
+        "relevance_score": 30,
+        "score_reasoning": "Çıkma yedek parça satışı yapıyor, hedef kitlemize uygun değil",
+        "classified_at": "2026-08-11T11:48:45.198173+00:00"
+    },
+    "ankaraotosanayi_1144": {
+        "relevance_score": 30,
+        "score_reasoning": "Çıkma yedek parça satışı yapıyor, hedef kitlemize uygun değil",
+        "classified_at": "2026-08-11T11:48:45.198173+00:00"
+    },
+    "ankaraotosanayi_143": {
+        "relevance_score": 30,
+        "score_reasoning": "Çıkma yedek parça satışı yapıyor, hedef kitlemize uygun değil",
+        "classified_at": "2026-08-11T11:48:45.198173+00:00"
+    },
+    "ankaraotosanayi_128": {
+        "relevance_score": 30,
+        "score_reasoning": "Çıkma yedek parça satışı yapıyor, hedef kitlemize uygun değil",
+        "classified_at": "2026-08-11T11:48:45.198173+00:00"
+    },
+    "ankaraotosanayi_1007": {
+        "relevance_score": 30,
+        "score_reasoning": "Çıkma yedek parça satışı yapıyor, hedef kitlemize uygun değil",
+        "classified_at": "2026-08-11T11:48:45.198173+00:00"
+    },
+    "ankaraotosanayi_1540": {
+        "relevance_score": 30,
+        "score_reasoning": "Çıkma yedek parça satışı yapıyor, hedef kitlemize uygun değil",
+        "classified_at": "2026-08-11T11:48:45.198173+00:00"
+    },
+    "ankaraotosanayi_459": {
+        "relevance_score": 30,
+        "score_reasoning": "Çıkma yedek parça satışı yapıyor, hedef kitlemize uygun değil",
+        "classified_at": "2026-08-11T11:48:45.198173+00:00"
+    },
+    "ankaraotosanayi_141": {
+        "relevance_score": 30,
+        "score_reasoning": "Çıkma yedek parça satışı yapıyor, hedef kitlemize uygun değil",
+        "classified_at": "2026-08-11T11:48:45.198173+00:00"
+    },
+    "ankaraotosanayi_124": {
+        "relevance_score": 30,
+        "score_reasoning": "Çıkma yedek parça satışı yapıyor, hedef kitlemize uygun değil",
+        "classified_at": "2026-08-11T11:48:45.198173+00:00"
+    },
+    "ankaraotosanayi_127": {
+        "relevance_score": 30,
+        "score_reasoning": "Çıkma yedek parça satışı yapıyor, hedef kitlemize uygun değil",
+        "classified_at": "2026-08-11T11:48:45.198173+00:00"
     }
 }
