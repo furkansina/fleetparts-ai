@@ -55,12 +55,23 @@ CACHE_TTL = 15  # saniye - sık çağrıldığı için (her Groq isteğinden son
 POOLS = ["customer", "bulk", "customer2", "leads_ai"]
 
 
-def register_pool(label: str) -> None:
+def register_pool(label: str, token_budget: int = None, request_budget: int = None) -> None:
     """Sabit 3 hesaba (customer/bulk/customer2) ek olarak Render'a eklenen HERHANGİ bir ek Groq
     hesabını (ör. GROQ_API_KEY_4, _5, ...) kullanım takibine dahil eder - bu çağrılmadan bir pool
-    ile record_usage() çağrılırsa kullanım sessizce 'customer' havuzuna yanlış yazılırdı."""
+    ile record_usage() çağrılırsa kullanım sessizce 'customer' havuzuna yanlış yazılırdı.
+
+    `token_budget`/`request_budget` verilirse (2026-08-11'de leads_ai'nin ek hesaplara zincirlenmesi
+    için eklendi) bu pool'a özel bütçe olarak kaydedilir - aksi halde qwen varsayımına (200K/1000)
+    düşerdi, oysa llama modelini kullanan ek hesaplar GERÇEKTE 100K/1000 sınırına sahip (bkz.
+    LEADS_AI_DAILY_TOKEN_BUDGET notu). Aynı fiziksel Groq hesabı hem qwen (customer/bulk/extraN)
+    hem llama (leads_ai_*) için ayrı ayrı kaydedilebilir - ikisi Groq tarafında zaten ayrı kotalar,
+    burada da ayrı pool etiketleriyle karışmadan izlenir."""
     if label not in POOLS:
         POOLS.append(label)
+    if token_budget is not None:
+        POOL_TOKEN_BUDGET[label] = token_budget
+    if request_budget is not None:
+        POOL_REQUEST_BUDGET[label] = request_budget
 
 # Groq'un HER yanıtında (200 de olsa hata da olsa) döndürdüğü x-ratelimit-* header'larının en son
 # görülen hali, havuz başına bellekte tutulur. Bizim kendi saydığımız günlük bütçe TAHMİNİ
@@ -153,25 +164,39 @@ def _save(data: dict):
 
 
 def _sync_to_github():
+    """NOT (2026-08-11): bu dosyaya AYNI ANDA çok sayıda süreç yazabiliyor (her Groq çağrısından
+    sonra) - GET'te alınan sha ile PUT çakışıp 409 dönmesi normal/beklenen bir durum. Önceden TÜM
+    hatalar (409 dahil) sessizce yutuluyordu; bu, gerçek Groq kullanımı ile bizim GitHub'daki
+    sayacımızın SESSİZCE birbirinden kopmasına yol açabiliyordu - bir canlı incelemede tam bu
+    tespit edildi (bizim sayaç %12 derken Groq'un kendisi 'günlük kota doldu' diyordu). Artık
+    409'da sha'yı yeniden alıp kısa bir tekrar denemesi yapılıyor (lead_store.py'deki aynı
+    düzeltmeyle tutarlı)."""
     if not GITHUB_TOKEN or not GITHUB_REPO:
         return
-    try:
-        api_url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{USAGE_FILE}"
-        headers = {"Authorization": f"Bearer {GITHUB_TOKEN}", "Accept": "application/vnd.github+json"}
-        sha = None
-        res = requests.get(api_url, headers=headers, timeout=10)
-        if res.status_code == 200:
-            sha = res.json().get("sha")
-        with open(USAGE_FILE, "rb") as f:
-            content_b64 = base64.b64encode(f.read()).decode("utf-8")
-        body = {"message": "Token kullanım sayacı güncelleme", "content": content_b64}
-        if sha:
-            body["sha"] = sha
-        requests.put(api_url, headers=headers, json=body, timeout=10)
-    except Exception:
-        pass  # kullanım sayacı yedeklemesi kritik değil (en kötü ihtimalle sayaç sıfırlanır,
-        # katalog verisi gibi kalıcı kaybolmaz) - bu yüzden burada ayrı bir durum takibi eklenmedi,
-        # asıl kritik olan katalog yedeklemesi app.py'deki _github_sync_status ile izleniyor.
+    api_url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{USAGE_FILE}"
+    headers = {"Authorization": f"Bearer {GITHUB_TOKEN}", "Accept": "application/vnd.github+json"}
+    with open(USAGE_FILE, "rb") as f:
+        content_b64 = base64.b64encode(f.read()).decode("utf-8")
+
+    for attempt in range(3):
+        try:
+            sha = None
+            res = requests.get(api_url, headers=headers, timeout=10)
+            if res.status_code == 200:
+                sha = res.json().get("sha")
+            body = {"message": "Token kullanım sayacı güncelleme", "content": content_b64}
+            if sha:
+                body["sha"] = sha
+            put_res = requests.put(api_url, headers=headers, json=body, timeout=10)
+            if put_res.status_code in (200, 201) or (put_res.status_code == 409 and attempt < 2):
+                if put_res.status_code in (200, 201):
+                    return
+                continue
+            return
+        except Exception:
+            continue
+        # kullanım sayacı yedeklemesi katalog kadar kritik değil (en kötü ihtimalle sayaç
+        # sıfırlanır, kalıcı veri kaybolmaz) - bu yüzden 3 denemeden sonra da sessizce vazgeçilir.
 
 
 def record_usage(total_tokens: int, pool: str = "customer"):
