@@ -65,6 +65,28 @@ def rescore_legacy_by_name(lead: dict) -> dict | None:
     }
 
 
+def rescore_legacy_zero_signal(lead: dict) -> dict | None:
+    """BUG (2026-08-11, kullanıcı 'isimleri kontrol et, saçma sapan kişiler gelmesin' diye canlı
+    veride yakaladı): sector_match hiç puan almadığında bile (ör. 'Ombay Çorap İmalatı', 'Gözde
+    Kuruyemiş' gibi otomotivle TAMAMEN alakasız işletmeler) sabit geography (20) + telefon/adres
+    varlığı TEK BAŞINA panelin görünürlük eşiğini (30) geçebiliyordu - bkz. lead_scoring.py'deki
+    aynı tarihli düzeltme. Bu eski kayıtlarda ham kategori/tip verisi yok (score_lead() yeniden
+    çağrılamaz) ama SAKLI score_breakdown.sector_match zaten 0 ise bu durum doğrudan tespit
+    edilebilir - score_lead() olmadan da aynı düşük tavana (15) indirilebilir."""
+    breakdown = lead.get("score_breakdown") or {}
+    if lead.get("sector_guess") != "Belirsiz" or breakdown.get("sector_match") != 0:
+        return None
+    old_score = lead.get("relevance_score") or 0
+    new_score = min(15, breakdown.get("data_completeness", 0))
+    if old_score <= new_score:
+        return None
+    return {
+        "relevance_score": new_score,
+        "score_breakdown": {**breakdown, "geography": 0},
+        "score_reasoning": "[Geriye dönük düzeltme 2026-08-11] İsminde veya kategorisinde ağır vasıta yedek parça/lojistik ile ilgili hiçbir sinyal bulunamadı - alakasız bir işletme olabilir, düşük öncelik.",
+    }
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--dry-run", action="store_true")
@@ -130,7 +152,7 @@ def main():
             # score_lead() ne olsa aynısını sector_label olarak geri döndürür.
             lead["phone_is_mobile"] = scoring["phone_is_mobile"]
         else:
-            patch = rescore_legacy_by_name(lead)
+            patch = rescore_legacy_by_name(lead) or rescore_legacy_zero_signal(lead)
             if patch:
                 lead.update(patch)
                 legacy_demoted += 1
