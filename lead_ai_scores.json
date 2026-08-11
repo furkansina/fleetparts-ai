@@ -1873,5 +1873,105 @@
         "relevance_score": 70,
         "score_reasoning": "Oto yedek parça toptancıları için uygun bir hedef kitle olabileceği düşünülmektedir.",
         "classified_at": "2026-08-11T08:19:24.121223+00:00"
+    },
+    "tbc_gullasotomotiv-28994": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça kategorisinde yer alan firma, ancak il bilgisi İstanbul olarak belirtilmiş, bu nedenle tam uygunluk sağlanamadı",
+        "classified_at": "2026-08-11T08:19:31.663863+00:00"
+    },
+    "tbc_paksoy-plastik-ve-elk-28122": {
+        "relevance_score": 90,
+        "score_reasoning": "Oto yedek parça firması ve İstanbul'da faaliyet gösteriyor",
+        "classified_at": "2026-08-11T08:19:31.663863+00:00"
+    },
+    "tbc_guraksan-makine-kalip-27904": {
+        "relevance_score": 70,
+        "score_reasoning": "Makine ve kalıp firması, oto yedek parça kategorisinde yer alıyor ancak ana faaliyet alanı makine kalıp olabilir",
+        "classified_at": "2026-08-11T08:19:31.663863+00:00"
+    },
+    "tbc_gurpar-oto-ticaret-a-26459": {
+        "relevance_score": 95,
+        "score_reasoning": "Oto ticaret firması ve oto yedek parça kategorisinde yer alıyor, İstanbultur",
+        "classified_at": "2026-08-11T08:19:31.663863+00:00"
+    },
+    "tbc_onur-otomotiv-yedekparca-26265": {
+        "relevance_score": 98,
+        "score_reasoning": "Otomotiv yedek parça firması ve İstanbul'da faaliyet gösteriyor",
+        "classified_at": "2026-08-11T08:19:31.663863+00:00"
+    },
+    "tbc_berk-otomotiv-26169": {
+        "relevance_score": 92,
+        "score_reasoning": "Otomotiv firması ve oto yedek parça kategorisinde yer alıyor, İstanbultur",
+        "classified_at": "2026-08-11T08:19:31.663863+00:00"
+    },
+    "tbc_dag-filter-22984": {
+        "relevance_score": 85,
+        "score_reasoning": "Oto yedek parça firması ve İstanbul'da faaliyet gösteriyor, ancak ana faaliyet alanı filtre olabilir",
+        "classified_at": "2026-08-11T08:19:31.663863+00:00"
+    },
+    "tbc_corretto-otomotiv-21990": {
+        "relevance_score": 90,
+        "score_reasoning": "Otomotiv firması ve oto yedek parça kategorisinde yer alıyor, İstanbultur",
+        "classified_at": "2026-08-11T08:19:31.663863+00:00"
+    },
+    "tbc_plasen-plastik-san-tic-48015": {
+        "relevance_score": 60,
+        "score_reasoning": "Plastik sanayi firması, oto yedek parça kategorisinde yer alıyor ancak ana faaliyet alanı plastik olabilir",
+        "classified_at": "2026-08-11T08:19:31.663863+00:00"
+    },
+    "tbc_sirvanli-alum-dokum-ve-33391": {
+        "relevance_score": 50,
+        "score_reasoning": "Alüminyum döküm firması, oto yedek parça kategorisinde yer alıyor ancak ana faaliyet alanı alüminyum döküm olabilir",
+        "classified_at": "2026-08-11T08:19:31.663863+00:00"
+    },
+    "tbc_ermek-otomat-makina-otomotiv-30320": {
+        "relevance_score": 80,
+        "score_reasoning": "Makine ve otomotiv firması, oto yedek parça kategorisinde yer alıyor",
+        "classified_at": "2026-08-11T08:19:31.663863+00:00"
+    },
+    "tbc_ark-pres-emniyet-kemeri-19467": {
+        "relevance_score": 70,
+        "score_reasoning": "Emniyet kemeri firması, oto yedek parça kategorisinde yer alıyor ancak ana faaliyet alanı emniyet kemeri olabilir",
+        "classified_at": "2026-08-11T08:19:31.663863+00:00"
+    },
+    "osm_node_9551020491": {
+        "relevance_score": 85,
+        "score_reasoning": "Otomotiv sanayi firması ve oto yedek parça kategorisinde yer alıyor, Konya'da faaliyet gösteriyor",
+        "classified_at": "2026-08-11T08:19:31.663863+00:00"
+    },
+    "tbc_sembol-paslanmaz-metal-san-45674": {
+        "relevance_score": 55,
+        "score_reasoning": "Paslanmaz metal firması, oto yedek parça kategorisinde yer alıyor ancak ana faaliyet alanı metal olabilir",
+        "classified_at": "2026-08-11T08:19:31.663863+00:00"
+    },
+    "tbc_basel-otomotiv-42228": {
+        "relevance_score": 88,
+        "score_reasoning": "Otomotiv firması ve oto yedek parça kategorisinde yer alıyor, Konya'da faaliyet gösteriyor",
+        "classified_at": "2026-08-11T08:19:31.663863+00:00"
+    },
+    "tbc_queen-imalat-ihracat-ve-41874": {
+        "relevance_score": 75,
+        "score_reasoning": "İmalat ve ihracat firması, oto yedek parça kategorisinde yer alıyor ancak ana faaliyet alanı imalat olabilir",
+        "classified_at": "2026-08-11T08:19:31.663863+00:00"
+    },
+    "tbc_hydrotime-mehmet-konsan-ltd-38884": {
+        "relevance_score": 60,
+        "score_reasoning": "Hidrolik firması, oto yedek parça kategorisinde yer alıyor ancak ana faaliyet alanı hidrolik olabilir",
+        "classified_at": "2026-08-11T08:19:31.663863+00:00"
+    },
+    "tbc_benefit-otomotiv-ic-ve-38184": {
+        "relevance_score": 90,
+        "score_reasoning": "Otomotiv firması ve oto yedek parça kategorisinde yer alıyor, Konya'da faaliyet gösteriyor",
+        "classified_at": "2026-08-11T08:19:31.663863+00:00"
+    },
+    "tbc_buyuktemiz-mak-otom-san-36587": {
+        "relevance_score": 70,
+        "score_reasoning": "Makine ve otomotiv firması, oto yedek parça kategorisinde yer alıyor",
+        "classified_at": "2026-08-11T08:19:31.663863+00:00"
+    },
+    "tbc_dps-piston-35453": {
+        "relevance_score": 80,
+        "score_reasoning": "Piston firması, oto yedek parça kategorisinde yer alıyor, Konya'da faaliyet gösteriyor",
+        "classified_at": "2026-08-11T08:19:31.663863+00:00"
     }
 }
