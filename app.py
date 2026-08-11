@@ -191,8 +191,14 @@ def _resolve_key_chain(pool: str, use_secondary_model: bool) -> list:
     Her eleman (etiket, api_anahtarı) çifti - etiket hata mesajlarında/kullanım takibinde
     hangi hesabın kullanıldığını belirtmek için kullanılır."""
     if use_secondary_model:
-        # llama modeli zaten ayrı bir model/kota (havuz ayrımından bağımsız), her zaman ana hesap üzerinden
-        return [("customer", GROQ_API_KEY)]
+        # llama modeli Groq'ta qwen'den TAMAMEN AYRI bir sunucu taraflı kotaya sahip (ayrı model),
+        # ama kimlik bilgisi (API anahtarı) olarak hâlâ ana hesabı (GROQ_API_KEY) kullanır - iki
+        # farklı kavram. Etiket ("leads_ai") SADECE yerel kullanım takibi içindir: önceden burada
+        # "customer" etiketi kullanılıyordu, bu da lead netleştirme kullanımının müşteri arama
+        # havuzunun kendi (yanlış) bütçesini tüketiyormuş gibi görünmesine yol açıyordu (bkz.
+        # usage_tracker.py'deki LEADS_AI_* notu) - gerçek müşteri aramaları etkilenmemiş olsa bile
+        # ön-kontrol (aşağıda) onları anlıksız atlayabiliyordu. Artık ayrı izleniyor.
+        return [("leads_ai", GROQ_API_KEY)]
     if pool == "bulk":
         # NOT: bulk havuzu ÖNCEDEN kasıtlı olarak SADECE ikinci hesabı kullanıyordu (ana müşteri
         # hesabına asla dokunmasın diye). Ama gerçek kullanımda Groq'un GERÇEK günlük limitinin
@@ -1498,19 +1504,49 @@ def export_leads_csv(_: str = Depends(require_admin)):
 CLASSIFY_AMBIGUOUS_BATCH_SIZE = 20
 CLASSIFY_SCORE_MIN = 20
 CLASSIFY_SCORE_MAX = 60
+# "directory" (turkbusinesscenter.com, sanayisitesi.com.tr ağı) ve "tyres" kaynaklı lead'ler
+# firma-beyanlı/kendiliğinden kategorize edilmiş veriye dayanıyor - gerçek bir kullanımda tespit
+# edildi ki bu, skoru YÜKSEK çıkan ama aslında tamamen alakasız firmalar (örn. "Car Lease Rent A
+# Car", bir araç kiralama şirketi) üretebiliyor. Kural bazlı sertleştirme (bkz. lead_scoring.py)
+# bilinen örüntüleri şimdiden ayıklıyor ama önceden görülmemiş örüntülere karşı ikinci bir göz
+# olarak, bu iki kaynak tipinden gelen lead'ler SKORLARI YÜKSEK OLSA BİLE (sadece 20-60 aralığı
+# değil) AI netleştirme adayı sayılır - önceden sadece "belirsiz" (20-60) aralığındakiler
+# gözden geçiriliyordu, yani bu iki kaynaktan gelen YÜKSEK skorlu (ve dolayısıyla hiç
+# sorgulanmayan) yanlış pozitifler tamamen gözden kaçıyordu.
+_RISKY_SELF_REPORTED_SHOP_TYPES = {"directory", "tyres"}
+
+
+def _needs_ai_review(lead: dict, ai_scores: dict) -> bool:
+    """Modül seviyesinde (closure değil) tutuluyor ki hem endpoint içinde hem izole testlerde
+    aynı fonksiyon çağrılabilsin - davranış ile test edilen şey birebir aynı olsun diye."""
+    if lead.get("lead_id") in ai_scores:
+        return False
+    score = lead.get("relevance_score") or 0
+    if CLASSIFY_SCORE_MIN <= score <= CLASSIFY_SCORE_MAX:
+        return True
+    if lead.get("raw_shop_type") in _RISKY_SELF_REPORTED_SHOP_TYPES and score > CLASSIFY_SCORE_MAX:
+        return True
+    return False
+
+
+def _ai_review_priority_key(lead: dict):
+    # En riskli (yüksek skorlu ama kendiliğinden/firma-beyanlı kategorize) olanlar önce
+    # değerlendirilsin - bunlar yanlış pozitif olduğunda en çok zarar veren (yüksek skorla üst
+    # sıralarda görünüp hiç sorgulanmadan onaylanma riski taşıyan) kayıtlar.
+    return (lead.get("raw_shop_type") not in _RISKY_SELF_REPORTED_SHOP_TYPES, -(lead.get("relevance_score") or 0))
+
 
 @app.post("/leads/classify-ambiguous")
 def classify_ambiguous_leads(_: str = Depends(require_admin)):
     """Kural bazlı skorlamanın net karar veremediği (ne çok yüksek ne çok düşük skorlu)
-    lead'leri Groq ile toplu değerlendirir. Zaten değerlendirilmiş olanları tekrar sormaz."""
+    lead'leri, VE kaynağı kendiliğinden/firma-beyanlı kategorize edilmiş (bu yüzden skor ne
+    olursa olsun daha az güvenilir) lead'leri Groq ile toplu değerlendirir. Zaten
+    değerlendirilmiş olanları tekrar sormaz."""
     leads = lead_store.load_leads()
     ai_scores = lead_store.load_lead_ai_scores()
 
-    candidates = [
-        l for l in leads
-        if l.get("lead_id") not in ai_scores
-        and CLASSIFY_SCORE_MIN <= (l.get("relevance_score") or 0) <= CLASSIFY_SCORE_MAX
-    ]
+    candidates = [l for l in leads if _needs_ai_review(l, ai_scores)]
+    candidates.sort(key=_ai_review_priority_key)
 
     if not candidates:
         return {"status": "success", "message": "Netleştirilecek belirsiz lead kalmadı.", "classified": 0, "remaining": 0}
@@ -1774,13 +1810,22 @@ def generate_broadcast(_: str = Depends(require_admin)):
         return {"status": "error", "message": str(e)}
 
 @app.post("/broadcast/save")
-def save_broadcast(message: str = Form(...), origin: str = Form("manuel"), _: str = Depends(require_admin)):
-    """Bir taslağı (AI önerili veya sıfırdan yazılmış) geçmişe 'gönderildi' olarak kaydeder."""
+def save_broadcast(
+    message: str = Form(...),
+    origin: str = Form("manuel"),
+    recipient_count: int = Form(0),
+    _: str = Depends(require_admin),
+):
+    """Bir taslağı (AI önerili veya sıfırdan yazılmış) geçmişe 'gönderildi' olarak kaydeder.
+    `recipient_count` (opsiyonel): WhatsApp gönderim kuyruğu (bkz. broadcast.html) ile kaç
+    kişiye gönderim ONAYLANDIĞI - tek tek her alıcı için ayrı log satırı açmak yerine (100 kişilik
+    bir kuyruk 100 neredeyse aynı log satırı üretirdi) tek bir özet satırda gösterilir."""
     log = outreach.load_broadcast_log()
     entry = {
         "id": f"bc_{int(time.time() * 1000)}",
         "message": message,
         "origin": origin,  # "ai" veya "manuel"
+        "recipient_count": recipient_count,
         "created_at": datetime.now(timezone.utc).isoformat(),
     }
     log.append(entry)
