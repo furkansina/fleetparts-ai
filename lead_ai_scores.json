@@ -2075,303 +2075,103 @@
         "classified_at": "2026-08-11T11:32:25.368017+00:00"
     },
     "tbc_unversan-otomotiv-makina-ve-20245": {
-        "relevance_score": 90,
-        "score_reasoning": "Oto yedek parça toptancısı olarak kategorize edildiği için yüksek skor verildi",
-        "classified_at": "2026-08-11T11:47:05.931955+00:00"
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça firması olduğu görülüyor, yüksek skor veriliyor",
+        "classified_at": "2026-08-11T11:47:44.634645+00:00"
     },
     "tbc_inal-kardesler-otomotiv-19583": {
-        "relevance_score": 90,
-        "score_reasoning": "Oto yedek parça toptancısı olarak kategorize edildiği için yüksek skor verildi",
-        "classified_at": "2026-08-11T11:47:05.931955+00:00"
+        "relevance_score": 85,
+        "score_reasoning": "Oto yedek parça firması, ismindeki 'otomotiv' ibaresi yüksek skora işaret ediyor",
+        "classified_at": "2026-08-11T11:47:44.634645+00:00"
     },
     "tbc_kacmazlar-otomotiv-ltd-sti-19116": {
         "relevance_score": 90,
-        "score_reasoning": "Oto yedek parça toptancısı olarak kategorize edildiği için yüksek skor verildi",
-        "classified_at": "2026-08-11T11:47:05.931955+00:00"
+        "score_reasoning": "Oto yedek parça firması, 'otomotiv' ve 'ltd' ibareleri yüksek skora işaret ediyor",
+        "classified_at": "2026-08-11T11:47:44.634645+00:00"
     },
     "tbc_conta-san-power-gaskets-18348": {
-        "relevance_score": 80,
-        "score_reasoning": "Oto yedek parça toptancısı olarak kategorize edildiği için orta yüksek skor verildi",
-        "classified_at": "2026-08-11T11:47:05.931955+00:00"
+        "relevance_score": 70,
+        "score_reasoning": "Oto yedek parça firması, ancak spesifik ürün üzerine odaklanmış gibi görünüyor",
+        "classified_at": "2026-08-11T11:47:44.634645+00:00"
     },
     "tbc_murat-otomotiv-tic-ltd-18272": {
-        "relevance_score": 90,
-        "score_reasoning": "Oto yedek parça toptancısı olarak kategorize edildiği için yüksek skor verildi",
-        "classified_at": "2026-08-11T11:47:05.931955+00:00"
+        "relevance_score": 85,
+        "score_reasoning": "Oto yedek parça firması, 'otomotiv' ve 'tic' ibareleri yüksek skora işaret ediyor",
+        "classified_at": "2026-08-11T11:47:44.634645+00:00"
     },
     "tbc_servet-usta-isuzu-servisi-23642": {
         "relevance_score": 40,
-        "score_reasoning": "Bağımsız servis olarak kategorize edildiği için düşük skor verildi",
-        "classified_at": "2026-08-11T11:47:05.931955+00:00"
+        "score_reasoning": "Bağımsız servis olarak görünüyor, düşük skor veriliyor",
+        "classified_at": "2026-08-11T11:47:44.634645+00:00"
     },
     "tbc_tomhisar-pompa-26701": {
-        "relevance_score": 60,
-        "score_reasoning": "Oto yedek parça toptancısı olarak kategorize edildiği için orta skor verildi",
-        "classified_at": "2026-08-11T11:47:05.931955+00:00"
+        "relevance_score": 50,
+        "score_reasoning": "Spesifik ürün üzerine odaklanmış gibi görünüyor, ancak oto yedek parçası olabilir",
+        "classified_at": "2026-08-11T11:47:44.634645+00:00"
     },
     "tbc_anadolu-arsan-makine-imalat-19118": {
-        "relevance_score": 70,
-        "score_reasoning": "Oto yedek parça toptancısı olarak kategorize edildiği için orta yüksek skor verildi",
-        "classified_at": "2026-08-11T11:47:05.931955+00:00"
+        "relevance_score": 60,
+        "score_reasoning": "Makine imalat firması, ancak oto yedek parçası üretiyor olabilir",
+        "classified_at": "2026-08-11T11:47:44.634645+00:00"
     },
     "tbc_yilser-yildizlar-oto-servis-44872": {
         "relevance_score": 30,
-        "score_reasoning": "Bağımsız servis olarak kategorize edildiği için düşük skor verildi",
-        "classified_at": "2026-08-11T11:47:05.931955+00:00"
+        "score_reasoning": "Bağımsız servis olarak görünüyor, düşük skor veriliyor",
+        "classified_at": "2026-08-11T11:47:44.634645+00:00"
     },
     "tbc_zorlu-otomotiv-insaat-ltd-41649": {
         "relevance_score": 80,
-        "score_reasoning": "Oto yedek parça toptancısı olarak kategorize edildiği için orta yüksek skor verildi",
-        "classified_at": "2026-08-11T11:47:05.931955+00:00"
+        "score_reasoning": "Oto yedek parça firması, 'otomotiv' ibaresi yüksek skora işaret ediyor",
+        "classified_at": "2026-08-11T11:47:44.634645+00:00"
     },
     "tbc_asarogullari-grup-oto-madeni-50886": {
-        "relevance_score": 80,
-        "score_reasoning": "Oto yedek parça toptancısı olarak kategorize edildiği için orta yüksek skor verildi",
-        "classified_at": "2026-08-11T11:47:05.931955+00:00"
+        "relevance_score": 75,
+        "score_reasoning": "Oto yedek parça firması, ancak 'oto madeni yağ' ibaresi slightly düşük skora işaret ediyor",
+        "classified_at": "2026-08-11T11:47:44.634645+00:00"
     },
     "tbc_yasarogullari-oto-madeni-yag-50864": {
-        "relevance_score": 80,
-        "score_reasoning": "Oto yedek parça toptancısı olarak kategorize edildiği için orta yüksek skor verildi",
-        "classified_at": "2026-08-11T11:47:05.931955+00:00"
+        "relevance_score": 75,
+        "score_reasoning": "Oto yedek parça firması, ancak 'oto madeni yağ' ibaresi slightly düşük skora işaret ediyor",
+        "classified_at": "2026-08-11T11:47:44.634645+00:00"
     },
     "tbc_oto-arici-37153": {
-        "relevance_score": 70,
-        "score_reasoning": "Oto yedek parça toptancısı olarak kategorize edildiği için orta yüksek skor verildi",
-        "classified_at": "2026-08-11T11:47:05.931955+00:00"
+        "relevance_score": 50,
+        "score_reasoning": "Spesifik ürün üzerine odaklanmış gibi görünüyor, ancak oto yedek parçası olabilir",
+        "classified_at": "2026-08-11T11:47:44.634645+00:00"
     },
     "ankaraotosanayi_791": {
         "relevance_score": 20,
-        "score_reasoning": "Bağımsız servis olarak kategorize edildiği için düşük skor verildi",
-        "classified_at": "2026-08-11T11:47:05.931955+00:00"
+        "score_reasoning": "Bağımsız servis olarak görünüyor, düşük skor veriliyor",
+        "classified_at": "2026-08-11T11:47:44.634645+00:00"
     },
     "ankaraotosanayi_787": {
-        "relevance_score": 50,
-        "score_reasoning": "Oto yedek parça satışı yaptığini belirtmediği için düşük skor verildi",
-        "classified_at": "2026-08-11T11:47:05.931955+00:00"
+        "relevance_score": 60,
+        "score_reasoning": "Oto yedek parça firması, ancak 'motor satış' ibaresi slightly düşük skora işaret ediyor",
+        "classified_at": "2026-08-11T11:47:44.634645+00:00"
     },
     "ankaraotosanayi_202": {
-        "relevance_score": 60,
-        "score_reasoning": "Oto yedek parça satışı yaptığini belirttiği için orta skor verildi",
-        "classified_at": "2026-08-11T11:47:05.931955+00:00"
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça firması, 'yedek parça' ibaresi yüksek skora işaret ediyor",
+        "classified_at": "2026-08-11T11:47:44.634645+00:00"
     },
     "ankaraotosanayi_380": {
-        "relevance_score": 20,
-        "score_reasoning": "Bağımsız servis olarak kategorize edildiği için düşük skor verildi",
-        "classified_at": "2026-08-11T11:47:05.931955+00:00"
+        "relevance_score": 40,
+        "score_reasoning": "Bağımsız servis olarak görünüyor, düşük skor veriliyor",
+        "classified_at": "2026-08-11T11:47:44.634645+00:00"
     },
     "ankaraotosanayi_1018": {
         "relevance_score": 50,
-        "score_reasoning": "Oto yedek parça satışı yaptığini belirtmediği için düşük skor verildi",
-        "classified_at": "2026-08-11T11:47:05.931955+00:00"
+        "score_reasoning": "Oto yedek parça firması, ancak spesifik ürün üzerine odaklanmış gibi görünüyor",
+        "classified_at": "2026-08-11T11:47:44.634645+00:00"
     },
     "ankaraotosanayi_1576": {
-        "relevance_score": 60,
-        "score_reasoning": "Oto yedek parça satışı yaptığini belirttiği için orta skor verildi",
-        "classified_at": "2026-08-11T11:47:05.931955+00:00"
+        "relevance_score": 70,
+        "score_reasoning": "Oto yedek parça firması, 'yedek parça' ibaresi yüksek skora işaret ediyor",
+        "classified_at": "2026-08-11T11:47:44.634645+00:00"
     },
     "ankaraotosanayi_1436": {
         "relevance_score": 40,
-        "score_reasoning": "Oto yedek parça satışı yaptığini belirtmediği için düşük skor verildi",
-        "classified_at": "2026-08-11T11:47:05.931955+00:00"
-    },
-    "ankaraotosanayi_1398": {
-        "relevance_score": 0,
-        "score_reasoning": "Bağımsız bir tamirci veya servis gibi görünüyor",
-        "classified_at": "2026-08-11T11:47:15.793239+00:00"
-    },
-    "ankaraotosanayi_1428": {
-        "relevance_score": 0,
-        "score_reasoning": "Bağımsız bir oto aksesuar satıcısı gibi görünüyor",
-        "classified_at": "2026-08-11T11:47:15.793239+00:00"
-    },
-    "ankaraotosanayi_367": {
-        "relevance_score": 0,
-        "score_reasoning": "Bağımsız bir orjinal yedek parça satıcısı gibi görünüyor",
-        "classified_at": "2026-08-11T11:47:15.793239+00:00"
-    },
-    "ankaraotosanayi_1365": {
-        "relevance_score": 0,
-        "score_reasoning": "Çıkma yedek parça satıcısı, hedef outside",
-        "classified_at": "2026-08-11T11:47:15.793239+00:00"
-    },
-    "ankaraotosanayi_368": {
-        "relevance_score": 0,
-        "score_reasoning": "Bağımsız bir oto yedek parça satıcısı gibi görünüyor",
-        "classified_at": "2026-08-11T11:47:15.793239+00:00"
-    },
-    "ankaraotosanayi_52": {
-        "relevance_score": 0,
-        "score_reasoning": "Bağımsız bir marin motor yedek parça satıcısı gibi görünüyor",
-        "classified_at": "2026-08-11T11:47:15.793239+00:00"
-    },
-    "ankaraotosanayi_1191": {
-        "relevance_score": 0,
-        "score_reasoning": "Bağımsız bir oto aksesuar satıcısı gibi görünüyor",
-        "classified_at": "2026-08-11T11:47:15.793239+00:00"
-    },
-    "ankaraotosanayi_1088": {
-        "relevance_score": 0,
-        "score_reasoning": "Bağımsız bir Iveco Daily yedek parça satıcısı gibi görünüyor",
-        "classified_at": "2026-08-11T11:47:15.793239+00:00"
-    },
-    "ankaraotosanayi_1553": {
-        "relevance_score": 0,
-        "score_reasoning": "Bağımsız bir mafsal sanayi gibi görünüyor",
-        "classified_at": "2026-08-11T11:47:15.793239+00:00"
-    },
-    "ankaraotosanayi_365": {
-        "relevance_score": 0,
-        "score_reasoning": "Bağımsız bir balata yedekleri satıcısı gibi görünüyor",
-        "classified_at": "2026-08-11T11:47:15.793239+00:00"
-    },
-    "ankaraotosanayi_1118": {
-        "relevance_score": 0,
-        "score_reasoning": "Bağımsız bir Reno Tofaş yedek parça satıcısı gibi görünüyor",
-        "classified_at": "2026-08-11T11:47:15.793239+00:00"
-    },
-    "ankaraotosanayi_1351": {
-        "relevance_score": 0,
-        "score_reasoning": "Bağımsız bir Volkswagen yedek parça satıcısı gibi görünüyor",
-        "classified_at": "2026-08-11T11:47:15.793239+00:00"
-    },
-    "ankaraotosanayi_1781": {
-        "relevance_score": 0,
-        "score_reasoning": "Bağımsız bir Japon Kore yedek parça satıcısı gibi görünüyor",
-        "classified_at": "2026-08-11T11:47:15.793239+00:00"
-    },
-    "ankaraotosanayi_1114": {
-        "relevance_score": 0,
-        "score_reasoning": "Çıkma yedek parça satıcısı, hedef outside",
-        "classified_at": "2026-08-11T11:47:15.793239+00:00"
-    },
-    "ankaraotosanayi_1645": {
-        "relevance_score": 0,
-        "score_reasoning": "Bağımsız bir oto döşeme satıcısı gibi görünüyor",
-        "classified_at": "2026-08-11T11:47:15.793239+00:00"
-    },
-    "ankaraotosanayi_1237": {
-        "relevance_score": 0,
-        "score_reasoning": "Bağımsız bir Fıat Renault yedek parça satıcısı gibi görünüyor",
-        "classified_at": "2026-08-11T11:47:15.793239+00:00"
-    },
-    "ankaraotosanayi_659": {
-        "relevance_score": 0,
-        "score_reasoning": "Bağımsız bir Skoda yedek parça satıcısı gibi görünüyor",
-        "classified_at": "2026-08-11T11:47:15.793239+00:00"
-    },
-    "ankaraotosanayi_1654": {
-        "relevance_score": 0,
-        "score_reasoning": "Bağımsız bir Pick Up çıkma yedek parça satıcısı gibi görünüyor",
-        "classified_at": "2026-08-11T11:47:15.793239+00:00"
-    },
-    "ankaraotosanayi_1174": {
-        "relevance_score": 0,
-        "score_reasoning": "Bağımsız bir Ford Otosan yedek parça satıcısı gibi görünüyor",
-        "classified_at": "2026-08-11T11:47:15.793239+00:00"
-    },
-    "ankaraotosanayi_1054": {
-        "relevance_score": 0,
-        "score_reasoning": "Bağımsız bir otoomotiv satıcısı gibi görünüyor",
-        "classified_at": "2026-08-11T11:47:15.793239+00:00"
-    },
-    "ankaraotosanayi_723": {
-        "relevance_score": 80,
-        "score_reasoning": "Oto yedek parça toptancısı",
-        "classified_at": "2026-08-11T11:47:24.111711+00:00"
-    },
-    "ankaraotosanayi_1075": {
-        "relevance_score": 80,
-        "score_reasoning": "Oto yedek parça toptancısı",
-        "classified_at": "2026-08-11T11:47:24.111711+00:00"
-    },
-    "ankaraotosanayi_672": {
-        "relevance_score": 80,
-        "score_reasoning": "Oto yedek parça toptancısı",
-        "classified_at": "2026-08-11T11:47:24.111711+00:00"
-    },
-    "ankaraotosanayi_764": {
-        "relevance_score": 20,
-        "score_reasoning": "Bağımsız servis olarak görünüyor",
-        "classified_at": "2026-08-11T11:47:24.111711+00:00"
-    },
-    "ankaraotosanayi_895": {
-        "relevance_score": 20,
-        "score_reasoning": "Bağımsız servis olarak görünüyor",
-        "classified_at": "2026-08-11T11:47:24.111711+00:00"
-    },
-    "ankaraotosanayi_1066": {
-        "relevance_score": 40,
-        "score_reasoning": "Modifiye ve aksesuar üzerine odaklanmış",
-        "classified_at": "2026-08-11T11:47:24.111711+00:00"
-    },
-    "ankaraotosanayi_531": {
-        "relevance_score": 60,
-        "score_reasoning": "Çok özel bir marka için yedek parça satıcısı",
-        "classified_at": "2026-08-11T11:47:24.111711+00:00"
-    },
-    "ankaraotosanayi_204": {
-        "relevance_score": 60,
-        "score_reasoning": "Oto aksesuar satıcısı",
-        "classified_at": "2026-08-11T11:47:24.111711+00:00"
-    },
-    "ankaraotosanayi_1720": {
-        "relevance_score": 40,
-        "score_reasoning": "Çıkma yedek parça satıcısı",
-        "classified_at": "2026-08-11T11:47:24.111711+00:00"
-    },
-    "ankaraotosanayi_1001": {
-        "relevance_score": 60,
-        "score_reasoning": "Modifiye ve yedek parça satıcısı",
-        "classified_at": "2026-08-11T11:47:24.111711+00:00"
-    },
-    "ankaraotosanayi_624": {
-        "relevance_score": 60,
-        "score_reasoning": "Oto yedek parça satıcısı",
-        "classified_at": "2026-08-11T11:47:24.111711+00:00"
-    },
-    "ankaraotosanayi_29": {
-        "relevance_score": 20,
-        "score_reasoning": "Bağımsız servis olarak görünüyor",
-        "classified_at": "2026-08-11T11:47:24.111711+00:00"
-    },
-    "ankaraotosanayi_1544": {
-        "relevance_score": 60,
-        "score_reasoning": "Oto aksesuar satıcısı",
-        "classified_at": "2026-08-11T11:47:24.111711+00:00"
-    },
-    "ankaraotosanayi_514": {
-        "relevance_score": 60,
-        "score_reasoning": "Oto aksesuar satıcısı",
-        "classified_at": "2026-08-11T11:47:24.111711+00:00"
-    },
-    "ankaraotosanayi_209": {
-        "relevance_score": 60,
-        "score_reasoning": "Oto yedek parça satıcısı",
-        "classified_at": "2026-08-11T11:47:24.111711+00:00"
-    },
-    "ankaraotosanayi_640": {
-        "relevance_score": 60,
-        "score_reasoning": "Oto yedek parça satıcısı",
-        "classified_at": "2026-08-11T11:47:24.111711+00:00"
-    },
-    "ankaraotosanayi_218": {
-        "relevance_score": 80,
-        "score_reasoning": "Oto yedek parça toptancısı",
-        "classified_at": "2026-08-11T11:47:24.111711+00:00"
-    },
-    "ankaraotosanayi_1223": {
-        "relevance_score": 60,
-        "score_reasoning": "Oto yedek parça satıcısı",
-        "classified_at": "2026-08-11T11:47:24.111711+00:00"
-    },
-    "ankaraotosanayi_928": {
-        "relevance_score": 60,
-        "score_reasoning": "Oto yedek parça satıcısı",
-        "classified_at": "2026-08-11T11:47:24.111711+00:00"
-    },
-    "ankaraotosanayi_963": {
-        "relevance_score": 60,
-        "score_reasoning": "Oto yedek parça satıcısı",
-        "classified_at": "2026-08-11T11:47:24.111711+00:00"
+        "score_reasoning": "Fiberglass ürün üzerine odaklanmış gibi görünüyor, ancak oto yedek parçası olabilir",
+        "classified_at": "2026-08-11T11:47:44.634645+00:00"
     }
 }
