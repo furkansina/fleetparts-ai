@@ -20,6 +20,7 @@ from fastapi.security import HTTPBasic, HTTPBasicCredentials
 import lead_store
 import outreach
 import usage_tracker
+import whatsapp_business_api
 from lead_dedupe import is_mobile_phone, turkish_lower
 
 app = FastAPI(title="FleetParts AI - Universal Heavy Duty Master Engine")
@@ -51,6 +52,24 @@ for _i in range(4, 21):
     if _extra:
         GROQ_EXTRA_KEYS.append((f"extra{_i}", _extra))
         usage_tracker.register_pool(f"extra{_i}")
+
+# leads_ai (llama-3.3-70b-versatile - lead netleştirme) ÖNCEDEN sadece ana hesaba (GROQ_API_KEY)
+# kilitliydi, zincirlemesi yoktu - bir tek ağır kullanım (2000+ lead'lik bir netleştirme) o
+# hesabın günlük 100K token'lık llama kotasını tek seferde bitirebiliyordu (2026-08-11 canlıda
+# tespit edildi). qwen havuzları (customer/bulk/extraN) İÇİN zaten var olan çoklu-hesap zincirleme
+# mekanizması burada YOKTU. Aynı fiziksel hesapların HER BİRİNİN llama için de AYRI bir 100K'lık
+# kotası var (farklı model = Groq'ta farklı sunucu taraflı limit) - bu yüzden qwen için zaten
+# tanımlı her ek hesap, leads_ai_* etiketiyle İKİNCİ KEZ (llama bütçesiyle) kaydedilir. Aynı API
+# anahtarı, iki AYRI kota için iki AYRI pool etiketi altında izlenir - karışmaz.
+LEADS_AI_KEY_CHAIN = [("leads_ai", GROQ_API_KEY)]
+if GROQ_API_KEY_BULK:
+    LEADS_AI_KEY_CHAIN.append(("leads_ai_bulk", GROQ_API_KEY_BULK))
+if GROQ_API_KEY_THIRD:
+    LEADS_AI_KEY_CHAIN.append(("leads_ai_customer2", GROQ_API_KEY_THIRD))
+for _label, _key in GROQ_EXTRA_KEYS:
+    LEADS_AI_KEY_CHAIN.append((f"leads_ai_{_label}", _key))
+for _label, _key in LEADS_AI_KEY_CHAIN:
+    usage_tracker.register_pool(_label, token_budget=usage_tracker.LEADS_AI_DAILY_TOKEN_BUDGET, request_budget=usage_tracker.LEADS_AI_DAILY_REQUEST_BUDGET)
 GROQ_VISION_MODEL = "qwen/qwen3.6-27b"     # Görsel gerektiren işler (parça fotoğrafı, katalog sayfası) - hesap başına günlük 200K token kotası
 GROQ_TEXT_MODEL = "llama-3.3-70b-versatile"  # Sadece iç/toplu kullanım (lead ön-değerlendirme) - AYRI, 100K token kotası
 
@@ -192,13 +211,13 @@ def _resolve_key_chain(pool: str, use_secondary_model: bool) -> list:
     hangi hesabın kullanıldığını belirtmek için kullanılır."""
     if use_secondary_model:
         # llama modeli Groq'ta qwen'den TAMAMEN AYRI bir sunucu taraflı kotaya sahip (ayrı model),
-        # ama kimlik bilgisi (API anahtarı) olarak hâlâ ana hesabı (GROQ_API_KEY) kullanır - iki
-        # farklı kavram. Etiket ("leads_ai") SADECE yerel kullanım takibi içindir: önceden burada
-        # "customer" etiketi kullanılıyordu, bu da lead netleştirme kullanımının müşteri arama
-        # havuzunun kendi (yanlış) bütçesini tüketiyormuş gibi görünmesine yol açıyordu (bkz.
-        # usage_tracker.py'deki LEADS_AI_* notu) - gerçek müşteri aramaları etkilenmemiş olsa bile
-        # ön-kontrol (aşağıda) onları anlıksız atlayabiliyordu. Artık ayrı izleniyor.
-        return [("leads_ai", GROQ_API_KEY)]
+        # ama kimlik bilgisi (API anahtarı) olarak hâlâ (varsa) BİRDEN FAZLA hesabı kullanabilir -
+        # bkz. LEADS_AI_KEY_CHAIN. Önceden tek hesaba (GROQ_API_KEY) kilitliydi - büyük bir lead
+        # netleştirme partisi (2000+ kayıt) tek hesabın 100K token'lık günlük llama kotasını tek
+        # seferde bitiriyordu (2026-08-11 canlıda tespit edildi, kalıcı çözüm istendi). Artık qwen
+        # havuzları gibi zincirleniyor: GROQ_API_KEY_BULK/GROQ_API_KEY_THIRD/GROQ_API_KEY_4.. hangi
+        # ek hesap tanımlıysa, ana hesabın llama kotası bitince otomatik ona geçiliyor.
+        return LEADS_AI_KEY_CHAIN
     if pool == "bulk":
         # NOT: bulk havuzu ÖNCEDEN kasıtlı olarak SADECE ikinci hesabı kullanıyordu (ana müşteri
         # hesabına asla dokunmasın diye). Ama gerçek kullanımda Groq'un GERÇEK günlük limitinin
@@ -1844,6 +1863,50 @@ def save_broadcast(
     outreach.save_broadcast_log(log)
     outreach.sync_broadcast_log_to_github()
     return {"status": "success"}
+
+@app.get("/whatsapp-api-status")
+def whatsapp_api_status(_: str = Depends(require_admin)):
+    """broadcast.html'in, WhatsApp Business Platform (Cloud API) yapılandırılmış mı yoksa
+    hâlâ elle wa.me akışı mı kullanılacak diye kontrol etmesi için."""
+    return {"configured": whatsapp_business_api.is_configured()}
+
+@app.post("/broadcast/send-via-api")
+def send_broadcast_via_api(
+    contacts: str = Form(...),  # JSON: [{"name": "...", "phone": "..."}]
+    _: str = Depends(require_admin),
+):
+    """WhatsApp Business Platform (Cloud API) üzerinden ONAYLI ŞABLONLA otomatik gönderim -
+    SADECE WHATSAPP_BUSINESS_TOKEN/WHATSAPP_PHONE_NUMBER_ID tanımlıysa çalışır (aksi halde net
+    bir hata döner, broadcast.html hâlâ elle wa.me akışına düşer). Soğuk lead'lere serbest metin
+    DEĞİL, Meta'nın onayladığı şablon gönderilir - bkz. whatsapp_business_api.py."""
+    if not whatsapp_business_api.is_configured():
+        return {"status": "error", "message": "WhatsApp Business Platform henüz yapılandırılmamış (WHATSAPP_BUSINESS_TOKEN/WHATSAPP_PHONE_NUMBER_ID gerekli)."}
+    try:
+        contact_list = json.loads(contacts)
+    except Exception:
+        return {"status": "error", "message": "Kişi listesi okunamadı."}
+
+    results = []
+    for c in contact_list:
+        digits = re.sub(r"\D", "", str(c.get("phone", "")))
+        if digits.startswith("0"):
+            digits = "90" + digits[1:]
+        elif len(digits) == 10:
+            digits = "90" + digits
+        name = c.get("name", "")
+        if not digits:
+            results.append({"name": name, "phone": "", "status": "error", "message": "Geçersiz telefon numarası."})
+            continue
+        res = whatsapp_business_api.send_template_message(digits, body_params=[name])
+        results.append({"name": name, "phone": digits, "status": res.get("status"), "message": res.get("message", "")})
+
+    success_count = sum(1 for r in results if r["status"] == "success")
+    return {
+        "status": "success",
+        "sent": success_count,
+        "failed": len(results) - success_count,
+        "results": results,
+    }
 
 @app.post("/process-part")
 def process_part(
