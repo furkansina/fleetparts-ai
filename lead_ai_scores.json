@@ -1673,5 +1673,105 @@
         "relevance_score": 10,
         "score_reasoning": "Oto markasına özgü servis gibi görünüyor, ağır vasıta yedek parçası ile ilgili bilgi yok",
         "classified_at": "2026-08-11T08:15:48.260711+00:00"
+    },
+    "tbc_tuncaprm-loj-dis-tic-12410": {
+        "relevance_score": 90,
+        "score_reasoning": "Tuncaprm Loj.dış.tic.otomotiv San. Ve Tiç.ltd Şti, oto yedek parça ve dış ticaret faaliyetleriyle ilgili bir şirket olduğu için yüksek relevance skoru verildi",
+        "classified_at": "2026-08-11T08:15:55.665110+00:00"
+    },
+    "tbc_oto-perk-a-s-25876": {
+        "relevance_score": 85,
+        "score_reasoning": "Oto Perk A.ş., oto yedek parça satışı yapılan bir şirket olduğu için yüksek relevance skoru verildi",
+        "classified_at": "2026-08-11T08:15:55.665110+00:00"
+    },
+    "tbc_aslar-motorlu-araclar-san-50285": {
+        "relevance_score": 80,
+        "score_reasoning": "Aslar Motorlu Araçlar San. Ve Tic. Ltd. Şti, oto yedek parça ve motorlu araçlarla ilgili faaliyet gösteren bir şirket olduğu için yüksek relevance skoru verildi",
+        "classified_at": "2026-08-11T08:15:55.665110+00:00"
+    },
+    "tbc_aracdeposu-49779": {
+        "relevance_score": 75,
+        "score_reasoning": "Araçdeposu, oto yedek parça satışı yapılan bir şirket olduğu için yüksek relevance skoru verildi",
+        "classified_at": "2026-08-11T08:15:55.665110+00:00"
+    },
+    "tbc_arslan-yurtturk-is-makinalari-49069": {
+        "relevance_score": 70,
+        "score_reasoning": "Arslan Yurttürk İş Makinaları Sanayi Ve Ticaret Limited Şirketi, iş makinaları ile ilgili faaliyet gösteren bir şirket olduğu içinorta düzeyde relevance skoru verildi",
+        "classified_at": "2026-08-11T08:15:55.665110+00:00"
+    },
+    "tbc_parca-ofisi-47127": {
+        "relevance_score": 65,
+        "score_reasoning": "Parça Ofisi, oto yedek parça satışı yapılan bir şirket olduğu için orta düzeyde relevance skoru verildi",
+        "classified_at": "2026-08-11T08:15:55.665110+00:00"
+    },
+    "tbc_cihan-oto-ltd-sti-44983": {
+        "relevance_score": 60,
+        "score_reasoning": "Cihan Oto Ltd Şti, oto yedek parça satışı yapılan bir şirket olduğu için orta düzeyde relevance skoru verildi",
+        "classified_at": "2026-08-11T08:15:55.665110+00:00"
+    },
+    "tbc_sdt-sarper-makina-sanayi-44385": {
+        "relevance_score": 55,
+        "score_reasoning": "Sdt Sarper Makina Sanayi Ticaret Ltd. Şti., makina sanayi ile ilgili faaliyet gösteren bir şirket olduğu için düşük relevance skoru verildi",
+        "classified_at": "2026-08-11T08:15:55.665110+00:00"
+    },
+    "tbc_gurkan-kriko-43661": {
+        "relevance_score": 50,
+        "score_reasoning": "Gürkan Kriko, kriko ve iş makinaları ile ilgili faaliyet gösteren bir şirket olduğu için düşük relevance skoru verildi",
+        "classified_at": "2026-08-11T08:15:55.665110+00:00"
+    },
+    "tbc_sms-otomotiv-37548": {
+        "relevance_score": 45,
+        "score_reasoning": "Sms Otomotiv, oto yedek parça satışı yapılan bir şirket jedoch tamir servisi olarak da faaliyet göstermektedir",
+        "classified_at": "2026-08-11T08:15:55.665110+00:00"
+    },
+    "tbc_profflpg-34442": {
+        "relevance_score": 40,
+        "score_reasoning": "Profflpg, oto yedek parça satışı yapılan bir şirket jedoch hakkında yeterli bilgi bulunmamaktadır",
+        "classified_at": "2026-08-11T08:15:55.665110+00:00"
+    },
+    "tbc_sms-otomotiv-31314": {
+        "relevance_score": 35,
+        "score_reasoning": "Sms Otomotiv, oto yedek parça satışı yapılan bir şirket jedoch tamir servisi olarak da faaliyet göstermektedir",
+        "classified_at": "2026-08-11T08:15:55.665110+00:00"
+    },
+    "tbc_aksoy-bay-otomotiv-enerji-31224": {
+        "relevance_score": 30,
+        "score_reasoning": "Aksoy Bay Otomotiv Enerji Sistemleri Ltd Şti, enerji sistemleri ile ilgili faaliyet gösteren bir şirket olduğu için düşük relevance skoru verildi",
+        "classified_at": "2026-08-11T08:15:55.665110+00:00"
+    },
+    "tbc_sultandagli-mercedes-benz-ozel-30480": {
+        "relevance_score": 25,
+        "score_reasoning": "Sultandağlı Mercedes-benz Özel Servisi, özel servis olarak faaliyet göstermektedir",
+        "classified_at": "2026-08-11T08:15:55.665110+00:00"
+    },
+    "tbc_2a-brc-izmir-starotogaz-26738": {
+        "relevance_score": 20,
+        "score_reasoning": "2a Brc İzmir Starotogaz Lpg Montaj Servisi, LPG montaj servisi olarak faaliyet göstermektedir",
+        "classified_at": "2026-08-11T08:15:55.665110+00:00"
+    },
+    "tbc_fiat-merkez-servis-26079": {
+        "relevance_score": 15,
+        "score_reasoning": "Fiat Merkez Servis, servis olarak faaliyet göstermektedir",
+        "classified_at": "2026-08-11T08:15:55.665110+00:00"
+    },
+    "tbc_izmir-senkromec-sanayi-tic-22662": {
+        "relevance_score": 10,
+        "score_reasoning": "İzmir Senkromec Sanayi Tic.ltd.şti, hakkında yeterli bilgi bulunmamaktadır",
+        "classified_at": "2026-08-11T08:15:55.665110+00:00"
+    },
+    "tbc_buzcuogullari-ltd-sti-6758": {
+        "relevance_score": 5,
+        "score_reasoning": "Buzcuogullari Ltd Sti, hakkında yeterli bilgi bulunmamaktadır",
+        "classified_at": "2026-08-11T08:15:55.665110+00:00"
+    },
+    "tbc_fam-x-tuning-kayseri-43496": {
+        "relevance_score": 0,
+        "score_reasoning": "Fam-x Tuning Kayseri, tuning ve tamir servisi olarak faaliyet göstermektedir",
+        "classified_at": "2026-08-11T08:15:55.665110+00:00"
+    },
+    "tbc_gunesli-garaj-46076": {
+        "relevance_score": 0,
+        "score_reasoning": "Güneşli Garaj, garaj olarak faaliyet göstermektedir",
+        "classified_at": "2026-08-11T08:15:55.665110+00:00"
     }
 }
