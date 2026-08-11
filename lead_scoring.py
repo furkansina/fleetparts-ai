@@ -36,7 +36,7 @@ _KEYWORD_PATTERN = re.compile(
 # TÜM şehirler/kaynaklar için aynı anda geçerli olur - şehir başına ayrı ayrı uğraşmaya gerek yok.
 _EXCLUDE_KEYWORDS = [
     "evden eve", "turizm", "seyahat", "travel", "tur operatör",
-    "rent a car", "rent-a-car", "car rental", "araç kiralama", "arac kiralama",
+    "rent a car", "rent-a-car", "rentacar", "car rental", "araç kiralama", "arac kiralama",
     "oto kiralama", "filo kiralama",
     "asansör", "asansor",
     "sürücü kursu", "surucu kursu", "ehliyet kursu",
@@ -107,7 +107,11 @@ def _is_stale_source(raw: dict) -> bool:
 def score_lead(raw: dict) -> dict:
     """Kural bazlı skor: OSM'den gelen ham veriyi (isim, kategori, iletişim bilgisi)
     hedef kitle profiline (toptancı/lojistik, bağımsız tamirci DEĞİL) göre puanlar."""
-    name_lower = turkish_lower(raw.get("name", ""))
+    # Birden fazla boşluk TEK boşluğa indirgeniyor - aksi halde "Arma Rent  A Car" (çift boşluklu,
+    # gerçek veride tespit edildi) gibi kayıtlarda _EXCLUDE_PATTERN'in aradığı "rent a car" (tek
+    # boşluklu) ifadesi eşleşmiyor, sessizce kaçıyordu. Çok kelimeli TÜM anahtar kelime kalıpları
+    # (hem _EXCLUDE_KEYWORDS hem NAME_KEYWORDS_HIGH_VALUE) bu normalizasyondan faydalanıyor.
+    name_lower = re.sub(r"\s+", " ", turkish_lower(raw.get("name", "")))
     shop_type = raw.get("shop_type", "")
 
     keyword_hit = bool(_KEYWORD_PATTERN.search(name_lower))
