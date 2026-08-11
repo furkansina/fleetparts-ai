@@ -16,14 +16,43 @@ USAGE_FILE = "token_usage.json"
 # tahmin edilmişti; asıl GÖZDEN KAÇAN sınır GÜNLÜK İSTEK SAYISIYDI (aşağıda DAILY_REQUEST_BUDGET) -
 # "kota bitti" hatalarının bir kısmının aslında token değil istek sınırından kaynaklanmış
 # olabileceği ihtimali bunun eklenmesiyle artık takip edilebiliyor.
-DAILY_TOKEN_BUDGET = 200000    # Groq ücretsiz kotanın (hesap başına) günlük TOKEN sınırı (TPD)
-DAILY_REQUEST_BUDGET = 1000    # Groq ücretsiz kotanın (hesap başına) günlük İSTEK sayısı sınırı (RPD)
+DAILY_TOKEN_BUDGET = 200000    # Groq ücretsiz kotanın (hesap başına) günlük TOKEN sınırı (TPD) - qwen/qwen3.6-27b havuzları
+DAILY_REQUEST_BUDGET = 1000    # Groq ücretsiz kotanın (hesap başına) günlük İSTEK sayısı sınırı (RPD) - qwen/qwen3.6-27b havuzları
+
+# BUG (2026-08-11 tespit edildi): lead netleştirme (classify-ambiguous / classify-for-product)
+# llama-3.3-70b-versatile modelini kullanıyor - bu, Groq'ta MÜŞTERİ arama akışının kullandığı
+# qwen modelinden TAMAMEN AYRI bir kota/limit setine sahip (ayrı model = ayrı sunucu taraflı
+# limit). Ama önceden bu çağrılar kullanım takibinde "customer" havuzuna yazılıyordu (aynı ana
+# hesap/API anahtarı kullanıldığı için) - bu da GERÇEKTE ayrı olan llama kotasının, MÜŞTERİ
+# arama havuzunun bizim kendi TAHMİNİ bütçesini (200K token / 1000 istek) tüketiyormuş GİBİ
+# görünmesine yol açıyordu. Sonucu: baba büyük bir lead netleştirme partisi çalıştırdığında,
+# call_groq_api'deki ön-kontrol (bkz. app.py "requests_remaining_estimate < 3 ise atla") GERÇEK
+# müşteri aramalarını -gerçekte hiç dokunulmamış bir kotayla- "neredeyse bitti" sanıp anlıksız
+# olarak atlayabiliyordu; ayrıca herkese açık /usage sayacı müşteri havuzunu yanlış yüksek
+# gösteriyordu. Çözüm: llama/lead-netleştirme çağrıları artık kendi ayrı "leads_ai" havuzunda
+# izleniyor (bkz. app.py _resolve_key_chain) - gerçek Groq hesap/kimlik bilgisi hâlâ ana hesap
+# (GROQ_API_KEY), sadece YEREL kullanım sayacı artık müşteri havuzuyla karışmıyor.
+LEADS_AI_DAILY_TOKEN_BUDGET = 100000   # Groq'ta llama-3.3-70b-versatile için doğrulanan ayrı günlük TOKEN sınırı
+LEADS_AI_DAILY_REQUEST_BUDGET = 1000   # llama havuzu için de ayrı izlenen istek sayısı (qwen ile aynı varsayım, ayrı hesap değil ayrı model)
+
+# Havuz başına gerçek günlük bütçe - POOLS'taki her ada karşılık gelir. Yeni bir havuz eklenirse
+# (bkz. app.py register_pool) burada bir karşılığı yoksa varsayılan qwen bütçesine (DAILY_TOKEN_BUDGET/
+# DAILY_REQUEST_BUDGET) düşer - bkz. _budget_for_pool.
+POOL_TOKEN_BUDGET = {"leads_ai": LEADS_AI_DAILY_TOKEN_BUDGET}
+POOL_REQUEST_BUDGET = {"leads_ai": LEADS_AI_DAILY_REQUEST_BUDGET}
+
+
+def _budget_for_pool(pool: str) -> tuple:
+    """(token_budget, request_budget) - havuza özel bir bütçe tanımlıysa onu, yoksa qwen
+    varsayılanını döndürür."""
+    return POOL_TOKEN_BUDGET.get(pool, DAILY_TOKEN_BUDGET), POOL_REQUEST_BUDGET.get(pool, DAILY_REQUEST_BUDGET)
+
 
 _lock = threading.Lock()
 _cache = {"data": None, "fetched_at": 0}
 CACHE_TTL = 15  # saniye - sık çağrıldığı için (her Groq isteğinden sonra) çok kısa tutuldu
 
-POOLS = ["customer", "bulk", "customer2"]
+POOLS = ["customer", "bulk", "customer2", "leads_ai"]
 
 
 def register_pool(label: str) -> None:
@@ -73,6 +102,7 @@ def _empty_day() -> dict:
         "customer": {"total_tokens": 0, "call_count": 0},
         "bulk": {"total_tokens": 0, "call_count": 0},
         "customer2": {"total_tokens": 0, "call_count": 0},
+        "leads_ai": {"total_tokens": 0, "call_count": 0},
     }
 
 
@@ -181,14 +211,15 @@ def get_today_usage() -> dict:
         result = {"date": data["date"], "budget": DAILY_TOKEN_BUDGET}
         for pool in POOLS:
             p = data.setdefault(pool, {"total_tokens": 0, "call_count": 0})
+            token_budget, request_budget = _budget_for_pool(pool)
             result[pool] = {
                 "total_tokens": p["total_tokens"],
                 "call_count": p["call_count"],
-                "budget": DAILY_TOKEN_BUDGET,
-                "remaining_estimate": max(0, DAILY_TOKEN_BUDGET - p["total_tokens"]),
-                "percent_used": round(100 * p["total_tokens"] / DAILY_TOKEN_BUDGET, 1),
-                "request_budget": DAILY_REQUEST_BUDGET,
-                "requests_remaining_estimate": max(0, DAILY_REQUEST_BUDGET - p["call_count"]),
+                "budget": token_budget,
+                "remaining_estimate": max(0, token_budget - p["total_tokens"]),
+                "percent_used": round(100 * p["total_tokens"] / token_budget, 1),
+                "request_budget": request_budget,
+                "requests_remaining_estimate": max(0, request_budget - p["call_count"]),
             }
 
         result["total_tokens"] = result["customer"]["total_tokens"]
