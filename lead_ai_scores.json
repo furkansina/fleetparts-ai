@@ -2573,5 +2573,105 @@
         "relevance_score": 0,
         "score_reasoning": "Bağımsız tamirci(servis) olduğu için hedef dışı",
         "classified_at": "2026-08-11T11:48:52.694220+00:00"
+    },
+    "ankaraotosanayi_1379": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız tamirci/servis olduğuna göre hedef kitle dışında",
+        "classified_at": "2026-08-11T11:48:59.867931+00:00"
+    },
+    "ankaraotosanayi_1109": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız tamirci/servis olduğuna göre hedef kitle dışında",
+        "classified_at": "2026-08-11T11:48:59.867931+00:00"
+    },
+    "ankaraotosanayi_1197": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız tamirci/servis olduğuna göre hedef kitle dışında",
+        "classified_at": "2026-08-11T11:48:59.867931+00:00"
+    },
+    "ankaraotosanayi_875": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız tamirci/servis olduğuna göre hedef kitle dışında",
+        "classified_at": "2026-08-11T11:48:59.867931+00:00"
+    },
+    "ankaraotosanayi_421": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız tamirci/servis olduğuna göre hedef kitle dışında",
+        "classified_at": "2026-08-11T11:48:59.867931+00:00"
+    },
+    "ankaraotosanayi_171": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız tamirci/servis olduğuna göre hedef kitle dışında",
+        "classified_at": "2026-08-11T11:48:59.867931+00:00"
+    },
+    "ankaraotosanayi_1196": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız tamirci/servis olduğuna göre hedef kitle dışında",
+        "classified_at": "2026-08-11T11:48:59.867931+00:00"
+    },
+    "ankaraotosanayi_413": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız tamirci/servis olduğuna göre hedef kitle ngoài",
+        "classified_at": "2026-08-11T11:48:59.867931+00:00"
+    },
+    "ankaraotosanayi_211": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız tamirci/servis olduğuna göre hedef kitle dışında",
+        "classified_at": "2026-08-11T11:48:59.867931+00:00"
+    },
+    "ankaraotosanayi_378": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız tamirci/servis olduğuna göre hedef kitle dışında",
+        "classified_at": "2026-08-11T11:48:59.867931+00:00"
+    },
+    "ankaraotosanayi_983": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız tamirci/servis olduğuna göre hedef kitle dışında",
+        "classified_at": "2026-08-11T11:48:59.867931+00:00"
+    },
+    "ankaraotosanayi_409": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız tamirci/servis olduğuna göre hedef kitle dışında",
+        "classified_at": "2026-08-11T11:48:59.867931+00:00"
+    },
+    "ankaraotosanayi_1082": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız tamirci/servis olduğuna göre hedef kitle dışında",
+        "classified_at": "2026-08-11T11:48:59.867931+00:00"
+    },
+    "ankaraotosanayi_410": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız tamirci/servis olduğuna göre hedef kitle dışında",
+        "classified_at": "2026-08-11T11:48:59.867931+00:00"
+    },
+    "ankaraotosanayi_1035": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız tamirci/servis olduğuna göre hedef kitle dışında",
+        "classified_at": "2026-08-11T11:48:59.867931+00:00"
+    },
+    "ankaraotosanayi_489": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız tamirci/servis olduğuna göre hedef kitle ngoài",
+        "classified_at": "2026-08-11T11:48:59.867931+00:00"
+    },
+    "ankaraotosanayi_1453": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız tamirci/servis olduğuna göre hedef kitle dışında",
+        "classified_at": "2026-08-11T11:48:59.867931+00:00"
+    },
+    "ankaraotosanayi_1299": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız tamirci/servis olduğuna göre hedef kitle dışında",
+        "classified_at": "2026-08-11T11:48:59.867931+00:00"
+    },
+    "sanko_1001-e-i-t-tuni-ng_Oto Yedek ": {
+        "relevance_score": 20,
+        "score_reasoning": "Oto yedek parçacı olsa da, genel olarak araçlara odaklanmış olduğuna göre kısmen hedef kitle dışında",
+        "classified_at": "2026-08-11T11:48:59.867931+00:00"
+    },
+    "sanko_anta-otomoti-v_Oto Yedek ": {
+        "relevance_score": 60,
+        "score_reasoning": "Oto yedek parçacı olması ve büyük olasılıkla araç filosu olan nakliye/lojistik firmalarına hizmet vermesi nedeniyle hedef kitle içinde",
+        "classified_at": "2026-08-11T11:48:59.867931+00:00"
     }
 }
