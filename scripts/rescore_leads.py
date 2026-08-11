@@ -19,10 +19,25 @@ import argparse
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from lead_scoring import score_lead, _EXCLUDE_PATTERN, _WASH_KEYWORDS_RE, _SERVICE_CATEGORY_PATTERN
+from lead_scoring import score_lead, SECTOR_LABELS, _EXCLUDE_PATTERN, _WASH_KEYWORDS_RE, _SERVICE_CATEGORY_PATTERN
 from lead_dedupe import turkish_lower
 
 LEADS_FILE = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "leads.json")
+
+# turkbusinesscenter.com/sanayi rehberleri gibi kaynaklarda shop_type hep "directory" - bu
+# durumda score_lead() sector_label'i DOĞRUDAN category_label olarak kaydediyor. Yani bu
+# kaynaklardan gelen eski (raw_category_label'ı kaybolmuş) kayıtlarda bile stored sector_guess,
+# o kaydın ORİJİNAL category_label'ının ta kendisi - has_parts_signal'i yeniden hesaplamak için
+# kullanılabilir. 2026-08-11 canlı denetiminde tespit edildi: "Otomotiv / Oto Yan Sanayi" gibi
+# GENİŞ bir kategori altında bisikletçi, oto yıkama, araç kiralama, halı yıkama, hasarlı araç
+# alım-satım gibi tamamen alakasız firmalar da vardı - bunlar has_parts_signal hardening'inden
+# (bkz. lead_scoring.py) ÖNCE taranmış, flat +30 ile skorlanmış ve raw veri kaybolduğu için
+# sadece isim bazlı düzeltmeyle yakalanamıyorlardı. Bu artık o boşluğu kapatıyor.
+_DIRECTORY_SOURCES = {"turkbusinesscenter", "sanayi_sitesi", "sanayisitesi_platform", "find_com_tr"}
+_NON_CATEGORY_SECTOR_GUESSES = set(SECTOR_LABELS.values()) | {
+    "Hedef Dışı", "Hedef Dışı (isme göre geriye dönük düzeltme)",
+    "Eski Kayıt (2024 Öncesi)", "Belirsiz", "İsim Eşleşmesi (Nakliye/Lojistik/Filo)", "",
+}
 
 
 def rescore_legacy_by_name(lead: dict) -> dict | None:
@@ -58,6 +73,7 @@ def main():
         leads = json.load(f)
 
     full_rescored = 0
+    category_recovered = 0
     legacy_demoted = 0
     unchanged = 0
 
@@ -79,6 +95,28 @@ def main():
             lead["score_reasoning"] = scoring["score_reasoning"]
             lead["sector_guess"] = scoring["sector_label"]
             lead["phone_is_mobile"] = scoring["phone_is_mobile"]
+        elif (
+            lead.get("source") in _DIRECTORY_SOURCES
+            and (lead.get("sector_guess") or "") not in _NON_CATEGORY_SECTOR_GUESSES
+        ):
+            # sector_guess, bu kaynaklarda orijinal category_label'ın ta kendisi (bkz. üstteki not)
+            raw = {
+                "name": lead.get("company_name", ""),
+                "shop_type": "directory",
+                "category_label": lead.get("sector_guess", ""),
+                "phone": lead.get("phone", ""),
+                "address": lead.get("address", ""),
+                "website": "",
+            }
+            scoring = score_lead(raw)
+            if scoring["relevance_score"] != lead.get("relevance_score"):
+                category_recovered += 1
+            lead["relevance_score"] = scoring["relevance_score"]
+            lead["score_breakdown"] = scoring["score_breakdown"]
+            lead["score_reasoning"] = scoring["score_reasoning"]
+            # sector_guess KASITLI OLARAK değiştirilmiyor - zaten orijinal category_label,
+            # score_lead() ne olsa aynısını sector_label olarak geri döndürür.
+            lead["phone_is_mobile"] = scoring["phone_is_mobile"]
         else:
             patch = rescore_legacy_by_name(lead)
             if patch:
@@ -88,6 +126,7 @@ def main():
                 unchanged += 1
 
     print(f"Tam yeniden puanlanan (ham veri mevcut): {full_rescored}")
+    print(f"Kategori metninden kurtarılıp yeniden puanlanan (sector_guess -> category_label): {category_recovered}")
     print(f"İsme göre geriye dönük indirilen (eski kayıt, ham veri yok): {legacy_demoted}")
     print(f"Değişmeyen: {unchanged}")
     print(f"Toplam kayıt: {len(leads)}")
