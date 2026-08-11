@@ -2173,5 +2173,105 @@
         "relevance_score": 40,
         "score_reasoning": "Firma adı ve kategorisioto yedek parça ile ilgili olduğundan düşük-orta puan verildi.",
         "classified_at": "2026-08-11T11:44:41.283212+00:00"
+    },
+    "ankaraotosanayi_1398": {
+        "relevance_score": 10,
+        "score_reasoning": "Marka spesifik yedek parça satıcıları hedef dışı",
+        "classified_at": "2026-08-11T11:44:49.058092+00:00"
+    },
+    "ankaraotosanayi_1428": {
+        "relevance_score": 60,
+        "score_reasoning": "Genel oto aksesuar satıcıları hedef kitleye yakındır",
+        "classified_at": "2026-08-11T11:44:49.058092+00:00"
+    },
+    "ankaraotosanayi_367": {
+        "relevance_score": 10,
+        "score_reasoning": "Marka spesifik orjinal yedek parça satıcıları hedef dışı",
+        "classified_at": "2026-08-11T11:44:49.058092+00:00"
+    },
+    "ankaraotosanayi_1365": {
+        "relevance_score": 20,
+        "score_reasoning": "Çıkma yedek parça satıcıları hedef dışı",
+        "classified_at": "2026-08-11T11:44:49.058092+00:00"
+    },
+    "ankaraotosanayi_368": {
+        "relevance_score": 60,
+        "score_reasoning": "Amerikan yedek parça satıcıları hedef kitleye yakındır",
+        "classified_at": "2026-08-11T11:44:49.058092+00:00"
+    },
+    "ankaraotosanayi_52": {
+        "relevance_score": 40,
+        "score_reasoning": "Motor aksesuar satıcıları hedef kitleye yakındır ancak spesifik değildir",
+        "classified_at": "2026-08-11T11:44:49.058092+00:00"
+    },
+    "ankaraotosanayi_1191": {
+        "relevance_score": 60,
+        "score_reasoning": "Genel oto aksesuar satıcıları hedef kitleye yakındır",
+        "classified_at": "2026-08-11T11:44:49.058092+00:00"
+    },
+    "ankaraotosanayi_1088": {
+        "relevance_score": 40,
+        "score_reasoning": "Marka spesifik yedek parça satıcıları hedef kitleye yakındır ancak spesifik değildir",
+        "classified_at": "2026-08-11T11:44:49.058092+00:00"
+    },
+    "ankaraotosanayi_1553": {
+        "relevance_score": 80,
+        "score_reasoning": "Mafsal sanayi olarak genel yedek parça satıcıları hedef kitledir",
+        "classified_at": "2026-08-11T11:44:49.058092+00:00"
+    },
+    "ankaraotosanayi_365": {
+        "relevance_score": 40,
+        "score_reasoning": "Spesifik yedek parça satıcıları hedef kitleye yakındır ancak spesifik değildir",
+        "classified_at": "2026-08-11T11:44:49.058092+00:00"
+    },
+    "ankaraotosanayi_1118": {
+        "relevance_score": 40,
+        "score_reasoning": "Marka spesifik yedek parça satıcıları hedef kitleye yakındır ancak spesifik değildir",
+        "classified_at": "2026-08-11T11:44:49.058092+00:00"
+    },
+    "ankaraotosanayi_1351": {
+        "relevance_score": 10,
+        "score_reasoning": "Marka spesifik yedek parça satıcıları hedef dışı",
+        "classified_at": "2026-08-11T11:44:49.058092+00:00"
+    },
+    "ankaraotosanayi_1781": {
+        "relevance_score": 40,
+        "score_reasoning": "Japon Kore yedek parça satıcıları hedef kitleye yakındır ancak spesifik değildir",
+        "classified_at": "2026-08-11T11:44:49.058092+00:00"
+    },
+    "ankaraotosanayi_1114": {
+        "relevance_score": 20,
+        "score_reasoning": "Çıkma yedek parça satıcıları hedef dışı",
+        "classified_at": "2026-08-11T11:44:49.058092+00:00"
+    },
+    "ankaraotosanayi_1645": {
+        "relevance_score": 40,
+        "score_reasoning": "Döşeme satıcıları olarak spesifik değildir",
+        "classified_at": "2026-08-11T11:44:49.058092+00:00"
+    },
+    "ankaraotosanayi_1237": {
+        "relevance_score": 40,
+        "score_reasoning": "Marka spesifik yedek parça satıcıları hedef kitleye yakındır ancak spesifik değildir",
+        "classified_at": "2026-08-11T11:44:49.058092+00:00"
+    },
+    "ankaraotosanayi_659": {
+        "relevance_score": 10,
+        "score_reasoning": "Marka spesifik yedek parça satıcıları hedef dışı",
+        "classified_at": "2026-08-11T11:44:49.058092+00:00"
+    },
+    "ankaraotosanayi_1654": {
+        "relevance_score": 40,
+        "score_reasoning": "Pick Up çıkışma yedek parça satıcıları hedef kitleye yakındır ancak spesifik değildir",
+        "classified_at": "2026-08-11T11:44:49.058092+00:00"
+    },
+    "ankaraotosanayi_1174": {
+        "relevance_score": 40,
+        "score_reasoning": "Marka spesifik yedek parça satıcıları hedef kitleye yakındır ancak spesifik değildir",
+        "classified_at": "2026-08-11T11:44:49.058092+00:00"
+    },
+    "ankaraotosanayi_1054": {
+        "relevance_score": 60,
+        "score_reasoning": "Genel oto yedek parça satıcıları hedef kitleye yakındır",
+        "classified_at": "2026-08-11T11:44:49.058092+00:00"
     }
 }
