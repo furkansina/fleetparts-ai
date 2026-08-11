@@ -52,6 +52,7 @@
         .today-stats { font-size: 13px; color: #333; background: #f4f6f9; border-radius: 6px; padding: 9px 12px; margin-bottom: 12px; }
         .today-stats b { color: #d9534f; }
         .resume-banner { background: #fff3cd; border: 1px solid #ffeeba; border-radius: 6px; padding: 12px 14px; margin-bottom: 12px; font-size: 13.5px; color: #856404; }
+        .pace-warning { background: #f8d7da; border: 1px solid #f1aeb5; border-radius: 6px; padding: 10px 12px; margin-bottom: 12px; font-size: 13px; color: #721c24; font-weight: 600; }
         .resume-banner .btn-row { margin-top: 8px; }
 
         .queue-note { font-size: 13px; color: #555; background: #eef6ff; border: 1px solid #cfe4fb; border-radius: 6px; padding: 10px 12px; margin-bottom: 14px; }
@@ -106,9 +107,12 @@
         <h3>3. Gönderim Kuyruğu (WhatsApp)</h3>
         <div class="queue-note">
             Yukarıdaki mesajla, kişi listesindeki herkese TEK TEK, WhatsApp'ı hazır mesajla açarak gönderim yapmanı sağlar.
-            Her seferinde WhatsApp içinde Gönder'e SEN basarsın - otomatik/toplu bot gönderimi değildir, bu yüzden
-            numaranın engellenme riski yoktur. Sadece arama/kopyalama zahmetini ortadan kaldırır.
+            Her seferinde WhatsApp içinde Gönder'e SEN basarsın - otomatik/toplu bot gönderimi değildir, bu bot/API
+            tespitine bağlı engellenme riskini ortadan kaldırır. Ama kısa sürede çok sayıda YABANCI numaraya ilk
+            temas mesajı atmak (elle de olsa) WhatsApp'ın spam/şikayet tabanlı kısıtlamalarını tetikleyebilir - bu
+            yüzden aşağıda gönderim hızını gösteriyoruz, çok hızlı gidildiğinde uyarıyoruz.
         </div>
+        <div id="paceWarning"></div>
         <div class="today-stats" id="todayStats"></div>
         <div class="btn-row">
             <button class="btn-ai" onclick="startQueue()">▶️ Kuyruğu Başlat</button>
@@ -193,6 +197,28 @@
         return d.getFullYear() === now.getFullYear() && d.getMonth() === now.getMonth() && d.getDate() === now.getDate();
     }
 
+    // WhatsApp, kısa sürede çok sayıda İLK TEMAS mesajı atan (özellikle karşı taraf hiç
+    // kaydetmemişken) numaraları spam algoritmasıyla kısıtlayabiliyor/banlayabiliyor - bu
+    // işletmenin TEK iletişim kanalı olduğu için bu risk hafife alınamaz. Resmi bir sınır
+    // yayınlanmadığı için buradaki sayılar teknik bir kural değil, temkinli bir öneri - amaç
+    // hızı GÖRÜNÜR kılmak, kullanıcıyı fiilen engellemek değil (o karar işletme sahibinin).
+    const WA_PACE_HOURLY_WARN = 20;
+    const WA_PACE_DAILY_WARN = 60;
+
+    function getSendPaceWarning() {
+        const log = getSentLog();
+        const now = Date.now();
+        const lastHour = log.filter(e => now - new Date(e.sentAt).getTime() < 60 * 60 * 1000).length;
+        const today = log.filter(e => isTodayIso(e.sentAt)).length;
+        if (lastHour >= WA_PACE_HOURLY_WARN) {
+            return `⚠️ Son 1 saatte ${lastHour} mesaj gönderildi. WhatsApp, kısa sürede çok sayıda ilk temas mesajı atan numaraları kısıtlayabilir/banlayabilir - biraz ara vermeniz önerilir.`;
+        }
+        if (today >= WA_PACE_DAILY_WARN) {
+            return `⚠️ Bugün ${today} mesaj gönderildi. Numaranın güvenliği için günlük gönderimi bu seviyede tutup yarın devam etmeniz önerilir.`;
+        }
+        return null;
+    }
+
     // "Merhaba VD Endüstriyel Yapı Malzemeleri ... San. Tic. Ltd. Şti." gibi tüzel unvanla hitap etmek
     // yerine {isim} yerine geçerken yasal ek ifadeler (Ltd. Şti., A.Ş. vb.) kırpılır - daha doğal bir
     // selamlama için. Sadece mesaj metnindeki hitapta kullanılır; kişi listesi, kuyruk kartı ve geçmişte
@@ -236,6 +262,12 @@
         const waitingCount = activePending || savedPending;
         el.innerHTML = `📅 Bugün ulaşılan: <b>${sentToday}</b> kişi` +
             (waitingCount > 0 ? ` &nbsp;·&nbsp; ⏳ Kuyrukta bekleyen: <b>${waitingCount}</b> kişi` : '');
+
+        const paceEl = document.getElementById('paceWarning');
+        if (paceEl) {
+            const warning = getSendPaceWarning();
+            paceEl.innerHTML = warning ? `<div class="pace-warning">${warning}</div>` : '';
+        }
     }
 
     function renderResumeBanner() {
