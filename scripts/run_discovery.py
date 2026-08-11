@@ -20,6 +20,17 @@ from lead_scoring import score_lead
 from lead_dedupe import dedupe_key, sanitize_phone
 
 LEADS_FILE = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "leads.json")
+# BU TARAMANIN kendi bulduklarının AYRI, canlı-güncellenen kaydı (2026-08-11'de eklendi - bkz.
+# main() sonundaki uzun not). leads.json'a artık BU SCRIPT içinde hiç yazılmıyor; workflow'un
+# commit adımı, çalışmanın HERHANGİ bir noktasında (tamamlansa da timeout'ta kesilse de) bu
+# dosyanın o ana kadarki en güncel halini origin/main'in TAZE leads.json'una scripts/
+# merge_new_leads.py ile ekliyor - git seviyesinde uzlaşma/rebase hiç gerekmiyor.
+NEW_LEADS_FILE = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "new_leads_this_run.json")
+
+
+def _checkpoint_new_leads(new_leads):
+    with open(NEW_LEADS_FILE, "w", encoding="utf-8") as f:
+        json.dump(new_leads, f, ensure_ascii=False, indent=4)
 
 
 def _build_lead(lead_id, source, raw, province, scoring, batch_id):
@@ -145,9 +156,7 @@ def main():
                 # Her il tamamlandığında diske yazılır - koşu yarıda kesilse/zaman aşımına uğrasa
                 # bile o ana kadarki ilerleme kaybolmaz (GitHub Actions'taki commit adımı ne bulursa onu kaydeder)
                 if not args.dry_run:
-                    combined_so_far = existing + new_leads
-                    with open(LEADS_FILE, "w", encoding="utf-8") as f:
-                        json.dump(combined_so_far, f, ensure_ascii=False, indent=4)
+                    _checkpoint_new_leads(new_leads)
 
     # Sanayi sitesi / bölgesel oto rehberi kaynakları il bazında değil - her biri zaten sabit
     # bir ile bağlı (Ankara/İstanbul/İzmir), bu yüzden il döngüsünden AYRI, tek seferlik bir
@@ -173,9 +182,7 @@ def main():
         scoring = score_lead(raw)
         new_leads.append(_build_lead(raw["site_id"], "sanayi_sitesi", raw, raw["province"], scoring, batch_id))
     if not args.dry_run:
-        combined_so_far = existing + new_leads
-        with open(LEADS_FILE, "w", encoding="utf-8") as f:
-            json.dump(combined_so_far, f, ensure_ascii=False, indent=4)
+        _checkpoint_new_leads(new_leads)
 
     # sanayisitesi.com.tr platformu (Eskişehir/Bursa/Konya/Adana/Gaziantep/Denizli/Manisa/Kocaeli/
     # Antalya/Kahramanmaraş/Diyarbakır/Balıkesir/Elazığ/Erzurum - bkz. lead_sources_sanayisitesi_
@@ -201,9 +208,7 @@ def main():
         scoring = score_lead(raw)
         new_leads.append(_build_lead(raw["site_id"], "sanayisitesi_platform", raw, raw["province"], scoring, batch_id))
     if not args.dry_run:
-        combined_so_far = existing + new_leads
-        with open(LEADS_FILE, "w", encoding="utf-8") as f:
-            json.dump(combined_so_far, f, ensure_ascii=False, indent=4)
+        _checkpoint_new_leads(new_leads)
 
     # find.com.tr (resmi ticaret sicili kaynaklı firma rehberi) - 2026-08-11'de eklendi. Diğer
     # kaynakların (OSM, turkbusinesscenter.com, sanayi siteleri) neredeyse hiç veri bulamadığı
@@ -233,9 +238,7 @@ def main():
         scoring = score_lead(raw)
         new_leads.append(_build_lead(raw["site_id"], "find_com_tr", raw, raw["province"], scoring, batch_id))
     if not args.dry_run:
-        combined_so_far = existing + new_leads
-        with open(LEADS_FILE, "w", encoding="utf-8") as f:
-            json.dump(combined_so_far, f, ensure_ascii=False, indent=4)
+        _checkpoint_new_leads(new_leads)
 
     # Google Places API - tüm illerde telefon dahil neredeyse tam kapsama veren TEK gerçek çözüm,
     # ama ücretli (bkz. lead_sources_google_places.py). GOOGLE_PLACES_API_KEY ortam değişkeni
@@ -259,19 +262,18 @@ def main():
             scoring = score_lead(raw)
             new_leads.append(_build_lead(raw["site_id"], "google_places", raw, raw["province"], scoring, batch_id))
         if not args.dry_run:
-            combined_so_far = existing + new_leads
-            with open(LEADS_FILE, "w", encoding="utf-8") as f:
-                json.dump(combined_so_far, f, ensure_ascii=False, indent=4)
+            _checkpoint_new_leads(new_leads)
 
     print(f"\nToplam yeni lead: {len(new_leads)}")
     for l in sorted(new_leads, key=lambda x: -x["relevance_score"])[:15]:
         print(f"  [{l['relevance_score']:>3}] {l['company_name']} | {l['province']} | {l['sector_guess']}")
 
     if args.dry_run:
-        print("\nDRY RUN - leads.json'a yazılmadı")
+        print("\nDRY RUN - hiçbir dosyaya yazılmadı")
         return
 
-    print(f"\nleads.json güncellendi. Toplam kayıt: {len(existing) + len(new_leads)}")
+    _checkpoint_new_leads(new_leads)
+    print(f"\n{NEW_LEADS_FILE} güncel ({len(new_leads)} yeni lead) - leads.json'a birleştirme workflow'un commit adımında (scripts/merge_new_leads.py) yapılacak.")
 
 
 if __name__ == "__main__":
