@@ -14,6 +14,7 @@ from lead_sources_osm import search_province, OVERPASS_MIRRORS
 from lead_sources_directory import search_province as search_province_directory
 from lead_sources_sanayi_sitesi import search_all as search_sanayi_sitesi
 from lead_sources_sanayisitesi_platform import search_all as search_sanayisitesi_platform
+from lead_sources_find_com_tr import search_all as search_find_com_tr
 from lead_scoring import score_lead
 from lead_dedupe import dedupe_key
 
@@ -195,6 +196,37 @@ def main():
         seen_this_run.add(key)
         scoring = score_lead(raw)
         new_leads.append(_build_lead(raw["site_id"], "sanayisitesi_platform", raw, raw["province"], scoring, batch_id))
+    if not args.dry_run:
+        combined_so_far = existing + new_leads
+        with open(LEADS_FILE, "w", encoding="utf-8") as f:
+            json.dump(combined_so_far, f, ensure_ascii=False, indent=4)
+
+    # find.com.tr (resmi ticaret sicili kaynaklı firma rehberi) - 2026-08-11'de eklendi. Diğer
+    # kaynakların (OSM, turkbusinesscenter.com, sanayi siteleri) neredeyse hiç veri bulamadığı
+    # küçük Anadolu illerinde (Bingöl, Hakkari, Ardahan, Tunceli vb.) bile onlarca gerçek, doğru
+    # kategorili firma buluyor - 81 ilin TAMAMINI kapsıyor (bölgesel/tek-şehir kaynakların aksine
+    # il döngüsüne değil, kendi search_all() fonksiyonuna bağlı, tek seferlik çalışır). SINIRLAMA:
+    # telefon numarası vermiyor - bu lead'ler phone="" ile eklenir, leads.html'deki "Google'da Ara"
+    # akışına düşer, skorlama da bunu data_completeness üzerinden otomatik olarak düşük önceliğe
+    # koyar (bkz. lead_scoring.py). --only ile hedefli il taramasında atlanır (zaten tüm illeri
+    # tarıyor, tek bir ile hedeflenemez).
+    if args.only or args.skip_sanayi_sitesi:
+        find_results = []
+    else:
+        print("\nfind.com.tr firma rehberi taranıyor (81 il)...")
+        try:
+            find_results = search_find_com_tr()
+        except Exception as e:
+            print(f"  find.com.tr taraması başarısız - {e}")
+            find_results = []
+        print(f"  find.com.tr ham sonuç: {len(find_results)}")
+    for raw in find_results:
+        key = dedupe_key(raw["name"], raw.get("phone", ""))
+        if key in existing_keys or key in seen_this_run:
+            continue
+        seen_this_run.add(key)
+        scoring = score_lead(raw)
+        new_leads.append(_build_lead(raw["site_id"], "find_com_tr", raw, raw["province"], scoring, batch_id))
     if not args.dry_run:
         combined_so_far = existing + new_leads
         with open(LEADS_FILE, "w", encoding="utf-8") as f:
