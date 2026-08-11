@@ -36,7 +36,8 @@ _KEYWORD_PATTERN = re.compile(
 # TÜM şehirler/kaynaklar için aynı anda geçerli olur - şehir başına ayrı ayrı uğraşmaya gerek yok.
 _EXCLUDE_KEYWORDS = [
     "evden eve", "turizm", "seyahat", "travel", "tur operatör",
-    "rent a car", "rent-a-car", "araç kiralama", "arac kiralama", "oto kiralama",
+    "rent a car", "rent-a-car", "car rental", "araç kiralama", "arac kiralama",
+    "oto kiralama", "filo kiralama",
     "asansör", "asansor",
     "sürücü kursu", "surucu kursu", "ehliyet kursu",
     "araç muayene", "arac muayene", "tüvtürk", "tuvturk",
@@ -44,6 +45,12 @@ _EXCLUDE_KEYWORDS = [
     "ekspertiz",
     "oto galeri", "araba galerisi",
     "detaylı temizlik", "detayli temizlik", "oto kuaför", "oto kuafor",
+    # GENİŞLETME (2026-08-11, kullanıcının "yarısı alakasız" geri bildirimiyle canlı veride
+    # tespit edildi): "Everytime Car Rental" (65), "Boss Profesyonel Araç Kaplama Hizmetleri" (65),
+    # "Www.jantparlatma.com" (65), "Otems Filo Kiralama" (83) gibi kozmetik/kiralama hizmetleri
+    # yüksek skorla üst sıralara çıkmıştı - bunlar parça/toptan alıcısı DEĞİL, tek seferlik hizmet
+    # satan küçük esnaf/kiralama firmaları.
+    "araç kaplama", "arac kaplama", "otomobil kaplama", "jant parlatma", "jantparlatma", "cam filmi",
     "emlak", "gayrimenkul",
 ]
 _EXCLUDE_PATTERN = re.compile(
