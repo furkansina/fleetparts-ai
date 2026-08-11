@@ -13,6 +13,7 @@ from provinces import PROVINCES
 from lead_sources_osm import search_province, OVERPASS_MIRRORS
 from lead_sources_directory import search_province as search_province_directory
 from lead_sources_sanayi_sitesi import search_all as search_sanayi_sitesi
+from lead_sources_sanayisitesi_platform import search_all as search_sanayisitesi_platform
 from lead_scoring import score_lead
 from lead_dedupe import dedupe_key
 
@@ -26,6 +27,14 @@ def _build_lead(lead_id, source, raw, province, scoring, batch_id):
         "company_name": raw["name"],
         "entity_type_note": scoring["entity_type_note"],
         "sector_guess": scoring["sector_label"],
+        # HAM skorlama girdileri de saklanıyor (2026-08-11 eklendi) - önceden sadece TÜRETİLMİŞ
+        # sector_label saklanıyordu, bu da lead_scoring.py'de bir kural iyileştirildiğinde (bkz.
+        # gerçek örnek: "Car Lease Rent A Car" gibi yanlış-pozitiflerin düzeltilmesi) mevcut
+        # kayıtların GERİYE DÖNÜK yeniden puanlanmasını İMKANSIZ kılıyordu (girdi kaybolmuştu,
+        # sadece isim bazlı bir yama uygulanabiliyordu). Artık her kural değişikliği, tarama
+        # tekrar çalıştırılmadan da scripts/rescore_leads.py ile TÜM geçmişe uygulanabilir.
+        "raw_shop_type": raw.get("shop_type", ""),
+        "raw_category_label": raw.get("category_label", ""),
         "province": province,
         "district": "",
         "address": raw.get("address", ""),
@@ -54,11 +63,17 @@ def load_existing_leads():
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--provinces", type=int, default=None, help="Sadece ilk N ili tara (test için)")
+    parser.add_argument("--only", type=str, default=None, help="Virgülle ayrılmış belirli il adları (örn. 'Gaziantep,Muş') - ağ kesintisi gibi nedenlerle boş kalan illeri hızlıca yeniden taramak için")
+    parser.add_argument("--skip-sanayi-sitesi", action="store_true", help="Sanayi sitesi kaynaklarını atla (zaten tarandıysa tekrar taramaya gerek yok)")
     parser.add_argument("--dry-run", action="store_true", help="leads.json'a yazma, sadece özet göster")
     parser.add_argument("--workers", type=int, default=2, help="Aynı anda taranacak il sayısı (gerçekte güvenilir 2 Overpass aynası olduğu için varsayılan 2)")
     args = parser.parse_args()
 
-    provinces_to_scan = PROVINCES[: args.provinces] if args.provinces else PROVINCES
+    if args.only:
+        wanted = {p.strip() for p in args.only.split(",")}
+        provinces_to_scan = [p for p in PROVINCES if p in wanted]
+    else:
+        provinces_to_scan = PROVINCES[: args.provinces] if args.provinces else PROVINCES
 
     existing = load_existing_leads()
     existing_keys = {dedupe_key(l.get("company_name", ""), l.get("phone", "")) for l in existing}
@@ -133,14 +148,19 @@ def main():
 
     # Sanayi sitesi / bölgesel oto rehberi kaynakları il bazında değil - her biri zaten sabit
     # bir ile bağlı (Ankara/İstanbul/İzmir), bu yüzden il döngüsünden AYRI, tek seferlik bir
-    # geçiş olarak çalıştırılıyor (bkz. lead_sources_sanayi_sitesi.py).
-    print("\nSanayi sitesi rehberleri taranıyor (Ankara/İstanbul/İzmir)...")
-    try:
-        sanayi_results = search_sanayi_sitesi()
-    except Exception as e:
-        print(f"  sanayi sitesi taraması basarisiz - {e}")
+    # geçiş olarak çalıştırılıyor (bkz. lead_sources_sanayi_sitesi.py). --only ile hedefli bir
+    # yeniden tarama yapılıyorsa (örn. ağ kesintisinden boş kalan bir ili tamamlamak) bu adım
+    # gereksiz - zaten taranmış olur, dedup zaten atlar ama zaman kaybetmemek için atlanıyor.
+    if args.only or args.skip_sanayi_sitesi:
         sanayi_results = []
-    print(f"  Sanayi sitesi ham sonuç: {len(sanayi_results)}")
+    else:
+        print("\nSanayi sitesi rehberleri taranıyor (Ankara/İstanbul/İzmir)...")
+        try:
+            sanayi_results = search_sanayi_sitesi()
+        except Exception as e:
+            print(f"  sanayi sitesi taraması basarisiz - {e}")
+            sanayi_results = []
+        print(f"  Sanayi sitesi ham sonuç: {len(sanayi_results)}")
     for raw in sanayi_results:
         key = dedupe_key(raw["name"], raw.get("phone", ""))
         if key in existing_keys or key in seen_this_run:
@@ -148,6 +168,33 @@ def main():
         seen_this_run.add(key)
         scoring = score_lead(raw)
         new_leads.append(_build_lead(raw["site_id"], "sanayi_sitesi", raw, raw["province"], scoring, batch_id))
+    if not args.dry_run:
+        combined_so_far = existing + new_leads
+        with open(LEADS_FILE, "w", encoding="utf-8") as f:
+            json.dump(combined_so_far, f, ensure_ascii=False, indent=4)
+
+    # sanayisitesi.com.tr platformu (Eskişehir/Bursa/Konya/Adana/Gaziantep/Denizli/Manisa/Kocaeli/
+    # Antalya/Kahramanmaraş/Diyarbakır/Balıkesir/Elazığ/Erzurum - bkz. lead_sources_sanayisitesi_
+    # platform.py CITIES) - 2026-08-11'de eklendi, yukarıdaki bölgesel rehberlerle AYNI mantıkla
+    # (il döngüsünden bağımsız, tek seferlik) çalışır ama TAMAMEN AYRI bir kaynak/dosya olduğu
+    # için kendi try/except bloğu var - biri başarısız olursa diğerini etkilemez.
+    if args.only or args.skip_sanayi_sitesi:
+        platform_results = []
+    else:
+        print("\nsanayisitesi.com.tr ağı taranıyor (14 il)...")
+        try:
+            platform_results = search_sanayisitesi_platform()
+        except Exception as e:
+            print(f"  sanayisitesi.com.tr taraması başarısız - {e}")
+            platform_results = []
+        print(f"  sanayisitesi.com.tr ham sonuç: {len(platform_results)}")
+    for raw in platform_results:
+        key = dedupe_key(raw["name"], raw.get("phone", ""))
+        if key in existing_keys or key in seen_this_run:
+            continue
+        seen_this_run.add(key)
+        scoring = score_lead(raw)
+        new_leads.append(_build_lead(raw["site_id"], "sanayisitesi_platform", raw, raw["province"], scoring, batch_id))
     if not args.dry_run:
         combined_so_far = existing + new_leads
         with open(LEADS_FILE, "w", encoding="utf-8") as f:
