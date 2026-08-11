@@ -1473,5 +1473,105 @@
         "relevance_score": 80,
         "score_reasoning": "Oto yedek parça firması olduğu için hedef kitle içinde",
         "classified_at": "2026-08-11T08:08:37.761378+00:00"
+    },
+    "osm_node_11031838126": {
+        "relevance_score": 20,
+        "score_reasoning": "Firma gıda dağıtım hizmeti vermekte olup, ana faaliyet alanı lojistik/nakliye ofisidir",
+        "classified_at": "2026-08-11T08:08:42.774979+00:00"
+    },
+    "osm_node_10182593914": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça satışı yapmaktadır",
+        "classified_at": "2026-08-11T08:08:42.774979+00:00"
+    },
+    "osm_node_3778183326": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça ve aksesuar satışı yapmaktadır",
+        "classified_at": "2026-08-11T08:08:42.774979+00:00"
+    },
+    "osm_node_8407690837": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça satışı yapmaktadır",
+        "classified_at": "2026-08-11T08:08:42.774979+00:00"
+    },
+    "osm_node_5981485466": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça satışı yapmaktadır",
+        "classified_at": "2026-08-11T08:08:42.774979+00:00"
+    },
+    "osm_node_2923060693": {
+        "relevance_score": 75,
+        "score_reasoning": "Oto yedek parça satışı yapmaktadır, ancak şahıs şirketi olarak görebileceğimiz reason ile küçük veya bağımsız olabilir",
+        "classified_at": "2026-08-11T08:08:42.774979+00:00"
+    },
+    "osm_node_2964269844": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça satışı yapmaktadır",
+        "classified_at": "2026-08-11T08:08:42.774979+00:00"
+    },
+    "tbc_ilhan-aku-38168": {
+        "relevance_score": 70,
+        "score_reasoning": "Oto yedek parça satışı (akü) yapmaktadır, ancak uzmanlaştığı alan sınırlı olabilir",
+        "classified_at": "2026-08-11T08:08:42.774979+00:00"
+    },
+    "tbc_mepar-otomotiv-san-ve-31086": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça üretimi ve satışı yapmaktadır",
+        "classified_at": "2026-08-11T08:08:42.774979+00:00"
+    },
+    "tbc_oto-karaca-45133": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça satışı yapmaktadır",
+        "classified_at": "2026-08-11T08:08:42.774979+00:00"
+    },
+    "tbc_favori-otomotiv-opel-chevrolet-33808": {
+        "relevance_score": 60,
+        "score_reasoning": "Özel servis olarak faaliyet göstermektedir, ancak direkt olarak yedek parça satışı yapmayabileceği için skor düşük tutulmuştur",
+        "classified_at": "2026-08-11T08:08:42.774979+00:00"
+    },
+    "tbc_yilmaz-karacula-oto-klima-19964": {
+        "relevance_score": 75,
+        "score_reasoning": "Oto yedek parça (klima ve parçaları) satışı yapmaktadır, ancak uzmanlaştığı alan sınırlı olabilir",
+        "classified_at": "2026-08-11T08:08:42.774979+00:00"
+    },
+    "tbc_konyaalti-yatirim-insaat-otomotiv-6748": {
+        "relevance_score": 50,
+        "score_reasoning": "İnşaat ve yatırım alanlarında da faaliyet gösteren geniş bir şirket, ancak oto yedek parça satışı doingünün ne kadar önemli olduğu belirsizdir",
+        "classified_at": "2026-08-11T08:08:42.774979+00:00"
+    },
+    "tbc_ayt-otomotiv-dis-ticaret-50105": {
+        "relevance_score": 85,
+        "score_reasoning": "Oto yedek parça dış ticaret doingesi ile direkt olarak hedef kitleye uygunluk açısından çok yüksektir",
+        "classified_at": "2026-08-11T08:08:42.774979+00:00"
+    },
+    "tbc_ankapar-otomotiv-48386": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça satışı yapmaktadır",
+        "classified_at": "2026-08-11T08:08:42.774979+00:00"
+    },
+    "tbc_yukselis-oto-ankara-bmw-48202": {
+        "relevance_score": 60,
+        "score_reasoning": "Özel servis olarak faaliyet göstermektedir, ancak direkt olarak yedek parça satışı yapmayabileceği için skor düşük tutulmuştur",
+        "classified_at": "2026-08-11T08:08:42.774979+00:00"
+    },
+    "tbc_msk-menzil-silindir-kapak-45954": {
+        "relevance_score": 70,
+        "score_reasoning": "Oto yedek parça (silindir kapak) yenileme servisi, bu nedenle uzmanlaştığı alan sınırlı olabilir, ancak direkt yedek parça ile ilgili doingesi vardır",
+        "classified_at": "2026-08-11T08:08:42.774979+00:00"
+    },
+    "tbc_ustaotomotiv-42200": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça satışı yapmaktadır",
+        "classified_at": "2026-08-11T08:08:42.774979+00:00"
+    },
+    "tbc_kozanoglu-kozmaksan-pto-ltd-40312": {
+        "relevance_score": 50,
+        "score_reasoning": "PTO (Power Take-Off) sistemleri ile ilgili doingesi var, ancak bu doğrudan hedef kitlemizle örtüşmeyebilir",
+        "classified_at": "2026-08-11T08:08:42.774979+00:00"
+    },
+    "tbc_bms-oto-39500": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça satışı yapmaktadır",
+        "classified_at": "2026-08-11T08:08:42.774979+00:00"
     }
 }
