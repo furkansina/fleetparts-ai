@@ -205,6 +205,40 @@ def sync_catalog_to_github():
         _github_sync_status["last_error"] = f"GitHub'a bağlanılamadı: {str(e)}"
         _github_sync_status["consecutive_failures"] += 1
 
+CATALOG_IMAGE_DIR = "catalog_page_images"
+os.makedirs(CATALOG_IMAGE_DIR, exist_ok=True)
+
+
+def sync_binary_file_to_github(local_path: str, github_path: str, message: str) -> bool:
+    """catalog.json gibi JSON dosyalarının aksine, katalog SAYFA GÖRSELLERİ (2026-08-11'de
+    eklendi - müşteri bir ürün bulduğunda o ürünün geçtiği gerçek katalog sayfasını/fotoğrafını
+    da görebilsin diye) ikili (binary) dosya. Aynı 409-yeniden-deneme deseni (lead_store.py'deki
+    aynı tarihli düzeltmeyle tutarlı) - bu depoya aynı anda birçok süreç yazabiliyor."""
+    if not GITHUB_TOKEN or not GITHUB_REPO:
+        return False
+    api_url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{github_path}"
+    headers = {"Authorization": f"Bearer {GITHUB_TOKEN}", "Accept": "application/vnd.github+json"}
+    with open(local_path, "rb") as f:
+        content_b64 = base64.b64encode(f.read()).decode("utf-8")
+    for attempt in range(3):
+        try:
+            sha = None
+            res = requests.get(api_url, headers=headers, timeout=15)
+            if res.status_code == 200:
+                sha = res.json().get("sha")
+            body = {"message": message, "content": content_b64}
+            if sha:
+                body["sha"] = sha
+            put_res = requests.put(api_url, headers=headers, json=body, timeout=30)
+            if put_res.status_code in (200, 201):
+                return True
+            if put_res.status_code == 409 and attempt < 2:
+                continue
+            return False
+        except Exception:
+            continue
+    return False
+
 def _resolve_key_chain(pool: str, use_secondary_model: bool) -> list:
     """`pool`'a göre hangi Groq hesabının/hesaplarının hangi sırayla deneneceğini belirler.
     Her eleman (etiket, api_anahtarı) çifti - etiket hata mesajlarında/kullanım takibinde
@@ -643,6 +677,30 @@ def read_katalog():
 @app.get("/get-catalog")
 def get_catalog_endpoint():
     return {"catalog": load_catalog(), "files": os.listdir(CATALOG_DIR)}
+
+@app.get("/catalog-page-image/{name}")
+def get_catalog_page_image(name: str):
+    """Bir katalog ürününün geldiği gerçek sayfa görselini döndürür (bkz. _scan_catalog_source'daki
+    2026-08-11 notu). Önce Render'ın kendi diskindeki önbelleğe bakar (aynı görsel tekrar tekrar
+    istenirse GitHub'ı yormasın diye), yoksa GitHub'dan çekip önbelleğe alır - tıpkı catalog.json
+    için kullanılan aynı 'GitHub asıl kaynak, disk sadece önbellek' deseni."""
+    safe_name = os.path.basename(name)  # path traversal'a karşı - sadece dosya adı, dizin bileşeni yok
+    local_path = os.path.join(CATALOG_IMAGE_DIR, safe_name)
+    if not os.path.exists(local_path):
+        if not GITHUB_REPO:
+            raise HTTPException(status_code=404, detail="Görsel bulunamadı.")
+        try:
+            url = f"https://raw.githubusercontent.com/{GITHUB_REPO}/main/{CATALOG_IMAGE_DIR}/{safe_name}"
+            res = requests.get(url, timeout=15)
+            if res.status_code != 200:
+                raise HTTPException(status_code=404, detail="Görsel bulunamadı.")
+            with open(local_path, "wb") as f:
+                f.write(res.content)
+        except HTTPException:
+            raise
+        except Exception:
+            raise HTTPException(status_code=404, detail="Görsel bulunamadı.")
+    return Response(content=open(local_path, "rb").read(), media_type="image/png")
 
 @app.post("/delete-catalog-item")
 def delete_catalog_item(item_id: str = Form(...), _: str = Depends(require_admin)):
@@ -1169,6 +1227,21 @@ def _scan_catalog_source(filename: str, file_path: str, on_page_done=None) -> li
                             page_items = None  # metin tabanlı deneme de başarısız oldu - görsel yola düş
                     if page_items is None:
                         page_items = call_groq_json_array(CATALOG_SCAN_PROMPT, page_path, pool="bulk")
+                    # Sayfa görseli (2026-08-11'de eklendi): müşteri bir ürün bulduğunda o ürünün
+                    # geçtiği GERÇEK katalog sayfasını/fotoğrafını da görsün istendi. page_path bu
+                    # fonksiyon bitince (finally'de) silindiği için, gerçek fotoğrafı içeren bu
+                    # sayfa GitHub'a kalıcı olarak yedeklenir - Render'ın ephemeral diski silse
+                    # bile /catalog-page-image uç noktası GitHub'dan tekrar çekebilir. Sadece
+                    # gerçekten ürün çıkan sayfalar için (boş/başlık sayfaları için gereksiz yere
+                    # yedekleme yapılmaz).
+                    if page_items:
+                        image_name = re.sub(r"[^\w.-]", "_", f"{filename}_sayfa{_page_num}") + ".png"
+                        try:
+                            if sync_binary_file_to_github(page_path, f"{CATALOG_IMAGE_DIR}/{image_name}", f"Katalog sayfa görseli: {image_name}"):
+                                for item in page_items:
+                                    item["source_page_image"] = image_name
+                        except Exception:
+                            pass  # görsel yedekleme başarısız olsa bile ürün verisi kaybolmaz, sadece görselsiz kalır
                     for item in page_items:
                         item["source_file"] = page_label
                     items.extend(page_items)
