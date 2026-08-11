@@ -1773,5 +1773,105 @@
         "relevance_score": 10,
         "score_reasoning": "Kriko satıcısı olarak görünüyor, oto yedek parça satmak dışında bir iş yapılıyor",
         "classified_at": "2026-08-11T08:19:11.539451+00:00"
+    },
+    "tbc_otokoc-otomotiv-a-s-43430": {
+        "relevance_score": 90,
+        "score_reasoning": "Oto yedek parça toptancıları için uygun bir hedef kitle olabileceği düşünülmektedir.",
+        "classified_at": "2026-08-11T08:19:24.121223+00:00"
+    },
+    "tbc_sitil-oto-turbo-41657": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça toptancıları için uygun bir hedef kitle olabileceği düşünülmektedir.",
+        "classified_at": "2026-08-11T08:19:24.121223+00:00"
+    },
+    "tbc_otomeydan-oto-aksesuar-40892": {
+        "relevance_score": 70,
+        "score_reasoning": "Oto yedek parça toptancıları için uygun bir hedef kitle olabileceği düşünülmektedir.",
+        "classified_at": "2026-08-11T08:19:24.121223+00:00"
+    },
+    "tbc_global-ticaret-40736": {
+        "relevance_score": 60,
+        "score_reasoning": "Oto yedek parça toptancıları için uygun bir hedef kitle olabileceği düşünülmektedir.",
+        "classified_at": "2026-08-11T08:19:24.121223+00:00"
+    },
+    "tbc_sel-oto-ic-ve-40689": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça toptancıları için uygun bir hedef kitle olabileceği düşünülmektedir.",
+        "classified_at": "2026-08-11T08:19:24.121223+00:00"
+    },
+    "tbc_dinamik-filtre-39991": {
+        "relevance_score": 50,
+        "score_reasoning": "Spesifik bir yedek parça türü için uzmanlaşmış olabilir, bu nedenle hedef kitle için kısmen uygun olabilir.",
+        "classified_at": "2026-08-11T08:19:24.121223+00:00"
+    },
+    "tbc_bera-otomotiv-filtre-sanayi-39453": {
+        "relevance_score": 50,
+        "score_reasoning": "Spesifik bir yedek parça türü için uzmanlaşmış olabilir, bu nedenle hedef kitle için kısmen uygun olabilir.",
+        "classified_at": "2026-08-11T08:19:24.121223+00:00"
+    },
+    "tbc_glasser-torium-avm-oto-35884": {
+        "relevance_score": 40,
+        "score_reasoning": "Oto camları için uzmanlaşmış olabilir, bu nedenle hedef kitle için kısmen uygun olabilir.",
+        "classified_at": "2026-08-11T08:19:24.121223+00:00"
+    },
+    "tbc_standart-yay-sanayi-ve-35531": {
+        "relevance_score": 50,
+        "score_reasoning": "Spesifik bir yedek parça türü için uzmanlaşmış olabilir, bu nedenle hedef kitle için kısmen uygun olabilir.",
+        "classified_at": "2026-08-11T08:19:24.121223+00:00"
+    },
+    "tbc_ara-rulman-bilya-oto-33240": {
+        "relevance_score": 50,
+        "score_reasoning": "Spesifik bir yedek parça türü için uzmanlaşmış olabilir, bu nedenle hedef kitle için kısmen uygun olabilir.",
+        "classified_at": "2026-08-11T08:19:24.121223+00:00"
+    },
+    "tbc_ops-otomotiv-32902": {
+        "relevance_score": 60,
+        "score_reasoning": "Oto yedek parça toptancıları için uygun bir hedef kitle olabileceği düşünülmektedir.",
+        "classified_at": "2026-08-11T08:19:24.121223+00:00"
+    },
+    "tbc_konukoglu-otom-san-tic-31307": {
+        "relevance_score": 70,
+        "score_reasoning": "Oto yedek parça toptancıları için uygun bir hedef kitle olabileceği düşünülmektedir.",
+        "classified_at": "2026-08-11T08:19:24.121223+00:00"
+    },
+    "tbc_bfn-a-s-double-30973": {
+        "relevance_score": 50,
+        "score_reasoning": "Spesifik bir yedek parça türü için uzmanlaşmış olabilir, bu nedenle hedef kitle için kısmen uygun olabilir.",
+        "classified_at": "2026-08-11T08:19:24.121223+00:00"
+    },
+    "tbc_adam-otomotiv-com-tr-30874": {
+        "relevance_score": 60,
+        "score_reasoning": "Oto yedek parça toptancıları için uygun bir hedef kitle olabileceği düşünülmektedir.",
+        "classified_at": "2026-08-11T08:19:24.121223+00:00"
+    },
+    "tbc_sistem-otomotiv-0216-415-30852": {
+        "relevance_score": 60,
+        "score_reasoning": "Oto yedek parça toptancıları için uygun bir hedef kitle olabileceği düşünülmektedir.",
+        "classified_at": "2026-08-11T08:19:24.121223+00:00"
+    },
+    "tbc_ec-grup-dis-ticaret-30817": {
+        "relevance_score": 50,
+        "score_reasoning": "İthalat/ihracat ağırlıklı olabilir, bu nedenle hedef kitle için kısmen uygun olabilir.",
+        "classified_at": "2026-08-11T08:19:24.121223+00:00"
+    },
+    "tbc_mavi-motor-dis-ticaret-30757": {
+        "relevance_score": 50,
+        "score_reasoning": "İthalat/ihracat ağırlıklı olabilir, bu nedenle hedef kitle için kısmen uygun olabilir.",
+        "classified_at": "2026-08-11T08:19:24.121223+00:00"
+    },
+    "tbc_kenzmann-automotive-30431": {
+        "relevance_score": 40,
+        "score_reasoning": "Yabancı bir marka olabilir, bu nedenle hedef kitle için kısmen uygun olabilir.",
+        "classified_at": "2026-08-11T08:19:24.121223+00:00"
+    },
+    "tbc_oguslar-gr5oup-otomotiv-30025": {
+        "relevance_score": 60,
+        "score_reasoning": "Oto yedek parça toptancıları için uygun bir hedef kitle olabileceği düşünülmektedir.",
+        "classified_at": "2026-08-11T08:19:24.121223+00:00"
+    },
+    "tbc_oz-is-oto-yan-29419": {
+        "relevance_score": 70,
+        "score_reasoning": "Oto yedek parça toptancıları için uygun bir hedef kitle olabileceği düşünülmektedir.",
+        "classified_at": "2026-08-11T08:19:24.121223+00:00"
     }
 }
