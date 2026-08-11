@@ -11,5 +11,19 @@
         "phone": "",
         "company": "",
         "opted_in_at": null
+    },
+    {
+        "name": "Nakliyat",
+        "phone": "05325130373",
+        "company": "Nakliyat",
+        "opted_in_at": null,
+        "source": "lead_discovery"
+    },
+    {
+        "name": "VD Endüstriyel Yapı Malzemeleri Nakliye ve Filo Kiralama San. Tic. Ltd. Şti.",
+        "phone": "05497223959",
+        "company": "VD Endüstriyel Yapı Malzemeleri Nakliye ve Filo Kiralama San. Tic. Ltd. Şti.",
+        "opted_in_at": null,
+        "source": "lead_discovery"
     }
 ]
