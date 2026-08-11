@@ -1405,6 +1405,101 @@ def upload_catalog_files(files: list[UploadFile] = File(...), _: str = Depends(r
     return {"status": "processing", "job_id": job_id, "total_files": len(saved_paths)}
 
 
+def _run_backfill_images_job(job_id: str, saved_paths: list):
+    """MEVCUT (daha önce taranmış) katalog ürünlerine geriye dönük sayfa görseli ekler - bkz.
+    2026-08-11 notu (_scan_catalog_source). Orijinal PDF dosyaları hiçbir yerde kalıcı
+    saklanmadığı için (işlendikten hemen sonra siliniyordu), görsel eklemek için tek yol PDF'in
+    TEKRAR yüklenmesi. AMA bu adım HİÇ AI çağrısı yapmaz (token/kota maliyeti YOK) - sadece
+    her sayfayı render edip, o sayfadan daha önce çıkarılmış (source_file eşleşen) MEVCUT
+    kayıtlara görseli iliştirir. Zaten görseli olan veya bu dosyadan hiç ürün çıkmamış sayfalar
+    atlanır."""
+    job = _catalog_jobs[job_id]
+    matched_pages = 0
+    updated_items = 0
+    for filename, file_path in saved_paths:
+        try:
+            if not filename.lower().endswith(".pdf"):
+                continue
+            doc = fitz.open(file_path)
+            zoom_matrix = fitz.Matrix(2.0, 2.0)
+            try:
+                for page_index in range(len(doc)):
+                    page_num = page_index + 1
+                    page_label = f"{filename} (sayfa {page_num})"
+                    with CATALOG_WRITE_LOCK:
+                        catalog = _load_catalog_from_disk()
+                        matching_items = [
+                            item for item in catalog
+                            if item.get("source_file") == page_label or page_label in (item.get("source_files") or [])
+                        ]
+                        needs_image = matching_items and not all(item.get("source_page_image") for item in matching_items)
+                    with _catalog_jobs_lock:
+                        job["pages_done"] += 1
+                        job["current_file"] = f"{filename} (sayfa {page_num}/{len(doc)})"
+                    if not needs_image:
+                        continue
+                    page = doc[page_index]
+                    pix = page.get_pixmap(matrix=zoom_matrix)
+                    base_name = os.path.splitext(os.path.basename(file_path))[0]
+                    page_path = os.path.join(CATALOG_DIR, f"{base_name}_backfill_sayfa{page_num}.png")
+                    pix.save(page_path)
+                    del pix
+                    try:
+                        image_name = re.sub(r"[^\w.-]", "_", f"{filename}_sayfa{page_num}") + ".png"
+                        if sync_binary_file_to_github(page_path, f"{CATALOG_IMAGE_DIR}/{image_name}", f"Katalog sayfa görseli (geriye dönük): {image_name}"):
+                            with CATALOG_WRITE_LOCK:
+                                catalog = _load_catalog_from_disk()
+                                for item in catalog:
+                                    if item.get("source_file") == page_label or page_label in (item.get("source_files") or []):
+                                        item["source_page_image"] = image_name
+                                        updated_items += 1
+                                save_catalog(catalog)
+                            matched_pages += 1
+                    finally:
+                        if os.path.exists(page_path):
+                            os.remove(page_path)
+            finally:
+                doc.close()
+        except Exception as e:
+            with _catalog_jobs_lock:
+                job["failed"].append(f"{filename}: {str(e)}")
+        finally:
+            if os.path.exists(file_path):
+                os.remove(file_path)
+    sync_catalog_to_github()
+    with _catalog_jobs_lock:
+        job["status"] = "success"
+        job["message"] = f"{matched_pages} sayfanın görseli eklendi, {updated_items} ürün kaydı güncellendi." if matched_pages else "Bu dosyadaki hiçbir sayfa için eşleşen katalog kaydı bulunamadı (ya dosya adı farklı, ya da tüm görseller zaten mevcut)."
+
+
+@app.post("/backfill-catalog-images")
+def backfill_catalog_images(files: list[UploadFile] = File(...), _: str = Depends(require_admin)):
+    """Zaten taranmış bir kataloğun (ör. GÖÇMEN KATALOG, ORPASAN) orijinal PDF'i tekrar
+    yüklendiğinde, o kataloğun MEVCUT ürün kayıtlarına geriye dönük sayfa görseli ekler - HİÇ
+    yeniden taramaz/AI kullanmaz, sadece görselleri eşleştirip iliştirir (bkz. _run_backfill_images_job)."""
+    saved_paths = []
+    for file in files:
+        safe_name = f"{uuid.uuid4().hex}_{os.path.basename(file.filename)}"
+        file_path = os.path.join(CATALOG_DIR, safe_name)
+        with open(file_path, "wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+        saved_paths.append((file.filename, file_path))
+
+    job_id = uuid.uuid4().hex
+    with _catalog_jobs_lock:
+        _catalog_jobs[job_id] = {
+            "status": "processing",
+            "total_files": len(saved_paths),
+            "done_files": 0,
+            "pages_done": 0,
+            "current_file": saved_paths[0][0] if saved_paths else None,
+            "failed": [],
+            "message": "",
+        }
+    threading.Thread(target=_run_backfill_images_job, args=(job_id, saved_paths), daemon=True).start()
+    return {"status": "processing", "job_id": job_id, "total_files": len(saved_paths)}
+
+
 @app.get("/upload-catalog-status/{job_id}")
 def get_upload_catalog_status(job_id: str, _: str = Depends(require_admin)):
     with _catalog_jobs_lock:
