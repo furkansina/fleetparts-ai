@@ -140,5 +140,111 @@
                 "classified_at": "2026-08-11T08:08:11.781871+00:00"
             }
         }
+    },
+    "test_debug_urun_xyz123": {
+        "product_description": "Test Debug Urun XYZ123",
+        "classified_at": "2026-08-11T10:59:20.537397+00:00",
+        "scores": {
+            "osm_node_3704279436": {
+                "product_fit_score": 20,
+                "product_fit_reasoning": "Lastikçi olduğu için Test Debug Urun XYZ123 ile ilgisi düşük",
+                "classified_at": "2026-08-11T10:59:20.537397+00:00"
+            },
+            "osm_node_4686940756": {
+                "product_fit_score": 20,
+                "product_fit_reasoning": "Lastikçi olduğu için Test Debug Urun XYZ123 ile ilgisi düşük",
+                "classified_at": "2026-08-11T10:59:20.537397+00:00"
+            },
+            "osm_node_4686944333": {
+                "product_fit_score": 20,
+                "product_fit_reasoning": "Lastikçi olduğu için Test Debug Urun XYZ123 ile ilgisi düşük",
+                "classified_at": "2026-08-11T10:59:20.537397+00:00"
+            },
+            "osm_node_4686944377": {
+                "product_fit_score": 20,
+                "product_fit_reasoning": "Lastikçi olduğu için Test Debug Urun XYZ123 ile ilgisi düşük",
+                "classified_at": "2026-08-11T10:59:20.537397+00:00"
+            },
+            "osm_node_9551020491": {
+                "product_fit_score": 80,
+                "product_fit_reasoning": "Oto yedek parça alanında faaliyet gösteren firma, Test Debug Urun XYZ123 ürününü satın alma ihtimali yüksek",
+                "classified_at": "2026-08-11T10:59:20.537397+00:00"
+            },
+            "tbc_sismak-dizel-otomotiv-san-46937": {
+                "product_fit_score": 80,
+                "product_fit_reasoning": "Oto yedek parça alanında faaliyet gösteren firma, Test Debug Urun XYZ123 ürününü satın alma ihtimali yüksek",
+                "classified_at": "2026-08-11T10:59:20.537397+00:00"
+            },
+            "tbc_sembol-paslanmaz-metal-san-45674": {
+                "product_fit_score": 60,
+                "product_fit_reasoning": "Oto yedek parça alanında faaliyet gösteren firma, ancak spesifik ürün ile ilgisi orta",
+                "classified_at": "2026-08-11T10:59:20.537397+00:00"
+            },
+            "tbc_basel-otomotiv-42228": {
+                "product_fit_score": 70,
+                "product_fit_reasoning": "Oto yedek parça alanında faaliyet gösteren firma, Test Debug Urun XYZ123 ürününü satın alma ihtimali orta-yüksek",
+                "classified_at": "2026-08-11T10:59:20.537397+00:00"
+            },
+            "tbc_queen-imalat-ihracat-ve-41874": {
+                "product_fit_score": 50,
+                "product_fit_reasoning": "Oto yedek parça alanında faaliyet gösteren firma, ancak spesifik ürün ile ilgisi düşük-orta",
+                "classified_at": "2026-08-11T10:59:20.537397+00:00"
+            },
+            "tbc_nova-hydraulic-41762": {
+                "product_fit_score": 40,
+                "product_fit_reasoning": "Hidrolik ürünler alanında faaliyet gösteren firma, Test Debug Urun XYZ123 ile ilgisi düşük",
+                "classified_at": "2026-08-11T10:59:20.537397+00:00"
+            },
+            "tbc_hydrotime-mehmet-konsan-ltd-38884": {
+                "product_fit_score": 40,
+                "product_fit_reasoning": "Hidrolik ürünler alanında faaliyet gösteren firma, Test Debug Urun XYZ123 ile ilgisi düşük",
+                "classified_at": "2026-08-11T10:59:20.537397+00:00"
+            },
+            "tbc_benefit-otomotiv-ic-ve-38184": {
+                "product_fit_score": 70,
+                "product_fit_reasoning": "Oto yedek parça alanında faaliyet gösteren firma, Test Debug Urun XYZ123 ürününü satın alma ihtimali orta-yüksek",
+                "classified_at": "2026-08-11T10:59:20.537397+00:00"
+            },
+            "tbc_buyuktemiz-mak-otom-san-36587": {
+                "product_fit_score": 60,
+                "product_fit_reasoning": "Oto yedek parça alanında faaliyet gösteren firma, ancak spesifik ürün ile ilgisi orta",
+                "classified_at": "2026-08-11T10:59:20.537397+00:00"
+            },
+            "tbc_dps-piston-35453": {
+                "product_fit_score": 50,
+                "product_fit_reasoning": "Oto yedek parça alanında faaliyet gösteren firma, ancak spesifik ürün ile ilgisi düşük-orta",
+                "classified_at": "2026-08-11T10:59:20.537397+00:00"
+            },
+            "tbc_anko-otomotiv-san-tic-35405": {
+                "product_fit_score": 70,
+                "product_fit_reasoning": "Oto yedek parça alanında faaliyet gösteren firma, Test Debug Urun XYZ123 ürününü satın alma ihtimali orta-yüksek",
+                "classified_at": "2026-08-11T10:59:20.537397+00:00"
+            },
+            "tbc_bay-kaucukkaucuk-otomotiv-yedek-35111": {
+                "product_fit_score": 50,
+                "product_fit_reasoning": "Oto yedek parça alanında faaliyet gösteren firma, ancak spesifik ürün ile ilgisi düşük-orta",
+                "classified_at": "2026-08-11T10:59:20.537397+00:00"
+            },
+            "tbc_oznur-otomotiv-sanayi-ve-34571": {
+                "product_fit_score": 70,
+                "product_fit_reasoning": "Oto yedek parça alanında faaliyet gösteren firma, Test Debug Urun XYZ123 ürününü satın alma ihtimali orta-yüksek",
+                "classified_at": "2026-08-11T10:59:20.537397+00:00"
+            },
+            "tbc_metosanhidrolik-pompahidrolikunitepnomat-34160": {
+                "product_fit_score": 40,
+                "product_fit_reasoning": "Hidrolik ürünler alanında faaliyet gösteren firma, Test Debug Urun XYZ123 ile ilgisi düşük",
+                "classified_at": "2026-08-11T10:59:20.537397+00:00"
+            },
+            "tbc_ozdizel-33798": {
+                "product_fit_score": 60,
+                "product_fit_reasoning": "Oto yedek parça alanında faaliyet gösteren firma, ancak spesifik ürün ile ilgisi orta",
+                "classified_at": "2026-08-11T10:59:20.537397+00:00"
+            },
+            "tbc_erkoclar-tarim-makineleri-33311": {
+                "product_fit_score": 10,
+                "product_fit_reasoning": "Tarım makineleri alanında faaliyet gösteren firma, Test Debug Urun XYZ123 ile ilgisi yok",
+                "classified_at": "2026-08-11T10:59:20.537397+00:00"
+            }
+        }
     }
 }
