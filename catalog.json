@@ -325,19 +325,14 @@
         "stock": 25
     },
     {
-        "id": "PRC-4821",
+        "id": "ORP 4011",
         "oem": "ORP 4011",
-        "name": "Test Parca Adi",
+        "name": "Test Aparatı Dişi (M14 x 1,5)",
         "brand": "",
         "specs": "",
-        "price": "150 TL",
+        "price": "₺150,00",
         "stock": 1,
-        "source_page_image": "GÖÇMEN_test_kataloğu__şükrü__İ.pdf_sayfa1.png",
-        "source_file": "GÖÇMEN test kataloğu (şükrü) İ.pdf (sayfa 1)",
-        "source_files": [
-            "GÖÇMEN test kataloğu (şükrü) İ.pdf (sayfa 1)",
-            "ORPASAN OTOMOTİV SAN. ve TİC. LTD. ŞTİ. FİYAT LİSTESİ OCAK 2026.pdf (sayfa 1, metin katmanindan otomatik cikarildi)"
-        ]
+        "source_file": "ORPASAN OTOMOTİV SAN. ve TİC. LTD. ŞTİ. FİYAT LİSTESİ OCAK 2026.pdf (sayfa 1, metin katmanindan otomatik cikarildi)"
     },
     {
         "id": "ORP 4012",
