@@ -1197,10 +1197,22 @@ def _scan_catalog_source(filename: str, file_path: str, on_page_done=None) -> li
     yeniden deneme TÜM dosyayı baştan tarıyor, kotayı gereksiz yere 2-3 kat hızlı tüketiyordu."""
     try:
         if filename.lower().endswith(".pdf"):
-            already_scanned = {
-                item.get("source_file") for item in _load_catalog_from_disk()
-                if isinstance(item.get("source_file"), str) and item["source_file"].startswith(f"{filename} (sayfa ")
-            }
+            # BUG (2026-08-11 tespit edildi): bazı kayıtlarda source_file basit "dosya (sayfa N)"
+            # formatında değil, "dosya (sayfa N, metin katmanından otomatik çıkarıldı)" gibi EK
+            # açıklama içeriyor (muhtemelen bu kod bir önceki halindeyken taranmış eski kayıtlar).
+            # Eskiden bu set TAM string eşleşmesi bekliyordu - page_label (her zaman basit format)
+            # bu ek açıklamalı kayıtlarla HİÇ eşleşmiyordu, yani "zaten taranmış" kontrolü bu
+            # sayfalar için hiç çalışmıyordu; aynı dosya tekrar yüklenince gereksiz yere yeniden
+            # taranıp AI kotası boşa harcanıyordu. Artık sadece dosya adı+sayfa numarası
+            # normalize edilerek karşılaştırılıyor, açıklama eki göz ardı ediliyor.
+            already_scanned = set()
+            for item in _load_catalog_from_disk():
+                sf = item.get("source_file")
+                if not isinstance(sf, str):
+                    continue
+                m = re.match(re.escape(filename) + r" \(sayfa (\d+)", sf)
+                if m:
+                    already_scanned.add(f"{filename} (sayfa {m.group(1)})")
             items = []
             for _page_num, page_label, page_path, page_words in render_pdf_pages_to_images(file_path, filename=filename, already_scanned=already_scanned):
                 try:
@@ -1405,6 +1417,17 @@ def upload_catalog_files(files: list[UploadFile] = File(...), _: str = Depends(r
     return {"status": "processing", "job_id": job_id, "total_files": len(saved_paths)}
 
 
+def _source_file_matches_page(source_file, filename: str, page_num: int) -> bool:
+    """source_file bazen basit 'dosya (sayfa N)' formatında, bazen 'dosya (sayfa N, metin
+    katmanından otomatik çıkarıldı)' gibi ek açıklamalı - bkz. _scan_catalog_source'daki
+    2026-08-11 notu. İkisini de doğru eşleştirmek için tam eşitlik yerine önek karşılaştırması
+    kullanılır (sadece dosya adı + '(sayfa N' önekine bakılır, sonrasında ne olduğu önemsiz)."""
+    if not isinstance(source_file, str):
+        return False
+    prefix = f"{filename} (sayfa {page_num}"
+    return source_file == f"{filename} (sayfa {page_num})" or source_file.startswith(prefix + ",") or source_file.startswith(prefix + ")")
+
+
 def _run_backfill_images_job(job_id: str, saved_paths: list):
     """MEVCUT (daha önce taranmış) katalog ürünlerine geriye dönük sayfa görseli ekler - bkz.
     2026-08-11 notu (_scan_catalog_source). Orijinal PDF dosyaları hiçbir yerde kalıcı
@@ -1425,13 +1448,15 @@ def _run_backfill_images_job(job_id: str, saved_paths: list):
             try:
                 for page_index in range(len(doc)):
                     page_num = page_index + 1
-                    page_label = f"{filename} (sayfa {page_num})"
+
+                    def _item_matches(item):
+                        if _source_file_matches_page(item.get("source_file"), filename, page_num):
+                            return True
+                        return any(_source_file_matches_page(sf, filename, page_num) for sf in (item.get("source_files") or []))
+
                     with CATALOG_WRITE_LOCK:
                         catalog = _load_catalog_from_disk()
-                        matching_items = [
-                            item for item in catalog
-                            if item.get("source_file") == page_label or page_label in (item.get("source_files") or [])
-                        ]
+                        matching_items = [item for item in catalog if _item_matches(item)]
                         needs_image = matching_items and not all(item.get("source_page_image") for item in matching_items)
                     with _catalog_jobs_lock:
                         job["pages_done"] += 1
@@ -1450,7 +1475,7 @@ def _run_backfill_images_job(job_id: str, saved_paths: list):
                             with CATALOG_WRITE_LOCK:
                                 catalog = _load_catalog_from_disk()
                                 for item in catalog:
-                                    if item.get("source_file") == page_label or page_label in (item.get("source_files") or []):
+                                    if _item_matches(item):
                                         item["source_page_image"] = image_name
                                         updated_items += 1
                                 save_catalog(catalog)
