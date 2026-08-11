@@ -16,6 +16,7 @@ import sys
 import os
 import json
 import argparse
+import re
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -45,7 +46,7 @@ def rescore_legacy_by_name(lead: dict) -> dict | None:
     Sadece net bir dışlama sinyali varsa (aksi halde dokunmadan None döner - eski skor
     korunur, çünkü ham kategori/tip olmadan POZİTİF yönde bir iyileştirme yapılamaz, sadece
     net kötü olanlar indirilebilir)."""
-    name_lower = turkish_lower(lead.get("company_name", ""))
+    name_lower = re.sub(r"\s+", " ", turkish_lower(lead.get("company_name", "")))
     is_excluded = bool(_EXCLUDE_PATTERN.search(name_lower))
     is_wash_repair = bool(_WASH_KEYWORDS_RE.search(name_lower)) and bool(_SERVICE_CATEGORY_PATTERN.search(name_lower))
     if not (is_excluded or is_wash_repair):
