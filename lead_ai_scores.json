@@ -2076,302 +2076,102 @@
     },
     "tbc_unversan-otomotiv-makina-ve-20245": {
         "relevance_score": 80,
-        "score_reasoning": "Oto yedek parça satıcısı olarak kategorize edilmiştir, hedef kitleye uygun görünüyor.",
-        "classified_at": "2026-08-11T11:45:17.725192+00:00"
+        "score_reasoning": "Oto yedek parça firması olan Ünversan Otomotiv, ağır vasıta yedek parça toptancılarına uygun bir müşteri olabilir.",
+        "classified_at": "2026-08-11T11:46:05.656817+00:00"
     },
     "tbc_inal-kardesler-otomotiv-19583": {
         "relevance_score": 80,
-        "score_reasoning": "Oto yedek parça satıcısı olarak kategorize edilmiştir, hedef kitleye uygun görünüyor.",
-        "classified_at": "2026-08-11T11:45:17.725192+00:00"
+        "score_reasoning": "İnal Kardeşler Otomotiv, oto yedek parça sektöründe faaliyet gösteren bir firma olarak hedef kitleye uygun görünüyor.",
+        "classified_at": "2026-08-11T11:46:05.656817+00:00"
     },
     "tbc_kacmazlar-otomotiv-ltd-sti-19116": {
         "relevance_score": 80,
-        "score_reasoning": "Oto yedek parça satıcısı olarak kategorize edilmiştir, hedef kitleye uygun görünüyor.",
-        "classified_at": "2026-08-11T11:45:17.725192+00:00"
+        "score_reasoning": "Kacmazlar Otomotiv, oto yedek parça toptancılarına yönelik bir firma olarak heavy duty vasıta yedek parça satıcılarının hedef kitlesine Uygun görünüyor.",
+        "classified_at": "2026-08-11T11:46:05.656817+00:00"
     },
     "tbc_conta-san-power-gaskets-18348": {
-        "relevance_score": 70,
-        "score_reasoning": "Oto yedek parça satıcısı olarak kategorize edilmiştir, ancak spesifik bir yedek parça türüne odaklanmış olabilir.",
-        "classified_at": "2026-08-11T11:45:17.725192+00:00"
+        "relevance_score": 60,
+        "score_reasoning": "Conta-san Power Gaskets, oto yedek parça sektöründe faaliyet gösteren bir firma, ancak ağır vasıta yedek parça satıcıları ile直接 ilişkisi bilinmiyor.",
+        "classified_at": "2026-08-11T11:46:05.656817+00:00"
     },
     "tbc_murat-otomotiv-tic-ltd-18272": {
         "relevance_score": 80,
-        "score_reasoning": "Oto yedek parça satıcısı olarak kategorize edilmiştir, hedef kitleye uygun görünüyor.",
-        "classified_at": "2026-08-11T11:45:17.725192+00:00"
+        "score_reasoning": "Murat Otomotiv, oto yedek parça toptancısı olarak ağır vasıta yedek parça satıcılarının hedef kitlesine Uygun görünüyor.",
+        "classified_at": "2026-08-11T11:46:05.656817+00:00"
     },
     "tbc_servet-usta-isuzu-servisi-23642": {
         "relevance_score": 40,
-        "score_reasoning": "Bağımsız servis olarak görünen bir işletme, hedef kitleye uygun olmayabilir.",
-        "classified_at": "2026-08-11T11:45:17.725192+00:00"
+        "score_reasoning": "Servet Usta Isuzu Servisi, bir servis firması olarak bağımsız tamirci/servis kategorisine giriyor ve ağır vasıta yedek parça satıcılarının hedef kitlesine Uygun değil.",
+        "classified_at": "2026-08-11T11:46:05.656817+00:00"
     },
     "tbc_tomhisar-pompa-26701": {
-        "relevance_score": 50,
-        "score_reasoning": "Pompa satıcısı olarak kategorize edilmiş, ancak oto yedek parça satıcıları arasında yer alıyor olabilir.",
-        "classified_at": "2026-08-11T11:45:17.725192+00:00"
+        "relevance_score": 40,
+        "score_reasoning": "Tomhisar Pompa, bir pompa satıcısı olarak ağır vasıta yedek parça sektörüyle doğrudan ilişkisi bilinmiyor.",
+        "classified_at": "2026-08-11T11:46:05.656817+00:00"
     },
     "tbc_anadolu-arsan-makine-imalat-19118": {
         "relevance_score": 60,
-        "score_reasoning": "Makine imalat şirketi olarak kategorize edilmiş, ancak oto yedek parça üretimi de yapıyor olabilir.",
-        "classified_at": "2026-08-11T11:45:17.725192+00:00"
+        "score_reasoning": "Anadolu Arsan Makine İmalat, makine imalat sektöründe faaliyet gösteren bir firma, ancak oto yedek parça sektörüyle doğrudan ilişkisi bilinmiyor.",
+        "classified_at": "2026-08-11T11:46:05.656817+00:00"
     },
     "tbc_yilser-yildizlar-oto-servis-44872": {
-        "relevance_score": 30,
-        "score_reasoning": "Bağımsız servis olarak görünen bir işletme, hedef kitleye uygun olmayabilir.",
-        "classified_at": "2026-08-11T11:45:17.725192+00:00"
+        "relevance_score": 40,
+        "score_reasoning": "Yılser Yıldızlar Oto Servis, bir servis firması olarak bağımsız tamirci/servis kategorisine giriyor ve ağır vasıta yedek parça satıcılarının hedef kitlesine Uygun değil.",
+        "classified_at": "2026-08-11T11:46:05.656817+00:00"
     },
     "tbc_zorlu-otomotiv-insaat-ltd-41649": {
-        "relevance_score": 60,
-        "score_reasoning": "Oto yedek parça satıcısı ve inşaat şirketi olarak kategorize edilmiş, hedef kitleye kısmen uygun olabilir.",
-        "classified_at": "2026-08-11T11:45:17.725192+00:00"
+        "relevance_score": 80,
+        "score_reasoning": "Zorlu Otomotiv İnşaat, oto yedek parça toptancısı olarak ağır vasıta yedek parça satıcılarının hedef kitlesine Uygun görünüyor.",
+        "classified_at": "2026-08-11T11:46:05.656817+00:00"
     },
     "tbc_asarogullari-grup-oto-madeni-50886": {
-        "relevance_score": 70,
-        "score_reasoning": "Oto madeni yağ satıcısı olarak kategorize edilmiş, oto yedek parça satıcıları arasında yer alıyor olabilir.",
-        "classified_at": "2026-08-11T11:45:17.725192+00:00"
+        "relevance_score": 60,
+        "score_reasoning": "Aşaroğulları Grup Oto Madeni Yağ San., oto yedek parça sektöründe faaliyet gösteren bir firma, ancak ağır vasıta yedek parça satıcıları ile direkt ilişkisi bilinmiyor.",
+        "classified_at": "2026-08-11T11:46:05.656817+00:00"
     },
     "tbc_yasarogullari-oto-madeni-yag-50864": {
-        "relevance_score": 70,
-        "score_reasoning": "Oto madeni yağ satıcısı olarak kategorize edilmiş, oto yedek parça satıcıları arasında yer alıyor olabilir.",
-        "classified_at": "2026-08-11T11:45:17.725192+00:00"
+        "relevance_score": 60,
+        "score_reasoning": "Yaşaroğulları Oto Madeni Yağ Sanayi, oto yedek parça sektöründe faaliyet gösteren bir firma, ancak ağır vasıta yedek parça satıcıları ile direkt ilişkisi bilinmiyor.",
+        "classified_at": "2026-08-11T11:46:05.656817+00:00"
     },
     "tbc_oto-arici-37153": {
-        "relevance_score": 50,
-        "score_reasoning": "Açık bir kategori bilgileri olmadan değerlendirme yapılamıyor.",
-        "classified_at": "2026-08-11T11:45:17.725192+00:00"
+        "relevance_score": 40,
+        "score_reasoning": "Oto Arıcı, bir oto servisine benzeyen firma, ancak ağır vasıta yedek parça sektörüyle doğrudan ilişkisi bilinmiyor.",
+        "classified_at": "2026-08-11T11:46:05.656817+00:00"
     },
     "ankaraotosanayi_791": {
-        "relevance_score": 20,
-        "score_reasoning": "Bağımsız servis olarak görünen bir işletme, hedef kitleye uygun olmayabilir.",
-        "classified_at": "2026-08-11T11:45:17.725192+00:00"
+        "relevance_score": 40,
+        "score_reasoning": "A - R Alfa Romeo Oto Servis, bir servis firması olarak bağımsız tamirci/servis kategorisine giriyor ve ağır vasıta yedek parça satıcılarının hedef kitlesine Uygun değil.",
+        "classified_at": "2026-08-11T11:46:05.656817+00:00"
     },
     "ankaraotosanayi_787": {
-        "relevance_score": 60,
-        "score_reasoning": "Motor satış şirketi olarak kategorize edilmiş, oto yedek parça satıcıları arasında yer alıyor olabilir.",
-        "classified_at": "2026-08-11T11:45:17.725192+00:00"
+        "relevance_score": 80,
+        "score_reasoning": "Alem Otomotiv Motor Satış, oto yedek parça toptancısı olarak ağır vasıta yedek parça satıcılarının hedef kitlesine Uygun görünüyor.",
+        "classified_at": "2026-08-11T11:46:05.656817+00:00"
     },
     "ankaraotosanayi_202": {
         "relevance_score": 80,
-        "score_reasoning": "Oto yedek parça satıcısı olarak kategorize edilmiştir, hedef kitleye uygun görünüyor.",
-        "classified_at": "2026-08-11T11:45:17.725192+00:00"
+        "score_reasoning": "Altun Ford Opel Yedekleri, oto yedek parça toptancısı olarak ağır vasıta yedek parça satıcılarının hedef kitlesine Uygun görünüyor.",
+        "classified_at": "2026-08-11T11:46:05.656817+00:00"
     },
     "ankaraotosanayi_380": {
-        "relevance_score": 30,
-        "score_reasoning": "Bağımsız servis olarak görünen bir işletme, hedef kitleye uygun olmayabilir.",
-        "classified_at": "2026-08-11T11:45:17.725192+00:00"
+        "relevance_score": 40,
+        "score_reasoning": "Ar Renault Özel Servis, bir servis firması olarak bağımsız tamirci/servis kategorisine giriyor ve ağır vasıta yedek parça satıcılarının hedef kitlesine Uygun değil.",
+        "classified_at": "2026-08-11T11:46:05.656817+00:00"
     },
     "ankaraotosanayi_1018": {
-        "relevance_score": 40,
-        "score_reasoning": "Online satış platformu olarak görünen bir işletme, hedef kitleye uygun olmayabilir.",
-        "classified_at": "2026-08-11T11:45:17.725192+00:00"
+        "relevance_score": 80,
+        "score_reasoning": "Arabaparçacısı Net, oto yedek parça toptancısı olarak ağır vasıta yedek parça satıcılarının hedef kitlesine Uygun görünüyor.",
+        "classified_at": "2026-08-11T11:46:05.656817+00:00"
     },
     "ankaraotosanayi_1576": {
-        "relevance_score": 70,
-        "score_reasoning": "Oto yedek parça satıcısı olarak kategorize edilmiştir, hedef kitleye uygun görünüyor.",
-        "classified_at": "2026-08-11T11:45:17.725192+00:00"
+        "relevance_score": 80,
+        "score_reasoning": "Arif Oto Renault Dacia Fıat Yedek, oto yedek parça toptancısı olarak ağır vasıta yedek parça satıcılarının hedef kitlesine Uygun görünüyor.",
+        "classified_at": "2026-08-11T11:46:05.656817+00:00"
     },
     "ankaraotosanayi_1436": {
-        "relevance_score": 50,
-        "score_reasoning": "Fiberglass ürünleri satıcısı olarak kategorize edilmiş, oto yedek parça satıcıları arasında yer alıyor olabilir.",
-        "classified_at": "2026-08-11T11:45:17.725192+00:00"
-    },
-    "ankaraotosanayi_1398": {
-        "relevance_score": 0,
-        "score_reasoning": "Bağımsız bir servis olduğu için hedef dışındadır",
-        "classified_at": "2026-08-11T11:45:26.258864+00:00"
-    },
-    "ankaraotosanayi_1428": {
-        "relevance_score": 0,
-        "score_reasoning": "Bağımsız bir servis olduğu için hedef dışındadır",
-        "classified_at": "2026-08-11T11:45:26.258864+00:00"
-    },
-    "ankaraotosanayi_367": {
-        "relevance_score": 0,
-        "score_reasoning": "Bağımsız bir servis olduğu için hedef dışındadır",
-        "classified_at": "2026-08-11T11:45:26.258864+00:00"
-    },
-    "ankaraotosanayi_1365": {
-        "relevance_score": 0,
-        "score_reasoning": "Çıkma yedek parça satan hurdaçı olduğu için hedef dışındadır",
-        "classified_at": "2026-08-11T11:45:26.258864+00:00"
-    },
-    "ankaraotosanayi_368": {
-        "relevance_score": 0,
-        "score_reasoning": "Bağımsız bir servis olduğu için hedef dışındadır",
-        "classified_at": "2026-08-11T11:45:26.258864+00:00"
-    },
-    "ankaraotosanayi_52": {
-        "relevance_score": 0,
-        "score_reasoning": "Bağımsız bir servis olduğu için hedef dışındadır",
-        "classified_at": "2026-08-11T11:45:26.258864+00:00"
-    },
-    "ankaraotosanayi_1191": {
-        "relevance_score": 0,
-        "score_reasoning": "Bağımsız bir servis olduğu için hedef dışındadır",
-        "classified_at": "2026-08-11T11:45:26.258864+00:00"
-    },
-    "ankaraotosanayi_1088": {
-        "relevance_score": 0,
-        "score_reasoning": "Bağımsız bir servis olduğu için hedef dışındadır",
-        "classified_at": "2026-08-11T11:45:26.258864+00:00"
-    },
-    "ankaraotosanayi_1553": {
-        "relevance_score": 0,
-        "score_reasoning": "Bağımsız bir servis olduğu için hedef dışındadır",
-        "classified_at": "2026-08-11T11:45:26.258864+00:00"
-    },
-    "ankaraotosanayi_365": {
-        "relevance_score": 0,
-        "score_reasoning": "Bağımsız bir servis olduğu için hedef dışındadır",
-        "classified_at": "2026-08-11T11:45:26.258864+00:00"
-    },
-    "ankaraotosanayi_1118": {
-        "relevance_score": 0,
-        "score_reasoning": "Bağımsız bir servis olduğu için hedef dışındadır",
-        "classified_at": "2026-08-11T11:45:26.258864+00:00"
-    },
-    "ankaraotosanayi_1351": {
-        "relevance_score": 0,
-        "score_reasoning": "Bağımsız bir servis olduğu için hedef dışındadır",
-        "classified_at": "2026-08-11T11:45:26.258864+00:00"
-    },
-    "ankaraotosanayi_1781": {
-        "relevance_score": 0,
-        "score_reasoning": "Bağımsız bir servis olduğu için hedef dışındadır",
-        "classified_at": "2026-08-11T11:45:26.258864+00:00"
-    },
-    "ankaraotosanayi_1114": {
-        "relevance_score": 0,
-        "score_reasoning": "Çıkma yedek parça satan hurdaçı olduğu için hedef dışındadır",
-        "classified_at": "2026-08-11T11:45:26.258864+00:00"
-    },
-    "ankaraotosanayi_1645": {
-        "relevance_score": 0,
-        "score_reasoning": "Bağımsız bir servis olduğu için hedef dışındadır",
-        "classified_at": "2026-08-11T11:45:26.258864+00:00"
-    },
-    "ankaraotosanayi_1237": {
-        "relevance_score": 0,
-        "score_reasoning": "Bağımsız bir servis olduğu için hedef dışındadır",
-        "classified_at": "2026-08-11T11:45:26.258864+00:00"
-    },
-    "ankaraotosanayi_659": {
-        "relevance_score": 0,
-        "score_reasoning": "Bağımsız bir servis olduğu için hedef dışındadır",
-        "classified_at": "2026-08-11T11:45:26.258864+00:00"
-    },
-    "ankaraotosanayi_1654": {
-        "relevance_score": 0,
-        "score_reasoning": "Bağımsız bir servis olduğu için hedef dışındadır",
-        "classified_at": "2026-08-11T11:45:26.258864+00:00"
-    },
-    "ankaraotosanayi_1174": {
-        "relevance_score": 0,
-        "score_reasoning": "Bağımsız bir servis olduğu için hedef dışındadır",
-        "classified_at": "2026-08-11T11:45:26.258864+00:00"
-    },
-    "ankaraotosanayi_1054": {
-        "relevance_score": 0,
-        "score_reasoning": "Bağımsız bir servis olduğu için hedef dışındadır",
-        "classified_at": "2026-08-11T11:45:26.258864+00:00"
-    },
-    "ankaraotosanayi_723": {
-        "relevance_score": 80,
-        "score_reasoning": "Japon ve Kore furbal oto yedek parça satışı yapıyor, hedef kitleye uygun",
-        "classified_at": "2026-08-11T11:45:39.811963+00:00"
-    },
-    "ankaraotosanayi_1075": {
-        "relevance_score": 80,
-        "score_reasoning": "Japon ve Kore yedek parça satışı yapıyor, hedef kitleye uygun",
-        "classified_at": "2026-08-11T11:45:39.811963+00:00"
-    },
-    "ankaraotosanayi_672": {
-        "relevance_score": 80,
-        "score_reasoning": "Japon yedek parça satışı yapıyor, hedef kitleye uygun",
-        "classified_at": "2026-08-11T11:45:39.811963+00:00"
-    },
-    "ankaraotosanayi_764": {
-        "relevance_score": 0,
-        "score_reasoning": "Bağımsız servis olduğu için hedef dışı",
-        "classified_at": "2026-08-11T11:45:39.811963+00:00"
-    },
-    "ankaraotosanayi_895": {
-        "relevance_score": 0,
-        "score_reasoning": "Bağımsız servis olduğu için hedef dışı",
-        "classified_at": "2026-08-11T11:45:39.811963+00:00"
-    },
-    "ankaraotosanayi_1066": {
-        "relevance_score": 20,
-        "score_reasoning": "Modifiye ve aksesuar satışı yapıyor, kısmen hedef kitleye uygun",
-        "classified_at": "2026-08-11T11:45:39.811963+00:00"
-    },
-    "ankaraotosanayi_531": {
         "relevance_score": 40,
-        "score_reasoning": "Massey Ferguson yedek parça satışı yapıyor, kısmen hedef kitleye uygun",
-        "classified_at": "2026-08-11T11:45:39.811963+00:00"
-    },
-    "ankaraotosanayi_204": {
-        "relevance_score": 20,
-        "score_reasoning": "Oto aksesuar satışı yapıyor, kısmen hedef kitleye uygun",
-        "classified_at": "2026-08-11T11:45:39.811963+00:00"
-    },
-    "ankaraotosanayi_1720": {
-        "relevance_score": 40,
-        "score_reasoning": "İveco yedek parça satışı yapıyor, kısmen hedef kitleye uygun",
-        "classified_at": "2026-08-11T11:45:39.811963+00:00"
-    },
-    "ankaraotosanayi_1001": {
-        "relevance_score": 20,
-        "score_reasoning": "Modifiye ve aksesuar satışı yapıyor, kısmen hedef kitleye uygun",
-        "classified_at": "2026-08-11T11:45:39.811963+00:00"
-    },
-    "ankaraotosanayi_624": {
-        "relevance_score": 40,
-        "score_reasoning": "Renault ve Tofaş yedek parça satışı yapıyor, kısmen hedef kitleye uygun",
-        "classified_at": "2026-08-11T11:45:39.811963+00:00"
-    },
-    "ankaraotosanayi_29": {
-        "relevance_score": 0,
-        "score_reasoning": "Bağımsız servis olduğu için hedef dışı",
-        "classified_at": "2026-08-11T11:45:39.811963+00:00"
-    },
-    "ankaraotosanayi_1544": {
-        "relevance_score": 20,
-        "score_reasoning": "Oto aksesuar satışı yapıyor, kısmen hedef kitleye uygun",
-        "classified_at": "2026-08-11T11:45:39.811963+00:00"
-    },
-    "ankaraotosanayi_514": {
-        "relevance_score": 20,
-        "score_reasoning": "Oto aksesuar satışı yapıyor, kısmen hedef kitleye uygun",
-        "classified_at": "2026-08-11T11:45:39.811963+00:00"
-    },
-    "ankaraotosanayi_209": {
-        "relevance_score": 40,
-        "score_reasoning": "Tofaş yedek parça satışı yapıyor, kısmen hedef kitleye uygun",
-        "classified_at": "2026-08-11T11:45:39.811963+00:00"
-    },
-    "ankaraotosanayi_640": {
-        "relevance_score": 40,
-        "score_reasoning": "Opel ve Peugeot yedek parça satışı yapıyor, kısmen hedef kitleye uygun",
-        "classified_at": "2026-08-11T11:45:39.811963+00:00"
-    },
-    "ankaraotosanayi_218": {
-        "relevance_score": 80,
-        "score_reasoning": "Japon oto yedek parça satışı yapıyor, hedef kitleye uygun",
-        "classified_at": "2026-08-11T11:45:39.811963+00:00"
-    },
-    "ankaraotosanayi_1223": {
-        "relevance_score": 40,
-        "score_reasoning": "Ford, Toyota ve Peugeot yedek parça satışı yapıyor, kısmen hedef kitleye uygun",
-        "classified_at": "2026-08-11T11:45:39.811963+00:00"
-    },
-    "ankaraotosanayi_928": {
-        "relevance_score": 40,
-        "score_reasoning": "Renault yedek parça satışı yapıyor, kısmen hedef kitleye uygun",
-        "classified_at": "2026-08-11T11:45:39.811963+00:00"
-    },
-    "ankaraotosanayi_963": {
-        "relevance_score": 40,
-        "score_reasoning": "İveco yedek parça satışı yapıyor, kısmen hedef kitleye uygun",
-        "classified_at": "2026-08-11T11:45:39.811963+00:00"
+        "score_reasoning": "Aserpol Fiberglass, bir fiberglass üreticisi olarak ağır vasıta yedek parça sektörüyle doğrudan ilişkisi bilinmiyor.",
+        "classified_at": "2026-08-11T11:46:05.656817+00:00"
     }
 }
