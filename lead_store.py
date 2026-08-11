@@ -90,24 +90,40 @@ def save_lead_reviews(reviews: dict):
 
 def _sync_json_file_to_github(filename: str, message: str):
     """Verilen dosyayı GitHub'a yedekler; Render diski her deploy'da sıfırlandığı için
-    kalıcılık böyle sağlanır (catalog.json ile aynı desen)."""
+    kalıcılık böyle sağlanır (catalog.json ile aynı desen).
+
+    Bu depoya artık AYNI ANDA birçok farklı süreç yazabiliyor (haftalık keşif taraması, AI
+    netleştirme, ürün bazlı sınıflandırma, lead durum güncellemeleri...) - bu yüzden PUT'un GET'te
+    aldığı sha ile çakışıp 409 dönmesi normal/beklenen bir durum, hata değil. Önceden TÜM hatalar
+    (409 dahil) sessizce yutuluyordu - bu, "kaydettim ama GitHub'a hiç yansımadı, ve Render'ın
+    ephemeral diski bir sonraki deploy'da sıfırlanınca veri tamamen kayboldu" şeklinde sinsi bir
+    veri kaybına yol açabiliyordu (2026-08-11'de ürün bazlı sınıflandırmada bu şüpheyle tespit
+    edildi). Artık 409'da sha'yı yeniden alıp PUT'u birkaç kez tekrar dener."""
     if not GITHUB_TOKEN or not GITHUB_REPO:
         return
-    try:
-        api_url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{filename}"
-        headers = {"Authorization": f"Bearer {GITHUB_TOKEN}", "Accept": "application/vnd.github+json"}
-        sha = None
-        res = requests.get(api_url, headers=headers, timeout=15)
-        if res.status_code == 200:
-            sha = res.json().get("sha")
-        with open(filename, "rb") as f:
-            content_b64 = base64.b64encode(f.read()).decode("utf-8")
-        body = {"message": message, "content": content_b64}
-        if sha:
-            body["sha"] = sha
-        requests.put(api_url, headers=headers, json=body, timeout=15)
-    except Exception:
-        pass
+    api_url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{filename}"
+    headers = {"Authorization": f"Bearer {GITHUB_TOKEN}", "Accept": "application/vnd.github+json"}
+    with open(filename, "rb") as f:
+        content_b64 = base64.b64encode(f.read()).decode("utf-8")
+
+    for attempt in range(3):
+        try:
+            sha = None
+            res = requests.get(api_url, headers=headers, timeout=15)
+            if res.status_code == 200:
+                sha = res.json().get("sha")
+            body = {"message": message, "content": content_b64}
+            if sha:
+                body["sha"] = sha
+            put_res = requests.put(api_url, headers=headers, json=body, timeout=15)
+            if put_res.status_code in (200, 201):
+                return
+            if put_res.status_code == 409 and attempt < 2:
+                continue  # baska bir surec araya girdi - sha'yi yeniden al ve tekrar dene
+            print(f"  [lead_store] {filename} GitHub'a yazilamadi (HTTP {put_res.status_code}): {put_res.text[:200]}")
+            return
+        except Exception as e:
+            print(f"  [lead_store] {filename} GitHub senkronizasyon hatasi (deneme {attempt+1}/3): {e}")
 
 
 def sync_lead_reviews_to_github():
