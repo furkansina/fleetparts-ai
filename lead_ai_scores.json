@@ -2073,5 +2073,105 @@
         "relevance_score": 96,
         "score_reasoning": "Oto yedek parça toptancısı olarak görünen bir firma, sanayi ve ticaret faaliyetlerine sahip",
         "classified_at": "2026-08-11T11:32:25.368017+00:00"
+    },
+    "tbc_unversan-otomotiv-makina-ve-20245": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça toptancısı olarak sınıflandırıldığı için hedef kitleye uygun görünüyor",
+        "classified_at": "2026-08-11T11:43:00.697586+00:00"
+    },
+    "tbc_inal-kardesler-otomotiv-19583": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça toptancısı olarak sınıflandırıldığı için hedef kitleye uygun görünüyor",
+        "classified_at": "2026-08-11T11:43:00.697586+00:00"
+    },
+    "tbc_kacmazlar-otomotiv-ltd-sti-19116": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça toptancısı olarak sınıflandırıldığı için hedef kitleye uygun görünüyor",
+        "classified_at": "2026-08-11T11:43:00.697586+00:00"
+    },
+    "tbc_conta-san-power-gaskets-18348": {
+        "relevance_score": 70,
+        "score_reasoning": "Oto yedek parça üreticisi olarak sınıflandırıldığı için hedef kitleye kısmen uygun görünüyor",
+        "classified_at": "2026-08-11T11:43:00.697586+00:00"
+    },
+    "tbc_murat-otomotiv-tic-ltd-18272": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça toptancısı olarak sınıflandırıldığı için hedef kitleye uygun görünüyor",
+        "classified_at": "2026-08-11T11:43:00.697586+00:00"
+    },
+    "tbc_servet-usta-isuzu-servisi-23642": {
+        "relevance_score": 40,
+        "score_reasoning": "Bağımsız servis olarak sınıflandırıldığı için hedef kitleye uygun değil",
+        "classified_at": "2026-08-11T11:43:00.697586+00:00"
+    },
+    "tbc_tomhisar-pompa-26701": {
+        "relevance_score": 50,
+        "score_reasoning": "Pompa satıcısı olarak sınıflandırıldığı için hedef kitleye kısmen uygun görünüyor",
+        "classified_at": "2026-08-11T11:43:00.697586+00:00"
+    },
+    "tbc_anadolu-arsan-makine-imalat-19118": {
+        "relevance_score": 60,
+        "score_reasoning": "Makine imalatçısı olarak sınıflandırıldığı için hedef kitleye kısmen uygun görünüyor",
+        "classified_at": "2026-08-11T11:43:00.697586+00:00"
+    },
+    "tbc_yilser-yildizlar-oto-servis-44872": {
+        "relevance_score": 40,
+        "score_reasoning": "Bağımsız servis olarak sınıflandırıldığı için hedef kitleye uygun değil",
+        "classified_at": "2026-08-11T11:43:00.697586+00:00"
+    },
+    "tbc_zorlu-otomotiv-insaat-ltd-41649": {
+        "relevance_score": 60,
+        "score_reasoning": "Otomotiv ve inşaat şirket olarak sınıflandırıldığı için hedef kitleye kısmen uygun görünüyor",
+        "classified_at": "2026-08-11T11:43:00.697586+00:00"
+    },
+    "tbc_asarogullari-grup-oto-madeni-50886": {
+        "relevance_score": 70,
+        "score_reasoning": "Oto madeni yağ satıcısı olarak sınıflandırıldığı için hedef kitleye kısmen uygun görünüyor",
+        "classified_at": "2026-08-11T11:43:00.697586+00:00"
+    },
+    "tbc_yasarogullari-oto-madeni-yag-50864": {
+        "relevance_score": 70,
+        "score_reasoning": "Oto madeni yağ satıcısı olarak sınıflandırıldığı için hedef kitleye kısmen uygun görünüyor",
+        "classified_at": "2026-08-11T11:43:00.697586+00:00"
+    },
+    "tbc_oto-arici-37153": {
+        "relevance_score": 50,
+        "score_reasoning": "Oto arıcı olarak sınıflandırıldığı için hedef kitleye kısmen uygun görünüyor",
+        "classified_at": "2026-08-11T11:43:00.697586+00:00"
+    },
+    "ankaraotosanayi_791": {
+        "relevance_score": 30,
+        "score_reasoning": "Bağımsız servis olarak sınıflandırıldığı için hedef kitleye uygun değil",
+        "classified_at": "2026-08-11T11:43:00.697586+00:00"
+    },
+    "ankaraotosanayi_787": {
+        "relevance_score": 60,
+        "score_reasoning": "Motor satıcısı olarak sınıflandırıldığı için hedef kitleye kısmen uygun görünüyor",
+        "classified_at": "2026-08-11T11:43:00.697586+00:00"
+    },
+    "ankaraotosanayi_202": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça satıcısı olarak sınıflandırıldığı için hedef kitleye uygun görünüyor",
+        "classified_at": "2026-08-11T11:43:00.697586+00:00"
+    },
+    "ankaraotosanayi_380": {
+        "relevance_score": 40,
+        "score_reasoning": "Bağımsız servis olarak sınıflandırıldığı için hedef kitleye uygun değil",
+        "classified_at": "2026-08-11T11:43:00.697586+00:00"
+    },
+    "ankaraotosanayi_1018": {
+        "relevance_score": 50,
+        "score_reasoning": "Oto yedek parça satıcısı olarak sınıflandırıldığı için hedef kitleye kısmen uygun görünüyor",
+        "classified_at": "2026-08-11T11:43:00.697586+00:00"
+    },
+    "ankaraotosanayi_1576": {
+        "relevance_score": 70,
+        "score_reasoning": "Oto yedek parça satıcısı olarak sınıflandırıldığı için hedef kitleye kısmen uygun görünüyor",
+        "classified_at": "2026-08-11T11:43:00.697586+00:00"
+    },
+    "ankaraotosanayi_1436": {
+        "relevance_score": 40,
+        "score_reasoning": "Fiberglass üreticisi olarak sınıflandırıldığı için hedef kitleye uygun değil",
+        "classified_at": "2026-08-11T11:43:00.697586+00:00"
     }
 }
