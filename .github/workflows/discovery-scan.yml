@@ -33,11 +33,33 @@ jobs:
 
       - name: Değişiklikleri commit et
         if: always()
+        # NOT (2026-08-11): önceden burada git rebase kullanılıyordu - tarama 2.5 saate kadar
+        # sürebildiği için o kadar uzun sürede leads.json GitHub'da başka commit'lerle defalarca
+        # değişiyor, ve git bu büyüklükte bir JSON blob'unu satır bazında güvenilir uzlaştıramıyor
+        # (gerçek bir taramada CONFLICT verip TÜM taramanın kaybolmasına yol açtı). Artık git hiç
+        # satır-uzlaşması yapmıyor: origin/main'in TAZE leads.json'u çekilir, sadece BU taramanın
+        # kendi bulduğu yeni kayıtlar (new_leads_this_run.json, run_discovery.py tarafından
+        # aralıksız güncellenir) Python/dedupe seviyesinde üzerine eklenir (scripts/merge_new_
+        # leads.py). Son saniyede başka bir push araya girerse (küçük bir yarış penceresi kaldı,
+        # ama artık saniyeler mertebesinde, saatler değil) birkaç kez yeniden dener.
         run: |
           git config user.name "fleetparts-discovery-bot"
           git config user.email "actions@github.com"
-          git add leads.json
-          git diff --staged --quiet || git commit -m "Otomatik lead taraması $(date -u +%Y-%m-%d)"
-          git fetch origin main
-          git rebase origin/main
-          git push
+          for i in 1 2 3 4 5; do
+            git fetch origin main
+            git checkout origin/main -- leads.json
+            python scripts/merge_new_leads.py
+            git add leads.json
+            if git diff --staged --quiet; then
+              echo "Değişiklik yok (yeni lead bulunamadı ya da hepsi zaten mevcut)."
+              break
+            fi
+            git commit -m "Otomatik lead taraması $(date -u +%Y-%m-%d)"
+            if git push origin HEAD:main; then
+              echo "Push başarılı (deneme $i)."
+              break
+            fi
+            echo "Push başarısız (deneme $i/5), yeniden denenecek..."
+            git reset --soft HEAD~1
+            sleep 5
+          done
