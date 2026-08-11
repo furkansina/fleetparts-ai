@@ -1673,5 +1673,105 @@
         "relevance_score": 20,
         "score_reasoning": "Jeep, Dodge ve Chrysler servisi, direkt yedek parça satışı Yapmadığı için skorunu 20 olarak belirledim",
         "classified_at": "2026-08-11T08:18:10.660267+00:00"
+    },
+    "tbc_sms-otomotiv-37548": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça toptancısı",
+        "classified_at": "2026-08-11T08:18:18.963688+00:00"
+    },
+    "tbc_profflpg-34442": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça toptancısı",
+        "classified_at": "2026-08-11T08:18:18.963688+00:00"
+    },
+    "tbc_sms-otomotiv-31314": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça toptancısı",
+        "classified_at": "2026-08-11T08:18:18.963688+00:00"
+    },
+    "tbc_aksoy-bay-otomotiv-enerji-31224": {
+        "relevance_score": 70,
+        "score_reasoning": "Oto yedek parça ve enerji sistemleri",
+        "classified_at": "2026-08-11T08:18:18.963688+00:00"
+    },
+    "tbc_sultandagli-mercedes-benz-ozel-30480": {
+        "relevance_score": 40,
+        "score_reasoning": "Bağımsız servise benzeyen bir firma",
+        "classified_at": "2026-08-11T08:18:18.963688+00:00"
+    },
+    "tbc_2a-brc-izmir-starotogaz-26738": {
+        "relevance_score": 30,
+        "score_reasoning": "LPG montaj servisine benzeyen bir firma",
+        "classified_at": "2026-08-11T08:18:18.963688+00:00"
+    },
+    "tbc_fiat-merkez-servis-26079": {
+        "relevance_score": 20,
+        "score_reasoning": "Bağımsız Fiat servisine benzeyen bir firma",
+        "classified_at": "2026-08-11T08:18:18.963688+00:00"
+    },
+    "tbc_oto-perk-a-s-25876": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça toptancısı",
+        "classified_at": "2026-08-11T08:18:18.963688+00:00"
+    },
+    "tbc_izmir-senkromec-sanayi-tic-22662": {
+        "relevance_score": 60,
+        "score_reasoning": "Sanayi ve ticaret limited şirketi",
+        "classified_at": "2026-08-11T08:18:18.963688+00:00"
+    },
+    "tbc_tuncaprm-loj-dis-tic-12410": {
+        "relevance_score": 90,
+        "score_reasoning": "Lojistik ve dış ticaret firması",
+        "classified_at": "2026-08-11T08:18:18.963688+00:00"
+    },
+    "tbc_buzcuogullari-ltd-sti-6758": {
+        "relevance_score": 50,
+        "score_reasoning": "Ltd şirketi, ancak faaliyet alanı belli değil",
+        "classified_at": "2026-08-11T08:18:18.963688+00:00"
+    },
+    "tbc_fam-x-tuning-kayseri-43496": {
+        "relevance_score": 10,
+        "score_reasoning": "Tuning firması, ağır vasıta yedek parçasına benzemiyor",
+        "classified_at": "2026-08-11T08:18:18.963688+00:00"
+    },
+    "tbc_aslar-motorlu-araclar-san-50285": {
+        "relevance_score": 80,
+        "score_reasoning": "Motorlu araçlar sanayi ve ticaret limited şirketi",
+        "classified_at": "2026-08-11T08:18:18.963688+00:00"
+    },
+    "tbc_aracdeposu-49779": {
+        "relevance_score": 70,
+        "score_reasoning": "Araç deportu, oto yedek parça toptancısına benzeyen bir firma",
+        "classified_at": "2026-08-11T08:18:18.963688+00:00"
+    },
+    "tbc_arslan-yurtturk-is-makinalari-49069": {
+        "relevance_score": 60,
+        "score_reasoning": "İş makinaları sanayi ve ticaret limited şirketi",
+        "classified_at": "2026-08-11T08:18:18.963688+00:00"
+    },
+    "tbc_parca-ofisi-47127": {
+        "relevance_score": 90,
+        "score_reasoning": "Parça ofisi, oto yedek parça toptancısına benzeyen bir firma",
+        "classified_at": "2026-08-11T08:18:18.963688+00:00"
+    },
+    "tbc_gunesli-garaj-46076": {
+        "relevance_score": 10,
+        "score_reasoning": "Garaj, bağımsız servise benzeyen bir firma",
+        "classified_at": "2026-08-11T08:18:18.963688+00:00"
+    },
+    "tbc_cihan-oto-ltd-sti-44983": {
+        "relevance_score": 50,
+        "score_reasoning": "Ltd şirketi, ancak faaliyet alanı belli değil",
+        "classified_at": "2026-08-11T08:18:18.963688+00:00"
+    },
+    "tbc_sdt-sarper-makina-sanayi-44385": {
+        "relevance_score": 40,
+        "score_reasoning": "Makina sanayi ve ticaret limited şirketi",
+        "classified_at": "2026-08-11T08:18:18.963688+00:00"
+    },
+    "tbc_gurkan-kriko-43661": {
+        "relevance_score": 20,
+        "score_reasoning": "Kriko firması, ağır vasıta yedek parçasına benzemiyor",
+        "classified_at": "2026-08-11T08:18:18.963688+00:00"
     }
 }
