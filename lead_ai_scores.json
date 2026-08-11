@@ -2373,5 +2373,105 @@
         "relevance_score": 80,
         "score_reasoning": "Iveco yedek parça satışı yapıyor, bu da ağır vasıta yedek parçaları ile ilgili olabileceğini gösteriyor.",
         "classified_at": "2026-08-11T11:50:01.759533+00:00"
+    },
+    "ankaraotosanayi_779": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça satışı yapıyor",
+        "classified_at": "2026-08-11T11:50:09.896332+00:00"
+    },
+    "ankaraotosanayi_1480": {
+        "relevance_score": 90,
+        "score_reasoning": "Yetkili satıcı olup, oto yedek parça satışı yapıyor",
+        "classified_at": "2026-08-11T11:50:09.896332+00:00"
+    },
+    "ankaraotosanayi_824": {
+        "relevance_score": 60,
+        "score_reasoning": "Oto tamiri ve şanzıman servisi yapıyor, ancak yedek parça satışı yapıyor gibi görünmüyor",
+        "classified_at": "2026-08-11T11:50:09.896332+00:00"
+    },
+    "ankaraotosanayi_407": {
+        "relevance_score": 85,
+        "score_reasoning": "Oto yedek parça satışı yapıyor",
+        "classified_at": "2026-08-11T11:50:09.896332+00:00"
+    },
+    "ankaraotosanayi_1069": {
+        "relevance_score": 70,
+        "score_reasoning": "Sadece belirli markaların yedek parça satışı yapıyor",
+        "classified_at": "2026-08-11T11:50:09.896332+00:00"
+    },
+    "ankaraotosanayi_210": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça satışı yapıyor",
+        "classified_at": "2026-08-11T11:50:09.896332+00:00"
+    },
+    "ankaraotosanayi_616": {
+        "relevance_score": 75,
+        "score_reasoning": "Oto yedek parça, boya ve hırdavat satışı yapıyor",
+        "classified_at": "2026-08-11T11:50:09.896332+00:00"
+    },
+    "ankaraotosanayi_623": {
+        "relevance_score": 85,
+        "score_reasoning": "Oto yedek parça satışı yapıyor, özellikle Tofaş ve Opel markalarına odaklanmış",
+        "classified_at": "2026-08-11T11:50:09.896332+00:00"
+    },
+    "ankaraotosanayi_896": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça satışı yapıyor, özellikle BMC ve Hitachi markalarına odaklanmış",
+        "classified_at": "2026-08-11T11:50:09.896332+00:00"
+    },
+    "ankaraotosanayi_1074": {
+        "relevance_score": 40,
+        "score_reasoning": "Çıkma yedek parça satışı yapıyor, bu hedef müşteriler için uygun değil",
+        "classified_at": "2026-08-11T11:50:09.896332+00:00"
+    },
+    "ankaraotosanayi_122": {
+        "relevance_score": 30,
+        "score_reasoning": "Çıkma yedek parça satışı yapıyor, bu hedef müşteriler için uygun değil",
+        "classified_at": "2026-08-11T11:50:09.896332+00:00"
+    },
+    "ankaraotosanayi_1144": {
+        "relevance_score": 35,
+        "score_reasoning": "Çıkma yedek parça satışı yapıyor, bu hedef müşteriler için uygun değil",
+        "classified_at": "2026-08-11T11:50:09.896332+00:00"
+    },
+    "ankaraotosanayi_143": {
+        "relevance_score": 45,
+        "score_reasoning": "Çıkma yedek parça satışı yapıyor, bu hedef müşteriler için uygun değil",
+        "classified_at": "2026-08-11T11:50:09.896332+00:00"
+    },
+    "ankaraotosanayi_128": {
+        "relevance_score": 50,
+        "score_reasoning": "Çıkma yedek parça satışı yapıyor, bu hedef müşteriler için uygun değil",
+        "classified_at": "2026-08-11T11:50:09.896332+00:00"
+    },
+    "ankaraotosanayi_1007": {
+        "relevance_score": 20,
+        "score_reasoning": "Çıkma yedek parça satışı oluyor, bu hedef müşteriler için uygun değil",
+        "classified_at": "2026-08-11T11:50:09.896332+00:00"
+    },
+    "ankaraotosanayi_1540": {
+        "relevance_score": 25,
+        "score_reasoning": "Çıkma yedek parça satışı bulunuyor, bu hedef müşteriler için uygun değil",
+        "classified_at": "2026-08-11T11:50:09.896332+00:00"
+    },
+    "ankaraotosanayi_459": {
+        "relevance_score": 30,
+        "score_reasoning": "Çıkma yedek parça satışı oluyor, bu hedef müşteriler için uygun değil",
+        "classified_at": "2026-08-11T11:50:09.896332+00:00"
+    },
+    "ankaraotosanayi_141": {
+        "relevance_score": 20,
+        "score_reasoning": "Çıkma yedek parça satışı bulunuyor, bu hedef müşteriler için uygun değil",
+        "classified_at": "2026-08-11T11:50:09.896332+00:00"
+    },
+    "ankaraotosanayi_124": {
+        "relevance_score": 40,
+        "score_reasoning": "Çıkma yedek parça satışı yaparak, bu hedef müşteriler için uygun değil",
+        "classified_at": "2026-08-11T11:50:09.896332+00:00"
+    },
+    "ankaraotosanayi_127": {
+        "relevance_score": 10,
+        "score_reasoning": "Tamamen farklı bir iş alanı, bu hedef müşteriler için uygun değil",
+        "classified_at": "2026-08-11T11:50:09.896332+00:00"
     }
 }
