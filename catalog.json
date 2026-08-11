@@ -12381,5 +12381,265 @@
         "source_files": [
             "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 8)"
         ]
+    },
+    {
+        "id": "PRC-1024",
+        "oem": "AEM32 2K040",
+        "name": "SOKET&KONNEKTOR 2 KABLOLU",
+        "brand": "AEM",
+        "specs": "2 Kablolu",
+        "price": "",
+        "stock": 1,
+        "source_file": "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 9)",
+        "source_files": [
+            "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 9)"
+        ]
+    },
+    {
+        "id": "PRC-2048",
+        "oem": "AEM32 2K041",
+        "name": "SOKET&KONNEKTOR 2 KABLOLU",
+        "brand": "AEM",
+        "specs": "2 Kablolu",
+        "price": "",
+        "stock": 1,
+        "source_file": "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 9)",
+        "source_files": [
+            "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 9)"
+        ]
+    },
+    {
+        "id": "PRC-3072",
+        "oem": "AEM32 2K041A",
+        "name": "SOKET&KONNEKTOR 2 KABLOLU",
+        "brand": "AEM",
+        "specs": "2 Kablolu",
+        "price": "",
+        "stock": 1,
+        "source_file": "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 9)",
+        "source_files": [
+            "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 9)"
+        ]
+    },
+    {
+        "id": "PRC-4096",
+        "oem": "AEM32 2K042",
+        "name": "SOKET&KONNEKTOR 2 KABLOLU",
+        "brand": "AEM",
+        "specs": "2 Kablolu",
+        "price": "",
+        "stock": 1,
+        "source_file": "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 9)",
+        "source_files": [
+            "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 9)"
+        ]
+    },
+    {
+        "id": "PRC-5120",
+        "oem": "AEM32 2K043",
+        "name": "SOKET&KONNEKTOR 2 KABLOLU",
+        "brand": "AEM",
+        "specs": "2 Kablolu",
+        "price": "",
+        "stock": 1,
+        "source_file": "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 9)",
+        "source_files": [
+            "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 9)"
+        ]
+    },
+    {
+        "id": "PRC-6144",
+        "oem": "AEM32 2K044",
+        "name": "SOKET&KONNEKTOR 2 KABLOLU",
+        "brand": "AEM",
+        "specs": "2 Kablolu",
+        "price": "",
+        "stock": 1,
+        "source_file": "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 9)",
+        "source_files": [
+            "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 9)"
+        ]
+    },
+    {
+        "id": "PRC-7168",
+        "oem": "AEM32 2K045",
+        "name": "SOKET&KONNEKTOR 2 KABLOLU",
+        "brand": "AEM",
+        "specs": "2 Kablolu",
+        "price": "",
+        "stock": 1,
+        "source_file": "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 9)",
+        "source_files": [
+            "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 9)"
+        ]
+    },
+    {
+        "id": "PRC-8192",
+        "oem": "AEM32 2K045A",
+        "name": "SOKET&KONNEKTOR 2 KABLOLU",
+        "brand": "AEM",
+        "specs": "2 Kablolu",
+        "price": "",
+        "stock": 1,
+        "source_file": "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 9)",
+        "source_files": [
+            "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 9)"
+        ]
+    },
+    {
+        "id": "PRC-9216",
+        "oem": "AEM32 2K046",
+        "name": "SOKET&KONNEKTOR KABLOSUZ",
+        "brand": "AEM",
+        "specs": "Kablosuz",
+        "price": "",
+        "stock": 1,
+        "source_file": "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 9)",
+        "source_files": [
+            "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 9)"
+        ]
+    },
+    {
+        "id": "PRC-1025",
+        "oem": "AEM32 2K047",
+        "name": "SOKET&KONNEKTOR KABLOSUZ",
+        "brand": "AEM",
+        "specs": "Kablosuz",
+        "price": "",
+        "stock": 1,
+        "source_file": "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 9)",
+        "source_files": [
+            "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 9)"
+        ]
+    },
+    {
+        "id": "PRC-2050",
+        "oem": "AEM32 2K048",
+        "name": "SOKET&KONNEKTOR KABLOSUZ",
+        "brand": "AEM",
+        "specs": "Kablosuz",
+        "price": "",
+        "stock": 1,
+        "source_file": "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 9)",
+        "source_files": [
+            "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 9)"
+        ]
+    },
+    {
+        "id": "PRC-3075",
+        "oem": "AEM32 2K049",
+        "name": "SOKET&KONNEKTOR KABLOSUZ",
+        "brand": "AEM",
+        "specs": "Kablosuz",
+        "price": "",
+        "stock": 1,
+        "source_file": "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 9)",
+        "source_files": [
+            "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 9)"
+        ]
+    },
+    {
+        "id": "PRC-4100",
+        "oem": "AEM32 2K049E",
+        "name": "SOKET&KONNEKTOR KABLOSUZ",
+        "brand": "AEM",
+        "specs": "Kablosuz",
+        "price": "",
+        "stock": 1,
+        "source_file": "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 9)",
+        "source_files": [
+            "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 9)"
+        ]
+    },
+    {
+        "id": "PRC-5125",
+        "oem": "AEM32 2K049A",
+        "name": "SOKET&KONNEKTOR KABLOSUZ",
+        "brand": "AEM",
+        "specs": "Kablosuz",
+        "price": "",
+        "stock": 1,
+        "source_file": "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 9)",
+        "source_files": [
+            "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 9)"
+        ]
+    },
+    {
+        "id": "PRC-6150",
+        "oem": "AEM32 2K049AE",
+        "name": "SOKET&KONNEKTOR KABLOSUZ",
+        "brand": "AEM",
+        "specs": "Kablosuz",
+        "price": "",
+        "stock": 1,
+        "source_file": "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 9)",
+        "source_files": [
+            "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 9)"
+        ]
+    },
+    {
+        "id": "PRC-7175",
+        "oem": "AEM32 2K049EK",
+        "name": "SOKET&KONNEKTOR KABLOSUZ",
+        "brand": "AEM",
+        "specs": "Kablosuz",
+        "price": "",
+        "stock": 1,
+        "source_file": "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 9)",
+        "source_files": [
+            "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 9)"
+        ]
+    },
+    {
+        "id": "PRC-8200",
+        "oem": "AEM32 2K049K",
+        "name": "SOKET&KONNEKTOR KABLOSUZ",
+        "brand": "AEM",
+        "specs": "Kablosuz",
+        "price": "",
+        "stock": 1,
+        "source_file": "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 9)",
+        "source_files": [
+            "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 9)"
+        ]
+    },
+    {
+        "id": "PRC-9225",
+        "oem": "AEM32 2K049R",
+        "name": "SOKET&KONNEKTOR KABLOSUZ",
+        "brand": "AEM",
+        "specs": "Kablosuz",
+        "price": "",
+        "stock": 1,
+        "source_file": "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 9)",
+        "source_files": [
+            "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 9)"
+        ]
+    },
+    {
+        "id": "PRC-1026",
+        "oem": "AEM32 2K050",
+        "name": "SOKET&KONNEKTOR KABLOSUZ",
+        "brand": "AEM",
+        "specs": "Kablosuz",
+        "price": "",
+        "stock": 1,
+        "source_file": "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 9)",
+        "source_files": [
+            "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 9)"
+        ]
+    },
+    {
+        "id": "PRC-2051",
+        "oem": "AEM32 2K051",
+        "name": "SOKET&KONNEKTOR KABLOSUZ",
+        "brand": "AEM",
+        "specs": "Kablosuz",
+        "price": "",
+        "stock": 1,
+        "source_file": "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 9)",
+        "source_files": [
+            "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 9)"
+        ]
     }
 ]
