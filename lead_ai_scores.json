@@ -2273,5 +2273,105 @@
         "relevance_score": 60,
         "score_reasoning": "Genel oto yedek parça satıcıları hedef kitleye yakındır",
         "classified_at": "2026-08-11T11:44:49.058092+00:00"
+    },
+    "ankaraotosanayi_723": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça toptancısı olabilir, Japon ve Kore furbal oto yedek parça satışı yapıyor",
+        "classified_at": "2026-08-11T11:45:04.876870+00:00"
+    },
+    "ankaraotosanayi_1075": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça toptancısı olabilir, Japon ve Kore yedek parça satışı yapıyor",
+        "classified_at": "2026-08-11T11:45:04.876870+00:00"
+    },
+    "ankaraotosanayi_672": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça toptancısı olabilir, Japon yedek parça satışı yapıyor",
+        "classified_at": "2026-08-11T11:45:04.876870+00:00"
+    },
+    "ankaraotosanayi_764": {
+        "relevance_score": 20,
+        "score_reasoning": "Bağımsız servis olabilir, Isuzu servisi hizmeti veriyor",
+        "classified_at": "2026-08-11T11:45:04.876870+00:00"
+    },
+    "ankaraotosanayi_895": {
+        "relevance_score": 20,
+        "score_reasoning": "Bağımsız servis olabilir, oto servis hizmeti veriyor",
+        "classified_at": "2026-08-11T11:45:04.876870+00:00"
+    },
+    "ankaraotosanayi_1066": {
+        "relevance_score": 40,
+        "score_reasoning": "Oto aksesuar ve modifiye hizmeti veriyor, kısmen ilgili olabilir",
+        "classified_at": "2026-08-11T11:45:04.876870+00:00"
+    },
+    "ankaraotosanayi_531": {
+        "relevance_score": 60,
+        "score_reasoning": "Massey Ferguson yedek parça satışı yapıyor, kısmen ilgili olabilir",
+        "classified_at": "2026-08-11T11:45:04.876870+00:00"
+    },
+    "ankaraotosanayi_204": {
+        "relevance_score": 40,
+        "score_reasoning": "Oto aksesuar satışı yapıyor, kısmen ilgili olabilir",
+        "classified_at": "2026-08-11T11:45:04.876870+00:00"
+    },
+    "ankaraotosanayi_1720": {
+        "relevance_score": 60,
+        "score_reasoning": "Iveco yedek parça satışı yapıyor, kısmen ilgili olabilir",
+        "classified_at": "2026-08-11T11:45:04.876870+00:00"
+    },
+    "ankaraotosanayi_1001": {
+        "relevance_score": 40,
+        "score_reasoning": "Oto aksesuar ve yedek parça satışı yapıyor, kısmen ilgili olabilir",
+        "classified_at": "2026-08-11T11:45:04.876870+00:00"
+    },
+    "ankaraotosanayi_624": {
+        "relevance_score": 60,
+        "score_reasoning": "Renault Tofaş yedek parça satışı yapıyor, kısmen ilgili olabilir",
+        "classified_at": "2026-08-11T11:45:04.876870+00:00"
+    },
+    "ankaraotosanayi_29": {
+        "relevance_score": 20,
+        "score_reasoning": "Bağımsız servis olabilir, amortisör hizmeti veriyor",
+        "classified_at": "2026-08-11T11:45:04.876870+00:00"
+    },
+    "ankaraotosanayi_1544": {
+        "relevance_score": 40,
+        "score_reasoning": "Oto aksesuar satışı yapıyor, kısmen ilgili olabilir",
+        "classified_at": "2026-08-11T11:45:04.876870+00:00"
+    },
+    "ankaraotosanayi_514": {
+        "relevance_score": 40,
+        "score_reasoning": "Oto aksesuar satışı yapıyor, kısmen ilgili olabilir",
+        "classified_at": "2026-08-11T11:45:04.876870+00:00"
+    },
+    "ankaraotosanayi_209": {
+        "relevance_score": 60,
+        "score_reasoning": "Tofaş yedek parça satışı yapıyor, kısmen ilgili olabilir",
+        "classified_at": "2026-08-11T11:45:04.876870+00:00"
+    },
+    "ankaraotosanayi_640": {
+        "relevance_score": 60,
+        "score_reasoning": "Opel Peugeot yedek parça satışı yapıyor, kısmen ilgili olabilir",
+        "classified_at": "2026-08-11T11:45:04.876870+00:00"
+    },
+    "ankaraotosanayi_218": {
+        "relevance_score": 80,
+        "score_reasoning": "Japon oto yedek parça satışı yapıyor, ilgili olabilir",
+        "classified_at": "2026-08-11T11:45:04.876870+00:00"
+    },
+    "ankaraotosanayi_1223": {
+        "relevance_score": 60,
+        "score_reasoning": "Ford Toyoto Peugeot yedek parça satışı yapıyor, kısmen ilgili olabilir",
+        "classified_at": "2026-08-11T11:45:04.876870+00:00"
+    },
+    "ankaraotosanayi_928": {
+        "relevance_score": 60,
+        "score_reasoning": "Renault yedek parça satışı yapıyor, kısmen ilgili olabilir",
+        "classified_at": "2026-08-11T11:45:04.876870+00:00"
+    },
+    "ankaraotosanayi_963": {
+        "relevance_score": 80,
+        "score_reasoning": "Iveco yedek parça satışı yapıyor, ilgili olabilir",
+        "classified_at": "2026-08-11T11:45:04.876870+00:00"
     }
 }
