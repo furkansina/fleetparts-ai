@@ -23239,14 +23239,14 @@
         "lat": null,
         "lon": null,
         "growth_signal": null,
-        "relevance_score": 43,
+        "relevance_score": 5,
         "score_breakdown": {
-            "sector_match": 15,
-            "geography": 20,
+            "sector_match": 0,
+            "geography": 0,
             "growth_signal": 0,
-            "data_completeness": 8
+            "data_completeness": 0
         },
-        "score_reasoning": "Firma rehberinde 'Otomotiv / Oto Yan Sanayi (Firma Rehberi)' kategorisinde kayıtlı. (Not: numara sabit hat görünüyor, WhatsApp'tan değil sadece telefonla ulaşılabilir.)",
+        "score_reasoning": "İsminde 'evden eve nakliyat', 'turizm' gibi hedef kitle dışı bir ifade geçiyor (ev eşyası taşımacılığı/seyahat acentesi, toptan parça alıcısı değil).",
         "discovered_at": "2026-08-07T11:40:54.879432+00:00",
         "scan_batch_id": "2026-W32"
     },
@@ -23364,14 +23364,14 @@
         "lat": null,
         "lon": null,
         "growth_signal": null,
-        "relevance_score": 43,
+        "relevance_score": 5,
         "score_breakdown": {
-            "sector_match": 15,
-            "geography": 20,
+            "sector_match": 0,
+            "geography": 0,
             "growth_signal": 0,
-            "data_completeness": 8
+            "data_completeness": 0
         },
-        "score_reasoning": "Firma rehberinde 'Otomotiv / Oto Yan Sanayi (Firma Rehberi)' kategorisinde kayıtlı. (Not: numara sabit hat görünüyor, WhatsApp'tan değil sadece telefonla ulaşılabilir.)",
+        "score_reasoning": "İsminde 'evden eve nakliyat', 'turizm' gibi hedef kitle dışı bir ifade geçiyor (ev eşyası taşımacılığı/seyahat acentesi, toptan parça alıcısı değil).",
         "discovered_at": "2026-08-07T11:40:54.879600+00:00",
         "scan_batch_id": "2026-W32"
     },
@@ -32739,14 +32739,14 @@
         "lat": null,
         "lon": null,
         "growth_signal": null,
-        "relevance_score": 50,
+        "relevance_score": 5,
         "score_breakdown": {
-            "sector_match": 15,
-            "geography": 20,
+            "sector_match": 0,
+            "geography": 0,
             "growth_signal": 0,
-            "data_completeness": 15
+            "data_completeness": 0
         },
-        "score_reasoning": "Firma rehberinde 'Otomotiv / Oto Yan Sanayi (Firma Rehberi)' kategorisinde kayıtlı.",
+        "score_reasoning": "İsminde 'evden eve nakliyat', 'turizm' gibi hedef kitle dışı bir ifade geçiyor (ev eşyası taşımacılığı/seyahat acentesi, toptan parça alıcısı değil).",
         "discovered_at": "2026-08-07T11:58:56.689322+00:00",
         "scan_batch_id": "2026-W32"
     },
@@ -38639,14 +38639,14 @@
         "lat": null,
         "lon": null,
         "growth_signal": null,
-        "relevance_score": 43,
+        "relevance_score": 5,
         "score_breakdown": {
-            "sector_match": 15,
-            "geography": 20,
+            "sector_match": 0,
+            "geography": 0,
             "growth_signal": 0,
-            "data_completeness": 8
+            "data_completeness": 0
         },
-        "score_reasoning": "Firma rehberinde 'Taşımacılık/Nakliye (Firma Rehberi)' kategorisinde kayıtlı. (Not: numara sabit hat görünüyor, WhatsApp'tan değil sadece telefonla ulaşılabilir.)",
+        "score_reasoning": "İsminde 'evden eve nakliyat', 'turizm' gibi hedef kitle dışı bir ifade geçiyor (ev eşyası taşımacılığı/seyahat acentesi, toptan parça alıcısı değil).",
         "discovered_at": "2026-08-07T12:16:47.594321+00:00",
         "scan_batch_id": "2026-W32"
     },
@@ -41239,14 +41239,14 @@
         "lat": null,
         "lon": null,
         "growth_signal": null,
-        "relevance_score": 43,
+        "relevance_score": 5,
         "score_breakdown": {
-            "sector_match": 15,
-            "geography": 20,
+            "sector_match": 0,
+            "geography": 0,
             "growth_signal": 0,
-            "data_completeness": 8
+            "data_completeness": 0
         },
-        "score_reasoning": "Firma rehberinde 'Taşımacılık/Nakliye (Firma Rehberi)' kategorisinde kayıtlı. (Not: numara sabit hat görünüyor, WhatsApp'tan değil sadece telefonla ulaşılabilir.)",
+        "score_reasoning": "İsminde 'evden eve nakliyat', 'turizm' gibi hedef kitle dışı bir ifade geçiyor (ev eşyası taşımacılığı/seyahat acentesi, toptan parça alıcısı değil).",
         "discovered_at": "2026-08-07T12:22:56.873604+00:00",
         "scan_batch_id": "2026-W32"
     },
@@ -62689,14 +62689,14 @@
         "lat": null,
         "lon": null,
         "growth_signal": null,
-        "relevance_score": 43,
+        "relevance_score": 5,
         "score_breakdown": {
-            "sector_match": 15,
-            "geography": 20,
+            "sector_match": 0,
+            "geography": 0,
             "growth_signal": 0,
-            "data_completeness": 8
+            "data_completeness": 0
         },
-        "score_reasoning": "Firma rehberinde 'Otomotiv / Oto Yan Sanayi (Firma Rehberi)' kategorisinde kayıtlı. (Not: numara sabit hat görünüyor, WhatsApp'tan değil sadece telefonla ulaşılabilir.)",
+        "score_reasoning": "İsminde 'evden eve nakliyat', 'turizm' gibi hedef kitle dışı bir ifade geçiyor (ev eşyası taşımacılığı/seyahat acentesi, toptan parça alıcısı değil).",
         "discovered_at": "2026-08-07T12:32:15.805447+00:00",
         "scan_batch_id": "2026-W32"
     },
@@ -67539,14 +67539,14 @@
         "lat": null,
         "lon": null,
         "growth_signal": null,
-        "relevance_score": 43,
+        "relevance_score": 5,
         "score_breakdown": {
-            "sector_match": 15,
-            "geography": 20,
+            "sector_match": 0,
+            "geography": 0,
             "growth_signal": 0,
-            "data_completeness": 8
+            "data_completeness": 0
         },
-        "score_reasoning": "Firma rehberinde 'Taşımacılık/Nakliye (Firma Rehberi)' kategorisinde kayıtlı. (Not: numara sabit hat görünüyor, WhatsApp'tan değil sadece telefonla ulaşılabilir.)",
+        "score_reasoning": "İsminde 'evden eve nakliyat', 'turizm' gibi hedef kitle dışı bir ifade geçiyor (ev eşyası taşımacılığı/seyahat acentesi, toptan parça alıcısı değil).",
         "discovered_at": "2026-08-07T13:09:43.890900+00:00",
         "scan_batch_id": "2026-W32"
     },
