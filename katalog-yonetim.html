@@ -59,6 +59,20 @@
     </div>
 
     <div class="section">
+        <h3>Mevcut Ürünlere Görsel Ekle (Geriye Dönük)</h3>
+        <div style="color:#666; font-size:13px; margin-bottom:8px;">
+            Daha önce taranmış bir kataloğun (ör. GÖÇMEN KATALOG, ORPASAN) ürünlerinde henüz görsel yoksa,
+            AYNI orijinal PDF'i buradan tekrar yükle - hiçbir yapay zeka/kota harcanmaz, sadece o dosyadan
+            daha önce çıkarılmış ürünlere gerçek sayfa görseli iliştirilir. Dosya adı ilk yüklendiğindekiyle
+            AYNI olmalı, aksi halde eşleşme bulunamaz.
+        </div>
+        <form id="backfillForm">
+            <input type="file" name="files" multiple accept=".pdf" required>
+            <button type="submit" class="btn-blue">Görselleri Geriye Dönük Ekle</button>
+        </form>
+    </div>
+
+    <div class="section">
         <h3>Yüklenmiş Kataloglar</h3>
         <div id="catalogSourcesList"><span class="placeholder">Yükleniyor...</span></div>
     </div>
@@ -325,6 +339,25 @@
         e.preventDefault();
         const formData = new FormData(e.target);
         await runCatalogUpload(formData);
+    });
+
+    // "Geriye dönük görsel ekle" - AYNI iş takibi (job_id + pollUploadJob) altyapısını kullanır,
+    // sadece farklı bir uç noktaya (backfill-catalog-images) gönderir - yeniden tarama YAPMAZ,
+    // hiçbir AI/kota harcamaz, sadece görselleri mevcut kayıtlara iliştirir.
+    document.getElementById('backfillForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        showLoading('Görseller işleniyor');
+        let data;
+        try {
+            data = await fetchJson('/backfill-catalog-images', { method: 'POST', body: formData }, (attempt) => showLoading(wakingUpMessage('Görseller işleniyor', attempt)));
+        } catch (err) {
+            showPlainError(err.message || String(err));
+            return;
+        }
+        const result = await pollUploadJob(data.job_id);
+        if (!result) return;
+        renderUploadResult(result);
     });
 
     function poolBadgeHtml(label, pool) {
