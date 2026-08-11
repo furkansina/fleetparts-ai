@@ -2173,5 +2173,105 @@
         "relevance_score": 40,
         "score_reasoning": "Fiberglass ürün üzerine odaklanmış gibi görünüyor, ancak oto yedek parçası olabilir",
         "classified_at": "2026-08-11T11:47:44.634645+00:00"
+    },
+    "ankaraotosanayi_1398": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız bir servis olduğu için hedef dışında",
+        "classified_at": "2026-08-11T11:47:52.484546+00:00"
+    },
+    "ankaraotosanayi_1428": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız bir oto aksesuar olduğu için hedef dışında",
+        "classified_at": "2026-08-11T11:47:52.484546+00:00"
+    },
+    "ankaraotosanayi_367": {
+        "relevance_score": 0,
+        "score_reasoning": "Baştan orijinal yedekparça satan birBMW servisi olduğu için hedef dışında",
+        "classified_at": "2026-08-11T11:47:52.484546+00:00"
+    },
+    "ankaraotosanayi_1365": {
+        "relevance_score": 0,
+        "score_reasoning": "Çıkma yedek parça satan bir hurdacı olduğu için hedef dışında",
+        "classified_at": "2026-08-11T11:47:52.484546+00:00"
+    },
+    "ankaraotosanayi_368": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız bir oto aksesuar olduğu için hedef dışında",
+        "classified_at": "2026-08-11T11:47:52.484546+00:00"
+    },
+    "ankaraotosanayi_52": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız bir motor servisi olduğu için hedef dışında",
+        "classified_at": "2026-08-11T11:47:52.484546+00:00"
+    },
+    "ankaraotosanayi_1191": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız bir oto aksesuar olduğu için hedef dışında",
+        "classified_at": "2026-08-11T11:47:52.484546+00:00"
+    },
+    "ankaraotosanayi_1088": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız bir Iveco servisi olduğu için hedef dışında",
+        "classified_at": "2026-08-11T11:47:52.484546+00:00"
+    },
+    "ankaraotosanayi_1553": {
+        "relevance_score": 80,
+        "score_reasoning": "Yedek parça üreticisi olduğu için hedef kitleye uygun",
+        "classified_at": "2026-08-11T11:47:52.484546+00:00"
+    },
+    "ankaraotosanayi_365": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız bir balata yedekleri satan firma olduğu için hedef dışında",
+        "classified_at": "2026-08-11T11:47:52.484546+00:00"
+    },
+    "ankaraotosanayi_1118": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız bir Renault servisi olduğu için hedef dışında",
+        "classified_at": "2026-08-11T11:47:52.484546+00:00"
+    },
+    "ankaraotosanayi_1351": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız bir Volkswagen servisi olduğu için hedef dışında",
+        "classified_at": "2026-08-11T11:47:52.484546+00:00"
+    },
+    "ankaraotosanayi_1781": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız bir Japon ve Kore oto yedek parça satan firma olduğu için hedef dışında",
+        "classified_at": "2026-08-11T11:47:52.484546+00:00"
+    },
+    "ankaraotosanayi_1114": {
+        "relevance_score": 0,
+        "score_reasoning": "Çıkma yedek parça satan bir hurdacı olduğu için hedef dışında",
+        "classified_at": "2026-08-11T11:47:52.484546+00:00"
+    },
+    "ankaraotosanayi_1645": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız bir oto döşeme servisi olduğu için hedef ngoài",
+        "classified_at": "2026-08-11T11:47:52.484546+00:00"
+    },
+    "ankaraotosanayi_1237": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız bir Fıat ve Renault servisi olduğu için hedef dışında",
+        "classified_at": "2026-08-11T11:47:52.484546+00:00"
+    },
+    "ankaraotosanayi_659": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız bir Skoda servisi olduğu için hedef dışında",
+        "classified_at": "2026-08-11T11:47:52.484546+00:00"
+    },
+    "ankaraotosanayi_1654": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız bir pick-up çıkmayedek parça satan firma olduğu için hedef dışında",
+        "classified_at": "2026-08-11T11:47:52.484546+00:00"
+    },
+    "ankaraotosanayi_1174": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız bir Ford servisi olduğu için hedef dışında",
+        "classified_at": "2026-08-11T11:47:52.484546+00:00"
+    },
+    "ankaraotosanayi_1054": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız bir otoomotiv firması olduğu için hedef dışında",
+        "classified_at": "2026-08-11T11:47:52.484546+00:00"
     }
 }
