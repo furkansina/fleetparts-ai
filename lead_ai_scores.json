@@ -1373,5 +1373,105 @@
         "relevance_score": 100,
         "score_reasoning": "Lojistik ve nakliyat firması olduğu için hedef kitleye tam olarak uyuyor",
         "classified_at": "2026-08-07T06:08:12.742454+00:00"
+    },
+    "osm_way_889544636": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız tamirci olduğu için hedef dışı",
+        "classified_at": "2026-08-11T08:08:37.761378+00:00"
+    },
+    "osm_node_8887623332": {
+        "relevance_score": 90,
+        "score_reasoning": "Nakliye/lojistik firması olduğu için hedef kitle içinde",
+        "classified_at": "2026-08-11T08:08:37.761378+00:00"
+    },
+    "izmir3sanayi_sercan-oto-nissan-servis-30271": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız servis olduğu için hedef dışı",
+        "classified_at": "2026-08-11T08:08:37.761378+00:00"
+    },
+    "izmir3sanayi_kamuran-oto-tamir-bakim-servis-hiz-san-ve-ticltdsti": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız tamirci olduğu için hedef dışı",
+        "classified_at": "2026-08-11T08:08:37.761378+00:00"
+    },
+    "izmir3sanayi_japon-otomotiv": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça firması olduğu için hedef kitle içinde",
+        "classified_at": "2026-08-11T08:08:37.761378+00:00"
+    },
+    "izmir3sanayi_custom-otomotiv-san-ve-tic-ltd-sti": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça firması olduğu için hedef kitle içinde",
+        "classified_at": "2026-08-11T08:08:37.761378+00:00"
+    },
+    "izmir3sanayi_erkan-rulman": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça firması olduğu için hedef kitle içinde",
+        "classified_at": "2026-08-11T08:08:37.761378+00:00"
+    },
+    "izmir3sanayi_oto-sahin": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça firması olduğu için hedef kitle içinde",
+        "classified_at": "2026-08-11T08:08:37.761378+00:00"
+    },
+    "izmir3sanayi_bayser-otomotiv-15722": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça firması olduğu için hedef kitle içinde",
+        "classified_at": "2026-08-11T08:08:37.761378+00:00"
+    },
+    "izmir3sanayi_demir-oto-tamir-bakim-servisi-58883": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız tamirci olduğu için hedef dışı",
+        "classified_at": "2026-08-11T08:08:37.761378+00:00"
+    },
+    "izmir3sanayi_ikiler-oto-bmw-cikma-parca": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça firması olduğu için hedef kitle içinde",
+        "classified_at": "2026-08-11T08:08:37.761378+00:00"
+    },
+    "izmir3sanayi_mekatronik-otomotiv-62021": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça firması olduğu için hedef kitle içinde",
+        "classified_at": "2026-08-11T08:08:37.761378+00:00"
+    },
+    "osm_node_12151017325": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça firması olduğu için hedef kitle içinde",
+        "classified_at": "2026-08-11T08:08:37.761378+00:00"
+    },
+    "osm_node_12184780071": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça firması olduğu için hedef kitle içinde",
+        "classified_at": "2026-08-11T08:08:37.761378+00:00"
+    },
+    "osm_node_13100756108": {
+        "relevance_score": 0,
+        "score_reasoning": "Nakliye/lojistik firması olabilir ama ismi net değil",
+        "classified_at": "2026-08-11T08:08:37.761378+00:00"
+    },
+    "osm_node_13378050301": {
+        "relevance_score": 0,
+        "score_reasoning": "Lastikçi olduğu için hedef dışı",
+        "classified_at": "2026-08-11T08:08:37.761378+00:00"
+    },
+    "osm_node_4245065791": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça firması olduğu için hedef kitle içinde",
+        "classified_at": "2026-08-11T08:08:37.761378+00:00"
+    },
+    "osm_node_5590148822": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça firması olduğu için hedef kitle içinde",
+        "classified_at": "2026-08-11T08:08:37.761378+00:00"
+    },
+    "osm_node_13697845169": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça firması olduğu için hedef kitle içinde",
+        "classified_at": "2026-08-11T08:08:37.761378+00:00"
+    },
+    "osm_node_5022302429": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça firması olduğu için hedef kitle içinde",
+        "classified_at": "2026-08-11T08:08:37.761378+00:00"
     }
 }
