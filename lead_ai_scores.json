@@ -1973,5 +1973,105 @@
         "relevance_score": 80,
         "score_reasoning": "Piston firması, oto yedek parça kategorisinde yer alıyor, Konya'da faaliyet gösteriyor",
         "classified_at": "2026-08-11T08:19:31.663863+00:00"
+    },
+    "tbc_anko-otomotiv-san-tic-35405": {
+        "relevance_score": 90,
+        "score_reasoning": "Oto yedek parça toptancısı olarak görünen bir firma",
+        "classified_at": "2026-08-11T11:32:25.368017+00:00"
+    },
+    "tbc_bay-kaucukkaucuk-otomotiv-yedek-35111": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça toptancısı olarak görünen bir firma, kauçuk ürünlerine odaklanmış",
+        "classified_at": "2026-08-11T11:32:25.368017+00:00"
+    },
+    "tbc_oznur-otomotiv-sanayi-ve-34571": {
+        "relevance_score": 95,
+        "score_reasoning": "Oto yedek parça toptancısı olarak görünen bir firma, sanayi ve ticaret faaliyetlerine sahip",
+        "classified_at": "2026-08-11T11:32:25.368017+00:00"
+    },
+    "tbc_metosanhidrolik-pompahidrolikunitepnomat-34160": {
+        "relevance_score": 70,
+        "score_reasoning": "Hidrolik ve pnömatik ürünlerine odaklanmış bir firma, oto yedek parçası olmayabilir",
+        "classified_at": "2026-08-11T11:32:25.368017+00:00"
+    },
+    "tbc_erkoclar-tarim-makineleri-33311": {
+        "relevance_score": 20,
+        "score_reasoning": "Tarım makinelerine odaklanmış bir firma, oto yedek parçası ile ilgili görünmüyor",
+        "classified_at": "2026-08-11T11:32:25.368017+00:00"
+    },
+    "tbc_yilmazlar-disliscania-ve-volvo-32080": {
+        "relevance_score": 85,
+        "score_reasoning": "Oto yedek parça toptancısı olarak görünen bir firma, dişli ve diğer ürünlerine odaklanmış",
+        "classified_at": "2026-08-11T11:32:25.368017+00:00"
+    },
+    "tbc_hidroramtraktor-selenoid-valfiselenoid-v-31805": {
+        "relevance_score": 40,
+        "score_reasoning": "Traktör ve selenoid valflerine odaklanmış bir firma, oto yedek parçası olmayabilir",
+        "classified_at": "2026-08-11T11:32:25.368017+00:00"
+    },
+    "tbc_hydrosel-hydraulichydraulic-cylinderstel-31519": {
+        "relevance_score": 60,
+        "score_reasoning": "Hidrolik silindirler ve diğer ürünlerine odaklanmış bir firma, oto yedek parçası olabilir",
+        "classified_at": "2026-08-11T11:32:25.368017+00:00"
+    },
+    "tbc_altunpar-automotive-31388": {
+        "relevance_score": 98,
+        "score_reasoning": "Oto yedek parça toptancısı olarak görünen bir firma, geniş ürün yelpazesi mevcut",
+        "classified_at": "2026-08-11T11:32:25.368017+00:00"
+    },
+    "tbc_femaks-dis-ticaret-otomotiv-30829": {
+        "relevance_score": 92,
+        "score_reasoning": "Oto yedek parça toptancısı olarak görünen bir firma, dış ticaret faaliyetlerine sahip",
+        "classified_at": "2026-08-11T11:32:25.368017+00:00"
+    },
+    "tbc_ozguvenclertraktor-surucu-koltuguforklif-30639": {
+        "relevance_score": 30,
+        "score_reasoning": "Traktör ve forklift ürünlere odaklanmış bir firma, oto yedek parçası olmayabilir",
+        "classified_at": "2026-08-11T11:32:25.368017+00:00"
+    },
+    "tbc_uysal-hidrolik-29912": {
+        "relevance_score": 50,
+        "score_reasoning": "Hidrolik ürünlerine odaklanmış bir firma, oto yedek parçası olabilir",
+        "classified_at": "2026-08-11T11:32:25.368017+00:00"
+    },
+    "tbc_arcek-otomotiv-kaliper-tamir-29656": {
+        "relevance_score": 88,
+        "score_reasoning": "Oto yedek parça toptancısı olarak görünen bir firma, kaliper tamir ürünleri sunuyor",
+        "classified_at": "2026-08-11T11:32:25.368017+00:00"
+    },
+    "tbc_ozenir-hidrolikhydraulic-cylinderhydraul-29289": {
+        "relevance_score": 65,
+        "score_reasoning": "Hidrolik silindirler ve diğer ürünlerine odaklanmış bir firma, oto yedek parçası olabilir",
+        "classified_at": "2026-08-11T11:32:25.368017+00:00"
+    },
+    "tbc_ozpinarli-sizdirmazlikhidrolik-ve-pnomat-28408": {
+        "relevance_score": 45,
+        "score_reasoning": "Hidrolik ve pnömatik sızdırmazlık ürünlerine odaklanmış bir firma, oto yedek parçası olmayabilir",
+        "classified_at": "2026-08-11T11:32:25.368017+00:00"
+    },
+    "tbc_hakpar-otomotivwosvagen-lt35-ve-26330": {
+        "relevance_score": 82,
+        "score_reasoning": "Oto yedek parça toptancısı olarak görünen bir firma, Wosvagen ve Lt35 ürünlerine odaklanmış",
+        "classified_at": "2026-08-11T11:32:25.368017+00:00"
+    },
+    "tbc_boss-man-turbo-ltd-24977": {
+        "relevance_score": 78,
+        "score_reasoning": "Oto yedek parça toptancısı olarak görünen bir firma, turbo ve diğer ürünlerine odaklanmış",
+        "classified_at": "2026-08-11T11:32:25.368017+00:00"
+    },
+    "tbc_ilkogayd-tekyildiz-23252": {
+        "relevance_score": 38,
+        "score_reasoning": "Firma ismi ve kategorisi belirgin değil, oto yedek parçası ile ilgili görünmüyor",
+        "classified_at": "2026-08-11T11:32:25.368017+00:00"
+    },
+    "tbc_caliskanlar-ltd-sti-21166": {
+        "relevance_score": 25,
+        "score_reasoning": "Firma ismi ve kategorisi belirgin değil, oto yedek parçası ile ilgili görünmüyor",
+        "classified_at": "2026-08-11T11:32:25.368017+00:00"
+    },
+    "tbc_akkomsan-otomativ-san-tic-20811": {
+        "relevance_score": 96,
+        "score_reasoning": "Oto yedek parça toptancısı olarak görünen bir firma, sanayi ve ticaret faaliyetlerine sahip",
+        "classified_at": "2026-08-11T11:32:25.368017+00:00"
     }
 }
