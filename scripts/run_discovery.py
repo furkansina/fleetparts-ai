@@ -15,6 +15,7 @@ from lead_sources_directory import search_province as search_province_directory
 from lead_sources_sanayi_sitesi import search_all as search_sanayi_sitesi
 from lead_sources_sanayisitesi_platform import search_all as search_sanayisitesi_platform
 from lead_sources_find_com_tr import search_all as search_find_com_tr
+import lead_sources_google_places
 from lead_scoring import score_lead
 from lead_dedupe import dedupe_key
 
@@ -231,6 +232,31 @@ def main():
         combined_so_far = existing + new_leads
         with open(LEADS_FILE, "w", encoding="utf-8") as f:
             json.dump(combined_so_far, f, ensure_ascii=False, indent=4)
+
+    # Google Places API - tüm illerde telefon dahil neredeyse tam kapsama veren TEK gerçek çözüm,
+    # ama ücretli (bkz. lead_sources_google_places.py). GOOGLE_PLACES_API_KEY ortam değişkeni
+    # (Render/GitHub Actions secrets) tanımlanana kadar TAMAMEN pasif - hiçbir istek atılmaz,
+    # hiçbir ücret oluşmaz. Baba faturalandırmayı aktif edip anahtarı eklediği an, kod tarafında
+    # başka hiçbir değişiklik gerekmeden otomatik devreye girer.
+    if lead_sources_google_places.is_configured() and not args.only:
+        print("\nGoogle Places taranıyor (81 il, ücretli API)...")
+        try:
+            gplaces_results = lead_sources_google_places.search_all()
+        except Exception as e:
+            print(f"  Google Places taraması başarısız - {e}")
+            gplaces_results = []
+        print(f"  Google Places ham sonuç: {len(gplaces_results)}")
+        for raw in gplaces_results:
+            key = dedupe_key(raw["name"], raw.get("phone", ""))
+            if key in existing_keys or key in seen_this_run:
+                continue
+            seen_this_run.add(key)
+            scoring = score_lead(raw)
+            new_leads.append(_build_lead(raw["site_id"], "google_places", raw, raw["province"], scoring, batch_id))
+        if not args.dry_run:
+            combined_so_far = existing + new_leads
+            with open(LEADS_FILE, "w", encoding="utf-8") as f:
+                json.dump(combined_so_far, f, ensure_ascii=False, indent=4)
 
     print(f"\nToplam yeni lead: {len(new_leads)}")
     for l in sorted(new_leads, key=lambda x: -x["relevance_score"])[:15]:
