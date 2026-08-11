@@ -1573,5 +1573,105 @@
         "relevance_score": 20,
         "score_reasoning": "Gıda dağıtım şirketi olarak alakasız sektörde faaliyet gösteriyor",
         "classified_at": "2026-08-11T08:09:26.613861+00:00"
+    },
+    "tbc_guven-volkswagen-38858": {
+        "relevance_score": 40,
+        "score_reasoning": "Oto markasına özgü yedek parça satıyor gibi görünüyor, ağır vasıta yedek parçası ile ilgili bilgi yok.",
+        "classified_at": "2026-08-11T08:15:48.260711+00:00"
+    },
+    "tbc_as-fiat-otomotiv-san-31603": {
+        "relevance_score": 30,
+        "score_reasoning": "Oto markasına özgü yedek parça satıyor gibi görünüyor, ağır vasıta yedek parçası ile ilgili bilgi yok.",
+        "classified_at": "2026-08-11T08:15:48.260711+00:00"
+    },
+    "tbc_eyyupoglu-otomotiv-30129": {
+        "relevance_score": 20,
+        "score_reasoning": "Genel otomotiv firması gibi görünüyor, ağır vasıta yedek parçası ile ilgili bilgi yok.",
+        "classified_at": "2026-08-11T08:15:48.260711+00:00"
+    },
+    "tbc_lts-lider-torna-spiral-25596": {
+        "relevance_score": 10,
+        "score_reasoning": "Torna ve spiral makine sanayi firması gibi görünüyor, oto yedek parçası ile ilgili bilgi yok.",
+        "classified_at": "2026-08-11T08:15:48.260711+00:00"
+    },
+    "tbc_clk-otomotiv-sanayi-ve-18288": {
+        "relevance_score": 30,
+        "score_reasoning": "Oto yedek parça firması gibi görünüyor, ağır vasıta yedek parçası ile ilgili bilgi yok.",
+        "classified_at": "2026-08-11T08:15:48.260711+00:00"
+    },
+    "tbc_dogsan-gross-madeni-yag-40527": {
+        "relevance_score": 0,
+        "score_reasoning": "Madeni yağ firması gibi görünüyor, oto yedek parçası ile ilgili bilgi yok.",
+        "classified_at": "2026-08-11T08:15:48.260711+00:00"
+    },
+    "tbc_maz-36637": {
+        "relevance_score": 10,
+        "score_reasoning": "Bilgi不足, oto yedek parçası ile ilgili bilgi yok.",
+        "classified_at": "2026-08-11T08:15:48.260711+00:00"
+    },
+    "tbc_nms-automotive-norm-machining-27599": {
+        "relevance_score": 20,
+        "score_reasoning": "Oto yedek parça sanayi firması gibi görünüyor, ağır vasıta yedek parçası ile ilgili bilgi yok.",
+        "classified_at": "2026-08-11T08:15:48.260711+00:00"
+    },
+    "tbc_ozey-otomotiv-elk-mak-21043": {
+        "relevance_score": 20,
+        "score_reasoning": "Oto yedek parça ve elektrik makine firması gibi görünüyor, ağır vasıta yedek parçası ile ilgili bilgi yok.",
+        "classified_at": "2026-08-11T08:15:48.260711+00:00"
+    },
+    "tbc_hms-otomotiv-ith-ihr-20241": {
+        "relevance_score": 30,
+        "score_reasoning": "Oto yedek parça ithalat ve ihracat firması gibi görünüyor, ağır vasıta yedek parçası ile ilgili bilgi yok.",
+        "classified_at": "2026-08-11T08:15:48.260711+00:00"
+    },
+    "tbc_soykar-otomotiv-18834": {
+        "relevance_score": 20,
+        "score_reasoning": "Genel otomotiv firması gibi görünüyor, ağır vasıta yedek parçası ile ilgili bilgi yok.",
+        "classified_at": "2026-08-11T08:15:48.260711+00:00"
+    },
+    "tbc_tst-lift-12617": {
+        "relevance_score": 0,
+        "score_reasoning": "Asansör firması gibi görünüyor, oto yedek parçası ile ilgili bilgi yok.",
+        "classified_at": "2026-08-11T08:15:48.260711+00:00"
+    },
+    "tbc_turhan-otomotiv-yed-parc-36356": {
+        "relevance_score": 40,
+        "score_reasoning": "Oto yedek parça firması gibi görünüyor, ağır vasıta yedek parçası ile ilgili bilgi var",
+        "classified_at": "2026-08-11T08:15:48.260711+00:00"
+    },
+    "tbc_sanat-otomotiv-48932": {
+        "relevance_score": 20,
+        "score_reasoning": "Genel otomotiv firması gibi görünüyor, ağır vasıta yedek parçası ile ilgili bilgi yok.",
+        "classified_at": "2026-08-11T08:15:48.260711+00:00"
+    },
+    "tbc_kamyonyedekparca-com-31300": {
+        "relevance_score": 90,
+        "score_reasoning": "Kamyon yedek parça satışı yapıyor gibi görünüyor, uygun müşteri gibi görünüyor",
+        "classified_at": "2026-08-11T08:15:48.260711+00:00"
+    },
+    "tbc_doruk-otomotiv-fiat-alfa-24557": {
+        "relevance_score": 20,
+        "score_reasoning": "Oto markasına özgü yedek parça satıyor gibi görünüyor, ağır vasıta yedek parçası ile ilgili bilgi yok.",
+        "classified_at": "2026-08-11T08:15:48.260711+00:00"
+    },
+    "tbc_tolan-otomotiv-41375": {
+        "relevance_score": 20,
+        "score_reasoning": "Genel otomotiv firması gibi görünüyor, ağır vasıta yedek parçası ile ilgili bilgi yok.",
+        "classified_at": "2026-08-11T08:15:48.260711+00:00"
+    },
+    "tbc_bilenler-renaultampdacia-ozel-servisi-35646": {
+        "relevance_score": 10,
+        "score_reasoning": "Oto markasına özgü servis gibi görünüyor, ağır vasıta yedek parçası ile ilgili bilgi yok.",
+        "classified_at": "2026-08-11T08:15:48.260711+00:00"
+    },
+    "tbc_oto-fil-28395": {
+        "relevance_score": 60,
+        "score_reasoning": "Oto filo firması gibi görünüyor, ağır vasıta yedek parçası ile ilgili bilgi var",
+        "classified_at": "2026-08-11T08:15:48.260711+00:00"
+    },
+    "tbc_ayhan-oto-jeep-dodge-39796": {
+        "relevance_score": 10,
+        "score_reasoning": "Oto markasına özgü servis gibi görünüyor, ağır vasıta yedek parçası ile ilgili bilgi yok",
+        "classified_at": "2026-08-11T08:15:48.260711+00:00"
     }
 }
