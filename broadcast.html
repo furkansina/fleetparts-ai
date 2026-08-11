@@ -47,6 +47,20 @@
         .contact-row .phone { color: #666; margin-left: 6px; }
         .badge-source { display: inline-block; padding: 1px 7px; border-radius: 20px; font-size: 10.5px; font-weight: bold; margin-left: 6px; background: #fff3cd; color: #856404; }
         .contact-row .remove-btn { width: auto; margin: 0; padding: 3px 9px; font-size: 12px; background: #f8d7da; color: #721c24; border: none; border-radius: 4px; cursor: pointer; }
+
+        .queue-note { font-size: 13px; color: #555; background: #eef6ff; border: 1px solid #cfe4fb; border-radius: 6px; padding: 10px 12px; margin-bottom: 14px; }
+        .queue-progress-bar { height: 8px; background: #e9ecef; border-radius: 4px; overflow: hidden; margin: 10px 0; }
+        .queue-progress-fill { height: 100%; background: #28a745; transition: width 0.2s; }
+        .queue-card { border: 1px solid #ddd; border-radius: 8px; padding: 16px; margin-top: 10px; }
+        .queue-card .qname { font-size: 17px; font-weight: bold; }
+        .queue-card .qphone { color: #666; font-size: 14px; margin-bottom: 10px; }
+        .queue-card .qmsg { white-space: pre-wrap; background: #f8f9fa; border-radius: 4px; padding: 10px; font-size: 13.5px; max-height: 160px; overflow-y: auto; margin-bottom: 12px; }
+        .btn-wa { background: #25D366; color: white; font-size: 15px; padding: 11px 18px; }
+        .btn-wa:hover { background: #1ebe57; }
+        .btn-skip { background: #f8d7da; color: #721c24; }
+        .btn-confirm { background: #28a745; color: white; }
+        .btn-stop { background: #6c757d; color: white; }
+        .queue-empty { text-align: center; color: #888; padding: 20px; }
     </style>
 </head>
 <body>
@@ -74,7 +88,7 @@
             <button class="btn-ai" onclick="generateAI()">🤖 AI'dan Taslak Öner</button>
             <button class="btn-manual" onclick="startManual()">✍️ Sıfırdan Yaz</button>
         </div>
-        <textarea id="messageBox" placeholder="AI'dan taslak iste veya buraya kendin yaz..."></textarea>
+        <textarea id="messageBox" placeholder="AI'dan taslak iste veya buraya kendin yaz... (İstersen {isim} yazarsan gönderirken firma adıyla değişir)"></textarea>
         <div class="btn-row">
             <button class="btn-copy" onclick="copyMessage()">📋 Kopyala</button>
             <button class="btn-save" onclick="saveMessage()">✅ Gönderildi Olarak Kaydet</button>
@@ -83,13 +97,147 @@
     </div>
 
     <div class="section">
-        <h3>3. Geçmiş</h3>
+        <h3>3. Gönderim Kuyruğu (WhatsApp)</h3>
+        <div class="queue-note">
+            Yukarıdaki mesajla, kişi listesindeki herkese TEK TEK, WhatsApp'ı hazır mesajla açarak gönderim yapmanı sağlar.
+            Her seferinde WhatsApp içinde Gönder'e SEN basarsın - otomatik/toplu bot gönderimi değildir, bu yüzden
+            numaranın engellenme riski yoktur. Sadece arama/kopyalama zahmetini ortadan kaldırır.
+        </div>
+        <div class="btn-row">
+            <button class="btn-ai" onclick="startQueue()">▶️ Kuyruğu Başlat</button>
+            <button class="btn-stop" onclick="stopQueue()" id="stopQueueBtn" style="display:none;">⏹️ Durdur</button>
+        </div>
+        <div id="queueArea" style="margin-top:12px;"></div>
+    </div>
+
+    <div class="section">
+        <h3>4. Geçmiş</h3>
         <div id="logList">Yükleniyor...</div>
     </div>
 </div>
 
 <script>
     let lastOrigin = 'manuel';
+    let allContacts = [];
+
+    // ---------- Gönderim Kuyruğu (WhatsApp) ----------
+    let queue = [];       // {name, phone, message}
+    let queueIndex = 0;
+    let queueSentCount = 0;
+    let queueActive = false;
+    let queueOpenedCurrent = false;  // mevcut kişi icin WhatsApp'i actik mi (Onayla butonunu bundan once devre disi tutmak icin)
+
+    function normalizePhoneForWa(phone) {
+        // wa.me ülke koduyla, başında 0 veya + olmadan tam uluslararası format ister
+        // (örn. 905551234567). Türkiye numaraları için 0->90 dönüşümü yapılır.
+        let digits = String(phone || '').replace(/\D/g, '');
+        if (!digits) return '';
+        if (digits.startsWith('0')) digits = '90' + digits.slice(1);
+        else if (!digits.startsWith('90') && digits.length === 10) digits = '90' + digits;
+        return digits;
+    }
+
+    function personalizeMessage(template, contact) {
+        const name = (contact.name || '').trim();
+        return template.replaceAll('{isim}', name).replaceAll('{ad}', name);
+    }
+
+    function startQueue() {
+        const template = document.getElementById('messageBox').value.trim();
+        if (!template) { alert('Önce bir mesaj yazın ya da AI\'dan taslak isteyin.'); return; }
+        const withPhone = allContacts.filter(c => normalizePhoneForWa(c.phone));
+        const skippedNoPhone = allContacts.length - withPhone.length;
+        if (withPhone.length === 0) {
+            alert('Kişi listesinde telefon numarası olan kimse yok.');
+            return;
+        }
+        queue = withPhone.map(c => ({ name: c.name, phone: c.phone, message: personalizeMessage(template, c) }));
+        queueIndex = 0;
+        queueSentCount = 0;
+        queueActive = true;
+        queueOpenedCurrent = false;
+        document.getElementById('stopQueueBtn').style.display = '';
+        if (skippedNoPhone > 0) {
+            document.getElementById('messageStatus').textContent = `${skippedNoPhone} kişi telefon numarası olmadığı için kuyruğa alınmadı.`;
+        }
+        renderQueue();
+    }
+    window.startQueue = startQueue;
+
+    function renderQueue() {
+        const area = document.getElementById('queueArea');
+        if (!queueActive) { area.innerHTML = ''; return; }
+        if (queueIndex >= queue.length) {
+            finishQueue();
+            return;
+        }
+        const c = queue[queueIndex];
+        const pct = Math.round((queueIndex / queue.length) * 100);
+        area.innerHTML = `
+            <div>${queueIndex + 1} / ${queue.length} kişi &nbsp;·&nbsp; ${queueSentCount} gönderildi</div>
+            <div class="queue-progress-bar"><div class="queue-progress-fill" style="width:${pct}%"></div></div>
+            <div class="queue-card">
+                <div class="qname">${esc(c.name || '-')}</div>
+                <div class="qphone">${esc(c.phone || '-')}</div>
+                <div class="qmsg">${esc(c.message)}</div>
+                <div class="btn-row">
+                    <button class="btn-wa" onclick="openWhatsAppForCurrent()">📲 WhatsApp'ta Aç</button>
+                    <button class="btn-confirm" onclick="confirmSentCurrent()" ${queueOpenedCurrent ? '' : 'disabled title="Önce WhatsApp\'ta açıp gönderin"'}>✓ Gönderdim</button>
+                    <button class="btn-skip" onclick="skipCurrent()">⏭️ Atla</button>
+                </div>
+            </div>
+        `;
+    }
+
+    function openWhatsAppForCurrent() {
+        const c = queue[queueIndex];
+        const phone = normalizePhoneForWa(c.phone);
+        const url = `https://wa.me/${phone}?text=${encodeURIComponent(c.message)}`;
+        window.open(url, '_blank');
+        queueOpenedCurrent = true;
+        renderQueue();
+    }
+    window.openWhatsAppForCurrent = openWhatsAppForCurrent;
+
+    function confirmSentCurrent() {
+        queueSentCount++;
+        queueIndex++;
+        queueOpenedCurrent = false;
+        renderQueue();
+    }
+    window.confirmSentCurrent = confirmSentCurrent;
+
+    function skipCurrent() {
+        queueIndex++;
+        queueOpenedCurrent = false;
+        renderQueue();
+    }
+    window.skipCurrent = skipCurrent;
+
+    async function finishQueue() {
+        queueActive = false;
+        document.getElementById('stopQueueBtn').style.display = 'none';
+        const area = document.getElementById('queueArea');
+        area.innerHTML = `<div class="queue-empty">✅ Kuyruk tamamlandı: ${queueSentCount} / ${queue.length} kişiye gönderim onaylandı.</div>`;
+        if (queueSentCount > 0) {
+            const template = document.getElementById('messageBox').value.trim();
+            const formData = new FormData();
+            formData.append('message', template);
+            formData.append('origin', lastOrigin);
+            formData.append('recipient_count', String(queueSentCount));
+            try {
+                await fetch('/broadcast/save', { method: 'POST', body: formData });
+                loadData();
+            } catch (err) { /* gecmis kaydi kritik degil, sessizce gec */ }
+        }
+    }
+
+    function stopQueue() {
+        if (!queueActive) return;
+        if (!confirm(`Kuyruğu durdurmak istediğinize emin misiniz? Şu ana kadar ${queueSentCount} kişiye gönderim onayladınız, bu kaydedilecek.`)) return;
+        finishQueue();
+    }
+    window.stopQueue = stopQueue;
 
     function esc(s) {
         return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -131,6 +279,7 @@
         try {
             const res = await fetch('/broadcast-data');
             const data = await res.json();
+            allContacts = data.contacts || [];
             document.getElementById('contactCount').textContent = `Şu an ${data.contacts.length} kişi listede.`;
             renderContacts(data.contacts);
 
@@ -144,6 +293,7 @@
                     <div class="log-meta">
                         <span class="badge-origin ${item.origin}">${item.origin === 'ai' ? '🤖 AI' : '✍️ Manuel'}</span>
                         ${new Date(item.created_at).toLocaleString('tr-TR')}
+                        ${item.recipient_count ? ` &nbsp;·&nbsp; 📲 ${item.recipient_count} kişiye gönderim kuyruğuyla gönderildi` : ''}
                     </div>
                     <div class="log-msg">${esc(item.message)}</div>
                 </div>
