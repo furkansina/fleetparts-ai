@@ -71,6 +71,8 @@
         <button id="scanBtn" onclick="triggerScan()" style="width:auto; margin:0; padding:8px 16px; background:#337ab7; color:white; border:none; border-radius:4px; cursor:pointer;">🔍 Şimdi Tara</button>
         <a href="/leads-export" style="width:auto; margin:0; padding:8px 16px; background:#28a745; color:white; border-radius:4px; text-decoration:none; font-size:14px; font-weight:bold;">⬇️ CSV İndir</a>
         <button id="classifyBtn" onclick="classifyAmbiguous()" style="width:auto; margin:0; padding:8px 16px; background:#6f42c1; color:white; border:none; border-radius:4px; cursor:pointer;">🤖 Belirsizleri AI ile Netleştir</button>
+        <button id="coverageBtn" onclick="toggleCoveragePanel()" style="width:auto; margin:0; padding:8px 16px; background:#5a6268; color:white; border:none; border-radius:4px; cursor:pointer;">🗺️ İl Bazlı Kapsama</button>
+        <input type="text" id="nameSearch" placeholder="Firma adında ara..." style="min-width:160px;">
         <select id="statusFilter">
             <option value="">Tüm durumlar</option>
             <option value="yeni">Yeni</option>
@@ -94,6 +96,14 @@
         <span class="count" id="countLabel"></span>
     </div>
 
+    <div id="coveragePanel" style="display:none; background:white; border-radius:8px; padding:14px 18px; margin-bottom:14px; box-shadow:0 2px 6px rgba(0,0,0,0.06); font-size:13px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <b>İl bazlı lead sayısı</b>
+            <span style="color:#888; font-size:12px;">81 ilin tamamı haftalık taranır (OSM + firma rehberi); bir ilde sayı düşük/sıfırsa filtre eksik değildir, o ilde henüz az/hiç kayıt bulunamamış demektir.</span>
+        </div>
+        <div id="coverageGrid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); gap:4px 12px; max-height:280px; overflow-y:auto;"></div>
+    </div>
+
     <div class="product-panel">
         <div class="row">
             <input type="text" id="productInput" placeholder="Örn: Hortum adaptörü, ya da IVECO S-WAY LED far sağ...">
@@ -113,15 +123,37 @@
         <button onclick="clearSelection()">Seçimi Temizle</button>
     </div>
 
+    <div style="margin-bottom:8px;">
+        <label style="display:flex; align-items:center; gap:6px; font-size:13px; color:#555; width:fit-content; cursor:pointer;">
+            <input type="checkbox" id="selectAllFiltered" style="width:auto; margin:0;" onchange="toggleSelectAllFiltered(this.checked)">
+            Ekrandaki tüm filtrelenmiş lead'leri seç (<span id="selectAllCount">0</span> kayıt)
+        </label>
+    </div>
+
     <div id="leadList"><div class="placeholder">Yükleniyor...</div></div>
 </div>
 
 <script>
+    // Türkiye'nin 81 ili - provinces.py'deki liste ile aynı. Kapsama panelinde (bkz.
+    // renderCoveragePanel) leads.json'da HİÇ kaydı olmayan iller de "0" olarak gösterilsin diye
+    // burada sabit tutuluyor - aksi halde bir ilin hiç görünmemesi "filtre yok" ile "veri yok"
+    // arasındaki farkı belirsizleştirir (gerçek bir kullanıcı şikayetiydi).
+    const ALL_PROVINCES = ["Adana","Adıyaman","Afyonkarahisar","Ağrı","Amasya","Ankara","Antalya",
+        "Artvin","Aydın","Balıkesir","Bilecik","Bingöl","Bitlis","Bolu","Burdur","Bursa","Çanakkale",
+        "Çankırı","Çorum","Denizli","Diyarbakır","Edirne","Elazığ","Erzincan","Erzurum","Eskişehir",
+        "Gaziantep","Giresun","Gümüşhane","Hakkari","Hatay","Isparta","Mersin","İstanbul","İzmir",
+        "Kars","Kastamonu","Kayseri","Kırklareli","Kırşehir","Kocaeli","Konya","Kütahya","Malatya",
+        "Manisa","Kahramanmaraş","Mardin","Muğla","Muş","Nevşehir","Niğde","Ordu","Rize","Sakarya",
+        "Samsun","Siirt","Sinop","Sivas","Tekirdağ","Tokat","Trabzon","Tunceli","Şanlıurfa","Uşak",
+        "Van","Yozgat","Zonguldak","Aksaray","Bayburt","Karaman","Kırıkkale","Batman","Şırnak",
+        "Bartın","Ardahan","Iğdır","Yalova","Karabük","Kilis","Osmaniye","Düzce"];
+
     let allLeads = [];
     let selectedIds = new Set();
     let activeProductKey = null;
     let activeProductDescription = '';
     let productScores = {};  // lead_id -> {product_fit_score, product_fit_reasoning}
+    let lastFilteredIds = [];  // en son renderLeads() sonucu ekranda görünen (filtrelenmiş) lead id'leri
 
     function updateBulkBar() {
         const bar = document.getElementById('bulkBar');
@@ -147,6 +179,19 @@
         renderLeads();
     }
     window.clearSelection = clearSelection;
+
+    function toggleSelectAllFiltered(checked) {
+        // Ekrandaki (mevcut filtreyle eşleşen) TÜM lead'leri tek tıkla seçer/kaldırır - önceden
+        // her lead'i tek tek işaretlemek gerekiyordu, yüzlerce lead'de kullanılamaz haldeydi.
+        if (checked) {
+            for (const id of lastFilteredIds) selectedIds.add(id);
+        } else {
+            for (const id of lastFilteredIds) selectedIds.delete(id);
+        }
+        updateBulkBar();
+        renderLeads();
+    }
+    window.toggleSelectAllFiltered = toggleSelectAllFiltered;
 
     async function bulkSet(status) {
         if (selectedIds.size === 0) return;
@@ -175,7 +220,8 @@
         try {
             const res = await fetch('/leads/add-to-contacts', { method: 'POST', body: formData });
             const data = await res.json();
-            alert(data.message || 'Tamamlandı.');
+            const goToBroadcast = confirm((data.message || 'Tamamlandı.') + '\n\nŞimdi Müşteri İletişimi sayfasına gidip bunlara WhatsApp gönderim kuyruğunu başlatmak ister misiniz?');
+            if (goToBroadcast) { window.location.href = '/broadcast'; return; }
             selectedIds.clear();
             updateBulkBar();
             renderLeads();
@@ -212,6 +258,7 @@
         const phoneOnly = document.getElementById('phoneOnlyFilter').checked;
         const mobileOnly = document.getElementById('mobileOnlyFilter').checked;
         const minScore = parseInt(document.getElementById('minScoreFilter').value, 10) || 0;
+        const nameQuery = (document.getElementById('nameSearch').value || '').trim().toLocaleLowerCase('tr');
 
         let filtered = allLeads.filter(l => {
             if (statusVal && l.status !== statusVal) return false;
@@ -219,6 +266,7 @@
             if (phoneOnly && !l.phone) return false;
             if (mobileOnly && !isMobilePhone(l.phone)) return false;
             if ((l.relevance_score ?? 0) < minScore) return false;
+            if (nameQuery && !String(l.company_name || '').toLocaleLowerCase('tr').includes(nameQuery)) return false;
             return true;
         });
         if (activeProductKey) {
@@ -235,6 +283,11 @@
         }
 
         document.getElementById('countLabel').textContent = filtered.length + ' lead';
+
+        lastFilteredIds = filtered.map(l => l.lead_id);
+        document.getElementById('selectAllCount').textContent = lastFilteredIds.length;
+        const allFilteredSelected = lastFilteredIds.length > 0 && lastFilteredIds.every(id => selectedIds.has(id));
+        document.getElementById('selectAllFiltered').checked = allFilteredSelected;
 
         const list = document.getElementById('leadList');
         if (filtered.length === 0) {
@@ -303,11 +356,55 @@
         }).join('');
     }
 
+    function provinceCounts() {
+        const counts = {};
+        for (const l of allLeads) {
+            if (!l.province) continue;
+            counts[l.province] = (counts[l.province] || 0) + 1;
+        }
+        return counts;
+    }
+
     function populateProvinceFilter() {
         const select = document.getElementById('provinceFilter');
-        const provinces = [...new Set(allLeads.map(l => l.province).filter(Boolean))].sort();
-        select.innerHTML = '<option value="">Tüm iller</option>' + provinces.map(p => `<option value="${esc(p)}">${esc(p)}</option>`).join('');
+        const prevVal = select.value;
+        const counts = provinceCounts();
+        // Sadece lead'i OLAN iller değil, TÜM 81 il listelenir (0 kayıtlı olanlar da) - bir ilin
+        // dropdown'da hiç görünmemesi "bu il için filtre yok" izlenimi veriyordu, oysa aslında o
+        // il taranmış ama az/hiç sonuç bulunamamıştı. Sayı parantez içinde gösterildiği için
+        // kullanıcı bunu hemen ayırt edebilir.
+        const provinces = [...ALL_PROVINCES].sort((a, b) => (counts[b] || 0) - (counts[a] || 0) || a.localeCompare(b, 'tr'));
+        select.innerHTML = '<option value="">Tüm iller (' + allLeads.length + ')</option>' +
+            provinces.map(p => `<option value="${esc(p)}">${esc(p)} (${counts[p] || 0})</option>`).join('');
+        if (prevVal && provinces.includes(prevVal)) select.value = prevVal;
     }
+
+    let coveragePanelOpen = false;
+    function toggleCoveragePanel() {
+        coveragePanelOpen = !coveragePanelOpen;
+        document.getElementById('coveragePanel').style.display = coveragePanelOpen ? 'block' : 'none';
+        if (coveragePanelOpen) renderCoveragePanel();
+    }
+    window.toggleCoveragePanel = toggleCoveragePanel;
+
+    function renderCoveragePanel() {
+        const counts = provinceCounts();
+        const grid = document.getElementById('coverageGrid');
+        const sorted = [...ALL_PROVINCES].sort((a, b) => (counts[a] || 0) - (counts[b] || 0));
+        grid.innerHTML = sorted.map(p => {
+            const c = counts[p] || 0;
+            const color = c === 0 ? '#d9534f' : c < 5 ? '#f0ad4e' : '#28a745';
+            return `<div style="display:flex; justify-content:space-between; padding:3px 6px; border-radius:3px; cursor:pointer;" onclick="filterByProvinceFromCoverage('${esc(p)}')" title="Bu ile göre filtrele">
+                <span>${esc(p)}</span><b style="color:${color};">${c}</b>
+            </div>`;
+        }).join('');
+    }
+
+    function filterByProvinceFromCoverage(province) {
+        document.getElementById('provinceFilter').value = province;
+        renderLeads();
+    }
+    window.filterByProvinceFromCoverage = filterByProvinceFromCoverage;
 
     async function loadLeads() {
         try {
@@ -316,6 +413,7 @@
             allLeads = data.leads || [];
             populateProvinceFilter();
             renderLeads();
+            if (coveragePanelOpen) renderCoveragePanel();
         } catch (err) {
             document.getElementById('leadList').innerHTML = '<div class="placeholder">Yüklenemedi: ' + esc(String(err)) + '</div>';
         }
@@ -440,6 +538,7 @@
     document.getElementById('phoneOnlyFilter').addEventListener('change', renderLeads);
     document.getElementById('mobileOnlyFilter').addEventListener('change', renderLeads);
     document.getElementById('minScoreFilter').addEventListener('input', renderLeads);
+    document.getElementById('nameSearch').addEventListener('input', renderLeads);
 
     function poolBadgeHtml(label, pool) {
         if (!pool) return '';
