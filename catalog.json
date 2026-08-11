@@ -11705,5 +11705,161 @@
         "source_files": [
             "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 6)"
         ]
+    },
+    {
+        "id": "PRC-1042",
+        "oem": "1-W",
+        "name": "SOKET&KONNEKTOR 1 KABLOLU",
+        "brand": "",
+        "specs": "1 Kablolu",
+        "price": "",
+        "stock": 1,
+        "source_file": "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 3)",
+        "source_files": [
+            "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 3)"
+        ]
+    },
+    {
+        "id": "PRC-3891",
+        "oem": "2-9W",
+        "name": "SOKET&KONNEKTOR 2 KABLOLU",
+        "brand": "",
+        "specs": "2 Kablolu",
+        "price": "",
+        "stock": 1,
+        "source_file": "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 3)",
+        "source_files": [
+            "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 3)"
+        ]
+    },
+    {
+        "id": "PRC-7254",
+        "oem": "10-13W",
+        "name": "SOKET&KONNEKTOR 3 KABLOLU",
+        "brand": "",
+        "specs": "3 Kablolu",
+        "price": "",
+        "stock": 1,
+        "source_file": "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 3)",
+        "source_files": [
+            "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 3)"
+        ]
+    },
+    {
+        "id": "PRC-2918",
+        "oem": "14-16W",
+        "name": "SOKET&KONNEKTOR 4 KABLOLU",
+        "brand": "",
+        "specs": "4 Kablolu",
+        "price": "",
+        "stock": 1,
+        "source_file": "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 3)",
+        "source_files": [
+            "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 3)"
+        ]
+    },
+    {
+        "id": "PRC-5630",
+        "oem": "17-18W",
+        "name": "SOKET&KONNEKTOR 5 KABLOLU",
+        "brand": "",
+        "specs": "5 Kablolu",
+        "price": "",
+        "stock": 1,
+        "source_file": "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 3)",
+        "source_files": [
+            "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 3)"
+        ]
+    },
+    {
+        "id": "PRC-8174",
+        "oem": "18-20W",
+        "name": "SOKET&KONNEKTOR 6 KABLOLU",
+        "brand": "",
+        "specs": "6 Kablolu",
+        "price": "",
+        "stock": 1,
+        "source_file": "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 3)",
+        "source_files": [
+            "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 3)"
+        ]
+    },
+    {
+        "id": "PRC-4092",
+        "oem": "21W",
+        "name": "SOKET&KONNEKTOR 7 KABLOLU",
+        "brand": "",
+        "specs": "7 Kablolu",
+        "price": "",
+        "stock": 1,
+        "source_file": "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 3)",
+        "source_files": [
+            "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 3)"
+        ]
+    },
+    {
+        "id": "PRC-6583",
+        "oem": "22-23W",
+        "name": "SOKET&KONNEKTOR 8 KABLOLU",
+        "brand": "",
+        "specs": "8 Kablolu",
+        "price": "",
+        "stock": 1,
+        "source_file": "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 3)",
+        "source_files": [
+            "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 3)"
+        ]
+    },
+    {
+        "id": "PRC-9321",
+        "oem": "23-24W",
+        "name": "SOKET&KONNEKTOR 9-10-12 KABLOLU",
+        "brand": "",
+        "specs": "9-10-12 Kablolu",
+        "price": "",
+        "stock": 1,
+        "source_file": "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 3)",
+        "source_files": [
+            "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 3)"
+        ]
+    },
+    {
+        "id": "PRC-2745",
+        "oem": "25W",
+        "name": "SOKET&KONNEKTOR 14-15-16-18-20-25-32 KABLOLU",
+        "brand": "",
+        "specs": "14-15-16-18-20-25-32 Kablolu",
+        "price": "",
+        "stock": 1,
+        "source_file": "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 3)",
+        "source_files": [
+            "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 3)"
+        ]
+    },
+    {
+        "id": "PRC-5186",
+        "oem": "26W",
+        "name": "SOKET&KONNEKTOR 48-55-56 KABLOLU",
+        "brand": "",
+        "specs": "48-55-56 Kablolu",
+        "price": "",
+        "stock": 1,
+        "source_file": "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 3)",
+        "source_files": [
+            "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 3)"
+        ]
+    },
+    {
+        "id": "PRC-8903",
+        "oem": "26-28W",
+        "name": "SOKET&KONNEKTOR&AMPUL DUYLARI",
+        "brand": "",
+        "specs": "Ampullu",
+        "price": "",
+        "stock": 1,
+        "source_file": "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 3)",
+        "source_files": [
+            "AEM_HUZUR_SOKET_2024_2025.pdf (sayfa 3)"
+        ]
     }
 ]
