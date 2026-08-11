@@ -20,7 +20,7 @@ import argparse
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from lead_scoring import score_lead, SECTOR_LABELS, _EXCLUDE_PATTERN, _WASH_KEYWORDS_RE, _SERVICE_CATEGORY_PATTERN
-from lead_dedupe import turkish_lower
+from lead_dedupe import turkish_lower, sanitize_phone, is_mobile_phone
 
 LEADS_FILE = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "leads.json")
 
@@ -76,8 +76,19 @@ def main():
     category_recovered = 0
     legacy_demoted = 0
     unchanged = 0
+    phone_cleaned = 0
 
     for lead in leads:
+        # Telefon temizliği HER kayıtta, skorlama dalından bağımsız uygulanır - çoklu numara
+        # ("+90...;+90...") ve sahte/placeholder ("(000) - 0000000") numaralar skor ne olursa
+        # olsun panelde bozuk/yanlış bir WhatsApp linkine yol açıyordu (2026-08-11 tespit edildi).
+        old_phone = lead.get("phone", "")
+        new_phone = sanitize_phone(old_phone)
+        if new_phone != old_phone:
+            phone_cleaned += 1
+            lead["phone"] = new_phone
+            lead["phone_is_mobile"] = is_mobile_phone(new_phone) if new_phone else False
+
         if lead.get("raw_shop_type") is not None:
             raw = {
                 "name": lead.get("company_name", ""),
@@ -125,6 +136,7 @@ def main():
             else:
                 unchanged += 1
 
+    print(f"Telefonu temizlenen (çoklu/sahte/kesik numara düzeltildi): {phone_cleaned}")
     print(f"Tam yeniden puanlanan (ham veri mevcut): {full_rescored}")
     print(f"Kategori metninden kurtarılıp yeniden puanlanan (sector_guess -> category_label): {category_recovered}")
     print(f"İsme göre geriye dönük indirilen (eski kayıt, ham veri yok): {legacy_demoted}")
