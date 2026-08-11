@@ -143,7 +143,13 @@
             const sourceRow = sources.length ? `<li><span class="k">Kaynak Katalog</span><span class="v">${sources.map(esc).join('<br>')}</span></li>` : '';
             const scoreRow = matched_product.match_score != null ? `<li><span class="k">Eşleşme Skoru</span><span class="v">%${esc(matched_product.match_score)}</span></li>` : '';
             const evidenceHtml = matched_product.match_evidence ? `<div class="evidence-box"><span class="evidence-label">🔎 Doğrulama</span>${esc(matched_product.match_evidence)}</div>` : '';
+            // Ürünün geldiği gerçek katalog sayfasının görseli - varsa (2026-08-11'de eklendi,
+            // her katalog ürününde olmayabilir, ör. çok eski/görselsiz taranmış kayıtlar).
+            const imageHtml = matched_product.source_page_image
+                ? `<img src="/catalog-page-image/${encodeURIComponent(matched_product.source_page_image)}" alt="${esc(matched_product.name || 'Ürün görseli')}" style="width:100%; max-height:340px; object-fit:contain; border-radius:8px; margin-bottom:12px; border:1px solid #eee; background:#fafafa;" loading="lazy">`
+                : '';
             kvHtml = `
+                ${imageHtml}
                 <ul class="kv-list">
                     <li><span class="k">Ürün</span><span class="v">${esc(matched_product.name)}</span></li>
                     <li><span class="k">OEM Kodu</span><span class="v"><span class="badge badge-oem">${esc(matched_product.oem)}</span></span></li>
@@ -190,8 +196,12 @@
     }
 
     function catalogItemCardHtml(item) {
+        const thumbHtml = item.source_page_image
+            ? `<img src="/catalog-page-image/${encodeURIComponent(item.source_page_image)}" alt="" style="width:100%; max-height:140px; object-fit:contain; border-radius:6px; margin-bottom:8px; border:1px solid #eee; background:#fafafa;" loading="lazy">`
+            : '';
         return `
             <div class="catalog-item">
+                ${thumbHtml}
                 <h4>${esc(item.name)}</h4>
                 <div><span class="badge badge-oem">${esc(item.oem)}</span> <span class="badge badge-stock ${(item.stock ?? 0) == 0 ? 'zero' : ''}">${esc(item.stock ?? 0)} adet</span>${item.price ? ` <span class="badge badge-price">${esc(item.price)}</span>` : ''}</div>
                 <div style="margin-top:6px; color:#555; font-size:13px;">${esc(item.brand || '')}</div>
