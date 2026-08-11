@@ -33,6 +33,36 @@ def normalize_phone(phone: str) -> str:
     return digits[-10:] if len(digits) >= 10 else ""
 
 
+# Rehber kaynaklarında (turkbusinesscenter.com, sanayi siteleri) bir firma birden fazla numara
+# yayınladığında ham veri "+905323935693;+902428181153" gibi NOKTALI VİRGÜLLE AYRILMIŞ tek bir
+# metin olarak geliyordu. normalize_phone() TÜM string'i tek bir rakam dizisine çevirip sondan
+# 10 hane aldığı için bu durumda iki farklı numaranın rakamları birbirine karışıp GERÇEKTE HİÇBİR
+# NUMARAYA ait olmayan uydurma bir sonuç üretiyordu - hem dedupe_key hem is_mobile_phone hem de
+# panelin WhatsApp linki bu bozuk numarayı kullanıyordu (2026-08-11 canlı veri denetiminde
+# tespit edildi). sanitize_phone() bunu kaynakta çözer: sadece İLK numarayı alır, belirgin
+# sahte/placeholder numaraları (000-0000000, aynı rakamın tekrarı, "-") ve kesik/eksik haneli
+# numaraları eler.
+_FAKE_TAIL_RE = re.compile(r"^(\d)\1{6,}$")  # son 7+ hanenin hepsi aynı rakam (0000000, 2222222 vb.)
+
+
+def sanitize_phone(phone: str) -> str:
+    if not phone:
+        return ""
+    first_segment = re.split(r"[;,/]", phone)[0]
+    digits = re.sub(r"\D", "", first_segment)
+
+    if digits.startswith("90") and len(digits) == 12:
+        digits = "0" + digits[2:]
+    elif len(digits) == 10 and not digits.startswith("0"):
+        digits = "0" + digits
+
+    if len(digits) not in (10, 11):
+        return ""
+    if _FAKE_TAIL_RE.match(digits[-7:]):
+        return ""
+    return digits
+
+
 def is_mobile_phone(phone: str) -> bool:
     """Türkiye'de cep telefonu numaraları 05XX ile başlar (WhatsApp'tan ulaşılabilir).
     Sabit hat numaraları (0212, 0312, 0362 gibi il/ilçe alan kodları) 5 ile başlamaz -
