@@ -151,40 +151,61 @@ def _search_one_query(query: str, delay: float) -> list:
     return results
 
 
-def search_province(province: str, delay: float = 0.3) -> list:
-    """Bir il için TÜM sorgu terimlerini (QUERIES) tarar - tek sorgu Google'ın 60 sonuç/sorgu
-    tavanına hemen çarptığı için (bkz. modül başındaki not), her sorgu kendi 60'lık tavanını
-    getirir. Aynı firma birden fazla sorguda çıkabilir - dedup çağıran tarafta (run_discovery.py,
-    dedupe_key ile) zaten yapılıyor, burada tekrar filtrelemeye gerek yok."""
+# VERİMLİLİK KATMANI (2026-08-12, kullanıcının kendi fikri: "İstanbul/Ankara'da zaten çok veri
+# var, oralarda harcama yapma, az olan yerlere odaklan"). İstanbul/Ankara/İzmir gibi büyük
+# şehirlerde OSM + firma rehberleri ZATEN yüzlerce kayıt buluyor (İstanbul: 788 OSM + 649 rehber
+# kaydı gibi) - bu illerde Google Places'e TAM 12 sorguluk bütçe harcamak büyük ölçüde ÇAKIŞAN
+# (zaten bilinen) firmaları tekrar bulmak demek, bütçe israfı. Küçük Anadolu illerinde ise (ör.
+# Bingöl, Hakkari, Ardahan) mevcut kaynaklar neredeyse hiçbir şey bulamıyor - Google Places'in asıl
+# değeri TAM ORADA. Bu yüzden: zaten çok kaydı olan iller (eşik: 150+ mevcut lead) sadece 2 sorguyla
+# (en genel/en yüksek değerli terimler) "gözden kaçan var mı" diye kontrol edilir, geri kalan
+# TÜM 12 sorgu bütçesi az kayıtlı illere ayrılır - hem daha ucuz hem daha çok YENİ, benzersiz lead.
+_SATURATED_PROVINCE_THRESHOLD = 150
+_REDUCED_QUERIES = QUERIES[:2]  # sadece "oto yedek parça" + "kamyon yedek parça" - en genel iki terim
+
+
+def search_province(province: str, delay: float = 0.3, queries: list = None) -> list:
+    """Bir il için verilen sorgu terimlerini (varsayılan: TÜM QUERIES) tarar - tek sorgu Google'ın
+    60 sonuç/sorgu tavanına hemen çarptığı için (bkz. modül başındaki not), her sorgu kendi 60'lık
+    tavanını getirir. Aynı firma birden fazla sorguda çıkabilir - dedup çağıran tarafta
+    (run_discovery.py, dedupe_key ile) zaten yapılıyor, burada tekrar filtrelemeye gerek yok."""
     if not is_configured():
         return []
     results = []
-    for q in QUERIES:
+    for q in (queries if queries is not None else QUERIES):
         if _request_count >= _MAX_REQUESTS_PER_RUN:
             break
         results.extend(_search_one_query(f"{q} {province}", delay))
     return results
 
 
-def search_all(delay: float = 0.3) -> list:
+def search_all(delay: float = 0.3, existing_counts: dict = None) -> list:
+    """existing_counts verilirse (province -> o ildeki mevcut lead sayısı), iller ÖNCE en az
+    kayıtlı olandan en çok kayıtlıya doğru sıralanır (bütçe tükenirse önce boşluklar doldurulmuş
+    olsun diye) ve doygun iller (bkz. _SATURATED_PROVINCE_THRESHOLD) sadece 2 sorguyla taranır."""
     global _request_count
     if not is_configured():
         print(f"  [google_places] {API_KEY_ENV} tanımlı değil - kaynak atlandı (ücret oluşmadı, kod hazır)")
         return []
     _request_count = 0
+    existing_counts = existing_counts or {}
+    ordered_provinces = sorted(PROVINCES, key=lambda p: existing_counts.get(p, 0))
     all_results = []
-    for province in PROVINCES:
+    for province in ordered_provinces:
         if _request_count >= _MAX_REQUESTS_PER_RUN:
             print(f"  [google_places] Güvenlik tavanına ulaşıldı ({_MAX_REQUESTS_PER_RUN} istek, ~${_MAX_REQUESTS_PER_RUN * 0.032:.0f}) - "
                   f"kalan iller bu koşuda atlandı, bir sonraki haftalık taramada devam eder.")
             break
+        is_saturated = existing_counts.get(province, 0) >= _SATURATED_PROVINCE_THRESHOLD
+        queries = _REDUCED_QUERIES if is_saturated else None
         try:
-            items = search_province(province, delay=delay)
+            items = search_province(province, delay=delay, queries=queries)
         except Exception as e:
             print(f"  [google_places] {province} taraması başarısız - {e}")
             items = []
         for item in items:
             item["province"] = province
-        print(f"  [google_places] {province}: {len(items)} firma ({_request_count} istek toplam, ~${_request_count * 0.032:.1f})")
+        tag = " (doygun il, azaltılmış tarama)" if is_saturated else ""
+        print(f"  [google_places] {province}{tag}: {len(items)} firma ({_request_count} istek toplam, ~${_request_count * 0.032:.1f})")
         all_results.extend(items)
     return all_results
