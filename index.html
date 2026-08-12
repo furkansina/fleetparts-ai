@@ -171,8 +171,22 @@
             const evidenceHtml = matched_product.match_evidence ? `<div class="evidence-box"><span class="evidence-label">🔎 Doğrulama</span>${esc(matched_product.match_evidence)}</div>` : '';
             // Ürünün geldiği gerçek katalog sayfasının görseli - varsa (2026-08-11'de eklendi,
             // her katalog ürününde olmayabilir, ör. çok eski/görselsiz taranmış kayıtlar).
+            // NOT (2026-08-12, gerçek kullanımda tespit edildi): bu, ürünün TEK BAŞINA fotoğrafı
+            // değil - kaynak kataloglarda (Asaska/GÖÇMEN/ORPASAN) bir sayfada birden fazla ürün
+            // ortak bir görsel/tabloyu paylaşıyor (her ürünün sayfadaki konumunu ayrı ayrı kırpmak
+            // için konum verisi yok). Müşteri "yanlış ürün mü eşleşti" diye yanılmasın diye altına
+            // açıklayıcı bir not eklendi.
+            // BUG (2026-08-12, gerçek kullanımda tespit edildi): 340px'e küçültülen sayfa görseli
+            // (çoğu zaman yoğun, çok ürünlü bir tablo/diyagram) OKUNAKSIZ çıkıyordu - metin
+            // seçilemiyordu. Artık hem varsayılan boyut büyütüldü (520px) hem de görsel tıklanabilir
+            // - yeni sekmede TAM ÇÖZÜNÜRLÜKTE açılır, orada tarayıcı/telefonun kendi yakınlaştırma
+            // özelliğiyle rahatça okunabilir.
+            const pageImgUrl = matched_product.source_page_image ? `/catalog-page-image/${encodeURIComponent(matched_product.source_page_image)}` : '';
             const imageHtml = matched_product.source_page_image
-                ? `<img src="/catalog-page-image/${encodeURIComponent(matched_product.source_page_image)}" alt="${esc(matched_product.name || 'Ürün görseli')}" style="width:100%; max-height:340px; object-fit:contain; border-radius:8px; margin-bottom:12px; border:1px solid #eee; background:#fafafa;" loading="lazy">`
+                ? `<a href="${pageImgUrl}" target="_blank" title="Büyütmek için tıkla">
+                       <img src="${pageImgUrl}" alt="${esc(matched_product.name || 'Ürün görseli')}" style="width:100%; max-height:520px; object-fit:contain; border-radius:8px; margin-bottom:4px; border:1px solid #eee; background:#fafafa; cursor:zoom-in;" loading="lazy">
+                   </a>
+                   <div style="font-size:11.5px; color:#999; margin-bottom:12px;">📄 Bu ürünün geçtiği katalog sayfası, büyütmek için görsele dokun (sayfada başka ürünler de görünebilir)</div>`
                 : '';
             kvHtml = `
                 ${imageHtml}
@@ -222,8 +236,11 @@
     }
 
     function catalogItemCardHtml(item) {
+        // Küçük liste küçük resmi (140px) bilinçli olarak öyle kalıyor (grid düzeni için), ama
+        // tıklanınca tam çözünürlükte yeni sekmede açılır - okunaklı hale getirmek için (2026-08-12).
+        const thumbImgUrl = item.source_page_image ? `/catalog-page-image/${encodeURIComponent(item.source_page_image)}` : '';
         const thumbHtml = item.source_page_image
-            ? `<img src="/catalog-page-image/${encodeURIComponent(item.source_page_image)}" alt="" style="width:100%; max-height:140px; object-fit:contain; border-radius:6px; margin-bottom:8px; border:1px solid #eee; background:#fafafa;" loading="lazy">`
+            ? `<a href="${thumbImgUrl}" target="_blank" title="Büyütmek için tıkla"><img src="${thumbImgUrl}" alt="" style="width:100%; max-height:140px; object-fit:contain; border-radius:6px; margin-bottom:8px; border:1px solid #eee; background:#fafafa; cursor:zoom-in;" loading="lazy"></a>`
             : '';
         return `
             <div class="catalog-item">
