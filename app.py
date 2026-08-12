@@ -739,7 +739,13 @@ def find_by_text(query: str) -> dict:
             item_copy["match_score"] = 90
             item_copy["match_evidence"] = f"'{query}' ifadesindeki tüm kelimeler ürün adında/özelliklerinde birebir geçiyor - kataloğda tek eşleşme."
             return item_copy
-        if 2 <= len(name_matches) <= 200:
+        if len(name_matches) >= 2:
+            # BUG (2026-08-12'de canlıda tespit edildi, kullanıcı yakaladı): burada eskiden 200
+            # kayıtlık bir tavan vardı - "hortum" gibi çok yaygın bir kelime 267 kayıtla eşleşince
+            # bu tavanı aşıp yapay zekaya düşüyordu, o da "belirsiz" deyip yine SIFIR sonuç
+            # gösteriyordu - kullanıcının "40 tane olsa bile getir" isteği tam burada bozuluyordu.
+            # Artık tavan YOK - kaç eşleşme olursa olsun (267, 500 fark etmez) hepsi listelenir;
+            # tarayıcı yüzlerce kart göstermekte zorlanmaz, müşteri kendi arasından seçer.
             return {
                 "id": "MULTIPLE_MATCHES",
                 "name": "Birden Fazla Seçenek Bulundu",
@@ -753,8 +759,6 @@ def find_by_text(query: str) -> dict:
                     for c in name_matches
                 ],
             }
-        # 200'den fazla eşleşme (ör. tek başına "kablo" gibi çok genel bir kelime) - bu kadar
-        # kalabalık bir liste faydasızdır, yapay zekaya düşüp anlamsal olarak daraltmasına izin verilir.
 
     # 2. Birebir kod eşleşmesi yoksa, yapay zekaya isim/açıklama bazlı eşleştirt (örn: "DAF sol çamurluk")
     candidates = _select_search_candidates(catalog, query.split())
