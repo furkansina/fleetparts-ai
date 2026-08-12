@@ -158,7 +158,20 @@ def _seed_catalog_from_github_or_default():
 def _fetch_catalog_from_github_api():
     """GitHub'daki catalog.json'ı Contents API'den (CDN'siz, her zaman en güncel commit) çeker.
     Başarısız olursa (GITHUB_TOKEN yok, ağ hatası, vb.) None döner - çağıran kendi yedek planını
-    uygular."""
+    uygular.
+
+    BUG (2026-08-12'de canlıda tespit edildi - Excel katalog entegrasyonu catalog.json'ı 1MB'ın
+    ÜZERİNE çıkardı, bu fonksiyonu SESSİZCE kırdı): GitHub Contents API, 1MB'ı aşan dosyalar için
+    'content' alanını BOŞ döndürüyor (kendi belgelenmiş bir sınırı - bizim kodumuzdaki bir hata
+    değil, ama sonucu aynı derecede tehlikeli). base64.b64decode("") boş bayt döndürüp json.loads
+    bunun üzerinde ValueError fırlatıyordu, bu da geniş 'except Exception: pass' ile yutulup
+    fonksiyon None döndürüyordu - yani hem _refresh_catalog_disk_from_github (HER katalog yazma
+    işleminden önce çağrılıyor, dışarıdan yapılan değişiklikleri korumak için) hem de
+    _seed_catalog_from_github_or_default (Render her yeniden başladığında/diski sıfırladığında
+    çağrılıyor) SESSİZCE devre dışı kalıyordu - ikisi de tam olarak BUNU önlemek için yazılmıştı.
+    Artık 1MB üstü dosyalarda GitHub'ın Git Data API'sine (blob, sha bazlı, 100MB'a kadar CDN'siz
+    ve boyut sınırsız) düşülüyor - metadata çağrısından (sha her zaman gelir, boyuttan bağımsız)
+    alınan sha ile blob içeriği ayrıca çekiliyor."""
     if not GITHUB_REPO:
         return None
     try:
@@ -167,7 +180,17 @@ def _fetch_catalog_from_github_api():
             headers = {"Authorization": f"Bearer {GITHUB_TOKEN}", "Accept": "application/vnd.github+json"}
             res = requests.get(api_url, headers=headers, timeout=15)
             if res.status_code == 200:
-                content_b64 = res.json().get("content", "")
+                meta = res.json()
+                content_b64 = meta.get("content", "")
+                if meta.get("encoding") != "base64" or not content_b64:
+                    sha = meta.get("sha")
+                    if not sha:
+                        return None
+                    blob_url = f"https://api.github.com/repos/{GITHUB_REPO}/git/blobs/{sha}"
+                    blob_res = requests.get(blob_url, headers=headers, timeout=30)
+                    if blob_res.status_code != 200:
+                        return None
+                    content_b64 = blob_res.json().get("content", "")
                 data = json.loads(base64.b64decode(content_b64).decode("utf-8"))
                 if isinstance(data, list) and data:
                     return data
