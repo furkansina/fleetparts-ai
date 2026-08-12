@@ -31,6 +31,12 @@ jobs:
         # Overpass'ın güvenilirliği düzelirse (ya da farklı bir ayna eklenirse) tekrar açılabilir.
         run: python scripts/run_discovery.py --skip-osm
         timeout-minutes: 150
+        env:
+          # BUG (2026-08-12'de tespit edildi): GOOGLE_PLACES_API_KEY GitHub Secrets'a eklenmişti
+          # ama workflow adımına HİÇ aktarılmıyordu - lead_sources_google_places.py'nin
+          # is_configured() kontrolü bu yüzden hep False dönüyordu, Google Places hiç çalışmadı
+          # (ücret de oluşmadı, ama beklenen sonuç da gelmedi). Artık doğru şekilde bağlandı.
+          GOOGLE_PLACES_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
 
       - name: Değişiklikleri commit et
         if: always()
