@@ -631,6 +631,39 @@ def find_by_text(query: str) -> dict:
         item_copy["match_evidence"] = "OEM/katalog kodu ile birebir eşleşme"
         return item_copy
 
+    # 1b. Birebir eşleşme yoksa ama girilen kod, katalogdaki bir veya daha fazla ürünün kodunun
+    # TAM ÖN EKİYSE (ör. müşteri '101042' yazdı, katalogda '101042-0'..'101042-7' gibi 8 renk/
+    # ölçü/marka varyantı var - aynı ürün ailesinin ortak taban kodu) - bu ÇOK yaygın gerçek bir
+    # durum. BUG (2026-08-12'de canlıda tespit edildi): eskiden bu durumda doğrudan yapay zekaya
+    # gidiliyordu, o da "birden fazla aday var, belirsiz" deyip düz 'bulunamadı' dönüyordu -
+    # müşteri hangi varyantı istediğini seçemiyor, sadece 'Katalogda Bulunamadı' görüyordu. Artık
+    # böyle bir durumda yapay zekaya HİÇ gidilmeden (anında, ücretsiz) seçenek listesi sunuluyor.
+    if len(q) >= 3:
+        prefix_matches = [
+            item for item in catalog
+            if turkish_lower(str(item.get("oem", "")).strip()).startswith(q + "-")
+            or turkish_lower(str(item.get("id", "")).strip()).startswith(q + "-")
+        ]
+        if len(prefix_matches) == 1:
+            item_copy = prefix_matches[0].copy()
+            item_copy["match_score"] = 95
+            item_copy["match_evidence"] = f"'{query}' kodunun kataloğdaki tek varyantı - kısmi kod eşleşmesi"
+            return item_copy
+        if len(prefix_matches) > 1:
+            return {
+                "id": "MULTIPLE_MATCHES",
+                "name": "Birden Fazla Seçenek Bulundu",
+                "match_reason": f"'{query}' koduyla başlayan {len(prefix_matches)} farklı ürün varyantı var - lütfen doğru olanı seçin.",
+                "candidates": [
+                    {
+                        "id": c.get("id"), "oem": c.get("oem"), "name": c.get("name"),
+                        "specs": c.get("specs", ""), "price": c.get("price", ""), "stock": c.get("stock"),
+                        "source_page_image": c.get("source_page_image"),
+                    }
+                    for c in prefix_matches
+                ],
+            }
+
     # 2. Birebir kod eşleşmesi yoksa, yapay zekaya isim/açıklama bazlı eşleştirt (örn: "DAF sol çamurluk")
     candidates = _select_search_candidates(catalog, query.split())
     prompt = f"""
@@ -800,6 +833,55 @@ def delete_catalog_source(source_name: str = Form(...), _: str = Depends(require
         "message": f"'{source_name}' kaldırıldı: {removed_count} ürün tamamen silindi"
                    + (f", {updated_count} ürün (başka katalogda da olduğu için) güncellendi" if updated_count else "") + ".",
         "remaining_total": len(new_catalog),
+    }
+
+@app.post("/admin/fix-glued-oem")
+def fix_glued_oem_codes(_: str = Depends(require_admin)):
+    """BAKIM UÇ NOKTASI (2026-08-12'de canlıda tespit edildi): metin tablosu çıkarımındaki
+    ('_try_extract_text_table' - aynı kod bir sayfada birden fazla satırda tekrar ediyormuş gibi
+    göründüğünde koda ismi ekleyip 'benzersizleştiren' dal) bir kenar durumu, bazı ürünlerin OEM
+    alanına yanlışlıkla ürün adının da yapışmasına yol açtı (örn. temiz 'ORP 4011' kaydının yanında
+    bozuk 'ORP 4011 Test Aparatı Dişi...' kaydı da oluştu - aynı ürün iki kez, biri bozuk kodla).
+    Bu hem kataloğu şişiriyor hem de metin/kod aramasında (find_by_text, match_agent) gereksiz
+    belirsizlik yaratıyordu (ör. '101042' araması 16 yarı-çakışan aday görüp hiçbirini seçemiyordu).
+    Temiz eşdeğeri (gerçek kodu) zaten kataloğun başka bir yerinde varsa bozuk kopya silinir; tek
+    kopyaysa (temiz eşdeğeri yoksa) kodu onarılır (isim kısmı koddan ayrılır). İdempotent - tekrar
+    çağrılırsa düzeltilecek bir şey kalmadıysa hiçbir şeyi değiştirmez, boş sonuç döner."""
+    with CATALOG_WRITE_LOCK:
+        catalog = load_catalog()
+        clean_oems = {str(i.get("oem", "")).strip() for i in catalog}
+        to_delete_idx = []
+        repaired = []
+        for idx, item in enumerate(catalog):
+            name = str(item.get("name", "")).strip()
+            oem = str(item.get("oem", "")).strip()
+            if not name or not oem or oem == name or name not in oem:
+                continue
+            pos = oem.find(name)
+            true_code = oem[:pos].strip()
+            if not true_code:
+                continue  # isim oem'in en basinda degil - farkli/beklenmeyen bir durum, dokunma
+            if true_code in clean_oems and true_code != oem:
+                to_delete_idx.append(idx)
+            else:
+                item["oem"] = true_code
+                repaired.append({"id": item.get("id"), "eski_kod": oem, "yeni_kod": true_code})
+        if not to_delete_idx and not repaired:
+            return {"status": "success", "silinen": 0, "onarilan": 0, "kalan_toplam": len(catalog), "message": "Düzeltilecek bozuk kayıt bulunamadı."}
+        delete_set = set(to_delete_idx)
+        deleted_info = [{"id": catalog[i].get("id"), "oem": catalog[i].get("oem")} for i in to_delete_idx]
+        new_catalog = [item for i, item in enumerate(catalog) if i not in delete_set]
+        save_catalog(new_catalog)
+    sync_catalog_to_github()
+    _catalog_cache["data"] = new_catalog
+    _catalog_cache["fetched_at"] = time.time()
+    return {
+        "status": "success",
+        "silinen": len(deleted_info),
+        "onarilan": len(repaired),
+        "silinen_detay": deleted_info[:30],
+        "onarilan_detay": repaired[:30],
+        "kalan_toplam": len(new_catalog),
     }
 
 @app.get("/katalog-yonetim", response_class=HTMLResponse)
@@ -1133,13 +1215,22 @@ def _try_extract_text_table(page_words: list, min_rows: int = 4, min_coverage: f
     for x in all_items:
         seen_codes[x["code"]] = seen_codes.get(x["code"], 0) + 1
 
+    # BUG (2026-08-12'de canlıda tespit edildi): burası eskiden TÜM ürün adını koda
+    # yapıştırıyordu (ör. '101042-0' yerine '101042-0 Kabin Temizleme Hortumu PE Plastik
+    # Tabancalı Rekorsuz') - bu hem kod alanını anlamsızlaştırıyor hem de metin/kod aramasında
+    # (find_by_text, match_agent) gereksiz belirsizlik yaratıyordu. Artık sadece kısa, açıkça
+    # sentetik bir sıra eki ekleniyor - ürünün asıl ayırt edici bilgisi zaten 'name' alanında
+    # duruyor, koda tekrar taşınmasına gerek yok.
+    code_occurrence = {}
     result = []
     for x in all_items:
         if not x["name"] and not x["price"]:
             continue
         code = x["code"]
-        if seen_codes.get(code, 0) > 1 and x["name"]:
-            code = f"{code} {x['name']}"
+        if seen_codes.get(code, 0) > 1:
+            code_occurrence[code] = code_occurrence.get(code, 0) + 1
+            if code_occurrence[code] > 1:
+                code = f"{code}-alt{code_occurrence[code]}"
         result.append({
             "id": code,
             "oem": code,
