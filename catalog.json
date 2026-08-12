@@ -9428,23 +9428,31 @@
   {
     "id": "41213753",
     "oem": "41213753",
-    "name": "IV90.9122 ÇAMURLUK ÖN SAĞ / SOL",
+    "name": "ÇAMURLUK SAĞ",
     "brand": "",
     "specs": "",
     "price": "",
     "stock": 1,
-    "source_file": "GÖÇMEN KATALOG .pdf (sayfa 30, metin katmanindan otomatik cikarildi)",
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1785)",
+    "source_files": [
+      "GÖÇMEN KATALOG .pdf (sayfa 30, metin katmanindan otomatik cikarildi)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1785)"
+    ],
     "source_page_image": "GÖÇMEN_KATALOG_.pdf_sayfa30.png"
   },
   {
     "id": "41213754",
     "oem": "41213754",
-    "name": "IV90.9123 ÇAMURLUK ARKA SAĞ/SOL",
+    "name": "ÇAMURLUK SOL",
     "brand": "",
     "specs": "",
     "price": "",
     "stock": 1,
-    "source_file": "GÖÇMEN KATALOG .pdf (sayfa 30, metin katmanindan otomatik cikarildi)",
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1786)",
+    "source_files": [
+      "GÖÇMEN KATALOG .pdf (sayfa 30, metin katmanindan otomatik cikarildi)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1786)"
+    ],
     "source_page_image": "GÖÇMEN_KATALOG_.pdf_sayfa30.png"
   },
   {
@@ -9483,24 +9491,32 @@
   {
     "id": "41213721",
     "oem": "41213721",
-    "name": "ÇAMURLUK KAPAĞI ÖN SOL",
+    "name": "ÇAMURLUK ÖN KAPAK SOL",
     "brand": "",
     "specs": "",
     "price": "",
     "stock": 1,
-    "source_file": "GÖÇMEN KATALOG .pdf (sayfa 30, metin katmanindan otomatik cikarildi)",
-    "source_page_image": "GÖÇMEN_KATALOG_.pdf_sayfa30.png"
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1790)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1790.png",
+    "source_files": [
+      "GÖÇMEN KATALOG .pdf (sayfa 30, metin katmanindan otomatik cikarildi)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1790)"
+    ]
   },
   {
     "id": "41213720",
     "oem": "41213720",
-    "name": "ÇAMURLUK KAPAĞI ÖN SAĞ",
+    "name": "ÇAMURLUK ÖN KAPAK SAG",
     "brand": "",
     "specs": "",
     "price": "",
     "stock": 1,
-    "source_file": "GÖÇMEN KATALOG .pdf (sayfa 30, metin katmanindan otomatik cikarildi)",
-    "source_page_image": "GÖÇMEN_KATALOG_.pdf_sayfa30.png"
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1789)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1789.png",
+    "source_files": [
+      "GÖÇMEN KATALOG .pdf (sayfa 30, metin katmanindan otomatik cikarildi)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1789)"
+    ]
   },
   {
     "id": "1079981",
@@ -20442,28 +20458,36 @@
   {
     "id": "PRC-24530e",
     "oem": "LH",
-    "name": "7482647540",
+    "name": "5801586269",
     "brand": "",
     "specs": "",
     "price": "",
     "stock": 1,
-    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 437)",
-    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir437.png",
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1779)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1779.png",
     "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1774)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1776)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1778)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1779)",
       "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 437)"
     ]
   },
   {
     "id": "PRC-88e804",
     "oem": "RH",
-    "name": "7482647541",
+    "name": "5801586268",
     "brand": "",
     "specs": "",
     "price": "",
     "stock": 1,
-    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 438)",
-    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir438.png",
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1780)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1780.png",
     "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1773)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1775)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1777)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1780)",
       "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 438)"
     ]
   },
@@ -42699,6 +42723,616 @@
     "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1772.png",
     "source_files": [
       "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1772)"
+    ]
+  },
+  {
+    "id": "PRC-ee6ba1",
+    "oem": "KAPI",
+    "name": "504052935",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1774)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1774.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1773)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1774)"
+    ]
+  },
+  {
+    "id": "PRC-70e2fa",
+    "oem": "KOLU",
+    "name": "504052935",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1774)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1774.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1773)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1774)"
+    ]
+  },
+  {
+    "id": "PRC-756ec4",
+    "oem": "STRALİS",
+    "name": "504042187",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1778)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1778.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1773)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1774)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1775)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1776)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1777)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1778)"
+    ]
+  },
+  {
+    "id": "PRC-47d271",
+    "oem": "CAM",
+    "name": "5801321875",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1776)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1776.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1775)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1776)"
+    ]
+  },
+  {
+    "id": "PRC-5ab3c4",
+    "oem": "KRİKOSU",
+    "name": "5801321875",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1776)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1776.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1775)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1776)"
+    ]
+  },
+  {
+    "id": "PRC-a8d77a",
+    "oem": "MOTORLU",
+    "name": "5801321875",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1776)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1776.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1775)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1776)"
+    ]
+  },
+  {
+    "id": "PRC-e2b8cd",
+    "oem": "FAR",
+    "name": "5801586268",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1780)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1780.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1777)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1778)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1779)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1780)"
+    ]
+  },
+  {
+    "id": "PRC-e062b0",
+    "oem": "YAN",
+    "name": "504042187",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1778)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1778.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1777)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1778)"
+    ]
+  },
+  {
+    "id": "PRC-827c05",
+    "oem": "KAPAK",
+    "name": "5801586268",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1780)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1780.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1777)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1778)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1779)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1780)"
+    ]
+  },
+  {
+    "id": "PRC-28312e",
+    "oem": "YIKAMA",
+    "name": "5801586268",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1780)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1780.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1779)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1780)"
+    ]
+  },
+  {
+    "id": "PRC-e265cc",
+    "oem": "504187506",
+    "name": "TAMPON KAPAĞI SAĞ",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1781)",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1781)"
+    ]
+  },
+  {
+    "id": "PRC-6e04ea",
+    "oem": "504187507",
+    "name": "TAMPON KAPAĞI SOL",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1782)",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1782)"
+    ]
+  },
+  {
+    "id": "PRC-9d43ed",
+    "oem": "504187426",
+    "name": "TAMPON KAPAĞI Sag",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1783)",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1783)"
+    ]
+  },
+  {
+    "id": "PRC-f04c93",
+    "oem": "504187427",
+    "name": "TAMPON KAPAĞI Sol",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1784)",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1784)"
+    ]
+  },
+  {
+    "id": "PRC-2790c6",
+    "oem": "41298973",
+    "name": "ÇAMURLUK ARKA KAPAK SAG",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1787)",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1787)"
+    ]
+  },
+  {
+    "id": "PRC-78b631",
+    "oem": "41298974",
+    "name": "ÇAMURLUK ARKA KAPAK SOL",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1788)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1788.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1788)"
+    ]
+  },
+  {
+    "id": "PRC-1f8274",
+    "oem": "504150539",
+    "name": "AYNA SAĞ ORTA KOL",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1791)",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1791)"
+    ]
+  },
+  {
+    "id": "PRC-239c74",
+    "oem": "504150538",
+    "name": "AYNA SOL ORTA KOL",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1792)",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1792)"
+    ]
+  },
+  {
+    "id": "PRC-929e46",
+    "oem": "504150551",
+    "name": "AYNA SOL UZUN KOL",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1793)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1793.jpg",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1793)"
+    ]
+  },
+  {
+    "id": "PRC-6161a0",
+    "oem": "504150552",
+    "name": "AYNA SAG UZUN KOL",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1794)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1794.jpg",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1794)"
+    ]
+  },
+  {
+    "id": "PRC-bd8c2d",
+    "oem": "5801334614",
+    "name": "AYNA SOL KISA KOL",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1795)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1795.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1795)"
+    ]
+  },
+  {
+    "id": "PRC-d05433",
+    "oem": "504150526",
+    "name": "AYNA SOL KISA KOL",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1795)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1795.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1795)"
+    ]
+  },
+  {
+    "id": "PRC-3f85f0",
+    "oem": "504150527",
+    "name": "AYNA SAG KISA KOL",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1796)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1796.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1796)"
+    ]
+  },
+  {
+    "id": "PRC-1c5254",
+    "oem": "5801334610",
+    "name": "AYNA SAG KISA KOL",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1796)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1796.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1796)"
+    ]
+  },
+  {
+    "id": "PRC-cc12db",
+    "oem": "504012957",
+    "name": "HAVA FİLİTRE BACASI e.m",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1797)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1797.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1797)"
+    ]
+  },
+  {
+    "id": "PRC-29059f",
+    "oem": "504077804",
+    "name": "HAVA FİLİTRE BACASI e.m",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1797)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1797.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1797)"
+    ]
+  },
+  {
+    "id": "PRC-b5987c",
+    "oem": "98417681",
+    "name": "HAVA FİLİTRE BACASI e.m",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1797)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1797.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1797)"
+    ]
+  },
+  {
+    "id": "PRC-415404",
+    "oem": "500317004",
+    "name": "HAVA FİLİTRE BACASI",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1798)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1798.jpg",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1798)"
+    ]
+  },
+  {
+    "id": "PRC-fad357",
+    "oem": "98417358",
+    "name": "BASAMAK SOL",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1799)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1799.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1799)"
+    ]
+  },
+  {
+    "id": "PRC-730c5a",
+    "oem": "98417357",
+    "name": "BASAMAK SAĞ",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1800)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1800.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1800)"
+    ]
+  },
+  {
+    "id": "PRC-34723f",
+    "oem": "504053093",
+    "name": "BASAMAK SAG",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1801)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1801.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1801)"
+    ]
+  },
+  {
+    "id": "PRC-094f7c",
+    "oem": "504053092",
+    "name": "BASAMAK SOL",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1802)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1802.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1802)"
+    ]
+  },
+  {
+    "id": "PRC-0d6026",
+    "oem": "8143813",
+    "name": "RÜZGARLIK SOL",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1803)",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1803)"
+    ]
+  },
+  {
+    "id": "PRC-5a53ff",
+    "oem": "8143812",
+    "name": "RÜZGARLIK SAĞ",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1804)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1804.jpg",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1804)"
+    ]
+  },
+  {
+    "id": "PRC-83ef94",
+    "oem": "504187339",
+    "name": "TAMPON KAPAK",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1805)",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1805)"
+    ]
+  },
+  {
+    "id": "PRC-f266e8",
+    "oem": "504187294",
+    "name": "TAMPON KAPAK",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1806)",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1806)"
+    ]
+  },
+  {
+    "id": "PRC-234c30",
+    "oem": "500375473",
+    "name": "BASAMAK YUVASI ÜST YÜKSEK KABİN SAĞ",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1807)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1807.jpg",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1807)"
+    ]
+  },
+  {
+    "id": "PRC-4927ff",
+    "oem": "504081140",
+    "name": "BASAMAK YUVASI ÜST YÜKSEK KABİN SAĞ",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1807)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1807.jpg",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1807)"
+    ]
+  },
+  {
+    "id": "PRC-13f7ec",
+    "oem": "500375472",
+    "name": "BASAMAK YUVASI ÜST YÜKSEK KABİN SOL",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1808)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1808.jpg",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1808)"
+    ]
+  },
+  {
+    "id": "PRC-98616a",
+    "oem": "504081139",
+    "name": "BASAMAK YUVASI ÜST YÜKSEK KABİN SOL",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1808)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1808.jpg",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1808)"
+    ]
+  },
+  {
+    "id": "PRC-9d724a",
+    "oem": "504103239",
+    "name": "BASAMAK YUVASI ÜST ALÇAK KABİN SAG",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1809)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1809.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1809)"
+    ]
+  },
+  {
+    "id": "PRC-5e1afd",
+    "oem": "504103238",
+    "name": "BASAMAK YUVASI ÜST ALÇAK KABİN SOL",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1810)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1810.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1810)"
+    ]
+  },
+  {
+    "id": "PRC-0ad899",
+    "oem": "504054940",
+    "name": "TECTOR MAŞPİYEL 130/180 RH",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1811)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1811.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1811)"
     ]
   }
 ]
