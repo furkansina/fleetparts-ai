@@ -111,8 +111,14 @@ _PARTS_CATEGORY_KEYWORDS = [
     "yedek parça", "yedek parca", "parça", "parca", "aksesuar", "hurdacı", "hurdaci",
     "çıkma", "cikma", "levazımat", "levazimat", "nalbur", "lastik",
 ]
-_SERVICE_CATEGORY_PATTERN = re.compile("|".join(re.escape(k) for k in _SERVICE_ONLY_CATEGORY_KEYWORDS))
-_PARTS_CATEGORY_PATTERN = re.compile("|".join(re.escape(k) for k in _PARTS_CATEGORY_KEYWORDS))
+# BUG (2026-08-12'de bir kod denetiminde tespit edildi): bu iki desende hiç \b sınırı yoktu -
+# _KEYWORD_PATTERN/_EXCLUDE_PATTERN'de aynı sınıf sorun bulunup düzeltilmişti (bkz. yukarıdaki
+# notlar) ama buraya uygulanmamıştı. Saf alt-dize araması, kategori metninde kelimenin bir
+# PARÇASI olarak geçen alakasız eşleşmelere yol açabilir. Sadece kelime BAŞINDA sınır aranıyor
+# (yine Türkçe çekim eklerini - "vinç" YERİNE "vinçli" gibi - kaçırmamak için sondaki \b bilinçli
+# olarak eklenmedi, aynı gerekçeyle).
+_SERVICE_CATEGORY_PATTERN = re.compile(r"\b(" + "|".join(re.escape(k) for k in _SERVICE_ONLY_CATEGORY_KEYWORDS) + r")")
+_PARTS_CATEGORY_PATTERN = re.compile(r"\b(" + "|".join(re.escape(k) for k in _PARTS_CATEGORY_KEYWORDS) + r")")
 
 
 _MIN_SOURCE_YEAR = 2024
