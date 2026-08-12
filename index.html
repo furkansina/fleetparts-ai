@@ -66,22 +66,9 @@
 
 <div class="container">
     <h1>FleetParts AI 🚚</h1>
+    <div style="text-align:center; margin-bottom:14px;"><a href="/katalog" style="color:#337ab7; font-size:13.5px; text-decoration:none;">📦 Tüm kataloğu gözat →</a></div>
     <div id="backupWarning"></div>
     <div id="usageBadge" style="text-align:center; font-size:12px; color:#888; margin-bottom:14px;"></div>
-
-    <div class="section">
-        <h3>Katalog / PDF / Görsel Yükle</h3>
-        <form id="catalogForm">
-            <input type="file" name="files" multiple accept=".pdf, .png, .jpg, .jpeg" required>
-            <button type="submit">Katalog Dosyalarını İşle ve Ekle</button>
-        </form>
-        <button class="btn-blue" onclick="checkCatalog()" type="button">Şu Anki Kataloğu Görüntüle</button>
-    </div>
-
-    <div class="section">
-        <h3>Yüklenmiş Kataloglar</h3>
-        <div id="catalogSourcesList"><span class="placeholder">Yükleniyor...</span></div>
-    </div>
 
     <div class="section">
         <h3>Parça Fotoğrafı İncele & Katalogda Bul</h3>
@@ -225,10 +212,6 @@
         `;
     }
 
-    // Katalog büyüdükçe (yüzlerce ürün) elle scroll edip aramak pratik olmaktan çıkıyor - tüm
-    // liste bellekte tutulup isim/OEM/marka/kaynak dosyaya göre ANINDA (sunucuya gitmeden) filtrelenir.
-    let allCatalogItems = [];
-
     function sourceFilesHtml(item) {
         const sources = (item.source_files && item.source_files.length) ? item.source_files : (item.source_file ? [item.source_file] : []);
         if (!sources.length) return '';
@@ -251,93 +234,6 @@
                 <div class="specs">${esc(item.specs || '')}</div>
                 ${sourceFilesHtml(item)}
             </div>
-        `;
-    }
-
-    // Kaç FARKLI katalog dosyası yüklenmiş, her birinde kaç ürün var - eski bir katalogu (ör. yeni
-    // bir fiyat listesiyle çakışmasın diye) tek tıkla kaldırabilmek için. Bu uç nokta admin
-    // korumalı (require_admin) - tarayıcı zaten sayfa yüklenirken şifre sormuş/önbelleklemiş olur.
-    async function loadCatalogSources() {
-        const el = document.getElementById('catalogSourcesList');
-        try {
-            const data = await fetchJson('/catalog-sources');
-            const sources = data.sources || [];
-            if (!sources.length) {
-                el.innerHTML = `<span class="placeholder">Henüz katalog yüklenmemiş.</span>`;
-                return;
-            }
-            el.innerHTML = sources.map(s => `
-                <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid #eee;">
-                    <span>📄 ${esc(s.name)} <span style="color:#888; font-size:12.5px;">(${s.count} ürün)</span></span>
-                    <button type="button" class="btn-del" onclick="deleteCatalogSource('${esc(s.name).replace(/'/g, "\\'")}')" title="Bu kataloğu tamamen kaldır">✕ Kaldır</button>
-                </div>
-            `).join('');
-        } catch (err) {
-            el.innerHTML = `<span class="placeholder">Katalog listesi yüklenemedi (yönetici girişi gerekebilir): ${esc(err.message || String(err))}</span>`;
-        }
-    }
-
-    async function deleteCatalogSource(name) {
-        if (!confirm(`'${name}' kataloğunu kaldırmak istediğine emin misin?\n\nSadece bu katalogda olan ürünler tamamen silinir; başka bir katalogda da geçen ürünler kalır (sadece bu kataloğun referansı kaldırılır).`)) return;
-        try {
-            const fd = new FormData();
-            fd.append('source_name', name);
-            const data = await fetchJson('/delete-catalog-source', { method: 'POST', body: fd });
-            if (data.status !== 'success') { alert(data.message || 'Silinemedi.'); return; }
-            alert(data.message);
-            loadCatalogSources();
-            if (allCatalogItems.length) checkCatalog();
-        } catch (err) {
-            alert(err.message || String(err));
-        }
-    }
-
-    function renderFilteredCatalog(filterText) {
-        const q = (filterText || '').trim().toLocaleLowerCase('tr-TR');
-        const filtered = !q ? allCatalogItems : allCatalogItems.filter(item => {
-            const sources = (item.source_files && item.source_files.length) ? item.source_files.join(' ') : (item.source_file || '');
-            const hay = `${item.name || ''} ${item.oem || ''} ${item.id || ''} ${item.brand || ''} ${item.specs || ''} ${sources}`.toLocaleLowerCase('tr-TR');
-            return hay.includes(q);
-        });
-        const grid = document.getElementById('catalogGrid');
-        const countEl = document.getElementById('catalogCount');
-        if (countEl) countEl.textContent = q ? `${filtered.length} / ${allCatalogItems.length} parça` : `${allCatalogItems.length} parça`;
-        if (grid) grid.innerHTML = filtered.length ? filtered.map(catalogItemCardHtml).join('') : `<div class="placeholder">Aramayla eşleşen ürün yok.</div>`;
-    }
-
-    function renderCatalog(data) {
-        allCatalogItems = data.catalog || [];
-        if (allCatalogItems.length === 0) {
-            out.innerHTML = `<div class="card warn"><div class="card-title">⚠️ Katalog Boş</div><div>Henüz hiç parça eklenmemiş.</div></div>`;
-            return;
-        }
-        out.innerHTML = `
-            <div class="card ok">
-                <div class="card-title">📦 Kataloğunuz (<span id="catalogCount">${allCatalogItems.length} parça</span>)</div>
-                <input id="catalogSearch" type="text" placeholder="🔎 İsim, OEM kodu, marka veya kaynak dosyaya göre ara..." style="margin-bottom:10px;" oninput="renderFilteredCatalog(this.value)">
-                <div class="catalog-grid" id="catalogGrid"></div>
-            </div>
-        `;
-        renderFilteredCatalog('');
-    }
-
-    function renderUploadResult(data) {
-        const ok = data.status === 'success';
-        out.innerHTML = `
-            <div class="card ${ok ? 'ok' : 'err'}">
-                <div class="card-title">${ok ? '✅' : '❌'} Katalog Yükleme Sonucu</div>
-                <div>${esc(data.message)}</div>
-            </div>
-        `;
-    }
-
-    function showUploadProgress(job) {
-        const pct = job.total_files ? Math.round((job.done_files / job.total_files) * 100) : 0;
-        const current = job.current_file ? ` — şu an: ${esc(job.current_file)}` : '';
-        const pagesInfo = job.pages_done ? ` (${job.pages_done} sayfa tarandı)` : '';
-        out.innerHTML = `
-            <div class="loading">Katalog taranıyor: ${job.done_files}/${job.total_files} dosya (%${pct})${pagesInfo}${current}<span class="dots"></span></div>
-            <div style="color:#888; font-size:12px; margin-top:6px;">Çok sayfalı PDF'ler birkaç dakika sürebilir, sayfayı kapatmadan bekleyin. Her sayfa taranır taranmaz hemen kalıcı olarak kaydediliyor, hiçbir ilerleme kaybolmaz.</div>
         `;
     }
 
@@ -412,82 +308,6 @@
         }
     });
 
-    async function checkCatalog() {
-        showLoading('Katalog yükleniyor');
-        try {
-            const data = await fetchJson('/get-catalog', undefined, (attempt) => showLoading(wakingUpMessage('Katalog yükleniyor', attempt)));
-            renderCatalog(data);
-        } catch (err) {
-            showPlainError(err.message || String(err));
-        }
-    }
-
-    // Yükleme isteği dosyaları alıp HEMEN bir iş no ile döner - gerçek tarama (çok sayfalı bir
-    // PDF birkaç dakika sürebilir) arka planda devam eder, biz durumunu birkaç saniyede bir
-    // soruyoruz. Eskiden tek bir uzun istek bekleniyordu, bu da Render'ın uzun süren istekleri
-    // kesmesi yüzünden sürekli "baştan yeniden gönderme" döngüsüne giriyordu (gerçek bir
-    // denemede tespit edildi) - artık tek istek hep kısa sürüyor.
-    async function pollUploadJob(jobId) {
-        while (true) {
-            await new Promise(r => setTimeout(r, 3000));
-            let job;
-            try {
-                job = await fetchJson(`/upload-catalog-status/${jobId}`);
-            } catch (err) {
-                showPlainError(err.message || String(err));
-                return null;
-            }
-            if (job.status === 'processing') {
-                showUploadProgress(job);
-                continue;
-            }
-            return job;
-        }
-    }
-
-    // Çok sayfalı büyük bir katalog taranırken sunucu ara sıra kendiliğinden yeniden başlayabiliyor
-    // (gerçek kullanımda tespit edildi - iş takibi o an sıfırlanıyor, ama taranan sayfalar zaten
-    // kalıcı kaydedildiği için hiçbir şey kaybolmuyor). Eskiden bu durumda kullanıcı bir hata mesajı
-    // görüp AYNI dosyayı elle tekrar yüklemek zorunda kalıyordu - "sürekli PDF göndermek zorunda
-    // kalmamalıyım" geri bildirimi üzerine artık bunu tarayıcı KENDİSİ otomatik yapıyor: aynı
-    // dosyalar (input hâlâ seçili) otomatik olarak tekrar gönderilir, kullanıcı hiçbir şey yapmaz.
-    async function runCatalogUpload(formData) {
-        const maxResumeAttempts = 40;
-        for (let resumeAttempt = 0; resumeAttempt < maxResumeAttempts; resumeAttempt++) {
-            showLoading(resumeAttempt === 0 ? 'Dosyalar yükleniyor' : `Sunucu kısa süreliğine yeniden başladı, kaldığı yerden otomatik devam ediliyor (${resumeAttempt + 1}. deneme)`);
-            let data;
-            try {
-                data = await fetchJson('/upload-catalog-files', { method: 'POST', body: formData }, (attempt) => showLoading(wakingUpMessage('Dosyalar yükleniyor', attempt)));
-            } catch (err) {
-                showPlainError(err.message || String(err));
-                return;
-            }
-            if (data.status === 'error') {
-                renderUploadResult(data);
-                return;
-            }
-            const result = await pollUploadJob(data.job_id);
-            if (!result) return;
-            if (result.status === 'success') {
-                renderUploadResult(result);
-                return;
-            }
-            if (result.status === 'error' && result.resumable) {
-                await new Promise(r => setTimeout(r, 5000));
-                continue;
-            }
-            renderUploadResult(result);
-            return;
-        }
-        showPlainError('Sunucu arka arkaya yeniden başladı, otomatik deneme sınırına ulaşıldı. Az önce eklenmiş ürünler kayıp değil - "Şu Anki Kataloğu Görüntüle" ile kontrol edip birkaç dakika sonra aynı dosyayı tekrar yükleyebilirsin.');
-    }
-
-    document.getElementById('catalogForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const formData = new FormData(e.target);
-        await runCatalogUpload(formData);
-    });
-
     function poolBadgeHtml(label, pool) {
         if (!pool) return '';
         if (pool.real_remaining_tokens != null) {
@@ -526,7 +346,6 @@
         } catch (err) { /* sessizce geç, kritik değil */ }
     }
     loadUsageBadge();
-    loadCatalogSources();
 </script>
 
 </body>
