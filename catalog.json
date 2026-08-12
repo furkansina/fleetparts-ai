@@ -20020,29 +20020,31 @@
   {
     "id": "PRC-8bbe8e",
     "oem": "7482589730",
-    "name": "PANJUR MENTEŞESİ T SERİ RH",
+    "name": "ALT PANJUR MENTEŞESİ LH T EVO",
     "brand": "",
     "specs": "",
     "price": "",
     "stock": 1,
-    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 423)",
-    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir423.png",
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 481)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir481.png",
     "source_files": [
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 423)"
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 423)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 481)"
     ]
   },
   {
     "id": "PRC-4d98d0",
     "oem": "7482589732",
-    "name": "PANJUR MENTEŞESİ T SERİ LH",
+    "name": "ALT PANJUR MENTEŞESİ RH T EVO",
     "brand": "",
     "specs": "",
     "price": "",
     "stock": 1,
-    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 424)",
-    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir424.png",
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 482)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir482.png",
     "source_files": [
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 424)"
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 424)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 482)"
     ]
   },
   {
@@ -20605,6 +20607,398 @@
     "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir455.png",
     "source_files": [
       "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 455)"
+    ]
+  },
+  {
+    "id": "PRC-16a4f2",
+    "oem": "7482585433",
+    "name": "FAR BRAKETİ T SERİ RH",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 456)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir456.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 456)"
+    ]
+  },
+  {
+    "id": "PRC-f556f3",
+    "oem": "7482585431",
+    "name": "FAR BRAKETİ T SERİ LH",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 457)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir457.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 457)"
+    ]
+  },
+  {
+    "id": "PRC-b4204e",
+    "oem": "7482510549",
+    "name": "KAPI EKİ RH T SERİ",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 458)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir458.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 458)"
+    ]
+  },
+  {
+    "id": "PRC-96b1c2",
+    "oem": "7482510548",
+    "name": "KAPI EKİ LH T SERİ",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 459)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir459.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 459)"
+    ]
+  },
+  {
+    "id": "PRC-a2d15e",
+    "oem": "7482250945",
+    "name": "KÖŞE PANEL RH T SERİ",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 460)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir460.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 460)"
+    ]
+  },
+  {
+    "id": "PRC-c763eb",
+    "oem": "7482221093",
+    "name": "KÖŞE PANEL LH T SERİ",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 461)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir461.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 461)"
+    ]
+  },
+  {
+    "id": "PRC-944e91",
+    "oem": "7482702818",
+    "name": "T SERİ KAPI RH",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 462)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir462.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 462)"
+    ]
+  },
+  {
+    "id": "PRC-f4c6ec",
+    "oem": "7482702620",
+    "name": "T SERİ KAPI LH",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 463)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir463.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 463)"
+    ]
+  },
+  {
+    "id": "PRC-cc176e",
+    "oem": "7484519095",
+    "name": "T SERİ KAPI DÖŞEMESİ LH",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 464)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir464.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 464)"
+    ]
+  },
+  {
+    "id": "PRC-219d25",
+    "oem": "7484519097",
+    "name": "T SERİ KAPI DÖŞEMESİ RH",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 465)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir465.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 465)"
+    ]
+  },
+  {
+    "id": "PRC-fbd288",
+    "oem": "21248263",
+    "name": "HAVA FİLİTRE KAZANI T SERİ",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 466)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir466.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 466)"
+    ]
+  },
+  {
+    "id": "PRC-d4e8e9",
+    "oem": "7421337519",
+    "name": "HAVA FİLİTRE KAZANI T SERİ",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 466)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir466.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 466)"
+    ]
+  },
+  {
+    "id": "PRC-e2adb9",
+    "oem": "7482303046",
+    "name": "CAM SU DEPOSU T SERİ",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 467)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir467.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 467)"
+    ]
+  },
+  {
+    "id": "PRC-565cc0",
+    "oem": "5001835096",
+    "name": "SİLECEK MEKANIZMASI 440",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 468)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir468.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 468)"
+    ]
+  },
+  {
+    "id": "PRC-bc8d41",
+    "oem": "7420741081",
+    "name": "ÇAMURLUK KOLU",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 469)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir469.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 469)"
+    ]
+  },
+  {
+    "id": "PRC-387984",
+    "oem": "5010505445",
+    "name": "Renault Trucks Midlum, Premium /TR/PR, Kerax, Magnum E-Tech 435MM",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 470)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir470.jpg",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 470)"
+    ]
+  },
+  {
+    "id": "PRC-4ca32e",
+    "oem": "7420981959",
+    "name": "Renault Trucks Midlum, Premium /TR/PR, Kerax 600MM",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 471)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir471.jpg",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 471)"
+    ]
+  },
+  {
+    "id": "PRC-ea94f3",
+    "oem": "7484901145",
+    "name": "TAMPON KÖŞESİ RH T EVO",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 472)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir472.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 472)"
+    ]
+  },
+  {
+    "id": "PRC-5d76c9",
+    "oem": "7484901130",
+    "name": "TAMPON KÖŞESİ LH T EVO",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 473)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir473.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 473)"
+    ]
+  },
+  {
+    "id": "PRC-b39c00",
+    "oem": "748520869",
+    "name": "TAMPON ORTA T EVO",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 474)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir474.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 474)"
+    ]
+  },
+  {
+    "id": "PRC-495d20",
+    "oem": "7484906019",
+    "name": "FAR ÇERÇEVESİ RH T EVO",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 475)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir475.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 475)"
+    ]
+  },
+  {
+    "id": "PRC-943f44",
+    "oem": "7484906018",
+    "name": "FAR ÇERÇEVESİ LH T EVO",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 476)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir476.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 476)"
+    ]
+  },
+  {
+    "id": "PRC-09bc74",
+    "oem": "7484903961",
+    "name": "FAR YIKAMA KAPAK LH T EVO",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 477)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir477.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 477)"
+    ]
+  },
+  {
+    "id": "PRC-20c61c",
+    "oem": "7423378629",
+    "name": "FAR YIKAMA KAPAK RH T EVO",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 478)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir478.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 478)"
+    ]
+  },
+  {
+    "id": "PRC-020cd3",
+    "oem": "7423969629",
+    "name": "FAR YUVASI LH T EVO",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 479)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir479.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 479)"
+    ]
+  },
+  {
+    "id": "PRC-7cbd27",
+    "oem": "7423969631",
+    "name": "FAR YUVASI RH T EVO",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 480)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir480.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 480)"
+    ]
+  },
+  {
+    "id": "PRC-a86cb9",
+    "oem": "7484902225",
+    "name": "TAMPON ÇEKİ KAPAK LH T EVO",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 483)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir483.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 483)"
+    ]
+  },
+  {
+    "id": "PRC-9052cd",
+    "oem": "7484902229",
+    "name": "TAMPON ÇEKİ KAPAK RH T EVO",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 484)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir484.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 484)"
     ]
   }
 ]
