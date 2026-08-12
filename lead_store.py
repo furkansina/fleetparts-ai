@@ -2,6 +2,7 @@ import os
 import json
 import time
 import base64
+import threading
 import requests
 
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
@@ -11,6 +12,19 @@ GITHUB_BRANCH = os.environ.get("GITHUB_BRANCH", "main")
 LEAD_REVIEWS_FILE = "lead_reviews.json"
 LEAD_AI_SCORES_FILE = "lead_ai_scores.json"
 LEAD_PRODUCT_SCORES_FILE = "lead_product_scores.json"
+
+# BUG (2026-08-12'de bir kod denetiminde tespit edildi): lead_reviews.json/lead_ai_scores.json/
+# lead_product_scores.json üzerinde çağıran taraf (app.py) hiçbir kilit olmadan "oku -> belleğte
+# değiştir -> TAMAMINI diske yaz" yapıyordu. FastAPI'nin senkron endpoint'leri gerçek ayrı
+# thread'lerde çalıştığı için (Starlette threadpool), iki eşzamanlı istek (ör. admin iki lead'i
+# art arda hızlı işaretlerken ya da leads.html'in otomatik "netleştirme" döngüsü çalışırken bir
+# admin manuel durum güncellerse) klasik bir "kayıp güncelleme" (lost update) yaşayabiliyordu -
+# ikisi de dosyanın eski halini okuyup kendi değişikliğini ekliyor, ikisi de TÜM dosyayı geri
+# yazıyor, son yazan öncekini sessizce siliyordu. catalog.json için aynı sınıf sorunu önlemek
+# üzere zaten CATALOG_WRITE_LOCK vardı - burada da aynı prensip uygulanıyor. TEK bir paylaşılan
+# kilit yeterli (bu üç dosya birbirinden bağımsız ama admin panelinden gelen, düşük frekanslı
+# işlemler - ayrı kilitlerin getirisi yok, karmaşıklığı artırır).
+LEAD_STORE_LOCK = threading.Lock()
 
 _leads_cache = {"data": None, "fetched_at": 0}
 LEADS_CACHE_TTL = 60  # saniye
