@@ -11,20 +11,18 @@ from provinces import PROVINCES
 # o platforma kaydetmiş olmasına bağlı. Google Places, Google Haritalar'daki HER işletmeyi
 # (telefon numarası dahil) kapsar - bu yüzden küçük illerde bile neredeyse tam kapsama verir.
 #
-# NEDEN ŞU AN KAPALI: bu API ücretli (Google Cloud faturalandırma/kredi kartı gerektirir - babanın
-# hesabında henüz aktif değil). Google Haritalar'ı otomatik/manuel "tarayarak" veri çekmek
-# Google'ın Kullanım Şartları'nı ihlal eder (ban riski + hukuki risk) - bu yüzden o değil, resmi
-# API kullanılıyor. Modül TAMAMEN hazır ve test edilmeye hazır ama GOOGLE_PLACES_API_KEY ortam
-# değişkeni tanımlı olmadığı sürece hiçbir istek atmaz, hiçbir ücret oluşturmaz - baba faturalandırmayı
-# ne zaman aktif ederse (Render/GitHub Actions secrets'a GOOGLE_PLACES_API_KEY eklenerek) o an
-# devreye girer, kod tarafında BAŞKA HİÇBİR DEĞİŞİKLİK gerekmez.
+# GÜVENLİK/MALİYET MODELİ (2026-08-12'de güncellendi - bu API artık AKTİF, aşağıdaki sayılar
+# güncel kod davranışıyla eşleşiyor; bir kod denetiminde eski/yanlış sayılar taşıdığı tespit
+# edildi ve düzeltildi - kullanıcı harcama güvenliği için bu dosyaya güvendiğinden yanlış bir
+# yorumun burada durması ayrı bir risk). Google Haritalar'ı otomatik/manuel "tarayarak" veri
+# çekmek Google'ın Kullanım Şartları'nı ihlal eder (ban riski + hukuki risk) - bu yüzden o değil,
+# resmi API kullanılıyor. GOOGLE_PLACES_API_KEY ortam değişkeni tanımlı olmadığı sürece hiçbir
+# istek atmaz, hiçbir ücret oluşturmaz (bkz. is_configured()).
 #
-# MALİYET TAHMİNİ (2026 fiyatlandırması, Text Search Pro SKU): ~$0.032/istek. 81 il x 12 sorgu
-# (bkz. QUERIES) x en fazla 3 sayfa = teorik tavan 2916 istek (~93 USD), gerçek harcama muhtemelen
-# çok daha düşük (küçük illerde çoğu sorgu 1 sayfada/sonuçsuz biter). Ayrıca kod içinde 5000
-# isteklik (~160 USD) kesin bir güvenlik tavanı var (bkz. _MAX_REQUESTS_PER_RUN notu) - Google'ın
-# $200 aylık ücretsiz kredisinin asla üzerine çıkılmaz. Haftalık otomatik taramada YENİ firma bulma
-# ihtimali düşük olduğu için pratikte tek seferlik/aylık çalıştırılması önerilir.
+# MALİYET TAHMİNİ (2026 fiyatlandırması, Text Search Pro SKU): ~$0.032/istek. Kod içindeki kesin
+# güvenlik tavanı _MAX_REQUESTS_PER_RUN (aşağıda tanımlı) - GÜNCEL değeri ve karşılık gelen dolar
+# tavanı için tek doğru kaynak o sabitin kendisi ve yanındaki yorum, burada AYRICA bir sayı
+# tekrarlanmıyor ki ikisi birbirinden kopup yanlış bir güvence vermesin.
 API_KEY_ENV = "GOOGLE_PLACES_API_KEY"
 SEARCH_URL = "https://places.googleapis.com/v1/places:searchText"
 FIELD_MASK = ",".join([
@@ -151,17 +149,18 @@ def _search_one_query(query: str, delay: float) -> list:
     return results
 
 
-# VERİMLİLİK KATMANI (2026-08-12, kullanıcının kendi fikri: "İstanbul/Ankara'da zaten çok veri
-# var, oralarda harcama yapma, az olan yerlere odaklan"). İstanbul/Ankara/İzmir gibi büyük
-# şehirlerde OSM + firma rehberleri ZATEN yüzlerce kayıt buluyor (İstanbul: 788 OSM + 649 rehber
-# kaydı gibi) - bu illerde Google Places'e TAM 12 sorguluk bütçe harcamak büyük ölçüde ÇAKIŞAN
-# (zaten bilinen) firmaları tekrar bulmak demek, bütçe israfı. Küçük Anadolu illerinde ise (ör.
-# Bingöl, Hakkari, Ardahan) mevcut kaynaklar neredeyse hiçbir şey bulamıyor - Google Places'in asıl
-# değeri TAM ORADA. Bu yüzden: zaten çok kaydı olan iller (eşik: 150+ mevcut lead) sadece 2 sorguyla
-# (en genel/en yüksek değerli terimler) "gözden kaçan var mı" diye kontrol edilir, geri kalan
-# TÜM 12 sorgu bütçesi az kayıtlı illere ayrılır - hem daha ucuz hem daha çok YENİ, benzersiz lead.
+# VERİMLİLİK KATMANI (2026-08-12, kullanıcının kendi fikri: "zaten çok veri var oralarda harcama
+# yapma, az olan yerlere odaklan" - AŞAĞIDAKİ büyükşehir istisnasıyla birlikte okunmalı, bu katman
+# artık SADECE büyükşehir OLMAYAN illere uygulanıyor). Küçük Anadolu illerinde (ör. Bingöl,
+# Hakkari, Ardahan) mevcut kaynaklar neredeyse hiçbir şey bulamıyor - Google Places'in asıl değeri
+# TAM ORADA. Bu yüzden büyükşehir olmayıp zaten çok kaydı olan iller (eşik: aşağıdaki
+# _SATURATED_PROVINCE_THRESHOLD) sadece _REDUCED_QUERIES kadar sorguyla "gözden kaçan var mı" diye
+# kontrol edilir, geri kalan bütçe az kayıtlı illere ayrılır - hem daha ucuz hem daha çok YENİ,
+# benzersiz lead. GÜNCEL SAYILAR İÇİN (kaç lead eşik, kaç sorgu) sadece aşağıdaki iki sabite
+# bakılmalı - burada AYRICA tekrarlanmıyor ki yorum kod değiştikçe sessizce yanlış hale gelmesin
+# (bir kod denetiminde tam bu şekilde eski/yanlış sayılar taşıdığı tespit edilip düzeltildi).
 _SATURATED_PROVINCE_THRESHOLD = 700
-_REDUCED_QUERIES = QUERIES[:4]  # doygun illerde bile ilk 4 sorgu (2026-08-12, kullanici "kredi az gidiyor artiralim" dedi)
+_REDUCED_QUERIES = QUERIES[:4]  # doygun (ve büyükşehir OLMAYAN) illerde bile ilk 4 sorgu denenir
 
 # BÜYÜK ŞEHİR ZENGİNLEŞTİRME (2026-08-12, kullanıcı gerçek koşu sonuçlarını gördükten SONRA kararını
 # değiştirdi: "büyük şehirlere de ekleme yap, orayı da zenginleştirelim"). Küçük/orta illerdeki
