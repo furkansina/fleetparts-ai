@@ -14,11 +14,22 @@ SECTOR_LABELS = {
     "agrarian": "Tarım Makinesi Ekipman/Parça",
 }
 
-# Anahtar kelimeler kelime sınırıyla (\b) aranır, düz alt-dize (substring) araması DEĞİL.
-# Aksi halde örneğin "filo" kelimesi "Profilo" (gerçek bir beyaz eşya markası) gibi tamamen
-# alakasız isimlerin içinde de eşleşip yanlış pozitif üretiyordu - gerçek bir örnekte tespit edildi.
+# Anahtar kelimeler kelime BAŞLANGICINDA (\b) aranır, düz alt-dize (substring) araması DEĞİL -
+# aksi halde örneğin "filo" kelimesi "Profilo" (gerçek bir beyaz eşya markası) gibi tamamen
+# alakasız isimlerin İÇİNDE de eşleşip yanlış pozitif üretiyordu - gerçek bir örnekte tespit edildi.
+#
+# BUG (2026-08-12'de canlıda tespit edildi, kullanıcı "hep saçma sapan kayıtlar görüyorum" diye
+# yakaladı): kelime SONUNDA da \b ZORUNLU tutuluyordu - ama Türkçe'de isimler neredeyse HER ZAMAN
+# çekim eki alır ("filo" -> "filomuz", "nakliyat" -> "nakliyatçı", "lojistik" -> "lojistiği").
+# Sondaki \b, "filo" tam olarak "filo" diye BİTMEYEN (örn. "Filomuz A.Ş.", "Nakliyatçılar Odası")
+# TÜM gerçek eşleşmeleri SESSİZCE kaçırıyordu - hem pozitif (bu liste, hedef kitle tespiti
+# eksik kalıp az lead bulunuyordu) hem dışlama (_EXCLUDE_PATTERN, örn. "Mobilya Asansörü" deki
+# "asansör" değil "asansörü" olduğu için dışlanmıyordu) tarafında. Artık sadece kelime BAŞINDA
+# sınır aranıyor - "profilo" gibi kelimenin ORTASINDA geçen durumlar hâlâ engellenir (çünkü "pro"
+# ile "filo" arasında kelime sınırı yok), ama "filomuz" gibi SONA ek almış durumlar artık doğru
+# yakalanır.
 _KEYWORD_PATTERN = re.compile(
-    r"\b(" + "|".join(re.escape(k) for k in NAME_KEYWORDS_HIGH_VALUE) + r")\b"
+    r"\b(" + "|".join(re.escape(k) for k in NAME_KEYWORDS_HIGH_VALUE) + r")"
 )
 
 # "tasimacilik-nakliye-firmalari" gibi geniş bir rehber kategorisi ev eşyası taşıyan (evden eve
@@ -60,9 +71,20 @@ _EXCLUDE_KEYWORDS = [
     # olursa olsun (rehberin kendi sınıflandırması yanlış olsa bile) doğrudan yakalanır.
     "taksi", "dolmuş", "dolmus", "personel taşımacılığı", "personel tasimaciligi",
     "öğrenci servisi", "ogrenci servisi", "okul servisi",
+    # GENİŞLETME (2026-08-12, kullanıcının "hep saçma sapan kayıtlar" geri bildirimiyle kapsamlı
+    # bir denetimde tespit edildi): mobilya imalatı/satışı yedek parçayla tamamen alakasız, ama
+    # "Otomotiv Yan Sanayi (Firma Rehberi)" gibi geniş bir kategoriye kayıtlı çıkabiliyor.
+    "mobilya",
 ]
+# BUG (2026-08-12'de canlıda tespit edildi): sondaki \b, Türkçe çekim eki alan isimleri (örn.
+# "asansör" YERİNE "asansörü", "asansörle") kaçırıyordu - bkz. _KEYWORD_PATTERN'daki aynı düzeltme
+# notu. Sadece kelime BAŞINDA sınır aranır. TEK istisna: "taksi" - sondaki \b kaldırılırsa
+# "Taksim" (İstanbul'da çok yaygın bir semt adı, iş isimlerinde sıkça geçer) yanlışlıkla eşleşirdi;
+# bu yüzden "taksi" için negatif ileri bakış (?!m) ile özel olarak korunuyor.
 _EXCLUDE_PATTERN = re.compile(
-    r"\b(" + "|".join(re.escape(k) for k in _EXCLUDE_KEYWORDS) + r")\b"
+    r"\b(" + "|".join(
+        "taksi(?!m)" if k == "taksi" else re.escape(k) for k in _EXCLUDE_KEYWORDS
+    ) + r")"
 )
 
 # Bir işletme adı hem "tamir/servis" hem "yıkama" sinyali taşıyorsa (örn. "Atak Lastik Tamiri ve
