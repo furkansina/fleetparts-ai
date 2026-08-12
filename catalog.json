@@ -19260,16 +19260,17 @@
   {
     "id": "PRC-cf2578",
     "oem": "OEM-BELİRSİZ",
-    "name": "AYNA BRAKET SAG V-2",
+    "name": "S WAY GÜNEŞLİK AYAĞI",
     "brand": "",
     "specs": "",
     "price": "",
     "stock": 1,
-    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1074)",
-    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1074.jpg",
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1839)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1839.png",
     "source_files": [
       "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1073)",
       "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1074)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1839)",
       "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 363)"
     ]
   },
@@ -43333,6 +43334,372 @@
     "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1811.png",
     "source_files": [
       "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1811)"
+    ]
+  },
+  {
+    "id": "PRC-262188",
+    "oem": "504054941",
+    "name": "TECTOR MAŞPİYEL 130/180 LH",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1812)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1812.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1812)"
+    ]
+  },
+  {
+    "id": "PRC-c53ed6",
+    "oem": "504054942",
+    "name": "TECTOR MAŞPİYEL 160 RH",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1813)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1813.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1813)"
+    ]
+  },
+  {
+    "id": "PRC-cac1d7",
+    "oem": "504054943",
+    "name": "TECTOR MAŞPİYEL 160 LH",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1814)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1814.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1814)"
+    ]
+  },
+  {
+    "id": "PRC-1fb8fd",
+    "oem": "504208706",
+    "name": "KABİN ALTI ÇAMURLUK SOL",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1815)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1815.jpg",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1815)"
+    ]
+  },
+  {
+    "id": "PRC-a2b6f7",
+    "oem": "504003992",
+    "name": "KABİN ALTI ÇAMURLUK SOL",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1815)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1815.jpg",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1815)"
+    ]
+  },
+  {
+    "id": "PRC-2305e6",
+    "oem": "5802515535",
+    "name": "S WAY FAR YUVASI RH",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1816)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1816.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1816)"
+    ]
+  },
+  {
+    "id": "PRC-bc76c9",
+    "oem": "5802515537",
+    "name": "S WAY FAR YUVASI LH",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1817)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1817.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1817)"
+    ]
+  },
+  {
+    "id": "PRC-9838c1",
+    "oem": "5802905478",
+    "name": "S-WAY FAR LH LED",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1818)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1818.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1818)"
+    ]
+  },
+  {
+    "id": "PRC-a998f3",
+    "oem": "5802905483",
+    "name": "S-WAY FAR RH LED",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1819)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1819.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1819)"
+    ]
+  },
+  {
+    "id": "PRC-868ee7",
+    "oem": "5802422743",
+    "name": "S-WAY FAR DİKME RH",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1820)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1820.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1820)"
+    ]
+  },
+  {
+    "id": "PRC-b885a1",
+    "oem": "5802422746",
+    "name": "S-WAY FAR DİKME LH",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1821)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1821.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1821)"
+    ]
+  },
+  {
+    "id": "PRC-b9c000",
+    "oem": "5802898582",
+    "name": "S-WAY FAR BAGALİTİ RH",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1822)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1822.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1822)"
+    ]
+  },
+  {
+    "id": "PRC-77994a",
+    "oem": "5802389430",
+    "name": "S-WAY FAR BAGALİTİ LH",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1823)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1823.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1823)"
+    ]
+  },
+  {
+    "id": "PRC-5106b0",
+    "oem": "5802348850",
+    "name": "S WAY ORTA KARLIK",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1824)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1824.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1824)"
+    ]
+  },
+  {
+    "id": "PRC-be0a11",
+    "oem": "5802304012",
+    "name": "S WAY ÜST PANJUR IZGARASI",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1825)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1825.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1825)"
+    ]
+  },
+  {
+    "id": "PRC-5cc587",
+    "oem": "5802447101",
+    "name": "S WAY ÜST PANJUR IZGARASI",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1826)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1826.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1826)"
+    ]
+  },
+  {
+    "id": "PRC-643b25",
+    "oem": "5802347940",
+    "name": "S WAY PANJUR IZGARASI",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1827)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1827.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1827)"
+    ]
+  },
+  {
+    "id": "PRC-f49fd9",
+    "oem": "5802314669",
+    "name": "S WAY MAŞPİYEL RH",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1828)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1828.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1828)"
+    ]
+  },
+  {
+    "id": "PRC-950197",
+    "oem": "5802404296",
+    "name": "S WAY MAŞPİYEL LH",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1829)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1829.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1829)"
+    ]
+  },
+  {
+    "id": "PRC-47ca1a",
+    "oem": "5802421767",
+    "name": "S WAY BASAMAK YUVASI RH 41 cm",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1834)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1834.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1830)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1834)"
+    ]
+  },
+  {
+    "id": "PRC-1364cf",
+    "oem": "5802421764",
+    "name": "S WAY BASAMAK YUVASI LH 41cm",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1832)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1832.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1831)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1832)"
+    ]
+  },
+  {
+    "id": "PRC-9fbf8a",
+    "oem": "5802314634",
+    "name": "S WAY BASAMAK IZGARASI LH+RH",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1833)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1833.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1833)"
+    ]
+  },
+  {
+    "id": "PRC-ef3cea",
+    "oem": "5802450963",
+    "name": "S WAY KABİN KRİKO KAPAK",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1835)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1835.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1835)"
+    ]
+  },
+  {
+    "id": "PRC-d7a0ed",
+    "oem": "5802320542",
+    "name": "S WAY BASAMAK SİNYALİ RH",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1836)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1836.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1836)"
+    ]
+  },
+  {
+    "id": "PRC-1a1514",
+    "oem": "5802320539",
+    "name": "S WAY BASMAK SİNYALİ LH",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1837)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1837.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1837)"
+    ]
+  },
+  {
+    "id": "PRC-5c000e",
+    "oem": "5802324266",
+    "name": "S WAY GÜNEŞLİK",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1838)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1838.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1838)"
     ]
   }
 ]
