@@ -142,32 +142,62 @@ def _seed_catalog_from_github_or_default():
     düştü). Artık GitHub'ın Contents API'si (api.github.com, CDN'siz, her zaman en güncel commit)
     kullanılıyor - GITHUB_TOKEN tanımlıysa. Token yoksa (ör. sadece herkese açık bir yedek senaryo)
     CDN'e düşülür, o da olmazsa örnek katalog kullanılır."""
-    if GITHUB_REPO:
-        try:
-            if GITHUB_TOKEN:
-                api_url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{CATALOG_FILE}"
-                headers = {"Authorization": f"Bearer {GITHUB_TOKEN}", "Accept": "application/vnd.github+json"}
-                res = requests.get(api_url, headers=headers, timeout=15)
-                if res.status_code == 200:
-                    content_b64 = res.json().get("content", "")
-                    raw_bytes = base64.b64decode(content_b64)
-                    data = json.loads(raw_bytes.decode("utf-8"))
-                    if isinstance(data, list) and data:
-                        with open(CATALOG_FILE, "w", encoding="utf-8") as f:
-                            json.dump(data, f, ensure_ascii=False, indent=4)
-                        return
-            else:
-                url = f"https://raw.githubusercontent.com/{GITHUB_REPO}/main/{CATALOG_FILE}"
-                res = requests.get(url, timeout=15)
-                if res.status_code == 200:
-                    data = res.json()
-                    if isinstance(data, list) and data:
-                        with open(CATALOG_FILE, "w", encoding="utf-8") as f:
-                            json.dump(data, f, ensure_ascii=False, indent=4)
-                        return
-        except Exception:
-            pass
+    data = _fetch_catalog_from_github_api()
+    if data:
+        with open(CATALOG_FILE, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=4)
+        return
     seed_default_catalog()
+
+
+def _fetch_catalog_from_github_api():
+    """GitHub'daki catalog.json'ı Contents API'den (CDN'siz, her zaman en güncel commit) çeker.
+    Başarısız olursa (GITHUB_TOKEN yok, ağ hatası, vb.) None döner - çağıran kendi yedek planını
+    uygular."""
+    if not GITHUB_REPO:
+        return None
+    try:
+        if GITHUB_TOKEN:
+            api_url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{CATALOG_FILE}"
+            headers = {"Authorization": f"Bearer {GITHUB_TOKEN}", "Accept": "application/vnd.github+json"}
+            res = requests.get(api_url, headers=headers, timeout=15)
+            if res.status_code == 200:
+                content_b64 = res.json().get("content", "")
+                data = json.loads(base64.b64decode(content_b64).decode("utf-8"))
+                if isinstance(data, list) and data:
+                    return data
+        else:
+            url = f"https://raw.githubusercontent.com/{GITHUB_REPO}/main/{CATALOG_FILE}"
+            res = requests.get(url, timeout=15)
+            if res.status_code == 200:
+                data = res.json()
+                if isinstance(data, list) and data:
+                    return data
+    except Exception:
+        pass
+    return None
+
+
+def _refresh_catalog_disk_from_github() -> bool:
+    """KRİTİK (2026-08-12'de canlıda İKİNCİ KEZ gerçek veri kaybına yol açtığı tespit edildi):
+    silme/yükleme/geri-dönük-görsel-ekleme uçlarının hepsi ('_load_catalog_from_disk') performans
+    için Render'ın YEREL diskine bakıyor - bu disk sadece süreç İLK başladığında GitHub'dan
+    dolduruluyordu (bkz. _seed_catalog_from_github_or_default). Ama GitHub'a bu süreç DIŞINDAN bir
+    değişiklik yapılırsa (ör. elle bir düzeltme/toplu ekleme scripti, ya da GitHub Actions), yerel
+    disk bunu HİÇ görmüyor - ve bu uçlardan biri tetiklenince (ör. geriye dönük görsel ekleme),
+    eski/haberdar olmadığı yerel kopyayı GitHub'a GERİ YAZIP dışarıdan yapılan değişikliği SESSİZCE
+    SİLİYORDU (canlıda gerçekten yaşandı: elle eklenen 114 ürün, hemen ardından çalıştırılan bir
+    görsel-ekleme işiyle geri silindi). Artık bu tür HER işlem (silme, yükleme, geriye dönük görsel
+    ekleme) başlamadan ÖNCE yerel disk GitHub'ın Contents API'sinden (CDN'siz, her zaman güncel)
+    tazeleniyor - böylece süreç kendi dışında yapılan değişikliklerden HABERSİZ kalıp onların
+    üzerine yazamaz. GitHub'a ulaşılamazsa (ağ hatası) sessizce mevcut yerel diskle devam edilir -
+    en azından süreç kendi bildiği veriyi kaybetmez, sadece dışarıdaki en taze hali göremez."""
+    data = _fetch_catalog_from_github_api()
+    if data:
+        with open(CATALOG_FILE, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=4)
+        return True
+    return False
 
 # Başlangıç Evrensel Katalog Veritabanı (dosya yoksa veya bozuk/boşsa GitHub'daki gerçek kataloğu
 # geri yükle, o da olmazsa örnek kataloğu kullan)
@@ -797,6 +827,7 @@ def delete_catalog_item(item_id: str = Form(...), _: str = Depends(require_admin
     logonun yanlışlıkla parça sanılması) katalogdan çıkarmak için - eskiden bunun için hiçbir
     yol yoktu, kötü bir kayıt kalıcı olarak katalogda takılı kalıyordu."""
     with CATALOG_WRITE_LOCK:
+        _refresh_catalog_disk_from_github()
         catalog = _load_catalog_from_disk()
         new_catalog = [item for item in catalog if str(item.get("id")) != str(item_id)]
         if len(new_catalog) == len(catalog):
@@ -831,6 +862,7 @@ def delete_catalog_source(source_name: str = Form(...), _: str = Depends(require
     (source_files birden fazla kaynak içeriyorsa) ürün SİLİNMEZ, sadece bu kataloğun referansı
     kaldırılır - ürün hâlâ geçerli olduğu diğer katalog(lar) üzerinden erişilebilir kalır."""
     with CATALOG_WRITE_LOCK:
+        _refresh_catalog_disk_from_github()
         catalog = _load_catalog_from_disk()
         new_catalog = []
         removed_count = 0
@@ -1511,6 +1543,10 @@ def _run_catalog_upload_job(job_id: str, saved_paths: list):
     failed = list(job["failed"])
     pages_since_sync = 0
     last_sync_time = time.time()
+    # KRİTİK (2026-08-12'de canlıda veri kaybına yol açtı - bkz. _refresh_catalog_disk_from_github
+    # docstring'i): iş başlamadan önce yerel disk GitHub'ın en güncel haliyle tazelenir.
+    with CATALOG_WRITE_LOCK:
+        _refresh_catalog_disk_from_github()
 
     def save_page_items(page_items):
         # Her sayfa bitince HEMEN yerel diske kaydedilir - dosyanın tamamının bitmesini beklemez.
@@ -1669,6 +1705,12 @@ def _run_backfill_images_job(job_id: str, saved_paths: list):
     # yükleme işiyle AYNI desen: en fazla birkaç sayfada bir (ya da 20sn'de bir) senkronize edilir.
     pages_since_sync = 0
     last_sync_time = time.time()
+    # KRİTİK (2026-08-12'de canlıda veri kaybına yol açtı - bkz. _refresh_catalog_disk_from_github
+    # docstring'i): iş başlamadan önce yerel disk GitHub'ın en güncel haliyle tazelenir - aksi
+    # halde bu süreç dışında (elle bir düzeltme/ekleme) yapılmış değişiklikler bu işin sonunda
+    # sessizce geri silinebilir.
+    with CATALOG_WRITE_LOCK:
+        _refresh_catalog_disk_from_github()
     for filename, file_path in saved_paths:
         try:
             if not filename.lower().endswith(".pdf"):
