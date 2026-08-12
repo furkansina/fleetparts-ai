@@ -73,27 +73,35 @@ def load_existing_leads():
         return []
 
 
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--provinces", type=int, default=None, help="Sadece ilk N ili tara (test için)")
-    parser.add_argument("--only", type=str, default=None, help="Virgülle ayrılmış belirli il adları (örn. 'Gaziantep,Muş') - ağ kesintisi gibi nedenlerle boş kalan illeri hızlıca yeniden taramak için")
-    parser.add_argument("--skip-sanayi-sitesi", action="store_true", help="Sanayi sitesi kaynaklarını atla (zaten tarandıysa tekrar taramaya gerek yok)")
-    parser.add_argument("--dry-run", action="store_true", help="leads.json'a yazma, sadece özet göster")
-    parser.add_argument("--workers", type=int, default=2, help="Aynı anda taranacak il sayısı (gerçekte güvenilir 2 Overpass aynası olduğu için varsayılan 2)")
-    args = parser.parse_args()
+def _add_results(results, source, id_field, province_field, existing_keys, seen_this_run, new_leads, batch_id):
+    """Il döngüsüne bağlı olmayan (tek seferlik) kaynaklar için ortak ekleme/dedupe mantığı -
+    sanayi_sitesi, sanayisitesi_platform, find_com_tr, google_places hepsi aynı şekli izliyor."""
+    added = 0
+    for raw in results:
+        raw["phone"] = sanitize_phone(raw.get("phone", ""))
+        key = dedupe_key(raw["name"], raw.get("phone", ""))
+        if key in existing_keys or key in seen_this_run:
+            continue
+        seen_this_run.add(key)
+        scoring = score_lead(raw)
+        province = raw[province_field] if province_field else ""
+        new_leads.append(_build_lead(raw[id_field], source, raw, province, scoring, batch_id))
+        added += 1
+    return added
 
-    if args.only:
-        wanted = {p.strip() for p in args.only.split(",")}
-        provinces_to_scan = [p for p in PROVINCES if p in wanted]
-    else:
-        provinces_to_scan = PROVINCES[: args.provinces] if args.provinces else PROVINCES
 
-    existing = load_existing_leads()
-    existing_keys = {dedupe_key(l.get("company_name", ""), l.get("phone", "")) for l in existing}
+def run_osm_and_directory_phase(provinces_to_scan, workers, existing_keys, seen_this_run, new_leads, batch_id, dry_run):
+    """OSM (Overpass) + turkbusinesscenter.com rehber taraması - il bazlı, paralel.
 
-    batch_id = datetime.now(timezone.utc).strftime("%Y-W%V")
-    new_leads = []
-    seen_this_run = set()
+    BİLİNÇLİ OLARAK EN SONDA ÇALIŞTIRILIYOR (2026-08-11/12'de tespit edildi): Overpass'ın
+    ücretsiz aynaları zaman zaman çok yavaşlıyor/504 dönüyor - gerçek bir taramada 81 ilin
+    sadece 65'i 148 dakikada taranabildi ve workflow'un 150dk zaman aşımına çarptı - ÜSTELİK bu
+    81 il DAHA ÖNCEKİ başarılı taramalarda zaten kapsandığı için hepsi tekilleştirmede elendi,
+    SIFIR yeni lead üretti. Bu arada find.com.tr/sanayi siteleri gibi gerçekten YENİ veri
+    üretebilecek (ve çok daha hızlı/güvenilir) kaynaklar hiç çalışma fırsatı bulamadı. Artık
+    OSM+rehber taraması en sona alındı - Overpass ne kadar yavaş/kötü olursa olsun, diğer TÜM
+    kaynaklar önce kendi sonuçlarını bulup diske işler; OSM zaman aşımına uğrarsa sadece kendi
+    (zaten büyük ölçüde tekrar niteliğindeki) sonuçları kaybolur, değerli kaynaklar etkilenmez."""
     lock = threading.Lock()
 
     def scan_one(idx, province):
@@ -110,11 +118,11 @@ def main():
             directory_results = []
         return province, osm_results, directory_results
 
-    # İller aynı anda taranır (varsayılan 3'ü birlikte) - tek bir ilin yavaş/başarısız olması
+    # İller aynı anda taranır (varsayılan 2'si birlikte) - tek bir ilin yavaş/başarısız olması
     # diğerlerini bloklamaz. Eskiden tamamen sıralı + il başına 3sn bekleme vardı (81 ilde
     # kötü senaryoda 45dk'ya kadar sürüyordu); paralel tarama bunu bulunan firma kalitesinden
     # ödün vermeden (aynı sorgu, aynı skorlama) belirgin şekilde hızlandırır.
-    with ThreadPoolExecutor(max_workers=args.workers) as executor:
+    with ThreadPoolExecutor(max_workers=workers) as executor:
         futures = {}
         for idx, province in enumerate(provinces_to_scan):
             futures[executor.submit(scan_one, idx, province)] = province
@@ -155,8 +163,32 @@ def main():
 
                 # Her il tamamlandığında diske yazılır - koşu yarıda kesilse/zaman aşımına uğrasa
                 # bile o ana kadarki ilerleme kaybolmaz (GitHub Actions'taki commit adımı ne bulursa onu kaydeder)
-                if not args.dry_run:
+                if not dry_run:
                     _checkpoint_new_leads(new_leads)
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--provinces", type=int, default=None, help="Sadece ilk N ili tara (test için)")
+    parser.add_argument("--only", type=str, default=None, help="Virgülle ayrılmış belirli il adları (örn. 'Gaziantep,Muş') - ağ kesintisi gibi nedenlerle boş kalan illeri hızlıca yeniden taramak için")
+    parser.add_argument("--skip-sanayi-sitesi", action="store_true", help="Sanayi sitesi kaynaklarını atla (zaten tarandıysa tekrar taramaya gerek yok)")
+    parser.add_argument("--skip-osm", action="store_true", help="OSM/Overpass + turkbusinesscenter.com il taramasını atla (Overpass yavaş/kesintili olduğunda diğer kaynaklara zaman bırakmak için)")
+    parser.add_argument("--dry-run", action="store_true", help="leads.json'a yazma, sadece özet göster")
+    parser.add_argument("--workers", type=int, default=2, help="Aynı anda taranacak il sayısı (gerçekte güvenilir 2 Overpass aynası olduğu için varsayılan 2)")
+    args = parser.parse_args()
+
+    if args.only:
+        wanted = {p.strip() for p in args.only.split(",")}
+        provinces_to_scan = [p for p in PROVINCES if p in wanted]
+    else:
+        provinces_to_scan = PROVINCES[: args.provinces] if args.provinces else PROVINCES
+
+    existing = load_existing_leads()
+    existing_keys = {dedupe_key(l.get("company_name", ""), l.get("phone", "")) for l in existing}
+
+    batch_id = datetime.now(timezone.utc).strftime("%Y-W%V")
+    new_leads = []
+    seen_this_run = set()
 
     # Sanayi sitesi / bölgesel oto rehberi kaynakları il bazında değil - her biri zaten sabit
     # bir ile bağlı (Ankara/İstanbul/İzmir), bu yüzden il döngüsünden AYRI, tek seferlik bir
@@ -166,21 +198,15 @@ def main():
     if args.only or args.skip_sanayi_sitesi:
         sanayi_results = []
     else:
-        print("\nSanayi sitesi rehberleri taranıyor (Ankara/İstanbul/İzmir)...")
+        print("Sanayi sitesi rehberleri taranıyor (Ankara/İstanbul/İzmir)...")
         try:
             sanayi_results = search_sanayi_sitesi()
         except Exception as e:
             print(f"  sanayi sitesi taraması basarisiz - {e}")
             sanayi_results = []
         print(f"  Sanayi sitesi ham sonuç: {len(sanayi_results)}")
-    for raw in sanayi_results:
-        raw["phone"] = sanitize_phone(raw.get("phone", ""))
-        key = dedupe_key(raw["name"], raw.get("phone", ""))
-        if key in existing_keys or key in seen_this_run:
-            continue
-        seen_this_run.add(key)
-        scoring = score_lead(raw)
-        new_leads.append(_build_lead(raw["site_id"], "sanayi_sitesi", raw, raw["province"], scoring, batch_id))
+    added = _add_results(sanayi_results, "sanayi_sitesi", "site_id", "province", existing_keys, seen_this_run, new_leads, batch_id)
+    print(f"  -> {added} yeni lead eklendi (toplam yeni: {len(new_leads)})")
     if not args.dry_run:
         _checkpoint_new_leads(new_leads)
 
@@ -199,14 +225,8 @@ def main():
             print(f"  sanayisitesi.com.tr taraması başarısız - {e}")
             platform_results = []
         print(f"  sanayisitesi.com.tr ham sonuç: {len(platform_results)}")
-    for raw in platform_results:
-        raw["phone"] = sanitize_phone(raw.get("phone", ""))
-        key = dedupe_key(raw["name"], raw.get("phone", ""))
-        if key in existing_keys or key in seen_this_run:
-            continue
-        seen_this_run.add(key)
-        scoring = score_lead(raw)
-        new_leads.append(_build_lead(raw["site_id"], "sanayisitesi_platform", raw, raw["province"], scoring, batch_id))
+    added = _add_results(platform_results, "sanayisitesi_platform", "site_id", "province", existing_keys, seen_this_run, new_leads, batch_id)
+    print(f"  -> {added} yeni lead eklendi (toplam yeni: {len(new_leads)})")
     if not args.dry_run:
         _checkpoint_new_leads(new_leads)
 
@@ -229,14 +249,8 @@ def main():
             print(f"  find.com.tr taraması başarısız - {e}")
             find_results = []
         print(f"  find.com.tr ham sonuç: {len(find_results)}")
-    for raw in find_results:
-        raw["phone"] = sanitize_phone(raw.get("phone", ""))
-        key = dedupe_key(raw["name"], raw.get("phone", ""))
-        if key in existing_keys or key in seen_this_run:
-            continue
-        seen_this_run.add(key)
-        scoring = score_lead(raw)
-        new_leads.append(_build_lead(raw["site_id"], "find_com_tr", raw, raw["province"], scoring, batch_id))
+    added = _add_results(find_results, "find_com_tr", "site_id", "province", existing_keys, seen_this_run, new_leads, batch_id)
+    print(f"  -> {added} yeni lead eklendi (toplam yeni: {len(new_leads)})")
     if not args.dry_run:
         _checkpoint_new_leads(new_leads)
 
@@ -253,16 +267,21 @@ def main():
             print(f"  Google Places taraması başarısız - {e}")
             gplaces_results = []
         print(f"  Google Places ham sonuç: {len(gplaces_results)}")
-        for raw in gplaces_results:
-            raw["phone"] = sanitize_phone(raw.get("phone", ""))
-            key = dedupe_key(raw["name"], raw.get("phone", ""))
-            if key in existing_keys or key in seen_this_run:
-                continue
-            seen_this_run.add(key)
-            scoring = score_lead(raw)
-            new_leads.append(_build_lead(raw["site_id"], "google_places", raw, raw["province"], scoring, batch_id))
+        added = _add_results(gplaces_results, "google_places", "site_id", "province", existing_keys, seen_this_run, new_leads, batch_id)
+        print(f"  -> {added} yeni lead eklendi (toplam yeni: {len(new_leads)})")
         if not args.dry_run:
             _checkpoint_new_leads(new_leads)
+
+    # OSM (Overpass) + turkbusinesscenter.com il taraması - bkz. run_osm_and_directory_phase
+    # docstring'i: BİLİNÇLİ OLARAK EN SONA ALINDI, Overpass'ın yavaş/kesintili olduğu günlerde
+    # yukarıdaki (daha hızlı/güvenilir ve hâlâ yeni veri üretebilen) kaynakların zaman aşımından
+    # ETKİLENMEMESİ için. --skip-osm ile elle de atlanabilir (ör. Overpass'ın kötü gittiği
+    # bilindiğinde bu turu tamamen boşa harcamamak için).
+    if args.skip_osm:
+        print("\n--skip-osm: OSM/turkbusinesscenter il taraması atlandı.")
+    else:
+        print(f"\nOSM + turkbusinesscenter.com taranıyor ({len(provinces_to_scan)} il)...")
+        run_osm_and_directory_phase(provinces_to_scan, args.workers, existing_keys, seen_this_run, new_leads, batch_id, args.dry_run)
 
     print(f"\nToplam yeni lead: {len(new_leads)}")
     for l in sorted(new_leads, key=lambda x: -x["relevance_score"])[:15]:
