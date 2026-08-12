@@ -325,16 +325,6 @@
         "stock": 25
     },
     {
-        "id": "ORP 4011",
-        "oem": "ORP 4011",
-        "name": "Test Aparatı Dişi (M14 x 1,5)",
-        "brand": "",
-        "specs": "",
-        "price": "₺150,00",
-        "stock": 1,
-        "source_file": "ORPASAN OTOMOTİV SAN. ve TİC. LTD. ŞTİ. FİYAT LİSTESİ OCAK 2026.pdf (sayfa 1, metin katmanindan otomatik cikarildi)"
-    },
-    {
         "id": "ORP 4012",
         "oem": "ORP 4012",
         "name": "Test Aparatı (M12 x 1,5)",
