@@ -84,6 +84,18 @@
 </div>
 
 <script>
+    // Katman 2 (2026-08-12): fetchJson içindeki tek tek origin ekleme çözümüne ek olarak,
+    // window.fetch burada da KÖKTEN sarmalanıyor (bkz. leads.html/broadcast.html'deki aynı desen).
+    (function() {
+        const _origFetch = window.fetch;
+        window.fetch = function(input, init) {
+            if (typeof input === 'string' && input.startsWith('/')) {
+                input = window.location.origin + input;
+            }
+            return _origFetch(input, init);
+        };
+    })();
+
     const out = document.getElementById('output');
 
     function esc(s) {
