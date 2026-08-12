@@ -1032,9 +1032,18 @@ def fix_glued_oem_codes(_: str = Depends(require_admin)):
     gereksiz/çöp isim eklenmiş) kayıtlar onarılır/silinir. Ayrıca bu ikinci geçiş, ilk sürümün
     yanlışlıkla çakıştırdığı 36 kaydı da (id alanı hiç dokunulmadığı için hâlâ orijinal/doğru
     değerini taşıyor) otomatik olarak eski haline getirir - id'leri hâlâ benzersiz olduğu için
-    oem'i id ile eşitlemek güvenli bir geri alma sağlar. İdempotent."""
+    oem'i id ile eşitlemek güvenli bir geri alma sağlar. İdempotent.
+
+    BUG (2026-08-12'de bir kod denetiminde tespit edildi): diğer TÜM katalog yazma uçlarının
+    (silme, yükleme, geriye dönük görsel ekleme) aksine bu uç nokta _refresh_catalog_disk_from_github
+    çağırmadan doğrudan load_catalog() kullanıyordu - CDN gecikmeli olabilir veya 30sn'lik bellek
+    önbelleğinden gelebilir. Bu uç nokta çalışırken GitHub'da eşzamanlı başka bir değişiklik
+    (yükleme, elle düzeltme) olmuşsa, sondaki save_catalog+sync bu YENİ değişiklikleri sessizce
+    silebilirdi - projenin iki kez gerçek veri kaybına yol açtığı için özellikle belgelediği
+    senaryonun birebir tekrarı. Artık diğer uçlarla tutarlı şekilde önce yerel disk tazeleniyor."""
     with CATALOG_WRITE_LOCK:
-        catalog = load_catalog()
+        _refresh_catalog_disk_from_github()
+        catalog = _load_catalog_from_disk()
         original_oems = {str(i.get("oem", "")).strip() for i in catalog if i.get("oem")}
 
         # Geri alma: onceki (hatali) calismanin caktirdigi kayitlari tespit et - oem'i baska
@@ -1489,6 +1498,24 @@ def _item_sources(item: dict) -> list:
     return sources
 
 
+def _is_oem_sentinel(oem) -> bool:
+    """OEM alanının 'kod okunamadı/bilinmiyor' anlamına gelen sentinel değeri ('OEM-BELİRSİZ')
+    olup olmadığını kontrol eder.
+
+    BUG (2026-08-12'de bir kod denetiminde tespit edildi, GERÇEK veri kaybına yol açtığı
+    doğrulandı - Excel katalog entegrasyonunda 5 kayıttan 4'ü sessizce kayboldu): aşağıdaki
+    merge_catalog_items eskiden bu kontrolü İKİ FARKLI yerde İKİ FARKLI şekilde yapıyordu -
+    oem_index kurulurken '.upper() != "OEM-BELİRSİZ"', yeni gelen ürün için ise
+    '.lower() != "oem-belirsiz"'. Python'da "İ".lower() normal 'i' değil, 'i' + görünmez bir
+    birleştirici nokta (U+0307) üretiyor - yani "OEM-BELİRSİZ".lower() ASLA düz yazılmış
+    "oem-belirsiz" sabitine eşit olmuyordu. Sonuç: sentinel değerli (kodu okunamayan) ürünler
+    yanlışlıkla 'bilinen/gerçek OEM' sayılıp oem_index'e ekleniyordu - aynı partide (bir Excel/
+    PDF sayfasında) kodu okunamayan BİRDEN FAZLA farklı ürün varsa, ikincisi (üçüncüsü, ...)
+    birincinin kaydının üzerine SESSİZCE yazıyordu. Artık HER YERDE bu TEK fonksiyon kullanılıyor,
+    asimetri kaynağı olan .lower()/.upper() karışıklığı tamamen ortadan kaldırıldı."""
+    return str(oem or "").strip().upper() == "OEM-BELİRSİZ"
+
+
 def merge_catalog_items(catalog: list, new_items: list) -> tuple:
     """Yeni taranan parçaları kataloğa ekler. Aynı OEM koduna sahip bir parça (aynı ürün iki farklı
     katalog dosyasında/sayfasında geçmişse) tekrar eklenmez, mevcut kayıt güncellenir - katalogda
@@ -1502,7 +1529,7 @@ def merge_catalog_items(catalog: list, new_items: list) -> tuple:
     oem_index = {
         str(item.get("oem", "")).strip().lower(): idx
         for idx, item in enumerate(catalog)
-        if item.get("oem") and str(item.get("oem")).strip().upper() != "OEM-BELİRSİZ"
+        if item.get("oem") and not _is_oem_sentinel(item.get("oem"))
     }
     # BUG (2026-08-11, canlıda gerçekten yaşandı ve veri kaybına yol açtı): yapay zekanın ürettiği
     # id (PRC-XXXX, sadece 4 haneli rastgele sayı) katalog 1000+ kayda ulaştıkça çakışma ihtimali
@@ -1527,7 +1554,7 @@ def merge_catalog_items(catalog: list, new_items: list) -> tuple:
     updated = 0
     for new_item in new_items:
         oem_key = str(new_item.get("oem", "")).strip().lower()
-        is_known_oem = bool(oem_key) and oem_key != "oem-belirsiz"
+        is_known_oem = bool(oem_key) and not _is_oem_sentinel(new_item.get("oem"))
         if is_known_oem and oem_key in oem_index:
             existing = catalog[oem_index[oem_key]]
             merged_sources = sorted(set(_item_sources(existing)) | set(_item_sources(new_item)))
@@ -1613,6 +1640,11 @@ def _scan_excel_catalog(filename: str, file_path: str, on_page_done=None) -> lis
     işlenmiş satırlar 'source_file' alanındaki satır numarasına bakılarak atlanır, tekrar işlenmez."""
     import openpyxl
 
+    # BUG (2026-08-12'de bir kod denetiminde tespit edildi): 'sf' NFC'ye normalize ediliyordu ama
+    # yeniden yüklenen 'filename' EDİLMİYORDU - PDF yolundaki (_scan_catalog_source) aynı sınıf
+    # eksiklikle tutarlı, aynı yerde düzeltildi. Tek taraflı normalizasyon, karşı taraf zaten
+    # normalize DEĞİLSE hâlâ eşleşme kaçırabiliyordu.
+    filename = unicodedata.normalize("NFC", filename)
     already_scanned_rows = set()
     for item in _load_catalog_from_disk():
         sf = item.get("source_file")
@@ -1726,16 +1758,24 @@ def _scan_catalog_source(filename: str, file_path: str, on_page_done=None) -> li
             # sayfalar için hiç çalışmıyordu; aynı dosya tekrar yüklenince gereksiz yere yeniden
             # taranıp AI kotası boşa harcanıyordu. Artık sadece dosya adı+sayfa numarası
             # normalize edilerek karşılaştırılıyor, açıklama eki göz ardı ediliyor.
+            # BUG (2026-08-12'de bir kod denetiminde tespit edildi - _catalog_base_name/
+            # _source_file_matches_page'deki AYNI Unicode sorununun burada da bulunmamış hali):
+            # ne yeniden yüklenen 'filename' ne kataloğdaki 'sf' NFC'ye normalize ediliyordu -
+            # Türkçe karakterli bir dosya farklı bir cihaz/tarayıcıdan farklı Unicode biçimiyle
+            # (NFC/NFD) tekrar yüklenirse bu kontrol sessizce başarısız olur, tüm dosya gereksiz
+            # yere yeniden taranırdı (kotayı 2-3 kat hızlı tüketen, kodun kendi belgelediği tam bug).
+            normalized_filename = unicodedata.normalize("NFC", filename)
             already_scanned = set()
             for item in _load_catalog_from_disk():
                 sf = item.get("source_file")
                 if not isinstance(sf, str):
                     continue
-                m = re.match(re.escape(filename) + r" \(sayfa (\d+)", sf)
+                sf = unicodedata.normalize("NFC", sf)
+                m = re.match(re.escape(normalized_filename) + r" \(sayfa (\d+)", sf)
                 if m:
-                    already_scanned.add(f"{filename} (sayfa {m.group(1)})")
+                    already_scanned.add(f"{normalized_filename} (sayfa {m.group(1)})")
             items = []
-            for _page_num, page_label, page_path, page_words in render_pdf_pages_to_images(file_path, filename=filename, already_scanned=already_scanned):
+            for _page_num, page_label, page_path, page_words in render_pdf_pages_to_images(file_path, filename=normalized_filename, already_scanned=already_scanned):
                 try:
                     # 3 KADEMELİ TARAMA (en ucuzdan en pahalıya):
                     # 1) ÜCRETSİZ: sabit regex/konum kalıpları (_try_extract_text_table) - sayfanın
@@ -2156,6 +2196,11 @@ def get_usage():
     # kimse fark etmeden. Bu yüzden son senkronizasyon durumu burada görünür kılınıyor - yönetim
     # sayfaları 3+ üst üste başarısızlıkta uyarı gösteriyor.
     result["backup_status"] = dict(_github_sync_status)
+    # outreach.py (müşteri iletişim listesi + broadcast log) kendi ayrı GitHub yedekleme durumunu
+    # tutuyor (2026-08-12'de eklendi - bu dosya daha önce hatalarını hiç görünür kılmıyordu, bkz.
+    # outreach._sync_to_github docstring'i) - aynı 3+ üst üste başarısızlık uyarısı burada da
+    # görünsün diye katalog durumunun yanına ekleniyor.
+    result["contacts_backup_status"] = dict(outreach._github_sync_status)
     return result
 
 @app.get("/leads-data")
@@ -2185,13 +2230,14 @@ def update_lead_status(
     note: str = Form(""),
     _: str = Depends(require_admin)
 ):
-    reviews = lead_store.load_lead_reviews()
-    reviews[lead_id] = {
-        "status": status,
-        "note": note,
-        "reviewed_at": datetime.now(timezone.utc).isoformat()
-    }
-    lead_store.save_lead_reviews(reviews)
+    with lead_store.LEAD_STORE_LOCK:
+        reviews = lead_store.load_lead_reviews()
+        reviews[lead_id] = {
+            "status": status,
+            "note": note,
+            "reviewed_at": datetime.now(timezone.utc).isoformat()
+        }
+        lead_store.save_lead_reviews(reviews)
     lead_store.sync_lead_reviews_to_github()
     return {"status": "success"}
 
@@ -2203,12 +2249,13 @@ def bulk_update_lead_status(
 ):
     """Birden fazla lead'i tek seferde aynı duruma işaretler (933 kayıtta tek tek tıklamamak için)."""
     ids = [i.strip() for i in lead_ids.split(",") if i.strip()]
-    reviews = lead_store.load_lead_reviews()
     now = datetime.now(timezone.utc).isoformat()
-    for lid in ids:
-        existing_note = reviews.get(lid, {}).get("note", "")
-        reviews[lid] = {"status": status, "note": existing_note, "reviewed_at": now}
-    lead_store.save_lead_reviews(reviews)
+    with lead_store.LEAD_STORE_LOCK:
+        reviews = lead_store.load_lead_reviews()
+        for lid in ids:
+            existing_note = reviews.get(lid, {}).get("note", "")
+            reviews[lid] = {"status": status, "note": existing_note, "reviewed_at": now}
+        lead_store.save_lead_reviews(reviews)
     lead_store.sync_lead_reviews_to_github()
     return {"status": "success", "message": f"{len(ids)} lead güncellendi."}
 
@@ -2374,16 +2421,23 @@ def classify_ambiguous_leads(_: str = Depends(require_admin)):
     """
     try:
         results = call_groq_json_array(prompt, use_secondary_model=True)  # iç kullanım, müşteriye gösterilmez
-        for r in results:
-            lid = r.get("lead_id")
-            if not lid:
-                continue
-            ai_scores[lid] = {
-                "relevance_score": int(r.get("relevance_score", 0)),
-                "score_reasoning": r.get("score_reasoning", ""),
-                "classified_at": now,
-            }
-        lead_store.save_lead_ai_scores(ai_scores)
+        # Kilit, YALNIZCA asıl oku-değiştir-yaz döngüsünü korur - yukarıdaki yavaş Groq çağrısı
+        # kilit DIŞINDA (usage_tracker.record_usage'da bulunup düzeltilen "kilidi ağ çağrısı
+        # boyunca tutma" hatasıyla aynı sınıf sorunu burada baştan itibaren önlemek için). Kilit
+        # altında ai_scores TEKRAR taze okunuyor - Groq çağrısı sürerken (birkaç saniye) başka bir
+        # istek zaten kaydetmiş olabilir, o değişikliklerin üzerine yazılmaması için.
+        with lead_store.LEAD_STORE_LOCK:
+            ai_scores = lead_store.load_lead_ai_scores()
+            for r in results:
+                lid = r.get("lead_id")
+                if not lid:
+                    continue
+                ai_scores[lid] = {
+                    "relevance_score": int(r.get("relevance_score", 0)),
+                    "score_reasoning": r.get("score_reasoning", ""),
+                    "classified_at": now,
+                }
+            lead_store.save_lead_ai_scores(ai_scores)
         lead_store.sync_lead_ai_scores_to_github()
         remaining = len(candidates) - len(batch)
         return {
@@ -2482,21 +2536,26 @@ def classify_leads_for_product(
     """
     try:
         results = call_groq_json_array(prompt, use_secondary_model=True)  # iç kullanım, ayrı (llama) kota
-        if product_key not in product_scores:
-            product_scores[product_key] = {"product_description": product_description, "classified_at": now, "scores": {}}
-        for r in results:
-            if not isinstance(r, dict):
-                continue
-            lid = r.get("lead_id")
-            if not lid:
-                continue
-            product_scores[product_key]["scores"][lid] = {
-                "product_fit_score": _safe_product_fit_score(r.get("product_fit_score", 0)),
-                "product_fit_reasoning": str(r.get("product_fit_reasoning", "")),
-                "classified_at": now,
-            }
-        product_scores[product_key]["classified_at"] = now
-        lead_store.save_lead_product_scores(product_scores)
+        # bkz. classify_ambiguous_leads'teki aynı düzeltme notu: kilit sadece oku-değiştir-yaz
+        # döngüsünü korur, yavaş Groq çağrısı kilit dışında kalır; product_scores burada tekrar
+        # taze okunuyor.
+        with lead_store.LEAD_STORE_LOCK:
+            product_scores = lead_store.load_lead_product_scores()
+            if product_key not in product_scores:
+                product_scores[product_key] = {"product_description": product_description, "classified_at": now, "scores": {}}
+            for r in results:
+                if not isinstance(r, dict):
+                    continue
+                lid = r.get("lead_id")
+                if not lid:
+                    continue
+                product_scores[product_key]["scores"][lid] = {
+                    "product_fit_score": _safe_product_fit_score(r.get("product_fit_score", 0)),
+                    "product_fit_reasoning": str(r.get("product_fit_reasoning", "")),
+                    "classified_at": now,
+                }
+            product_scores[product_key]["classified_at"] = now
+            lead_store.save_lead_product_scores(product_scores)
         lead_store.sync_lead_product_scores_to_github()
         remaining = len(candidates) - len(batch)
         return {
