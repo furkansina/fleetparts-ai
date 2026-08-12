@@ -6,6 +6,7 @@ import base64
 import time
 import secrets
 import threading
+import unicodedata
 import uuid
 from datetime import datetime, timezone
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -1432,11 +1433,20 @@ CATALOG_WRITE_LOCK = threading.Lock()  # istekler arası paylaşılan kilit - ik
 def _catalog_base_name(source_file) -> str:
     """'GÖÇMEN KATALOG .pdf (sayfa 3, metin katmanından...)' -> 'GÖÇMEN KATALOG .pdf' - sayfa/
     açıklama ekini atıp ürünün hangi YÜKLENEN DOSYADAN geldiğini bulur. Katalog bazında gruplama
-    (kaç farklı katalog var) ve katalog bazında toplu silme için kullanılır."""
+    (kaç farklı katalog var) ve katalog bazında toplu silme için kullanılır.
+
+    BUG (2026-08-12'de canlıda tespit edildi, kullanıcı yakaladı): AYNI dosya adı, farklı
+    kaynaklardan geldiğinde (yapay zeka çıktısı vs. elle/scriptle girilen metin) Türkçe harfleri
+    (İ, Ş, Ğ vb.) FARKLI Unicode biçimleriyle kodlayabiliyor - görsel olarak BİREBİR AYNI
+    görünüyorlar ama bilgisayar için farklı byte dizileri, bu yüzden aynı katalog dosyası "Yüklenmiş
+    Kataloglar" listesinde İKİ AYRI dosyaymış gibi görünüyordu (ORPASAN kataloğu 286 ürün + 1 ürün
+    diye ikiye bölünmüştü). Artık karşılaştırmadan önce Unicode normalize ediliyor (NFC) - kaynağı
+    ne olursa olsun aynı görünen metin artık her zaman aynı sayılır."""
     if not isinstance(source_file, str) or not source_file:
         return ""
-    idx = source_file.find(" (sayfa")
-    return source_file[:idx].strip() if idx != -1 else source_file.strip()
+    normalized = unicodedata.normalize("NFC", source_file)
+    idx = normalized.find(" (sayfa")
+    return normalized[:idx].strip() if idx != -1 else normalized.strip()
 
 
 def _item_sources(item: dict) -> list:
@@ -1767,9 +1777,16 @@ def _source_file_matches_page(source_file, filename: str, page_num: int) -> bool
     """source_file bazen basit 'dosya (sayfa N)' formatında, bazen 'dosya (sayfa N, metin
     katmanından otomatik çıkarıldı)' gibi ek açıklamalı - bkz. _scan_catalog_source'daki
     2026-08-11 notu. İkisini de doğru eşleştirmek için tam eşitlik yerine önek karşılaştırması
-    kullanılır (sadece dosya adı + '(sayfa N' önekine bakılır, sonrasında ne olduğu önemsiz)."""
+    kullanılır (sadece dosya adı + '(sayfa N' önekine bakılır, sonrasında ne olduğu önemsiz).
+
+    BUG (2026-08-12'de _catalog_base_name'de tespit edilip buraya da uygulandı): 'filename'
+    (yeniden yüklenen dosyanın adı) ve 'source_file' (kataloğa daha önce kaydedilmiş metin)
+    Türkçe harfleri farklı Unicode biçimleriyle taşıyabilir - normalize edilmezse görsel olarak
+    özdeş dosya adları eşleşmeyip geriye dönük görsel eklemeyi SESSİZCE atlayabilirdi."""
     if not isinstance(source_file, str):
         return False
+    source_file = unicodedata.normalize("NFC", source_file)
+    filename = unicodedata.normalize("NFC", filename)
     prefix = f"{filename} (sayfa {page_num}"
     return source_file == f"{filename} (sayfa {page_num})" or source_file.startswith(prefix + ",") or source_file.startswith(prefix + ")")
 
