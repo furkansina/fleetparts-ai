@@ -40,6 +40,18 @@ FIELD_MASK = ",".join([
 QUERY = "oto yedek parça"
 _MAX_PAGES = 3  # Places API (New) sayfa başı en fazla 20 sonuç veriyor, toplamda ~60 sonuç tavanı var
 
+# GÜVENLİK KATMANI (2026-08-12, kullanıcı "bir anda para girerse bu riski alamam" dedi - Google
+# Cloud'un kendi kota/bütçe ayarlarına GÜVENMEK YETMEZ, kullanıcı onları hiç kurmayı unutabilir
+# veya yanlış yapılandırabilir). Bu modül, Google'a ne kadar istek atacağını Google Cloud
+# tarafındaki AYARLARDAN BAĞIMSIZ olarak kodun KENDİSİNDE sınırlıyor - kod içinde sabit, aşılamaz
+# bir tavan. 81 il × 3 sayfa = en fazla 243 istek olabilir zaten (_MAX_PAGES ile doğal bir tavan
+# var), ama bu ek güvenlik katmanı bir hata (ör. sonsuz döngü, yanlış çağrı) durumunda bile
+# harcamanın ~10 USD'yi (Google'ın $200 aylık ücretsiz kredisinin çok altında) asla aşmamasını
+# garanti eder - run bu sınıra ulaşırsa kalan iller sessizce atlanır, sıradaki haftalık taramada
+# devam eder (leads.json'a o ana kadar bulunanlar zaten kaydedilmiş olur, kayıp olmaz).
+_MAX_REQUESTS_PER_RUN = 300  # ~300 x $0.032 ≈ $9,60 - kesin, kod seviyesinde tavan
+_request_count = 0
+
 
 def is_configured() -> bool:
     return bool(os.environ.get(API_KEY_ENV))
@@ -54,6 +66,10 @@ def _headers() -> dict:
 
 
 def _search_page(query: str, page_token: str = None) -> dict:
+    global _request_count
+    if _request_count >= _MAX_REQUESTS_PER_RUN:
+        return {}
+    _request_count += 1
     body = {
         "textQuery": query,
         "languageCode": "tr",
@@ -112,11 +128,17 @@ def search_province(province: str, delay: float = 0.3) -> list:
 
 
 def search_all(delay: float = 0.3) -> list:
+    global _request_count
     if not is_configured():
         print(f"  [google_places] {API_KEY_ENV} tanımlı değil - kaynak atlandı (ücret oluşmadı, kod hazır)")
         return []
+    _request_count = 0
     all_results = []
     for province in PROVINCES:
+        if _request_count >= _MAX_REQUESTS_PER_RUN:
+            print(f"  [google_places] Güvenlik tavanına ulaşıldı ({_MAX_REQUESTS_PER_RUN} istek, ~${_MAX_REQUESTS_PER_RUN * 0.032:.0f}) - "
+                  f"kalan iller bu koşuda atlandı, bir sonraki haftalık taramada devam eder.")
+            break
         try:
             items = search_province(province, delay=delay)
         except Exception as e:
