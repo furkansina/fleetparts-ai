@@ -242,7 +242,17 @@
         formData.append('lead_ids', Array.from(selectedIds).join(','));
         formData.append('status', status);
         try {
-            await fetch('/leads/bulk-status', { method: 'POST', body: formData });
+            // BUG (2026-08-12'de bir kod denetiminde tespit edildi): fetch() sadece AĞ hatasında
+            // reddediyor, HTTP 401/500 gibi durumlarda normal şekilde çözülüyor (throw etmiyor) -
+            // eskiden yanıt hiç kontrol edilmeden aşağıdaki yerel durum güncellemesi yine de
+            // uygulanıyordu. Yani oturum süresi dolmuş/sunucu hatası vermiş olsa bile arayüz
+            // "başarılı" gösteriyordu, ama sunucuya HİÇBİR ŞEY kaydedilmemiş oluyordu - sayfa
+            // yenilenince değişiklik sessizce kaybolurdu.
+            const res = await fetch('/leads/bulk-status', { method: 'POST', body: formData });
+            if (!res.ok) {
+                alert(res.status === 401 ? 'Yönetici oturumu geçersiz - sayfayı yenileyip tekrar deneyin.' : `Kaydedilemedi (HTTP ${res.status}).`);
+                return;
+            }
             for (const id of selectedIds) {
                 const lead = allLeads.find(l => l.lead_id === id);
                 if (lead) lead.status = status;
@@ -505,7 +515,13 @@
         formData.append('status', status);
         formData.append('note', noteVal || '');
         try {
-            await fetch(`/leads/${encodeURIComponent(leadId)}/status`, { method: 'POST', body: formData });
+            // bkz. bulkSet'teki aynı tarihli not - res.ok kontrol edilmeden yerel duruma
+            // güvenmek, sunucu hatası/oturum sorununda sessiz veri kaybına yol açıyordu.
+            const res = await fetch(`/leads/${encodeURIComponent(leadId)}/status`, { method: 'POST', body: formData });
+            if (!res.ok) {
+                alert(res.status === 401 ? 'Yönetici oturumu geçersiz - sayfayı yenileyip tekrar deneyin.' : `Kaydedilemedi (HTTP ${res.status}).`);
+                return;
+            }
             if (lead) { lead.status = status; lead.note = noteVal; }
             renderLeads();
         } catch (err) {
