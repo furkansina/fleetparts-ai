@@ -19,11 +19,12 @@ from provinces import PROVINCES
 # ne zaman aktif ederse (Render/GitHub Actions secrets'a GOOGLE_PLACES_API_KEY eklenerek) o an
 # devreye girer, kod tarafında BAŞKA HİÇBİR DEĞİŞİKLİK gerekmez.
 #
-# MALİYET TAHMİNİ (2026 fiyatlandırması, Text Search Pro SKU): ~$0.032/istek. 81 il × ortalama
-# ~2 sayfa (sayfa başı 20 sonuç) ≈ 160 istek ≈ 5 USD TEK SEFERLİK tam tarama için. Haftalık
-# otomatik taramada YENİ firma bulma ihtimali düşük olduğu için pratikte tek seferlik/aylık
-# çalıştırılması (--google-places-once gibi manuel bir bayrakla) önerilir - koşu başına otomatik
-# tekrar tetiklenmez, sadece run_discovery.py'de env değişkeni varsa çalışır.
+# MALİYET TAHMİNİ (2026 fiyatlandırması, Text Search Pro SKU): ~$0.032/istek. 81 il x 12 sorgu
+# (bkz. QUERIES) x en fazla 3 sayfa = teorik tavan 2916 istek (~93 USD), gerçek harcama muhtemelen
+# çok daha düşük (küçük illerde çoğu sorgu 1 sayfada/sonuçsuz biter). Ayrıca kod içinde 5000
+# isteklik (~160 USD) kesin bir güvenlik tavanı var (bkz. _MAX_REQUESTS_PER_RUN notu) - Google'ın
+# $200 aylık ücretsiz kredisinin asla üzerine çıkılmaz. Haftalık otomatik taramada YENİ firma bulma
+# ihtimali düşük olduğu için pratikte tek seferlik/aylık çalıştırılması önerilir.
 API_KEY_ENV = "GOOGLE_PLACES_API_KEY"
 SEARCH_URL = "https://places.googleapis.com/v1/places:searchText"
 FIELD_MASK = ",".join([
@@ -37,19 +38,43 @@ FIELD_MASK = ",".join([
     "places.businessStatus",
 ])
 
-QUERY = "oto yedek parça"
-_MAX_PAGES = 3  # Places API (New) sayfa başı en fazla 20 sonuç veriyor, toplamda ~60 sonuç tavanı var
+# TEK sorgu (sadece "oto yedek parça") büyük şehirlerde Google'ın 60 sonuç/sorgu tavanına
+# (3 sayfa x 20) hemen çarpıyordu - İstanbul'da gerçekte 60'tan çok daha fazla ilgili işletme var
+# ama Text Search API'si tek sorgu başına bundan fazlasını hiç vermiyor (API'nin kendi sınırı,
+# bizim tarafımızda aşılamaz). TEK çözüm: birden fazla FARKLI sorgu - her biri kendi 60 sonuçluk
+# tavanına sahip, aralarında örtüşme olsa da (aynı firma birden fazla sorguda çıkabilir - dedup
+# zaten mevcut lead_dedupe.dedupe_key ile hallediliyor) toplam kapsamı ciddi şekilde artırıyor.
+# 2026-08-12, kullanıcı "$200 kullanıp 81 ildeki TÜM müşterileri gömebilir miyiz" diye sordu -
+# gerçekçi beklenti: Türkiye'de bu niş için muhtemelen 40.000 gerçek işletme YOK (o kadar iddialı
+# bir rakam değil), ama bütçenin büyük kısmını kullanarak kapsamı olabildiğince maksimize etmek
+# için sorgu sayısı 1'den 12'ye çıkarıldı.
+QUERIES = [
+    "oto yedek parça",
+    "kamyon yedek parça",
+    "ağır vasıta yedek parça",
+    "TIR yedek parça",
+    "dorse treyler servisi",
+    "nakliye firması",
+    "lojistik firması",
+    "kamyon servisi",
+    "oto elektrik ağır vasıta",
+    "kamyon lastikçi",
+    "hidrolik yedek parça",
+    "filo yönetimi",
+]
+_MAX_PAGES = 3  # Places API (New) sayfa başı en fazla 20 sonuç veriyor, toplamda ~60 sonuç tavanı var (API'nin kendi sınırı)
 
 # GÜVENLİK KATMANI (2026-08-12, kullanıcı "bir anda para girerse bu riski alamam" dedi - Google
 # Cloud'un kendi kota/bütçe ayarlarına GÜVENMEK YETMEZ, kullanıcı onları hiç kurmayı unutabilir
 # veya yanlış yapılandırabilir). Bu modül, Google'a ne kadar istek atacağını Google Cloud
 # tarafındaki AYARLARDAN BAĞIMSIZ olarak kodun KENDİSİNDE sınırlıyor - kod içinde sabit, aşılamaz
-# bir tavan. 81 il × 3 sayfa = en fazla 243 istek olabilir zaten (_MAX_PAGES ile doğal bir tavan
-# var), ama bu ek güvenlik katmanı bir hata (ör. sonsuz döngü, yanlış çağrı) durumunda bile
-# harcamanın ~10 USD'yi (Google'ın $200 aylık ücretsiz kredisinin çok altında) asla aşmamasını
-# garanti eder - run bu sınıra ulaşırsa kalan iller sessizce atlanır, sıradaki haftalık taramada
-# devam eder (leads.json'a o ana kadar bulunanlar zaten kaydedilmiş olur, kayıp olmaz).
-_MAX_REQUESTS_PER_RUN = 300  # ~300 x $0.032 ≈ $9,60 - kesin, kod seviyesinde tavan
+# bir tavan. Teorik tavan 81 il x 12 sorgu x 3 sayfa = 2916 istek (~93 USD) olsa da, gerçekte
+# küçük illerde çoğu sorgu 1 sayfada (ya da hiç sonuçsuz) biteceği için gerçek harcama muhtemelen
+# çok daha düşük olacak. Yine de, bir hata durumunda bile harcamanın ASLA Google'ın $200 aylık
+# ücretsiz kredisine yaklaşmamasını garanti etmek için 5000 isteklik (~160 USD, $40 pay bırakan)
+# kesin bir tavan konuldu - run bu sınıra ulaşırsa kalan iller/sorgular sessizce atlanır, sıradaki
+# haftalık taramada devam eder (leads.json'a o ana kadar bulunanlar zaten kaydedilmiş olur, kayıp olmaz).
+_MAX_REQUESTS_PER_RUN = 5000  # ~5000 x $0.032 ≈ $160 - kesin, kod seviyesinde tavan ($200 kredisinin altında, pay birakir)
 _request_count = 0
 
 
@@ -105,13 +130,12 @@ def _to_raw(place: dict) -> dict:
     }
 
 
-def search_province(province: str, delay: float = 0.3) -> list:
-    if not is_configured():
-        return []
-    query = f"{QUERY} {province}"
+def _search_one_query(query: str, delay: float) -> list:
     results = []
     page_token = None
     for _page in range(_MAX_PAGES):
+        if _request_count >= _MAX_REQUESTS_PER_RUN:
+            break
         data = _search_page(query, page_token)
         places = data.get("places", [])
         for place in places:
@@ -124,6 +148,21 @@ def search_province(province: str, delay: float = 0.3) -> list:
         # Google, yeni sayfa token'ının aktif olması için kısa bir bekleme öneriyor
         time.sleep(2)
     time.sleep(delay)
+    return results
+
+
+def search_province(province: str, delay: float = 0.3) -> list:
+    """Bir il için TÜM sorgu terimlerini (QUERIES) tarar - tek sorgu Google'ın 60 sonuç/sorgu
+    tavanına hemen çarptığı için (bkz. modül başındaki not), her sorgu kendi 60'lık tavanını
+    getirir. Aynı firma birden fazla sorguda çıkabilir - dedup çağıran tarafta (run_discovery.py,
+    dedupe_key ile) zaten yapılıyor, burada tekrar filtrelemeye gerek yok."""
+    if not is_configured():
+        return []
+    results = []
+    for q in QUERIES:
+        if _request_count >= _MAX_REQUESTS_PER_RUN:
+            break
+        results.extend(_search_one_query(f"{q} {province}", delay))
     return results
 
 
@@ -146,6 +185,6 @@ def search_all(delay: float = 0.3) -> list:
             items = []
         for item in items:
             item["province"] = province
-        print(f"  [google_places] {province}: {len(items)} firma")
+        print(f"  [google_places] {province}: {len(items)} firma ({_request_count} istek toplam, ~${_request_count * 0.032:.1f})")
         all_results.extend(items)
     return all_results
