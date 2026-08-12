@@ -1635,6 +1635,15 @@ def _run_backfill_images_job(job_id: str, saved_paths: list):
     updated_items = 0
     already_ok_pages = 0  # eşleşen kayıt(lar) vardı ama HEPSİNİN zaten görseli vardı - yapacak iş yoktu
     skipped_non_pdf = []  # PDF olmayan bir dosya bu forma yüklenirse (kabul EDİLİR ama işlenmez) - kullanıcıya net bildirilsin diye
+    # BUG (2026-08-12'de canlıda tespit edildi): GitHub'a gönderme eskiden SADECE tüm dosyalar
+    # bitince (fonksiyonun en sonunda) yapılıyordu - Render bu tür uzun işler sırasında zaman
+    # zaman kendiliğinden yeniden başladığı için (gerçek bir denemede 83 sayfalık bir PDF'in
+    # 31. sayfasında oldu), o ana kadar yerel diske işlenmiş TÜM ilerleme (onlarca sayfanın
+    # görseli) hiç GitHub'a gitmeden kayboluyordu - iş "kesintiye uğradı, ama şuna kadarki
+    # sayfalar zaten kalıcı kaydedildi" diyordu, oysa hiçbiri kalıcı değildi. Artık ana katalog
+    # yükleme işiyle AYNI desen: en fazla birkaç sayfada bir (ya da 20sn'de bir) senkronize edilir.
+    pages_since_sync = 0
+    last_sync_time = time.time()
     for filename, file_path in saved_paths:
         try:
             if not filename.lower().endswith(".pdf"):
@@ -1679,6 +1688,11 @@ def _run_backfill_images_job(job_id: str, saved_paths: list):
                                         updated_items += 1
                                 save_catalog(catalog)
                             matched_pages += 1
+                            pages_since_sync += 1
+                            if pages_since_sync >= 3 or (time.time() - last_sync_time) >= 20:
+                                sync_catalog_to_github()
+                                pages_since_sync = 0
+                                last_sync_time = time.time()
                     finally:
                         if os.path.exists(page_path):
                             os.remove(page_path)
