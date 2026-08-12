@@ -288,8 +288,18 @@ def main():
     # başka hiçbir değişiklik gerekmeden otomatik devreye girer.
     if lead_sources_google_places.is_configured() and not args.only:
         print("\nGoogle Places taranıyor (81 il, ücretli API)...")
+        # Kullanıcının kendi önerisi (2026-08-12): İstanbul/Ankara gibi zaten OSM+rehberlerden
+        # (ve bu koşuda bulunan find.com.tr/sanayisitesi.com.tr sonuçlarından) doygun illerde
+        # bütçe harcamak israf - il bazlı MEVCUT (bu koşu dahil) lead sayısı Google Places'e
+        # verilir, o da doygun illerde otomatik olarak azaltılmış taramaya geçer (bkz.
+        # lead_sources_google_places.py, _SATURATED_PROVINCE_THRESHOLD).
+        province_counts: dict = {}
+        for l in existing + new_leads:
+            p = l.get("province", "")
+            if p:
+                province_counts[p] = province_counts.get(p, 0) + 1
         try:
-            gplaces_results = lead_sources_google_places.search_all()
+            gplaces_results = lead_sources_google_places.search_all(existing_counts=province_counts)
         except Exception as e:
             print(f"  Google Places taraması başarısız - {e}")
             gplaces_results = []
