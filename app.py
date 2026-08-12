@@ -22,7 +22,7 @@ import lead_store
 import outreach
 import usage_tracker
 import whatsapp_business_api
-from lead_dedupe import is_mobile_phone, turkish_lower
+from lead_dedupe import is_mobile_phone, turkish_lower, turkish_fold
 
 app = FastAPI(title="FleetParts AI - Universal Heavy Duty Master Engine")
 
@@ -603,11 +603,18 @@ def _select_search_candidates(catalog: list, keywords: list, exact_codes: set = 
         else:
             rest.append(item)
 
+    # bkz. find_by_text'teki turkish_fold notu - aynı diyakritik-duyarlılık sorunu bu aday
+    # ön-seçiminde de vardı: burada 0 aday bulunursa AI'a hiçbir doğru aday hiç gösterilmez,
+    # kelime eşleşmeli bir ürün gerçekten var olsa bile "NOT_IN_CATALOG" ile sonuçlanırdı.
     words = [turkish_lower(w) for w in keywords if w and len(w) > 2]
+    folded_words = [turkish_fold(w) for w in words]
     scored = []
     for item in rest:
         hay = turkish_lower(" ".join(str(item.get(f, "")) for f in ("name", "specs", "brand", "oem", "id")))
         hits = sum(1 for w in words if w in hay)
+        if not hits:
+            folded_hay = turkish_fold(hay)
+            hits = sum(1 for fw in folded_words if fw in folded_hay)
         if hits:
             scored.append((hits, item))
     scored.sort(key=lambda t: -t[0])
@@ -805,12 +812,22 @@ def find_by_text(query: str) -> dict:
     # değil" diyip TAMAMEN reddediyordu, kullanıcı hiçbir şey göremiyordu. Oysa müşteri zaten bir
     # LİSTE görüp kendi seçebilir - yapay zekanın TEK bir kesin cevap bulma zorunluluğu yanlış
     # varsayımdı. Artık kelime eşleşen KAÇ ürün varsa (2 de olsa 40 da olsa) hepsi listelenir.
+    # BUG (2026-08-12'de canlıda tespit edildi): karşılaştırma Türkçe karakterleri OLDUĞU GİBİ
+    # bekliyordu - müşteri "çamurluk" yerine (çoğu telefon klavyesi alışkanlığıyla) "camurluk"
+    # yazınca katalogdaki "ÇAMURLUK" hiç eşleşmiyordu (doğrulandı: "ÇAMURLUK" 177 aday buluyor,
+    # "camurluk" 0 aday buluyordu - aynı kelime). Önce TAM (diyakritikli) eşleşme denenir, o
+    # başarısız olursa diyakritiksiz ("katlanmış") hale düşülür - bkz. turkish_fold docstring'i.
     words = [w for w in q.split() if len(w) > 2]
+    folded_words = [turkish_fold(w) for w in words]
     if len(words) >= 1:
         name_matches = []
         for item in catalog:
             hay = turkish_lower(" ".join(str(item.get(f, "")) for f in ("name", "brand", "specs")))
             if all(w in hay for w in words):
+                name_matches.append(item)
+                continue
+            folded_hay = turkish_fold(hay)
+            if all(fw in folded_hay for fw in folded_words):
                 name_matches.append(item)
         if len(name_matches) == 1:
             item_copy = name_matches[0].copy()
