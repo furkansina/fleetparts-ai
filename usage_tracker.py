@@ -209,6 +209,14 @@ def record_usage(total_tokens: int, pool: str = "customer"):
         return
     if pool not in POOLS:
         pool = "customer"
+    # BUG (2026-08-12'de bir kod denetiminde tespit edildi): _sync_to_github (her çağrıda GERÇEK
+    # bir GitHub ağ isteği) eskiden _lock TUTULURKEN çağrılıyordu. record_usage her başarılı Groq
+    # çağrısından sonra (müşteriye yanıt dönmeden HEMEN önce) çalışıyor - yani fotoğraf/metin
+    # aramasındaki bir müşteri, arka planda bir katalog yükleme işi de Groq'a istek atıyorsa,
+    # sadece o işin GitHub round-trip'i (GET+PUT, 409'da 3 denemeye kadar) kadar gereksiz yere
+    # bekliyordu. CATALOG_WRITE_LOCK/sync_catalog_to_github için zaten bilinçli uygulanan "kilidi
+    # ağ çağrısından ÖNCE bırak" deseni burada da uygulanıyor - kilit sadece hızlı bellek içi/
+    # yerel disk güncellemesini korur, GitHub senkronizasyonu kilit DIŞINDA olur.
     with _lock:
         data = _load_live()
         today = str(date.today())
@@ -220,7 +228,7 @@ def record_usage(total_tokens: int, pool: str = "customer"):
         _save(data)
         _cache["data"] = data
         _cache["fetched_at"] = time.time()
-        _sync_to_github()
+    _sync_to_github()
 
 
 def get_today_usage() -> dict:
