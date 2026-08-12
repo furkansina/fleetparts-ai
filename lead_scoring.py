@@ -144,8 +144,17 @@ def score_lead(raw: dict) -> dict:
     name_lower = re.sub(r"\s+", " ", turkish_lower(raw.get("name", "")))
     shop_type = raw.get("shop_type", "")
 
+    # BUG (2026-08-12'de canlıda tespit edildi, gerçek para harcanan Google Places verisinde
+    # yakalandı): dışlama kontrolü eskiden SADECE firma ADINA bakıyordu - "Demircioglu Nakliye"
+    # gibi isminden belli olmayan bir firma, Google'ın KENDİ kategorisi ("Evden Eve Nakliyat")
+    # açıkça hedef dışı olduğu halde skor 90 alıp üst sıralara çıkmıştı. Google Places/rehber
+    # kaynaklarında firmanın gerçek iş kolu çoğu zaman İSİMDEN değil KATEGORİDEN belli oluyor -
+    # artık dışlama kontrolü hem isme hem kategoriye birlikte bakıyor.
+    category_lower = turkish_lower(raw.get("category_label", ""))
+    exclude_haystack = f"{name_lower} {category_lower}"
+
     keyword_hit = bool(_KEYWORD_PATTERN.search(name_lower))
-    is_excluded = bool(_EXCLUDE_PATTERN.search(name_lower))
+    is_excluded = bool(_EXCLUDE_PATTERN.search(exclude_haystack))
     is_stale = _is_stale_source(raw)
 
     if is_stale:
