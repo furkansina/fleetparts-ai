@@ -44392,5 +44392,57 @@
     "source_files": [
       "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1891)"
     ]
+  },
+  {
+    "id": "PRC-0193f5",
+    "oem": "OEM-BELİRSİZ",
+    "name": "RENAULT MIDLUM-FAN DAVLUMBAZ",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 363)",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 363)"
+    ]
+  },
+  {
+    "id": "PRC-da184a",
+    "oem": "OEM-BELİRSİZ",
+    "name": "AYNA BRAKET SOL V-2",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1073)",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1073)"
+    ]
+  },
+  {
+    "id": "PRC-b6c37e",
+    "oem": "OEM-BELİRSİZ",
+    "name": "AYNA BRAKET SAG V-2",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1074)",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1074)"
+    ]
+  },
+  {
+    "id": "PRC-d1a1ab",
+    "oem": "OEM-BELİRSİZ",
+    "name": "S WAY GÜNEŞLİK AYAĞI",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1839)",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1839)"
+    ]
   }
 ]
