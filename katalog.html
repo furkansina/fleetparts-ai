@@ -23,6 +23,8 @@
         .badge-oem { background: #e9ecef; color: #495057; font-family: monospace; }
 
         .placeholder { text-align: center; color: #888; padding: 30px; }
+        #catalogSearch { width: 100%; padding: 10px; margin-bottom: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; box-sizing: border-box; }
+        #catalogCount { color: #888; font-size: 12.5px; margin-bottom: 10px; display: block; }
     </style>
 </head>
 <body>
@@ -36,6 +38,8 @@
         <span class="sub">Aradığınız parçanın fotoğrafını veya kodunu gönderin, hemen dönüş yapalım</span>
     </a>
 
+    <input id="catalogSearch" type="text" placeholder="🔎 İsim, OEM kodu veya markaya göre ara..." style="display:none;" oninput="renderFilteredCatalog(this.value)">
+    <span id="catalogCount" style="display:none;"></span>
     <div id="catalogList" class="placeholder">Katalog yükleniyor...</div>
 </div>
 
@@ -72,25 +76,49 @@
         btn.href = `https://wa.me/${WA_NUMBER}?text=${text}`;
     }
 
+    // Katalog Excel entegrasyonuyla (2026-08-12) 1000'den 3400+ ürüne çıktı - arama/filtre olmadan
+    // müşterinin tek tek kaydırıp aradığını bulması pratik olmaktan çıkar. index.html'de admin
+    // katalog-görüntüleme akışında vardı, halka açık asıl gözat sayfası olan buraya (2026-08-12'de
+    // index.html'den admin arayüzü kaldırılırken) taşındı - aynı filtreleme mantığı.
+    let allCatalogItems = [];
+
+    function catalogItemCardHtml(item) {
+        return `
+            <div class="catalog-item">
+                <h4>${esc(item.name)}</h4>
+                <span class="badge badge-oem">${esc(item.oem)}</span>
+                <div style="margin-top:6px; color:#555; font-size:12.5px;">${esc(item.brand || '')}</div>
+                <div class="specs">${esc(item.specs || '')}</div>
+            </div>
+        `;
+    }
+
+    function renderFilteredCatalog(filterText) {
+        const q = (filterText || '').trim().toLocaleLowerCase('tr-TR');
+        const filtered = !q ? allCatalogItems : allCatalogItems.filter(item => {
+            const hay = `${item.name || ''} ${item.oem || ''} ${item.brand || ''} ${item.specs || ''}`.toLocaleLowerCase('tr-TR');
+            return hay.includes(q);
+        });
+        const countEl = document.getElementById('catalogCount');
+        countEl.textContent = q ? `${filtered.length} / ${allCatalogItems.length} parça` : `${allCatalogItems.length} parça`;
+        const el = document.getElementById('catalogList');
+        el.innerHTML = filtered.length ? filtered.map(catalogItemCardHtml).join('') : '<div class="placeholder">Aramayla eşleşen ürün yok.</div>';
+    }
+
     async function loadCatalog() {
         try {
             const res = await fetch('/get-catalog');
             const data = await res.json();
-            const items = data.catalog || [];
+            allCatalogItems = data.catalog || [];
             const el = document.getElementById('catalogList');
-            if (items.length === 0) {
+            if (allCatalogItems.length === 0) {
                 el.innerHTML = '<div class="placeholder">Katalog yakında eklenecek.</div>';
                 return;
             }
             el.className = 'catalog-grid';
-            el.innerHTML = items.map(item => `
-                <div class="catalog-item">
-                    <h4>${esc(item.name)}</h4>
-                    <span class="badge badge-oem">${esc(item.oem)}</span>
-                    <div style="margin-top:6px; color:#555; font-size:12.5px;">${esc(item.brand || '')}</div>
-                    <div class="specs">${esc(item.specs || '')}</div>
-                </div>
-            `).join('');
+            document.getElementById('catalogSearch').style.display = 'block';
+            document.getElementById('catalogCount').style.display = 'block';
+            renderFilteredCatalog('');
         } catch (err) {
             document.getElementById('catalogList').innerHTML = '<div class="placeholder">Katalog yüklenemedi.</div>';
         }
