@@ -85,6 +85,10 @@ UPLOAD_DIR = "temp_images"
 CATALOG_DIR = "sample_catalogs"
 CATALOG_FILE = "catalog.json"
 MAX_UPLOAD_MB = 20  # Groq görsel API'sinin sabit dosya boyutu sınırı
+# Excel katalogları Groq'a HİÇ gitmediği için (bkz. _scan_excel_catalog) 20MB sınırı onlar için
+# anlamsız/gereksiz kısıtlayıcı - onlarca/yüzlerce gömülü ürün fotoğrafı taşıyan gerçek bir Excel
+# dosyası kolayca 100MB+ olabiliyor (gerçek bir kullanımda 194MB'lık bir katalog görüldü).
+EXCEL_MAX_UPLOAD_MB = 300
 
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 os.makedirs(CATALOG_DIR, exist_ok=True)
@@ -1445,7 +1449,11 @@ def _catalog_base_name(source_file) -> str:
     if not isinstance(source_file, str) or not source_file:
         return ""
     normalized = unicodedata.normalize("NFC", source_file)
+    # " (sayfa N)" -> PDF/görsel kaynaklar, " (satır N)" -> Excel kaynaklar (2026-08-12'de
+    # Excel katalog desteğiyle eklendi) - hangisi varsa ondan öncesi asıl dosya adıdır.
     idx = normalized.find(" (sayfa")
+    if idx == -1:
+        idx = normalized.find(" (satır")
     return normalized[:idx].strip() if idx != -1 else normalized.strip()
 
 
@@ -1527,6 +1535,142 @@ def merge_catalog_items(catalog: list, new_items: list) -> tuple:
             added += 1
     return catalog, added, updated
 
+_EXCEL_NAME_COL_HINTS = ("açıklama", "aciklama", "ürün adı", "urun adi", "tanım", "tanim", "parça adı", "parca adi", "ad ")
+_EXCEL_OEM_COL_HINTS = ("oem", "kod", "parça no", "parca no", "referans")
+
+
+def _detect_excel_columns(ws) -> tuple:
+    """Excel katalogda ad/OEM sütunlarının hangi sütun numarasında olduğunu ilk birkaç satırdaki
+    başlık metinlerinden bulmaya çalışır - kullanıcı ileride farklı düzende bir Excel de
+    yükleyebilir ('çok farklı katalog atacağım' - PDF tarafında da aynı gerekçeyle regex yerine
+    genel bir çözüm tercih edildi, bkz. CATALOG_TEXT_SCAN_PROMPT_TEMPLATE notu). Bulunamazsa
+    "GÖÇMEN AĞIR VASITA KAPORTA.xlsx" dosyasında doğrulanmış düzene (2. satıra kadar başlık,
+    2. sütun ad, 3. sütun OEM) düşer."""
+    for row_idx in range(1, min(6, ws.max_row) + 1):
+        name_col = None
+        oem_col = None
+        for col_idx in range(1, min(ws.max_column, 10) + 1):
+            val = ws.cell(row=row_idx, column=col_idx).value
+            if not val:
+                continue
+            low = turkish_lower(str(val).strip())
+            if name_col is None and any(h in low for h in _EXCEL_NAME_COL_HINTS):
+                name_col = col_idx
+            if oem_col is None and any(h in low for h in _EXCEL_OEM_COL_HINTS):
+                oem_col = col_idx
+        if name_col and oem_col:
+            return row_idx + 1, name_col, oem_col
+    return 3, 2, 3
+
+
+_EXCEL_OEM_SPLIT_RE = re.compile(r"[\s,;/\n]+")
+
+
+def _scan_excel_catalog(filename: str, file_path: str, on_page_done=None) -> list:
+    """.xlsx katalog dosyalarını tarar (2026-08-12'de eklendi - kullanıcı Excel formatında bir
+    katalog gönderdi). PDF/görsel yoldan TAMAMEN FARKLI bir yol: Groq'a HİÇ gidilmez - Excel
+    zaten yapılandırılmış veri olduğu için satırlar doğrudan okunur (ücretsiz, kotasız, hatasız -
+    yapay zekanın yanlış okuma/uydurma riski de yok).
+
+    Her satırdaki gömülü resim (varsa) o SATIRIN ürününe ait TEK bir net fotoğraftır - PDF sayfa
+    taramasındaki gibi onlarca ürünün karıştığı kalabalık bir sayfa görseli DEĞİL - bu yüzden
+    burada 'source_page_image' gerçek bir izole ürün fotoğrafı olur, PDF yoluna göre kalite
+    belirgin şekilde daha iyidir.
+
+    Bir satırda birden fazla OEM kodu (virgül/boşluk/yeni satırla ayrılmış) yazılabiliyor - aynı
+    fiziksel ürünün farklı üretici referans numaraları. Bu durumda satır başına TEK kayıt değil,
+    HER OEM için ayrı bir katalog kaydı oluşturulur (hepsi aynı ad/resmi paylaşır) - aksi halde
+    müşteri o üründe yazılı OEM numaralarından ilki dışında birini yazınca "katalogda yok" görünürdü.
+
+    `on_page_done` PDF yolundaki gibi burada da her SATIR bitince (o satırın kayıtlarıyla) hemen
+    çağrılır - binlerce satırlık bir Excel'de Render süreci ortasında yeniden başlarsa (bilinen bir
+    risk, bkz. render_pdf_pages_to_images notu) o ana kadarki satırlar zaten kalıcı kaydedilmiş olur.
+
+    Aynı dosya ikinci kez yüklenirse (PDF yolundaki 'already_scanned' ile aynı gerekçe) daha önce
+    işlenmiş satırlar 'source_file' alanındaki satır numarasına bakılarak atlanır, tekrar işlenmez."""
+    import openpyxl
+
+    already_scanned_rows = set()
+    for item in _load_catalog_from_disk():
+        sf = item.get("source_file")
+        if not isinstance(sf, str):
+            continue
+        m = re.match(re.escape(filename) + r" \(satır (\d+)\)$", unicodedata.normalize("NFC", sf))
+        if m:
+            already_scanned_rows.add(int(m.group(1)))
+
+    wb = openpyxl.load_workbook(file_path, data_only=True)
+    try:
+        ws = wb.worksheets[0]
+        row_images = {}
+        for img in ws._images:
+            try:
+                row0 = img.anchor._from.row  # 0-indexed
+            except Exception:
+                continue
+            row_images.setdefault(row0, img)  # aynı satırda birden fazla resim varsa ilki alınır
+
+        header_end, name_col, oem_col = _detect_excel_columns(ws)
+        items = []
+        for row_idx in range(header_end + 1, ws.max_row + 1):
+            if row_idx in already_scanned_rows:
+                continue
+            name_val = ws.cell(row=row_idx, column=name_col).value
+            oem_val = ws.cell(row=row_idx, column=oem_col).value
+            name = re.sub(r"\s+", " ", str(name_val).strip()) if name_val else ""
+            if not name:
+                continue
+            name_upper = name.upper()
+            if "ONLY FOR REFERENCE" in name_upper or "BRAND NAMES" in name_upper:
+                continue  # tablonun sonundaki not satırı, gerçek bir ürün değil
+            oem_codes = [p.strip() for p in _EXCEL_OEM_SPLIT_RE.split(str(oem_val)) if p.strip()] if oem_val else []
+
+            image_name = None
+            img = row_images.get(row_idx - 1)
+            if img is not None:
+                try:
+                    img_bytes = img._data()
+                    fmt = (getattr(img, "format", "") or "").lower()
+                    ext = "jpg" if fmt in ("jpeg", "jpg") else "png"
+                    tmp_img_path = os.path.join(CATALOG_DIR, f"_xlsx_{uuid.uuid4().hex}.{ext}")
+                    with open(tmp_img_path, "wb") as f:
+                        f.write(img_bytes)
+                    try:
+                        candidate_name = re.sub(r"[^\w.-]", "_", f"{filename}_satir{row_idx}") + f".{ext}"
+                        if sync_binary_file_to_github(tmp_img_path, f"{CATALOG_IMAGE_DIR}/{candidate_name}", f"Katalog ürün görseli: {candidate_name}"):
+                            image_name = candidate_name
+                    finally:
+                        if os.path.exists(tmp_img_path):
+                            os.remove(tmp_img_path)
+                except Exception:
+                    image_name = None  # görsel çıkarma/yükleme başarısız olsa bile ürün verisi kaybolmaz
+
+            row_label = f"{filename} (satır {row_idx})"
+            codes = oem_codes if oem_codes else ["OEM-BELİRSİZ"]
+            row_items = []
+            for oem in codes:
+                entry = {
+                    "id": f"PRC-{uuid.uuid4().hex[:6]}",
+                    "oem": oem,
+                    "name": name,
+                    "brand": "",
+                    "specs": "",
+                    "price": "",
+                    "stock": 1,
+                    "source_file": row_label,
+                }
+                if image_name:
+                    entry["source_page_image"] = image_name
+                row_items.append(entry)
+
+            items.extend(row_items)
+            if on_page_done:
+                on_page_done(row_items)
+        return items
+    finally:
+        wb.close()
+
+
 def _scan_catalog_source(filename: str, file_path: str, on_page_done=None) -> list:
     """Bir katalog dosyasını tarar. PDF ise her sayfayı, görselse görselin kendisini tarar;
     her ikisinde de sayfada/görselde kaç parça varsa hepsi çıkarılır (tek parça da olabilir, onlarca da).
@@ -1548,6 +1692,8 @@ def _scan_catalog_source(filename: str, file_path: str, on_page_done=None) -> li
     işlendiği anlaşılır ve atlanır. Gerçek bir kullanımda tespit edildi: bu kontrol olmadan her
     yeniden deneme TÜM dosyayı baştan tarıyor, kotayı gereksiz yere 2-3 kat hızlı tüketiyordu."""
     try:
+        if filename.lower().endswith((".xlsx", ".xls")):
+            return _scan_excel_catalog(filename, file_path, on_page_done=on_page_done)
         if filename.lower().endswith(".pdf"):
             # BUG (2026-08-11 tespit edildi): bazı kayıtlarda source_file basit "dosya (sayfa N)"
             # formatında değil, "dosya (sayfa N, metin katmanından otomatik çıkarıldı)" gibi EK
@@ -1732,7 +1878,12 @@ def upload_catalog_files(files: list[UploadFile] = File(...), _: str = Depends(r
         # yüzlerce sayfalı bir katalogda bu, token sınırından ÖNCE tükenebilir.
         return usage.get(pool, {}).get("requests_remaining_estimate", usage_tracker.DAILY_REQUEST_BUDGET)
 
-    any_room = any(_remaining_tokens(p) >= 2000 and _remaining_requests(p) >= 5 for p in chain_pools)
+    # Excel katalogları Groq kotasından tamamen BAĞIMSIZ çalışır (_scan_excel_catalog hiç AI
+    # çağırmaz) - kota bittiğinde yüklenen dosyaların TAMAMI .xlsx/.xls ise bu kontrolü hiç
+    # uygulamaya gerek yok, aksi halde kota bitince Excel yükleme de (hiç ihtiyacı olmadığı halde)
+    # gereksiz yere reddedilirdi.
+    only_excel = files and all(f.filename.lower().endswith((".xlsx", ".xls")) for f in files)
+    any_room = only_excel or any(_remaining_tokens(p) >= 2000 and _remaining_requests(p) >= 5 for p in chain_pools)
     if not any_room:
         return {
             "status": "error",
@@ -1752,8 +1903,9 @@ def upload_catalog_files(files: list[UploadFile] = File(...), _: str = Depends(r
         with open(file_path, "wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
         size_mb = os.path.getsize(file_path) / (1024 * 1024)
-        if size_mb > MAX_UPLOAD_MB:
-            oversized.append(f"{file.filename} ({size_mb:.1f}MB, {MAX_UPLOAD_MB}MB sınırını aşıyor)")
+        file_limit = EXCEL_MAX_UPLOAD_MB if file.filename.lower().endswith((".xlsx", ".xls")) else MAX_UPLOAD_MB
+        if size_mb > file_limit:
+            oversized.append(f"{file.filename} ({size_mb:.1f}MB, {file_limit}MB sınırını aşıyor)")
             os.remove(file_path)
             continue
         saved_paths.append((file.filename, file_path))
