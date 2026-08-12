@@ -125,14 +125,26 @@
         }
 
         const { vision_analysis, matched_product } = data.agents_output;
-        const isMatched = matched_product && matched_product.id !== 'NOT_IN_CATALOG';
-        const cardClass = isMatched ? 'ok' : 'warn';
-        const icon = isMatched ? '✅' : '⚠️';
-        const title = isMatched ? 'Ürün Bulundu' : 'Katalogda Bulunamadı';
+        // BUG (2026-08-12'de canlıda tespit edildi): "101042" gibi, katalogda birden fazla
+        // varyantı (101042-0, 101042-1...) olan bir kodun taban kısmı yazıldığında eskiden
+        // düz "Katalogda Bulunamadı" gösteriliyordu - müşteri hangi varyantı istediğini hiç
+        // seçemiyordu. Artık backend (find_by_text) bu durumda 'MULTIPLE_MATCHES' ile birlikte
+        // adayları döndürüyor, burada seçilebilir bir liste olarak gösteriliyor.
+        const isMultiple = matched_product && matched_product.id === 'MULTIPLE_MATCHES';
+        const isMatched = matched_product && matched_product.id !== 'NOT_IN_CATALOG' && !isMultiple;
+        const cardClass = isMultiple ? 'warn' : (isMatched ? 'ok' : 'warn');
+        const icon = isMultiple ? '🔎' : (isMatched ? '✅' : '⚠️');
+        const title = isMultiple ? 'Birden Fazla Seçenek Bulundu' : (isMatched ? 'Ürün Bulundu' : 'Katalogda Bulunamadı');
 
         let kvHtml = '';
         let contactHtml = '';
-        if (isMatched) {
+        if (isMultiple) {
+            const candidates = matched_product.candidates || [];
+            kvHtml = `
+                <div class="evidence-box">${esc(matched_product.match_reason || '')}</div>
+                <div class="catalog-grid" style="margin-top:10px;">${candidates.map(catalogItemCardHtml).join('')}</div>
+            `;
+        } else if (isMatched) {
             const stock = matched_product.stock ?? 0;
             const brandRow = matched_product.brand ? `<li><span class="k">Marka</span><span class="v">${esc(matched_product.brand)}</span></li>` : '';
             // Fiyat kataloğundan (varsa) - müşteriye satış öncesi net bilgi vermek için, boşsa
