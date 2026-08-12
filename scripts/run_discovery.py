@@ -15,6 +15,7 @@ from lead_sources_directory import search_province as search_province_directory
 from lead_sources_sanayi_sitesi import search_all as search_sanayi_sitesi
 from lead_sources_sanayisitesi_platform import search_all as search_sanayisitesi_platform
 from lead_sources_find_com_tr import search_all as search_find_com_tr
+from lead_sources_izto import search_all as search_izto
 import lead_sources_google_places
 from lead_scoring import score_lead
 from lead_dedupe import dedupe_key, sanitize_phone
@@ -250,6 +251,32 @@ def main():
             find_results = []
         print(f"  find.com.tr ham sonuç: {len(find_results)}")
     added = _add_results(find_results, "find_com_tr", "site_id", "province", existing_keys, seen_this_run, new_leads, batch_id)
+    print(f"  -> {added} yeni lead eklendi (toplam yeni: {len(new_leads)})")
+    if not args.dry_run:
+        _checkpoint_new_leads(new_leads)
+
+    # İzmir Ticaret Odası (İZTO) - RESMİ oda sicil kaydı, "Üye Firma Sorgulama" aracı - 2026-08-12'de
+    # eklendi. Diğer TÜM kaynaklardan (OSM, turkbusinesscenter.com, sanayi siteleri, find.com.tr)
+    # FARKLI bir kaynak TÜRÜ: harita/dizin taraması değil, bizzat Ticaret Odası'nın kendi üye
+    # sicilinden, TOBB standart "Meslek Grubu" sınıflandırmasıyla filtrelenen resmi bir kayıt (bkz.
+    # lead_sources_izto.py - TESK/Esnaf Odaları ve İSO/BTSO/ATSO gibi diğer odaların hepsi CAPTCHA'lı
+    # veya sadece tam isim eşleşmesi arıyor, İZTO'nunki CAPTCHA'sız ve kategori bazlı arama yapıyor).
+    # Gerçek bir testte doğrulandı: 5 ilgili meslek grubu (otomotiv parça toptan/perakende, lastik-akü,
+    # yük taşıma, lojistik-gümrük) TOPLAM 3666 ham kayıt döndürdü - TEK bir il (İzmir) için bile diğer
+    # kaynakların çoğundan daha derin bir kapsama. SINIRLAMA: find.com.tr gibi telefon numarası
+    # vermiyor. İl bağımsız değil (sadece İzmir) ama sanayi_sitesi/find_com_tr gibi tek seferlik
+    # çalışıyor, il döngüsüne girmiyor.
+    if args.only or args.skip_sanayi_sitesi:
+        izto_results = []
+    else:
+        print("\nİzmir Ticaret Odası (İZTO) üye sicili taranıyor (5 meslek grubu)...")
+        try:
+            izto_results = search_izto()
+        except Exception as e:
+            print(f"  izto taraması başarısız - {e}")
+            izto_results = []
+        print(f"  İZTO ham sonuç: {len(izto_results)}")
+    added = _add_results(izto_results, "izto", "site_id", "province", existing_keys, seen_this_run, new_leads, batch_id)
     print(f"  -> {added} yeni lead eklendi (toplam yeni: {len(new_leads)})")
     if not args.dry_run:
         _checkpoint_new_leads(new_leads)
