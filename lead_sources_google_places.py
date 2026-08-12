@@ -74,7 +74,7 @@ _MAX_PAGES = 3  # Places API (New) sayfa başı en fazla 20 sonuç veriyor, topl
 # ücretsiz kredisine yaklaşmamasını garanti etmek için 5000 isteklik (~160 USD, $40 pay bırakan)
 # kesin bir tavan konuldu - run bu sınıra ulaşırsa kalan iller/sorgular sessizce atlanır, sıradaki
 # haftalık taramada devam eder (leads.json'a o ana kadar bulunanlar zaten kaydedilmiş olur, kayıp olmaz).
-_MAX_REQUESTS_PER_RUN = 5900  # ~5900 x $0.032 ≈ $188,8 - kullanicinin acikca istedigi 190$ sinirinin altinda, kesin tavan
+_MAX_REQUESTS_PER_RUN = 8700  # ~8700 x $0.032 ≈ $278,4 - kullanicinin acikca istedigi 280$ sinirinin altinda, kesin tavan
 _request_count = 0
 
 
