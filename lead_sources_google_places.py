@@ -163,6 +163,23 @@ def _search_one_query(query: str, delay: float) -> list:
 _SATURATED_PROVINCE_THRESHOLD = 700
 _REDUCED_QUERIES = QUERIES[:4]  # doygun illerde bile ilk 4 sorgu (2026-08-12, kullanici "kredi az gidiyor artiralim" dedi)
 
+# BÜYÜK ŞEHİR ZENGİNLEŞTİRME (2026-08-12, kullanıcı gerçek koşu sonuçlarını gördükten SONRA kararını
+# değiştirdi: "büyük şehirlere de ekleme yap, orayı da zenginleştirelim"). Küçük/orta illerdeki
+# doygunluk stratejisi işe yaradı ama getiri hızla düştü (art arda koşularda 4675 -> 133 -> 125 yeni
+# lead) - küçük il havuzu büyük ölçüde tüketildi. Bu arada büyük şehirler hep "doygun" sayılıp SADECE
+# ilk 4 sorguyla (hepsi birbirine çok benzer "X yedek parça" varyasyonu) taranmıştı; kalan 8 sorgu
+# (nakliye/lojistik/servis/lastikçi/hidrolik/filo gibi TAMAMEN FARKLI iş kategorileri) hiç
+# denenmemişti - oysa Google Places sorgu başına 60 sonuç tavanı koyduğu için farklı kategori =
+# gerçekten farklı firma demek. Türkiye'nin resmi 30 büyükşehir ili burada eşik ne olursa olsun
+# HER ZAMAN TAM 12 sorguyla taranır - keyfi bir "en büyük N il" listesi seçmek yerine nesnel/resmi
+# bir kritere dayanıyor.
+_BUYUKSEHIR_PROVINCES = {
+    "Adana", "Ankara", "Antalya", "Aydın", "Balıkesir", "Bursa", "Denizli", "Diyarbakır",
+    "Erzurum", "Eskişehir", "Gaziantep", "Hatay", "İstanbul", "İzmir", "Kahramanmaraş",
+    "Kayseri", "Kocaeli", "Konya", "Malatya", "Manisa", "Mardin", "Mersin", "Muğla",
+    "Ordu", "Sakarya", "Samsun", "Şanlıurfa", "Tekirdağ", "Trabzon", "Van",
+}
+
 
 def search_province(province: str, delay: float = 0.3, queries: list = None) -> list:
     """Bir il için verilen sorgu terimlerini (varsayılan: TÜM QUERIES) tarar - tek sorgu Google'ın
@@ -196,7 +213,8 @@ def search_all(delay: float = 0.3, existing_counts: dict = None) -> list:
             print(f"  [google_places] Güvenlik tavanına ulaşıldı ({_MAX_REQUESTS_PER_RUN} istek, ~${_MAX_REQUESTS_PER_RUN * 0.032:.0f}) - "
                   f"kalan iller bu koşuda atlandı, bir sonraki haftalık taramada devam eder.")
             break
-        is_saturated = existing_counts.get(province, 0) >= _SATURATED_PROVINCE_THRESHOLD
+        is_buyuksehir = province in _BUYUKSEHIR_PROVINCES
+        is_saturated = existing_counts.get(province, 0) >= _SATURATED_PROVINCE_THRESHOLD and not is_buyuksehir
         queries = _REDUCED_QUERIES if is_saturated else None
         try:
             items = search_province(province, delay=delay, queries=queries)
@@ -205,7 +223,7 @@ def search_all(delay: float = 0.3, existing_counts: dict = None) -> list:
             items = []
         for item in items:
             item["province"] = province
-        tag = " (doygun il, azaltılmış tarama)" if is_saturated else ""
+        tag = " (doygun il, azaltılmış tarama)" if is_saturated else (" (büyükşehir, tam tarama)" if is_buyuksehir else "")
         print(f"  [google_places] {province}{tag}: {len(items)} firma ({_request_count} istek toplam, ~${_request_count * 0.032:.1f})")
         all_results.extend(items)
     return all_results
