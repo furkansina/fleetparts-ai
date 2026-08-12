@@ -9210,24 +9210,32 @@
   {
     "id": "9605200019",
     "oem": "9605200019",
-    "name": "ARKA ÇAMURLUK ÖN SOL",
+    "name": "ARKA ÇAMURLUK ÖN ACTROS-4 SOL",
     "brand": "",
     "specs": "",
     "price": "",
     "stock": 1,
-    "source_file": "GÖÇMEN KATALOG .pdf (sayfa 29, metin katmanindan otomatik cikarildi)",
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1887)",
+    "source_files": [
+      "GÖÇMEN KATALOG .pdf (sayfa 29, metin katmanindan otomatik cikarildi)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1887)"
+    ],
     "source_page_image": "GÖÇMEN_KATALOG_.pdf_sayfa29.png"
   },
   {
     "id": "9605200119",
     "oem": "9605200119",
-    "name": "ARKA ÇAMURLUK ÖN SAĞ",
+    "name": "ARKA ÇAMURLUK ÖN ACTROS-4 SAG",
     "brand": "",
     "specs": "",
     "price": "",
     "stock": 1,
-    "source_file": "GÖÇMEN KATALOG .pdf (sayfa 29, metin katmanindan otomatik cikarildi)",
-    "source_page_image": "GÖÇMEN_KATALOG_.pdf_sayfa29.png"
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1886)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1886.jpg",
+    "source_files": [
+      "GÖÇMEN KATALOG .pdf (sayfa 29, metin katmanindan otomatik cikarildi)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1886)"
+    ]
   },
   {
     "id": "9605200520",
@@ -9690,8 +9698,12 @@
     "specs": "",
     "price": "",
     "stock": 1,
-    "source_file": "GÖÇMEN KATALOG .pdf (sayfa 32, metin katmanindan otomatik cikarildi)",
-    "source_page_image": "GÖÇMEN_KATALOG_.pdf_sayfa32.png"
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1883)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1883.png",
+    "source_files": [
+      "GÖÇMEN KATALOG .pdf (sayfa 32, metin katmanindan otomatik cikarildi)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1883)"
+    ]
   },
   {
     "id": "9448800204",
@@ -18288,10 +18300,12 @@
     "specs": "",
     "price": "",
     "stock": 1,
-    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1699)",
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1882)",
     "source_files": [
       "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1029)",
       "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1699)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1871)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1882)",
       "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 301)",
       "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 502)"
     ]
@@ -44105,6 +44119,278 @@
     "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1867.png",
     "source_files": [
       "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1867)"
+    ]
+  },
+  {
+    "id": "PRC-5ab9f1",
+    "oem": "5802474201",
+    "name": "KAPI EKİ DIŞ LH S WAY",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1868)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1868.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1868)"
+    ]
+  },
+  {
+    "id": "PRC-eef341",
+    "oem": "81416100225",
+    "name": "KARLIK SOL TGA",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1872)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1872.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1872)"
+    ]
+  },
+  {
+    "id": "PRC-3f7a05",
+    "oem": "81664100226",
+    "name": "MAN TGA ÇAMURLUK LASTİĞİ",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1873)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1873.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1873)"
+    ]
+  },
+  {
+    "id": "PRC-88915e",
+    "oem": "81253206109",
+    "name": "TGA SİNYAL YM SOL",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1874)",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1874)"
+    ]
+  },
+  {
+    "id": "PRC-c4a25b",
+    "oem": "81253206110",
+    "name": "TGA SİNYAL YM SAĞ",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1875)",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1875)"
+    ]
+  },
+  {
+    "id": "PRC-f3edfd",
+    "oem": "81251016522",
+    "name": "MAN TGX SİS SAĞ",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1876)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1876.jpg",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1876)"
+    ]
+  },
+  {
+    "id": "PRC-a0633a",
+    "oem": "81251016521",
+    "name": "MAN TGX SİS SOL",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1877)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1877.jpg",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1877)"
+    ]
+  },
+  {
+    "id": "PRC-df8b76",
+    "oem": "81418600144",
+    "name": "MAN TGX TGS AKÜ KAPAK",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1878)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1878.jpg",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1878)"
+    ]
+  },
+  {
+    "id": "PRC-14c373",
+    "oem": "81272036020",
+    "name": "YAKIT ŞAMANDIRASI 508 MM",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1879)",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1879)"
+    ]
+  },
+  {
+    "id": "PRC-ee8484",
+    "oem": "9438851825",
+    "name": "KARLIK ORTA",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1884)",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1884)"
+    ]
+  },
+  {
+    "id": "PRC-1732d1",
+    "oem": "9406601101",
+    "name": "BASAMAK YUVASI sol",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1885)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1885.jpg",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1885)"
+    ]
+  },
+  {
+    "id": "PRC-92c896",
+    "oem": "3756661101",
+    "name": "BASAMAK YUVASI sol",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1885)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1885.jpg",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1885)"
+    ]
+  },
+  {
+    "id": "PRC-1f8332",
+    "oem": "011",
+    "name": "SK/MK/NG- BM+C1101:C1104 620/621/623/624, 645/646/648/649, 652/653/655/656, 658/659 Mercedes-Benz O 300-/O 400- / Setra S 200-/S 300 VDO: 221 824 054 053 / 570 mm",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1888)",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1888)"
+    ]
+  },
+  {
+    "id": "PRC-37f24e",
+    "oem": "542",
+    "name": "Actros/Antos/Arocs/Axor Actros/Antos/Arocs/Axor Actros 1 950/952/953/954 ATEGO VDO: A2C59510129 / 544 mm",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1891)",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1888)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1889)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1890)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1891)"
+    ]
+  },
+  {
+    "id": "PRC-d32665",
+    "oem": "6317",
+    "name": "SK/MK/NG- BM+C1101:C1104 620/621/623/624, 645/646/648/649, 652/653/655/656, 658/659 Mercedes-Benz O 300-/O 400- / Setra S 200-/S 300 VDO: 221 824 054 053 / 570 mm",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1888)",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1888)"
+    ]
+  },
+  {
+    "id": "PRC-038aec",
+    "oem": "008",
+    "name": "SK/MK/NG- BM 620/621/623/624, 645/646/648/649, 652/653/655/656, 658/659 O 300-/O 400- / Setra S 200-/S 300- VDO: 221 825 018 102 / 580 mm",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1890)",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1889)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1890)"
+    ]
+  },
+  {
+    "id": "PRC-1f7dd1",
+    "oem": "8117",
+    "name": "O 300-/O 400- / Setra S 200-/S 300 BM 387, 391, 617/619, 620/622/623/625, 647/648, 653/654/657/658 BM 397 VDO: 221 825 018 037 / 545 mm",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1889)",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1889)"
+    ]
+  },
+  {
+    "id": "PRC-8652d1",
+    "oem": "8317",
+    "name": "SK/MK/NG- BM 620/621/623/624, 645/646/648/649, 652/653/655/656, 658/659 O 300-/O 400- / Setra S 200-/S 300- VDO: 221 825 018 102 / 580 mm",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1890)",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1890)"
+    ]
+  },
+  {
+    "id": "PRC-a33ac7",
+    "oem": "012",
+    "name": "Actros/Antos/Arocs/Axor Actros/Antos/Arocs/Axor Actros 1 950/952/953/954 ATEGO VDO: A2C59510129 / 544 mm",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1891)",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1891)"
+    ]
+  },
+  {
+    "id": "PRC-95ecf6",
+    "oem": "7817",
+    "name": "Actros/Antos/Arocs/Axor Actros/Antos/Arocs/Axor Actros 1 950/952/953/954 ATEGO VDO: A2C59510129 / 544 mm",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1891)",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1891)"
     ]
   }
 ]
