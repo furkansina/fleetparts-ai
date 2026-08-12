@@ -40,6 +40,20 @@
 </div>
 
 <script>
+    // Diğer tüm yönetim sayfalarıyla (leads.html, broadcast.html) AYNI koruma - bu sayfa herkese
+    // açık olsa da, işletme sahibi gömülü kimlikli URL'yi (https://kullanici:sifre@site/...)
+    // alışkanlık olarak her sayfada kullanabilir; fetch() kimlik bilgisi içeren bir temel URL'den
+    // göreli istek oluşturamaz. window.fetch burada tek noktadan sarmalanır.
+    (function() {
+        const _origFetch = window.fetch;
+        window.fetch = function(input, init) {
+            if (typeof input === 'string' && input.startsWith('/')) {
+                input = window.location.origin + input;
+            }
+            return _origFetch(input, init);
+        };
+    })();
+
     const WA_NUMBER = "__BUSINESS_WHATSAPP_NUMBER__";
     const params = new URLSearchParams(window.location.search);
     const src = params.get('src') || 'katalog';
