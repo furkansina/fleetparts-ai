@@ -145,6 +145,28 @@
 </div>
 
 <script>
+    // KRİTİK (2026-08-12'de canlıda tespit edildi): sayfaya gömülü kullanıcı adı/şifreli bir URL ile
+    // (https://kullanici:sifre@site/leads - bu projede standart admin giriş yöntemi) erişilirse,
+    // tarayıcı fetch()'in TÜM göreli-yol isteklerini "Request cannot be constructed from a URL that
+    // includes credentials" diyerek reddediyor - sayfa açılıyor ama HİÇBİR veri (lead listesi,
+    // il kapsaması, kullanım rozeti) yüklenemiyor, kullanıcıya "0 lead" gibi YANILTICI bir görüntü
+    // veriyordu (gerçek veri değil, sessizce başarısız olan bir istekti). Bu daha önce index.html
+    // ve katalog-yonetim.html'de her fetch() çağrısını tek tek düzelterek çözülmüştü - ama bu kırılgan
+    // bir yaklaşımdı (yeni bir fetch() eklenip düzeltme unutulursa aynı hata sessizce geri gelir).
+    // Artık window.fetch'in KENDİSİ burada, sayfadaki İLK satırda, TÜM çağrıları kapsayacak şekilde
+    // sarmalanıyor - göreli bir yol görürse otomatik olarak window.location.origin ekliyor (bu,
+    // kimlik bilgisi İÇERMEDİĞİ için sorunu tamamen ortadan kaldırıyor). Bu sayede sayfaya ileride
+    // eklenecek herhangi bir fetch() çağrısı bile hiçbir ek işlem gerekmeden güvenli olur.
+    (function() {
+        const _origFetch = window.fetch;
+        window.fetch = function(input, init) {
+            if (typeof input === 'string' && input.startsWith('/')) {
+                input = window.location.origin + input;
+            }
+            return _origFetch(input, init);
+        };
+    })();
+
     // Türkiye'nin 81 ili - provinces.py'deki liste ile aynı. Kapsama panelinde (bkz.
     // renderCoveragePanel) leads.json'da HİÇ kaydı olmayan iller de "0" olarak gösterilsin diye
     // burada sabit tutuluyor - aksi halde bir ilin hiç görünmemesi "filtre yok" ile "veri yok"
@@ -458,13 +480,21 @@
     async function loadLeads() {
         try {
             const res = await fetch('/leads-data');
+            if (!res.ok) {
+                throw new Error(res.status === 401 ? 'Yönetici girişi gerekli veya oturum süresi doldu.' : `Sunucu hatası (HTTP ${res.status})`);
+            }
             const data = await res.json();
             allLeads = data.leads || [];
             populateProvinceFilter();
             resetPagingAndRender();
             if (coveragePanelOpen) renderCoveragePanel();
         } catch (err) {
-            document.getElementById('leadList').innerHTML = '<div class="placeholder">Yüklenemedi: ' + esc(String(err)) + '</div>';
+            // Katman 2: ham teknik hata (ör. İngilizce bir TypeError) yerine anlaşılır bir mesaj +
+            // tekrar deneme butonu - kullanıcının "0 lead geliyor" sanıp yanlış sonuca varmasını
+            // önler, gerçek bir sorun olduğunu ve düzeltilebileceğini açıkça gösterir.
+            document.getElementById('leadList').innerHTML =
+                '<div class="placeholder">⚠️ Lead listesi yüklenemedi: ' + esc(err.message || String(err)) +
+                '<br><button type="button" onclick="loadLeads()" style="margin-top:10px; width:auto; padding:8px 16px;">🔄 Tekrar Dene</button></div>';
         }
     }
 
