@@ -52,6 +52,14 @@ _EXCLUDE_KEYWORDS = [
     # satan küçük esnaf/kiralama firmaları.
     "araç kaplama", "arac kaplama", "otomobil kaplama", "jant parlatma", "jantparlatma", "cam filmi",
     "emlak", "gayrimenkul",
+    # GENİŞLETME (2026-08-12, kullanıcı canlıda "İdil Taksi" adlı bir taksi firmasının skor 50 ile
+    # göründüğünü yakaladı): "Taşımacılık/Nakliye (Firma Rehberi)" gibi geniş rehber kategorisi
+    # YOLCU taşımacılığı (taksi/dolmuş/personel-öğrenci servisi) ile YÜK/kargo taşımacılığını
+    # (nakliyat/lojistik/TIR filosu) AYIRT ETMİYOR - oysa taksi bir otomobil işletir, ağır vasıta
+    # yedek parçasına ihtiyacı yok. Bu isimler NAME üzerinde kontrol edildiği için kategori ne
+    # olursa olsun (rehberin kendi sınıflandırması yanlış olsa bile) doğrudan yakalanır.
+    "taksi", "dolmuş", "dolmus", "personel taşımacılığı", "personel tasimaciligi",
+    "öğrenci servisi", "ogrenci servisi", "okul servisi",
 ]
 _EXCLUDE_PATTERN = re.compile(
     r"\b(" + "|".join(re.escape(k) for k in _EXCLUDE_KEYWORDS) + r")\b"
