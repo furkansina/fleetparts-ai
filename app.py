@@ -594,10 +594,44 @@ def _select_search_candidates(catalog: list, keywords: list, exact_codes: set = 
     return candidates
 
 
+def _candidates_payload(items: list) -> list:
+    return [
+        {
+            "id": c.get("id"), "oem": c.get("oem"), "name": c.get("name"),
+            "specs": c.get("specs", ""), "price": c.get("price", ""), "stock": c.get("stock"),
+            "source_page_image": c.get("source_page_image"),
+        }
+        for c in items
+    ]
+
+
 def match_agent(vision_data: dict) -> dict:
     catalog = load_catalog()
     if not catalog:
         return {"id": "NOT_IN_CATALOG", "name": "Katalog Boş", "match_reason": "Veritabanında kayıtlı ürün bulunamadı."}
+
+    # BUG (2026-08-12'de canlıda tespit edildi, find_by_text için düzeltilmişti ama fotoğraf
+    # aramasına hiç yansımamıştı - kullanıcı yakaladı): OCR'ın okuduğu bir kod, katalogda birden
+    # fazla varyantın (ör. '101042-0'..'101042-7') ortak taban kodu olabilir. Eskiden bu durumda
+    # doğrudan yapay zekaya gidilip "belirsiz" denip reddediliyordu. Artık aynı find_by_text
+    # mantığıyla (bkz. 1b notu orada) OCR kodu bir varyant ailesinin TAM ÖN EKİYSE, yapay zekaya
+    # hiç gitmeden anında seçenek listesi sunuluyor.
+    ocr_codes = [turkish_lower(str(c).strip()) for c in (vision_data.get("ocr_extracted_codes", []) or []) if c]
+    for oc in ocr_codes:
+        if len(oc) < 3:
+            continue
+        prefix_matches = [
+            item for item in catalog
+            if turkish_lower(str(item.get("oem", "")).strip()).startswith(oc + "-")
+            or turkish_lower(str(item.get("id", "")).strip()).startswith(oc + "-")
+        ]
+        if len(prefix_matches) > 1:
+            return {
+                "id": "MULTIPLE_MATCHES",
+                "name": "Birden Fazla Seçenek Bulundu",
+                "match_reason": f"Fotoğrafta okunan '{oc}' koduyla başlayan {len(prefix_matches)} farklı ürün varyantı var - lütfen doğru olanı seçin.",
+                "candidates": _candidates_payload(prefix_matches),
+            }
 
     keywords = [vision_data.get("universal_category", ""), vision_data.get("exact_name_classification", "")]
     candidates = _select_search_candidates(catalog, keywords, exact_codes=set(vision_data.get("ocr_extracted_codes", []) or []))
@@ -613,14 +647,15 @@ def match_agent(vision_data: dict) -> dict:
     EŞLEŞTİRME PRENSİPLERİ:
     1. OEM / KOD EŞLEŞMESİ: Tarama verisindeki 'ocr_extracted_codes' içindeki herhangi bir kod katalogdaki 'oem' veya 'id' ile uyuşuyorsa YÜKSEK bir güven skoru (90-100) VER, FAKAT önce şu kritik kontrolü yap: eşleşen katalog ürününün kategorisi/'specs' bilgisi ile taranan parçanın 'universal_category', 'topology_map' ve 'geometry_and_material' bilgisi AÇIKÇA ÇELİŞİYORSA (örn. kod bir "hava valfi"ne ait ama taranan parça net biçimde bir "fren balatası" görünümündeyse), bu muhtemelen bir OCR OKUMA HATASI sonucu tesadüfi bir KOD ÇAKIŞMASIDIR - bu durumda güven skorunu 40'ın altına düşür ve decision_logic'te bu çelişkiyi açıkça belirt ("Kod eşleşti ama fiziksel özellikler uyuşmuyor, muhtemelen OCR hatası" gibi).
     2. TOPOLOJİK UYUM: Kod okunamadıysa; parça kategorisi, rekor/delik sayıları ve fiziksel özellikleri katalogdaki ürünlerin 'specs' bilgileriyle kıyaslanır. Uyum oranı hesaplanır.
-    3. BELİRSİZLİK: Katalogda birden fazla ürün taranan parçaya benzer derecede uygunsa (aralarında net bir ayrım yapılamıyorsa), bunu kesin bir eşleşme gibi sunma - güven skorunu 60'ın altında tut ve decision_logic'te hangi ürünler arasında belirsizlik olduğunu belirt.
-    4. Eşleşme skoru %70'in altındaysa kesinlikle yanlış parça riskine girilmez ve 'NOT_IN_CATALOG' döndürülür.
+    3. BELİRSİZLİK: Katalogda birden fazla ürün taranan parçaya benzer derecede uygunsa (aralarında net bir ayrım yapılamıyorsa), bunu kesin bir eşleşme gibi SUNMA - güven skorunu 60'ın altında tut, decision_logic'te hangi ürünler arasında belirsizlik olduğunu belirt VE bu adayların 'id' değerlerinin TAMAMINI 'ambiguous_candidate_ids' listesine yaz (2-6 aday arası, en olası olanlardan başlayarak) - müşteri kendi seçebilsin diye, sen tek bir tahminde bulunmak zorunda değilsin.
+    4. Eşleşme skoru %70'in altındaysa (ambiguous_candidate_ids boşsa) kesinlikle yanlış parça riskine girilmez ve 'NOT_IN_CATALOG' döndürülür.
 
     Çıktı SADECE şu JSON yapısında olmalıdır:
     {{
       "matched_id": "katalog_id_yada_NOT_IN_CATALOG",
       "match_accuracy_score": 92,
-      "decision_logic": "Neden eşleştiğine dair net teknik mühendislik kanıtı"
+      "decision_logic": "Neden eşleştiğine dair net teknik mühendislik kanıtı",
+      "ambiguous_candidate_ids": []
     }}
     """
     try:
@@ -628,6 +663,7 @@ def match_agent(vision_data: dict) -> dict:
         matched_id = result.get("matched_id")
         score = int(result.get("match_accuracy_score", 0))
         decision = result.get("decision_logic", "")
+        ambiguous_ids = result.get("ambiguous_candidate_ids") or []
 
         if matched_id and matched_id != "NOT_IN_CATALOG" and score >= 70:
             matches = [item for item in catalog if str(item.get("id")) == str(matched_id)]
@@ -644,6 +680,20 @@ def match_agent(vision_data: dict) -> dict:
                 item_copy["match_score"] = score
                 item_copy["match_evidence"] = decision
                 return item_copy
+
+        # BUG (2026-08-12'de find_by_text'te tespit edilip düzeltilmişti, fotoğraf aramasına da
+        # taşındı): yapay zeka "belirsiz, birden fazla aday var" dediğinde eskiden düz NOT_IN_CATALOG
+        # dönüyordu - müşteri hiçbir seçenek göremiyordu. Artık AI'nin kendi işaretlediği adaylar
+        # (ambiguous_candidate_ids) varsa, bunlar seçilebilir bir liste olarak sunuluyor.
+        if len(ambiguous_ids) >= 2:
+            amb_matches = [item for item in catalog if str(item.get("id")) in {str(a) for a in ambiguous_ids}]
+            if len(amb_matches) >= 2:
+                return {
+                    "id": "MULTIPLE_MATCHES",
+                    "name": "Birden Fazla Seçenek Bulundu",
+                    "match_reason": f"Fotoğraftaki parçaya benzer {len(amb_matches)} farklı ürün var - lütfen doğru olanı seçin. Kanıt: {decision}",
+                    "candidates": _candidates_payload(amb_matches),
+                }
 
         return {
             "id": "NOT_IN_CATALOG",
