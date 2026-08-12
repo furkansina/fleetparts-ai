@@ -129,17 +129,42 @@ def _seed_catalog_from_github_or_default():
     gerçek 1000+ ürünlük kataloğun üzerine bu 3 ürünlük sahte kataloğu yazıp GitHub'daki asıl veriyi
     SİLEBİLİRDİ - sessiz, ciddi bir veri kaybı riski. Artık disk boşsa/bozuksa önce GitHub'daki
     GERÇEK kataloğu geri yüklemeye çalışılıyor, sadece GitHub'a hiç ulaşılamazsa (yapılandırılmamış
-    ya da ağ hatası) örnek 3 ürünlük katalog kullanılıyor."""
+    ya da ağ hatası) örnek 3 ürünlük katalog kullanılıyor.
+
+    BUG (2026-08-12'de canlıda tespit edildi, aynı gün ikinci düzeltme): burada ÖNCE raw.
+    githubusercontent.com (CDN) kullanılıyordu - Render sık sık (görünürde birkaç dakikada bir)
+    kendiliğinden yeniden başladığı için, her yeniden başlamada bu CDN'in güncel commit'i henüz
+    yansıtmamış OLABİLECEĞİ (bilinen bir CDN gecikmesi) bir andan besleniyordu. Sonuç: geriye dönük
+    görsel ekleme gibi sık sık senkronize eden bir iş sırasında Render arka arkaya birkaç kez
+    yeniden başlayınca, her yeniden başlamada disk BİR ÖNCEKİ (eski) commit'ten dolduruluyor, o
+    üzerine devam eden iş de bu eski taban üzerinden GitHub'a geri yazınca AZ ÖNCE eklenmiş
+    görseller sessizce KAYBOLUYORDU - canlıda gerçekten yaşandı (682 ürünlük görsel kapsamı 614'e
+    düştü). Artık GitHub'ın Contents API'si (api.github.com, CDN'siz, her zaman en güncel commit)
+    kullanılıyor - GITHUB_TOKEN tanımlıysa. Token yoksa (ör. sadece herkese açık bir yedek senaryo)
+    CDN'e düşülür, o da olmazsa örnek katalog kullanılır."""
     if GITHUB_REPO:
         try:
-            url = f"https://raw.githubusercontent.com/{GITHUB_REPO}/main/{CATALOG_FILE}"
-            res = requests.get(url, timeout=15)
-            if res.status_code == 200:
-                data = res.json()
-                if isinstance(data, list) and data:
-                    with open(CATALOG_FILE, "w", encoding="utf-8") as f:
-                        json.dump(data, f, ensure_ascii=False, indent=4)
-                    return
+            if GITHUB_TOKEN:
+                api_url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{CATALOG_FILE}"
+                headers = {"Authorization": f"Bearer {GITHUB_TOKEN}", "Accept": "application/vnd.github+json"}
+                res = requests.get(api_url, headers=headers, timeout=15)
+                if res.status_code == 200:
+                    content_b64 = res.json().get("content", "")
+                    raw_bytes = base64.b64decode(content_b64)
+                    data = json.loads(raw_bytes.decode("utf-8"))
+                    if isinstance(data, list) and data:
+                        with open(CATALOG_FILE, "w", encoding="utf-8") as f:
+                            json.dump(data, f, ensure_ascii=False, indent=4)
+                        return
+            else:
+                url = f"https://raw.githubusercontent.com/{GITHUB_REPO}/main/{CATALOG_FILE}"
+                res = requests.get(url, timeout=15)
+                if res.status_code == 200:
+                    data = res.json()
+                    if isinstance(data, list) and data:
+                        with open(CATALOG_FILE, "w", encoding="utf-8") as f:
+                            json.dump(data, f, ensure_ascii=False, indent=4)
+                        return
         except Exception:
             pass
     seed_default_catalog()
