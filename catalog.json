@@ -4958,24 +4958,32 @@
   {
     "id": "20565103",
     "oem": "20565103",
-    "name": "SOL STOP LAMBASI V2",
+    "name": "STOP LAMBASI SOL",
     "brand": "",
     "specs": "",
     "price": "",
     "stock": 1,
-    "source_file": "GÖÇMEN KATALOG .pdf (sayfa 38, metin katmanindan otomatik cikarildi)",
-    "source_page_image": "GÖÇMEN_KATALOG_.pdf_sayfa38.png"
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1692)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1692.jpg",
+    "source_files": [
+      "GÖÇMEN KATALOG .pdf (sayfa 38, metin katmanindan otomatik cikarildi)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1692)"
+    ]
   },
   {
     "id": "20565106",
     "oem": "20565106",
-    "name": "SAĞ STOP LAMBASI V2",
+    "name": "STOP LAMBASI SAĞ",
     "brand": "",
     "specs": "",
     "price": "",
     "stock": 1,
-    "source_file": "GÖÇMEN KATALOG .pdf (sayfa 38, metin katmanindan otomatik cikarildi)",
-    "source_page_image": "GÖÇMEN_KATALOG_.pdf_sayfa38.png"
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1693)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1693.jpg",
+    "source_files": [
+      "GÖÇMEN KATALOG .pdf (sayfa 38, metin katmanindan otomatik cikarildi)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1693)"
+    ]
   },
   {
     "id": "20769775",
@@ -18264,9 +18272,10 @@
     "specs": "",
     "price": "",
     "stock": 1,
-    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1029)",
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1699)",
     "source_files": [
       "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1029)",
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1699)",
       "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 301)",
       "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 502)"
     ]
@@ -41107,6 +41116,533 @@
     "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1676.png",
     "source_files": [
       "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1676)"
+    ]
+  },
+  {
+    "id": "PRC-2fdaff",
+    "oem": "23743719",
+    "name": "HAVA FİLİTRE KAZANI FH 5",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1677)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1677.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1677)"
+    ]
+  },
+  {
+    "id": "PRC-195bf8",
+    "oem": "82248433",
+    "name": "KLİPS",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1678)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1678.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1678)"
+    ]
+  },
+  {
+    "id": "PRC-6bc0c4",
+    "oem": "22306618",
+    "name": "YAG DOLUM BORUSU FH-4",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1679)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1679.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1679)"
+    ]
+  },
+  {
+    "id": "PRC-8f886c",
+    "oem": "1676594",
+    "name": "YAĞ DOLUM BORUSU",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1680)",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1680)"
+    ]
+  },
+  {
+    "id": "PRC-e4141a",
+    "oem": "20808093",
+    "name": "YAĞ DOLUM BORUSU",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1681)",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1681)"
+    ]
+  },
+  {
+    "id": "PRC-00ce4f",
+    "oem": "21255293",
+    "name": "YAG DOLUM BORUSU",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1682)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1682.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1682)"
+    ]
+  },
+  {
+    "id": "PRC-fd5507",
+    "oem": "20397666",
+    "name": "YAĞ DOLUM BORUSU",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1683)",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1683)"
+    ]
+  },
+  {
+    "id": "PRC-557673",
+    "oem": "22130711",
+    "name": "KLİMA KONTROL PANELİ",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1684)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1684.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1684)"
+    ]
+  },
+  {
+    "id": "PRC-ba30d7",
+    "oem": "21073025",
+    "name": "VİTES KOLU VOLVO OTOMOTİK ŞANZUMAN",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1685)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1685.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1685)"
+    ]
+  },
+  {
+    "id": "PRC-cab938",
+    "oem": "21456377",
+    "name": "VİTES KOLU VOLVO OTOMOTİK ŞANZUMAN",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1685)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1685.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1685)"
+    ]
+  },
+  {
+    "id": "PRC-6c6b2f",
+    "oem": "21937969",
+    "name": "VİTES KOLU VOLVO OTOMOTİK ŞANZUMAN",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1685)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1685.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1685)"
+    ]
+  },
+  {
+    "id": "PRC-35bf1f",
+    "oem": "22583045",
+    "name": "VİTES KOLU VOLVO OTOMOTİK ŞANZUMAN",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1685)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1685.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1685)"
+    ]
+  },
+  {
+    "id": "PRC-6d7ff8",
+    "oem": "20709205",
+    "name": "VİTES KOLU VOLVO OTOMOTİK ŞANZUMAN",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1685)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1685.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1685)"
+    ]
+  },
+  {
+    "id": "PRC-7d784a",
+    "oem": "20493844",
+    "name": "VİTES TOPUZU VOLVO FH-FM 8+R",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1686)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1686.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1686)"
+    ]
+  },
+  {
+    "id": "PRC-c9f7b4",
+    "oem": "20488063",
+    "name": "VİTES TOPUZU VOLVO FH-FM 8+R",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1686)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1686.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1686)"
+    ]
+  },
+  {
+    "id": "PRC-2b463f",
+    "oem": "20488052",
+    "name": "VİTES TOPUZU VOLVO FH-FM",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1687)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1687.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1687)"
+    ]
+  },
+  {
+    "id": "PRC-fee0a8",
+    "oem": "20488067",
+    "name": "VİTES TOPUZU VOLVO FH-12",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1688)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1688.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1688)"
+    ]
+  },
+  {
+    "id": "PRC-0dc693",
+    "oem": "20398660",
+    "name": "YAN ETEK LAMBASI",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1689)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1689.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1689)"
+    ]
+  },
+  {
+    "id": "PRC-094485",
+    "oem": "82849923",
+    "name": "STOP LAMBASI LEDLİ RH",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1690)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1690.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1690)"
+    ]
+  },
+  {
+    "id": "PRC-ee5e7c",
+    "oem": "82849925",
+    "name": "STOP LAMBASI LEDLİ RH",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1690)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1690.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1690)"
+    ]
+  },
+  {
+    "id": "PRC-619bba",
+    "oem": "7425982262",
+    "name": "STOP LAMBASI LEDLİ RH",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1690)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1690.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1690)"
+    ]
+  },
+  {
+    "id": "PRC-ab4e8c",
+    "oem": "82849924",
+    "name": "STOP LAMBASI LEDLİ LH",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1691)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1691.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1691)"
+    ]
+  },
+  {
+    "id": "PRC-b828d8",
+    "oem": "7425982261",
+    "name": "STOP LAMBASI LEDLİ LH",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1691)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1691.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1691)"
+    ]
+  },
+  {
+    "id": "PRC-f09155",
+    "oem": "21063887",
+    "name": "STOP LAMBASI SOL",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1692)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1692.jpg",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1692)"
+    ]
+  },
+  {
+    "id": "PRC-868875",
+    "oem": "82257576",
+    "name": "FMX AMBLEM",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1694)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1694.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1694)"
+    ]
+  },
+  {
+    "id": "PRC-0781fc",
+    "oem": "20548038",
+    "name": "EURO 5 YAZI",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1695)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1695.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1695)"
+    ]
+  },
+  {
+    "id": "PRC-e0fb55",
+    "oem": "21416526",
+    "name": "MOTOR TAKOZU ARKA",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1696)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1696.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1696)"
+    ]
+  },
+  {
+    "id": "PRC-e39bfb",
+    "oem": "504284315",
+    "name": "TAMPON KULAKLI",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1700)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1700.jpg",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1700)"
+    ]
+  },
+  {
+    "id": "PRC-0df9a8",
+    "oem": "504284316",
+    "name": "TAMPON",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1701)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1701.jpg",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1701)"
+    ]
+  },
+  {
+    "id": "PRC-54bd14",
+    "oem": "8143031",
+    "name": "TAMPON",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1702)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1702.jpg",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1702)"
+    ]
+  },
+  {
+    "id": "PRC-c2beb9",
+    "oem": "98419670",
+    "name": "TAMPON",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1702)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1702.jpg",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1702)"
+    ]
+  },
+  {
+    "id": "PRC-4ebe26",
+    "oem": "504103112",
+    "name": "TAMPON",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1703)",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1703)"
+    ]
+  },
+  {
+    "id": "PRC-70b9a0",
+    "oem": "500383947",
+    "name": "TAMPON",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1703)",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1703)"
+    ]
+  },
+  {
+    "id": "PRC-95893a",
+    "oem": "504103111",
+    "name": "TAMPON KULAKLI",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1704)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1704.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1704)"
+    ]
+  },
+  {
+    "id": "PRC-c1d3bc",
+    "oem": "504027618",
+    "name": "TAMPON EURO CARGO",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1705)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1705.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1705)"
+    ]
+  },
+  {
+    "id": "PRC-d0effa",
+    "oem": "504027614",
+    "name": "TAMPON",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1706)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1706.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1706)"
+    ]
+  },
+  {
+    "id": "PRC-39dd38",
+    "oem": "5801696201",
+    "name": "TAMPON EURO CARGO 2015",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1707)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1707.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1707)"
+    ]
+  },
+  {
+    "id": "PRC-be3e9b",
+    "oem": "504281893",
+    "name": "TAMPON",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1708)",
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1708.png",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1708)"
     ]
   }
 ]
