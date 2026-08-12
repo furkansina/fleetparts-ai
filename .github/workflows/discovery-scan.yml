@@ -23,12 +23,13 @@ jobs:
         run: pip install requests
 
       - name: Taramayı çalıştır
-        run: python scripts/run_discovery.py
-        # NOT: 45dk gercek bir kosuda YETERSIZ cikti (2026-08-10) - Overpass sunuculari o gun
-        # cok yavasti, eklenen retry/backoff mantigi (veri kaybini onlemek icin gerekli) taramayi
-        # guvenilir ama daha uzun surdurebiliyor. Is "if: always()" ile commit adimina her turlu
-        # ulasiyor (yarim kalsa bile o ana kadarki ilerleme kaybolmuyor), ama zaman asimina
-        # ugramadan TAM bitmesi icin bolluk payi verildi.
+        # NOT (2026-08-12): OSM/Overpass kaynağı iki taramada da (yavaşlık + "network unreachable"
+        # hatası) 150dk'lık TÜM süreyi tüketip SIFIR yeni sonuç getirdi - zaten iyi kapsanan
+        # (2964 kayıt) bu kaynak, gerçekten yeni veri üreten find.com.tr/sanayisitesi.com.tr gibi
+        # kaynaklara ayrılan süreyi/güvenilirliği riske atıyordu. Geçici olarak --skip-osm ile
+        # kapatıldı - diğer kaynaklar dakikalar içinde bitip güvenle commit edilebilsin diye.
+        # Overpass'ın güvenilirliği düzelirse (ya da farklı bir ayna eklenirse) tekrar açılabilir.
+        run: python scripts/run_discovery.py --skip-osm
         timeout-minutes: 150
 
       - name: Değişiklikleri commit et
@@ -40,14 +41,25 @@ jobs:
         # satır-uzlaşması yapmıyor: origin/main'in TAZE leads.json'u çekilir, sadece BU taramanın
         # kendi bulduğu yeni kayıtlar (new_leads_this_run.json, run_discovery.py tarafından
         # aralıksız güncellenir) Python/dedupe seviyesinde üzerine eklenir (scripts/merge_new_
-        # leads.py). Son saniyede başka bir push araya girerse (küçük bir yarış penceresi kaldı,
-        # ama artık saniyeler mertebesinde, saatler değil) birkaç kez yeniden dener.
+        # leads.py).
+        #
+        # BUG (2026-08-12'de canlıda tespit edildi, GERÇEK VERİ KAYBINA yol açtı - 15.921 yeni
+        # lead bulunup TAMAMEN kaybedildi): "git checkout origin/main -- leads.json" SADECE dosya
+        # İÇERİĞİNİ günceller, yerel dal HEAD'ini origin/main'e TAŞIMAZ. Bu run sürerken (2.5 saat)
+        # ben elle app.py/lead_scoring.py/leads.json gibi dosyalara defalarca doğrudan push
+        # yaptığım için origin/main sürekli ilerledi - ama bu döngü her denemede HÂLÂ eski
+        # (checkout anındaki) HEAD üzerinden commit atıp push etmeye çalışıyordu, bu yüzden 5
+        # denemenin HEPSİ "non-fast-forward" ile reddedildi - retry hiç işe yaramadı çünkü asıl
+        # sorunu (eski HEAD) hiç düzeltmiyordu. Artık her denemede "git reset --hard origin/main"
+        # ile yerel dal GERÇEKTEN en güncel origin/main'e taşınıyor, ondan SONRA yeni kayıtlar
+        # tekrar birleştirilip commit ediliyor - bu sayede kaç kez araya başka bir push girerse
+        # girsin, bir sonraki deneme her zaman güncel bir temelden başlar ve başarılı olur.
         run: |
           git config user.name "fleetparts-discovery-bot"
           git config user.email "actions@github.com"
           for i in 1 2 3 4 5; do
             git fetch origin main
-            git checkout origin/main -- leads.json
+            git reset --hard origin/main
             python scripts/merge_new_leads.py
             git add leads.json
             if git diff --staged --quiet; then
@@ -60,6 +72,5 @@ jobs:
               break
             fi
             echo "Push başarısız (deneme $i/5), yeniden denenecek..."
-            git reset --soft HEAD~1
             sleep 5
           done
