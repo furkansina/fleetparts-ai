@@ -29,6 +29,23 @@ def turkish_lower(text: str) -> str:
     return (text or "").replace("İ", "i").replace("I", "ı").lower()
 
 
+_TR_FOLD_MAP = str.maketrans({"ç": "c", "ğ": "g", "ı": "i", "ö": "o", "ş": "s", "ü": "u"})
+
+
+def turkish_fold(text: str) -> str:
+    """Türkçe özel karakterleri (ç,ğ,ı,ö,ş,ü) düz ASCII eşdeğerine çevirir - turkish_lower'dan
+    SONRA uygulanmak üzere tasarlandı (zaten küçük harfli metin bekler, büyük harf formlarıyla
+    ilgilenmez). BUG (2026-08-12'de canlı bir testte tespit edildi): katalog metin araması
+    Türkçe karakterleri OLDUĞU GİBİ karşılaştırıyordu - müşterinin çoğu telefon klavyesi
+    alışkanlığıyla 'çamurluk' yerine 'camurluk' yazması gayet yaygın bir gerçek kullanım
+    senaryosu, ama bu durumda katalogdaki 'ÇAMURLUK' hiçbir zaman eşleşmiyordu (aynı kelimenin
+    doğru Türkçe yazımı '177 aday' bulurken diyakritiksiz hali '0 aday' veriyordu - doğrulandı).
+    Bu fonksiyon bir EK/yedek karşılaştırma katmanı olarak kullanılır - önce tam (diyakritikli)
+    eşleşme denenir, o başarısız olursa bu katlanmış hale düşülür; mevcut doğru davranış hiçbir
+    şekilde bozulmaz, sadece ek bir kurtarma yolu eklenir."""
+    return (text or "").translate(_TR_FOLD_MAP)
+
+
 def normalize_name(name: str) -> str:
     n = turkish_upper(name or "")
     n = re.sub(r"[.,]", " ", n)
