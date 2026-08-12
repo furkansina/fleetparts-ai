@@ -719,6 +719,43 @@ def find_by_text(query: str) -> dict:
                 ],
             }
 
+    # 1c. Kod değil, İSİM bazlı bir arama olabilir (ör. "Adaptör Kablo") - katalogda yazılan
+    # kelimelerin TAMAMI birebir geçen ürünler varsa, yapay zekaya HİÇ gitmeden (anında, ücretsiz,
+    # tutarlı) doğrudan bunlar gösterilir. BUG (2026-08-12'de canlıda tespit edildi, kullanıcı
+    # yakaladı): "Adaptör Kablo" gibi genel ama GERÇEK bir kalıp onlarca üründe birebir geçtiği
+    # halde, eskiden doğrudan yapay zekaya gidiliyordu - o da "20+ aday var, hangisi olduğu belli
+    # değil" diyip TAMAMEN reddediyordu, kullanıcı hiçbir şey göremiyordu. Oysa müşteri zaten bir
+    # LİSTE görüp kendi seçebilir - yapay zekanın TEK bir kesin cevap bulma zorunluluğu yanlış
+    # varsayımdı. Artık kelime eşleşen KAÇ ürün varsa (2 de olsa 40 da olsa) hepsi listelenir.
+    words = [w for w in q.split() if len(w) > 2]
+    if len(words) >= 1:
+        name_matches = []
+        for item in catalog:
+            hay = turkish_lower(" ".join(str(item.get(f, "")) for f in ("name", "brand", "specs")))
+            if all(w in hay for w in words):
+                name_matches.append(item)
+        if len(name_matches) == 1:
+            item_copy = name_matches[0].copy()
+            item_copy["match_score"] = 90
+            item_copy["match_evidence"] = f"'{query}' ifadesindeki tüm kelimeler ürün adında/özelliklerinde birebir geçiyor - kataloğda tek eşleşme."
+            return item_copy
+        if 2 <= len(name_matches) <= 200:
+            return {
+                "id": "MULTIPLE_MATCHES",
+                "name": "Birden Fazla Seçenek Bulundu",
+                "match_reason": f"'{query}' ifadesi {len(name_matches)} farklı üründe birebir geçiyor - lütfen doğru olanı seçin.",
+                "candidates": [
+                    {
+                        "id": c.get("id"), "oem": c.get("oem"), "name": c.get("name"),
+                        "specs": c.get("specs", ""), "price": c.get("price", ""), "stock": c.get("stock"),
+                        "source_page_image": c.get("source_page_image"),
+                    }
+                    for c in name_matches
+                ],
+            }
+        # 200'den fazla eşleşme (ör. tek başına "kablo" gibi çok genel bir kelime) - bu kadar
+        # kalabalık bir liste faydasızdır, yapay zekaya düşüp anlamsal olarak daraltmasına izin verilir.
+
     # 2. Birebir kod eşleşmesi yoksa, yapay zekaya isim/açıklama bazlı eşleştirt (örn: "DAF sol çamurluk")
     candidates = _select_search_candidates(catalog, query.split())
     prompt = f"""
