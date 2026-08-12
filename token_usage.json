@@ -1,23 +1,19 @@
 {
-  "date": "2026-08-11",
+  "date": "2026-08-12",
   "customer": {
-    "total_tokens": 14175,
-    "call_count": 10
+    "total_tokens": 2548,
+    "call_count": 1
   },
   "bulk": {
-    "total_tokens": 14135,
-    "call_count": 14
+    "total_tokens": 0,
+    "call_count": 0
   },
   "customer2": {
     "total_tokens": 0,
     "call_count": 0
   },
   "leads_ai": {
-    "total_tokens": 12619,
-    "call_count": 5
-  },
-  "leads_ai_bulk": {
-    "total_tokens": 7223,
-    "call_count": 3
+    "total_tokens": 0,
+    "call_count": 0
   }
 }
