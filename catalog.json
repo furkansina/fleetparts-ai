@@ -9603,7 +9603,7 @@
     },
     {
         "id": "PCM - G06 12 x 1,5",
-        "oem": "PCM - G06",
+        "oem": "PCM - G06 12 x 1,5",
         "name": "12 x 1,5",
         "brand": "",
         "specs": "",
@@ -9613,7 +9613,7 @@
     },
     {
         "id": "PLM - G06 12 x 1,5",
-        "oem": "PLM - G06",
+        "oem": "PLM - G06 12 x 1,5",
         "name": "12 x 1,5",
         "brand": "",
         "specs": "",
@@ -9623,7 +9623,7 @@
     },
     {
         "id": "PCM - G06 14 x 1,5",
-        "oem": "PCM - G06",
+        "oem": "PCM - G06 14 x 1,5",
         "name": "14 x 1,5",
         "brand": "",
         "specs": "",
@@ -9633,7 +9633,7 @@
     },
     {
         "id": "PLM - G06 14 x 1,5",
-        "oem": "PLM - G06",
+        "oem": "PLM - G06 14 x 1,5",
         "name": "14 x 1,5",
         "brand": "",
         "specs": "",
@@ -9643,7 +9643,7 @@
     },
     {
         "id": "PCM - G06 16 x 1,5",
-        "oem": "PCM - G06",
+        "oem": "PCM - G06 16 x 1,5",
         "name": "16 x 1,5",
         "brand": "",
         "specs": "",
@@ -9653,7 +9653,7 @@
     },
     {
         "id": "PLM - G06 16 x 1,5",
-        "oem": "PLM - G06",
+        "oem": "PLM - G06 16 x 1,5",
         "name": "16 x 1,5",
         "brand": "",
         "specs": "",
@@ -9663,7 +9663,7 @@
     },
     {
         "id": "PCM - G08 10 x 1,5",
-        "oem": "PCM - G08",
+        "oem": "PCM - G08 10 x 1,5",
         "name": "10 x 1,5",
         "brand": "",
         "specs": "",
@@ -9673,7 +9673,7 @@
     },
     {
         "id": "PLM - G08 10 x 1,5",
-        "oem": "PLM - G08",
+        "oem": "PLM - G08 10 x 1,5",
         "name": "10 x 1,5",
         "brand": "",
         "specs": "",
@@ -9683,7 +9683,7 @@
     },
     {
         "id": "PCM - G08 12 x 1,5",
-        "oem": "PCM - G08",
+        "oem": "PCM - G08 12 x 1,5",
         "name": "12 x 1,5",
         "brand": "",
         "specs": "",
@@ -9693,7 +9693,7 @@
     },
     {
         "id": "PLM - G08 12 x 1,5",
-        "oem": "PLM - G08",
+        "oem": "PLM - G08 12 x 1,5",
         "name": "12 x 1,5",
         "brand": "",
         "specs": "",
@@ -9703,7 +9703,7 @@
     },
     {
         "id": "PCM - G08 14 x 1,5",
-        "oem": "PCM - G08",
+        "oem": "PCM - G08 14 x 1,5",
         "name": "14 x 1,5",
         "brand": "",
         "specs": "",
@@ -9713,7 +9713,7 @@
     },
     {
         "id": "PLM - G08 14 x 1,5",
-        "oem": "PLM - G08",
+        "oem": "PLM - G08 14 x 1,5",
         "name": "14 x 1,5",
         "brand": "",
         "specs": "",
@@ -9723,7 +9723,7 @@
     },
     {
         "id": "PCM - G08 16 x 1,5",
-        "oem": "PCM - G08",
+        "oem": "PCM - G08 16 x 1,5",
         "name": "16 x 1,5",
         "brand": "",
         "specs": "",
@@ -9733,7 +9733,7 @@
     },
     {
         "id": "PLM - G08 16 x 1,5",
-        "oem": "PLM - G08",
+        "oem": "PLM - G08 16 x 1,5",
         "name": "16 x 1,5",
         "brand": "",
         "specs": "",
@@ -9743,7 +9743,7 @@
     },
     {
         "id": "PCM - G08 22 x 1,5",
-        "oem": "PCM - G08",
+        "oem": "PCM - G08 22 x 1,5",
         "name": "22 x 1,5",
         "brand": "",
         "specs": "",
@@ -9753,7 +9753,7 @@
     },
     {
         "id": "PLM - G08 22 x 1,5",
-        "oem": "PLM - G08",
+        "oem": "PLM - G08 22 x 1,5",
         "name": "22 x 1,5",
         "brand": "",
         "specs": "",
@@ -9763,7 +9763,7 @@
     },
     {
         "id": "PCM - G10 10 x 1,5",
-        "oem": "PCM - G10",
+        "oem": "PCM - G10 10 x 1,5",
         "name": "10 x 1,5",
         "brand": "",
         "specs": "",
@@ -9773,7 +9773,7 @@
     },
     {
         "id": "PLM - G10 10 x 1,5",
-        "oem": "PLM - G10",
+        "oem": "PLM - G10 10 x 1,5",
         "name": "10 x 1,5",
         "brand": "",
         "specs": "",
@@ -9783,7 +9783,7 @@
     },
     {
         "id": "PCM - G10 12 x 1,5",
-        "oem": "PCM - G10",
+        "oem": "PCM - G10 12 x 1,5",
         "name": "12 x 1,5",
         "brand": "",
         "specs": "",
@@ -9793,7 +9793,7 @@
     },
     {
         "id": "PLM - G10 12 x 1,5",
-        "oem": "PLM - G10",
+        "oem": "PLM - G10 12 x 1,5",
         "name": "12 x 1,5",
         "brand": "",
         "specs": "",
@@ -9803,7 +9803,7 @@
     },
     {
         "id": "PCM - G10 14 x 1,5",
-        "oem": "PCM - G10",
+        "oem": "PCM - G10 14 x 1,5",
         "name": "14 x 1,5",
         "brand": "",
         "specs": "",
@@ -9813,7 +9813,7 @@
     },
     {
         "id": "PLM - G10 14 x 1,5",
-        "oem": "PLM - G10",
+        "oem": "PLM - G10 14 x 1,5",
         "name": "14 x 1,5",
         "brand": "",
         "specs": "",
@@ -9823,7 +9823,7 @@
     },
     {
         "id": "PCM - G10 16 x 1,5",
-        "oem": "PCM - G10",
+        "oem": "PCM - G10 16 x 1,5",
         "name": "16 x 1,5",
         "brand": "",
         "specs": "",
@@ -9833,7 +9833,7 @@
     },
     {
         "id": "PLM - G10 16 x 1,5",
-        "oem": "PLM - G10",
+        "oem": "PLM - G10 16 x 1,5",
         "name": "16 x 1,5",
         "brand": "",
         "specs": "",
@@ -9843,7 +9843,7 @@
     },
     {
         "id": "PCM - G10 22 x 1,5",
-        "oem": "PCM - G10",
+        "oem": "PCM - G10 22 x 1,5",
         "name": "22 x 1,5",
         "brand": "",
         "specs": "",
@@ -9853,7 +9853,7 @@
     },
     {
         "id": "PLM - G10 22 x 1,5",
-        "oem": "PLM - G10",
+        "oem": "PLM - G10 22 x 1,5",
         "name": "22 x 1,5",
         "brand": "",
         "specs": "",
@@ -9863,7 +9863,7 @@
     },
     {
         "id": "PCM - G12 10 x 1,5",
-        "oem": "PCM - G12",
+        "oem": "PCM - G12 10 x 1,5",
         "name": "10 x 1,5",
         "brand": "",
         "specs": "",
@@ -9873,7 +9873,7 @@
     },
     {
         "id": "PLM - G12 10 x 1,5",
-        "oem": "PLM - G12",
+        "oem": "PLM - G12 10 x 1,5",
         "name": "10 x 1,5",
         "brand": "",
         "specs": "",
@@ -9883,7 +9883,7 @@
     },
     {
         "id": "PCM - G12 12 x 1,5",
-        "oem": "PCM - G12",
+        "oem": "PCM - G12 12 x 1,5",
         "name": "12 x 1,5",
         "brand": "",
         "specs": "",
@@ -9893,7 +9893,7 @@
     },
     {
         "id": "PLM - G12 12 x 1,5",
-        "oem": "PLM - G12",
+        "oem": "PLM - G12 12 x 1,5",
         "name": "12 x 1,5",
         "brand": "",
         "specs": "",
@@ -9903,7 +9903,7 @@
     },
     {
         "id": "PCM - G12 14 x 1,5",
-        "oem": "PCM - G12",
+        "oem": "PCM - G12 14 x 1,5",
         "name": "14 x 1,5",
         "brand": "",
         "specs": "",
@@ -9913,7 +9913,7 @@
     },
     {
         "id": "PLM - G12 14 x 1,5",
-        "oem": "PLM - G12",
+        "oem": "PLM - G12 14 x 1,5",
         "name": "14 x 1,5",
         "brand": "",
         "specs": "",
@@ -9923,7 +9923,7 @@
     },
     {
         "id": "PCM - G12 16 x 1,5",
-        "oem": "PCM - G12",
+        "oem": "PCM - G12 16 x 1,5",
         "name": "16 x 1,5",
         "brand": "",
         "specs": "",
@@ -9933,7 +9933,7 @@
     },
     {
         "id": "PLM - G12 16 x 1,5",
-        "oem": "PLM - G12",
+        "oem": "PLM - G12 16 x 1,5",
         "name": "16 x 1,5",
         "brand": "",
         "specs": "",
@@ -9943,7 +9943,7 @@
     },
     {
         "id": "PCM - G12 22 x 1,5",
-        "oem": "PCM - G12",
+        "oem": "PCM - G12 22 x 1,5",
         "name": "22 x 1,5",
         "brand": "",
         "specs": "",
@@ -9953,13 +9953,53 @@
     },
     {
         "id": "PLM - G12 22 x 1,5",
-        "oem": "PLM - G12",
+        "oem": "PLM - G12 22 x 1,5",
         "name": "22 x 1,5",
         "brand": "",
         "specs": "",
         "price": "",
         "stock": 1,
         "source_file": "GÖÇMEN KATALOG .pdf (sayfa 11, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "331008510 ABS ÇEMBERİ BPW SAC",
+        "oem": "331008510 ABS ÇEMBERİ BPW SAC",
+        "name": "ABS ÇEMBERİ BPW SAC",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 25, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "331008510 ABS ÇEMBERİ BPW DÖKÜM",
+        "oem": "331008510 ABS ÇEMBERİ BPW DÖKÜM",
+        "name": "ABS ÇEMBERİ BPW DÖKÜM",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 25, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "504181096 IV90.9115 SAĞ SİS KOMPLE",
+        "oem": "504181096 IV90.9115 SAĞ SİS KOMPLE",
+        "name": "IV90.9115 SAĞ SİS KOMPLE",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 36, metin katmanindan otomatik cikarildi)"
+    },
+    {
+        "id": "504181096 IV90.9116 SOL SİS KOMPLE",
+        "oem": "504181096 IV90.9116 SOL SİS KOMPLE",
+        "name": "IV90.9116 SOL SİS KOMPLE",
+        "brand": "",
+        "specs": "",
+        "price": "",
+        "stock": 1,
+        "source_file": "GÖÇMEN KATALOG .pdf (sayfa 36, metin katmanindan otomatik cikarildi)"
     },
     {
         "id": "PRC-4821",
