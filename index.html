@@ -304,6 +304,16 @@
     // hata göstermek yerine, bu süreyi rahatça karşılayacak kadar (toplam ~100sn) otomatik
     // olarak birkaç kez daha deneriz.
     async function fetchJson(url, options, onRetry) {
+        // Bu sayfaya adres çubuğuna kullanıcı adı/şifre GÖMÜLEREK erişilirse (ör.
+        // https://kullanici:sifre@site/ - admin bağlantılarında kullanılan pratik bir yöntem),
+        // tarayıcı bunu belgenin temel URL'sine dahil ediyor; fetch() ise güvenlik gereği "kimlik
+        // bilgisi içeren bir URL'den istek oluşturulamaz" diyerek TÜM göreli-yol isteklerini
+        // reddediyor (katalog-yonetim.html'de gerçek bir testte tespit edildi - bkz. oradaki aynı
+        // tarihli not). window.location.origin kimlik bilgisi İÇERMEDİĞİ için, göreli yolu ona göre
+        // MUTLAK hale getirmek bu kısıtlamayı ortadan kaldırıyor.
+        if (typeof url === 'string' && url.startsWith('/')) {
+            url = window.location.origin + url;
+        }
         const maxAttempts = 8;
         for (let attempt = 0; attempt < maxAttempts; attempt++) {
             let res;
@@ -460,7 +470,7 @@
 
     async function loadUsageBadge() {
         try {
-            const res = await fetch('/usage');
+            const res = await fetch(window.location.origin + '/usage'); // bkz. fetchJson'daki 2026-08-11 notu (gömülü kimlikli URL)
             const u = await res.json();
             const el = document.getElementById('usageBadge');
             // Müşteri arama ve katalog taraması (toplu işlem) ayrı hesap/kota kullanır - karışmasınlar
