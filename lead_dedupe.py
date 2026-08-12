@@ -1,6 +1,16 @@
 import re
 
 _SUFFIXES = ["LTD ŞTİ", "LİMİTED ŞİRKETİ", "A Ş", "AŞ", "TİC", "SAN", "TİCARET", "SANAYİ", "VE"]
+# BUG (2026-08-12'de bir kod denetiminde tespit edildi): normalize_name eskiden bu listeyi sırayla
+# n.replace(suffix, "") ile (kelime sınırı OLMADAN) uyguluyordu. "SAN" listede "SANAYİ"den ÖNCE
+# geldiği için, "SAN" önce silinince geriye "SANAYİ"nin "AYİ" kalıntısı kalıyor, "SANAYİ" hiçbir
+# zaman BÜTÜN kelime olarak eşleşemiyordu (aynı sorun "TİC"/"TİCARET" için de geçerliydi). Ayrıca
+# sınır olmadan "SAN"/"VE" gibi kısa dizeler firma isminin İÇİNDE geçen alakasız bir kelimenin
+# parçasını da silebiliyordu (örn. "SANDIKÇI OTOMOTİV" -> "SAN" kaybolup "DIKÇI OTOMOTİV" kalırdı).
+# Artık TÜM ekler TEK bir regex geçişinde, kelime sınırlarıyla (\b...\b) ve UZUNDAN KISAYA
+# sıralanarak (alternation "SANAYİ"yi "SAN"dan önce dener) siliniyor - hem sıra bağımlılığı hem
+# yanlışlıkla kelime-içi eşleşme riski ortadan kalkıyor.
+_SUFFIX_PATTERN = re.compile(r"\b(" + "|".join(re.escape(s) for s in sorted(_SUFFIXES, key=len, reverse=True)) + r")\b")
 
 
 def turkish_upper(text: str) -> str:
@@ -22,8 +32,7 @@ def turkish_lower(text: str) -> str:
 def normalize_name(name: str) -> str:
     n = turkish_upper(name or "")
     n = re.sub(r"[.,]", " ", n)
-    for suffix in _SUFFIXES:
-        n = n.replace(suffix, "")
+    n = _SUFFIX_PATTERN.sub("", n)
     n = re.sub(r"\s+", " ", n).strip()
     return n
 
