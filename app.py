@@ -119,9 +119,35 @@ def seed_default_catalog():
     with open(CATALOG_FILE, "w", encoding="utf-8") as f:
         json.dump(DEFAULT_CATALOG, f, ensure_ascii=False, indent=4)
 
-# Başlangıç Evrensel Katalog Veritabanı (dosya yoksa veya bozuk/boşsa yeniden oluştur)
-if not os.path.exists(CATALOG_FILE) or os.path.getsize(CATALOG_FILE) == 0:
+def _seed_catalog_from_github_or_default():
+    """KRİTİK (2026-08-11/12'de bir kayıt kazasını araştırırken fark edildi): Render'ın diski her
+    kod deploy'unda SIFIRLANIYOR - süreç yeniden başladığında catalog.json yerel diskte hiç yok.
+    Silme/yükleme/geri-dönük-görsel-ekleme uçlarının HEPSİ ('_load_catalog_from_disk') performans
+    için GitHub'a değil YEREL diske bakıyor (her sayfada GitHub'a gitmemek amaçlı, bilinçli bir
+    tercih). Eskiden disk boşsa doğrudan 3 ürünlük DEFAULT_CATALOG ile dolduruluyordu - yani her kod
+    deploy'undan SONRAKİ İLK yazma işlemi (bir admin bir kayıt silse veya yeni bir sayfa yüklese),
+    gerçek 1000+ ürünlük kataloğun üzerine bu 3 ürünlük sahte kataloğu yazıp GitHub'daki asıl veriyi
+    SİLEBİLİRDİ - sessiz, ciddi bir veri kaybı riski. Artık disk boşsa/bozuksa önce GitHub'daki
+    GERÇEK kataloğu geri yüklemeye çalışılıyor, sadece GitHub'a hiç ulaşılamazsa (yapılandırılmamış
+    ya da ağ hatası) örnek 3 ürünlük katalog kullanılıyor."""
+    if GITHUB_REPO:
+        try:
+            url = f"https://raw.githubusercontent.com/{GITHUB_REPO}/main/{CATALOG_FILE}"
+            res = requests.get(url, timeout=15)
+            if res.status_code == 200:
+                data = res.json()
+                if isinstance(data, list) and data:
+                    with open(CATALOG_FILE, "w", encoding="utf-8") as f:
+                        json.dump(data, f, ensure_ascii=False, indent=4)
+                    return
+        except Exception:
+            pass
     seed_default_catalog()
+
+# Başlangıç Evrensel Katalog Veritabanı (dosya yoksa veya bozuk/boşsa GitHub'daki gerçek kataloğu
+# geri yükle, o da olmazsa örnek kataloğu kullan)
+if not os.path.exists(CATALOG_FILE) or os.path.getsize(CATALOG_FILE) == 0:
+    _seed_catalog_from_github_or_default()
 
 def _load_catalog_from_disk() -> list:
     try:
@@ -129,8 +155,13 @@ def _load_catalog_from_disk() -> list:
             data = json.load(f)
             return data if isinstance(data, list) else []
     except Exception:
-        seed_default_catalog()
-        return DEFAULT_CATALOG
+        _seed_catalog_from_github_or_default()
+        try:
+            with open(CATALOG_FILE, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                return data if isinstance(data, list) else []
+        except Exception:
+            return DEFAULT_CATALOG
 
 _catalog_cache = {"data": None, "fetched_at": 0}
 CATALOG_CACHE_TTL = 30  # saniye
@@ -1156,6 +1187,25 @@ def merge_catalog_items(catalog: list, new_items: list) -> tuple:
         for idx, item in enumerate(catalog)
         if item.get("oem") and str(item.get("oem")).strip().upper() != "OEM-BELİRSİZ"
     }
+    # BUG (2026-08-11, canlıda gerçekten yaşandı ve veri kaybına yol açtı): yapay zekanın ürettiği
+    # id (PRC-XXXX, sadece 4 haneli rastgele sayı) katalog 1000+ kayda ulaştıkça çakışma ihtimali
+    # ciddileşen düşük-entropili bir şema. Bir kayıt güncellenirken (aşağıda) veya YENİ eklenirken
+    # id çakışırsa: admin panelindeki silme (id'ye göre TÜM eşleşenleri siler) yanlışlıkla alakasız
+    # bir ürünü de siler, müşteri aramasındaki id eşleştirmesi de yanlış ürünü gösterebilir. Bu
+    # yüzden id benzersizliği burada, kataloğa yazılmadan önce garanti edilir.
+    existing_ids = {str(item.get("id")) for item in catalog if item.get("id")}
+
+    def _unique_id(preferred: str) -> str:
+        base = (preferred or "PRC").strip() or "PRC"
+        if base not in existing_ids:
+            return base
+        suffix = 2
+        candidate = f"{base}-{suffix}"
+        while candidate in existing_ids:
+            suffix += 1
+            candidate = f"{base}-{suffix}"
+        return candidate
+
     added = 0
     updated = 0
     for new_item in new_items:
@@ -1165,9 +1215,25 @@ def merge_catalog_items(catalog: list, new_items: list) -> tuple:
             existing = catalog[oem_index[oem_key]]
             merged_sources = sorted(set(_item_sources(existing)) | set(_item_sources(new_item)))
             new_item["source_files"] = merged_sources
+            # new_item mevcut kaydın YERİNE tamamen geçiyor (aşağıda) - ama new_item bu sayfa için
+            # bir görsel taşımıyorsa (ör. GitHub'a görsel yedekleme o an başarısız oldu, ya da bu
+            # ürün metin-katmanı/regex yoluyla çıkarıldığı başka bir sayfadan geldi) ve eldeki
+            # kayıtta ZATEN iyi bir görsel varsa, o görsel burada SESSİZCE kaybolurdu - gerçek bir
+            # kullanımda aynı OEM'in iki farklı katalogda/sayfada geçmesi sık olduğu için bu, daha
+            # önce backfill ile eklenmiş bir görselin bir sonraki katalog yüklemesinde silinmesi
+            # riski demek. Yeni kayıtta görsel yoksa eskisi korunur, varsa (daha güncel/doğru olma
+            # ihtimaline karşı) yeni kayıt kazanır.
+            if not new_item.get("source_page_image") and existing.get("source_page_image"):
+                new_item["source_page_image"] = existing["source_page_image"]
+            # id her zaman mevcut kayıttan korunur - bu slot zaten var olan bir ürünü temsil ediyor,
+            # yeni taramanın kendi ürettiği (ve başka bir kayıtla çakışabilecek) rastgele id'yle
+            # değiştirilmesinin hiçbir faydası yok, sadece risk taşır.
+            new_item["id"] = existing.get("id") or _unique_id(str(new_item.get("id", "")))
             catalog[oem_index[oem_key]] = new_item
             updated += 1
         else:
+            new_item["id"] = _unique_id(str(new_item.get("id", "")))
+            existing_ids.add(new_item["id"])
             new_item["source_files"] = _item_sources(new_item)
             catalog.append(new_item)
             if is_known_oem:
@@ -1439,9 +1505,12 @@ def _run_backfill_images_job(job_id: str, saved_paths: list):
     job = _catalog_jobs[job_id]
     matched_pages = 0
     updated_items = 0
+    already_ok_pages = 0  # eşleşen kayıt(lar) vardı ama HEPSİNİN zaten görseli vardı - yapacak iş yoktu
+    skipped_non_pdf = []  # PDF olmayan bir dosya bu forma yüklenirse (kabul EDİLİR ama işlenmez) - kullanıcıya net bildirilsin diye
     for filename, file_path in saved_paths:
         try:
             if not filename.lower().endswith(".pdf"):
+                skipped_non_pdf.append(filename)
                 continue
             doc = fitz.open(file_path)
             zoom_matrix = fitz.Matrix(2.0, 2.0)
@@ -1462,6 +1531,8 @@ def _run_backfill_images_job(job_id: str, saved_paths: list):
                         job["pages_done"] += 1
                         job["current_file"] = f"{filename} (sayfa {page_num}/{len(doc)})"
                     if not needs_image:
+                        if matching_items:
+                            already_ok_pages += 1
                         continue
                     page = doc[page_index]
                     pix = page.get_pixmap(matrix=zoom_matrix)
@@ -1492,9 +1563,31 @@ def _run_backfill_images_job(job_id: str, saved_paths: list):
             if os.path.exists(file_path):
                 os.remove(file_path)
     sync_catalog_to_github()
+    # Mesaj parça parça kurulur çünkü "eşleşme yok" ile "eşleşme var ama zaten görseli vardı" farklı
+    # durumlar - eskiden ikisi de aynı "hiçbir sayfa için eşleşen kayıt bulunamadı" mesajını
+    # veriyordu, bu da AYNI dosyayı ikinci kez yükleyen (ör. ilk seferde kısmi başarı sonrası tekrar
+    # deneyen) bir kullanıcıyı "demek ki dosya adı yanlış" diye yanlış yönlendirebilirdi.
+    parts = []
+    if matched_pages:
+        parts.append(f"{matched_pages} sayfanın görseli eklendi, {updated_items} ürün kaydı güncellendi.")
+    if already_ok_pages:
+        parts.append(f"{already_ok_pages} sayfada eşleşen kayıt bulundu ama zaten görseli vardı, değişiklik yapılmadı.")
+    if skipped_non_pdf:
+        parts.append(f"{len(skipped_non_pdf)} dosya PDF olmadığı için atlandı: {', '.join(skipped_non_pdf)}.")
+    # BUG (2026-08-11 gerçek bir testte tespit edildi): job['failed'] (ör. bozuk/geçersiz bir PDF -
+    # fitz.open() FileDataError fırlatıyor) DOLDURULUYORDU ama mesaja hiç yansımıyordu - kullanıcı
+    # bozuk kendi PDF'ini yüklediğinde "✅ başarılı, hiçbir sayfa eşleşmedi" gibi YANILTICI bir
+    # sonuç görüyordu, dosyanın aslında hiç AÇILAMADIĞINI fark etmesi imkansızdı.
+    if job["failed"]:
+        parts.append(f"{len(job['failed'])} dosya işlenemedi: " + "; ".join(job["failed"]))
+    if not parts:
+        parts.append("Bu dosyadaki hiçbir sayfa için eşleşen katalog kaydı bulunamadı (dosya adı ilk yüklendiğindekiyle birebir aynı olmalı).")
     with _catalog_jobs_lock:
-        job["status"] = "success"
-        job["message"] = f"{matched_pages} sayfanın görseli eklendi, {updated_items} ürün kaydı güncellendi." if matched_pages else "Bu dosyadaki hiçbir sayfa için eşleşen katalog kaydı bulunamadı (ya dosya adı farklı, ya da tüm görseller zaten mevcut)."
+        # Sadece bozuk/açılamayan dosyalar varsa VE hiçbir gerçek ilerleme (görsel eklenmesi/eşleşme/
+        # atlanan sayfa) olmadıysa "error" (kırmızı) - kısmi başarıda (bazı dosyalar iyi, biri bozuk)
+        # yine de "success" kalır, aksi halde iyi giden dosyaların sonucu da kırmızı kartla gizlenirdi.
+        job["status"] = "error" if (job["failed"] and not (matched_pages or already_ok_pages or skipped_non_pdf)) else "success"
+        job["message"] = " ".join(parts)
 
 
 @app.post("/backfill-catalog-images")
