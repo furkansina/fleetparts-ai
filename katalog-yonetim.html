@@ -130,8 +130,10 @@
         // eklenmiş olabilir), index.html'deki müşteri kartıyla AYNI şekilde burada da gösterilir -
         // yöneticinin de o ürünün gerçek sayfasını görebilmesi/doğrulayabilmesi için (eskiden bu
         // sadece index.html'de vardı, katalog yönetim ekranında hiç görünmüyordu).
+        // Tıklanınca tam çözünürlükte yeni sekmede açılır - küçük resim okunaksız kaldığı için (2026-08-12).
+        const thumbImgUrl = item.source_page_image ? `/catalog-page-image/${encodeURIComponent(item.source_page_image)}` : '';
         const thumbHtml = item.source_page_image
-            ? `<img src="/catalog-page-image/${encodeURIComponent(item.source_page_image)}" alt="" style="width:100%; max-height:140px; object-fit:contain; border-radius:6px; margin-bottom:8px; border:1px solid #eee; background:#fafafa;" loading="lazy">`
+            ? `<a href="${thumbImgUrl}" target="_blank" title="Büyütmek için tıkla"><img src="${thumbImgUrl}" alt="" style="width:100%; max-height:140px; object-fit:contain; border-radius:6px; margin-bottom:8px; border:1px solid #eee; background:#fafafa; cursor:zoom-in;" loading="lazy"></a>`
             : '';
         return `
             <div class="catalog-item">
