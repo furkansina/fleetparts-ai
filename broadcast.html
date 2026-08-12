@@ -128,6 +128,23 @@
 </div>
 
 <script>
+    // KRİTİK (2026-08-12'de leads.html'de canlıda tespit edildi, aynı desen buraya da uygulandı):
+    // sayfaya gömülü kullanıcı adı/şifreli bir URL ile (https://kullanici:sifre@site/broadcast)
+    // erişilirse tarayıcı fetch()'in TÜM göreli-yol isteklerini reddediyor - sayfa açılıyor ama
+    // hiçbir veri (kişi listesi, gönderim geçmişi, kullanım rozeti) yüklenemiyor. window.fetch
+    // burada, sayfadaki İLK satırda, TÜM çağrıları kapsayacak şekilde sarmalanıyor - tek tek her
+    // çağrıyı değiştirmek yerine (biri unutulursa aynı hata sessizce geri gelir) tek bir yerden,
+    // kalıcı olarak çözülüyor.
+    (function() {
+        const _origFetch = window.fetch;
+        window.fetch = function(input, init) {
+            if (typeof input === 'string' && input.startsWith('/')) {
+                input = window.location.origin + input;
+            }
+            return _origFetch(input, init);
+        };
+    })();
+
     let lastOrigin = 'manuel';
     let allContacts = [];
 
