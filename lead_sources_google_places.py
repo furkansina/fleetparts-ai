@@ -74,7 +74,7 @@ _MAX_PAGES = 3  # Places API (New) sayfa başı en fazla 20 sonuç veriyor, topl
 # ücretsiz kredisine yaklaşmamasını garanti etmek için 5000 isteklik (~160 USD, $40 pay bırakan)
 # kesin bir tavan konuldu - run bu sınıra ulaşırsa kalan iller/sorgular sessizce atlanır, sıradaki
 # haftalık taramada devam eder (leads.json'a o ana kadar bulunanlar zaten kaydedilmiş olur, kayıp olmaz).
-_MAX_REQUESTS_PER_RUN = 5000  # ~5000 x $0.032 ≈ $160 - kesin, kod seviyesinde tavan ($200 kredisinin altında, pay birakir)
+_MAX_REQUESTS_PER_RUN = 7000  # ~7000 x $0.032 ≈ $224 - kesin, kod seviyesinde tavan (300$ kredinin altında, pay birakir)
 _request_count = 0
 
 
@@ -160,8 +160,8 @@ def _search_one_query(query: str, delay: float) -> list:
 # değeri TAM ORADA. Bu yüzden: zaten çok kaydı olan iller (eşik: 150+ mevcut lead) sadece 2 sorguyla
 # (en genel/en yüksek değerli terimler) "gözden kaçan var mı" diye kontrol edilir, geri kalan
 # TÜM 12 sorgu bütçesi az kayıtlı illere ayrılır - hem daha ucuz hem daha çok YENİ, benzersiz lead.
-_SATURATED_PROVINCE_THRESHOLD = 150
-_REDUCED_QUERIES = QUERIES[:2]  # sadece "oto yedek parça" + "kamyon yedek parça" - en genel iki terim
+_SATURATED_PROVINCE_THRESHOLD = 700
+_REDUCED_QUERIES = QUERIES[:4]  # doygun illerde bile ilk 4 sorgu (2026-08-12, kullanici "kredi az gidiyor artiralim" dedi)
 
 
 def search_province(province: str, delay: float = 0.3, queries: list = None) -> list:
