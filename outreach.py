@@ -68,24 +68,53 @@ def save_broadcast_log(log: list):
         json.dump(log, f, ensure_ascii=False, indent=4)
 
 
+_github_sync_status = {"last_error": None, "last_success_at": None, "consecutive_failures": 0}
+
+
 def _sync_to_github(filename: str, message: str):
+    """BUG (2026-08-12'de bir kod denetiminde tespit edildi): bu fonksiyon lead_store.py'nin
+    _sync_json_file_to_github'ı ve app.py'nin sync_catalog_to_github'ı ile AYNI 409-veri-kaybı
+    dersini hiç almamıştı - PUT'un HTTP durum kodu hiç kontrol edilmiyordu, 409 çakışmasında
+    (bu dosyaya birden fazla süreç aynı anda yazabiliyor) tekrar denenmiyordu, hata hiçbir yere
+    kaydedilmiyordu. Somut risk: GitHub token süresi dolarsa/geçici bir ağ hatası veya 409 olursa,
+    /leads/add-to-contacts ve /contacts/import ile eklenen GERÇEK müşteri iletişim listesi sadece
+    Render'ın geçici diskinde kalır, hiçbir uyarı vermez - bir sonraki deploy'da (disk sıfırlanır)
+    o kişiler kalıcı olarak kaybolur. Artık diğer iki dosyayla AYNI 409-retry deseni + görünür
+    hata takibi (_github_sync_status, app.py'deki /usage uç noktasındaki emsalle tutarlı)."""
     if not GITHUB_TOKEN or not GITHUB_REPO:
+        _github_sync_status["last_error"] = "GITHUB_TOKEN veya GITHUB_REPO tanımlı değil - yedekleme hiç aktif değil."
+        _github_sync_status["consecutive_failures"] += 1
         return
-    try:
-        api_url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{filename}"
-        headers = {"Authorization": f"Bearer {GITHUB_TOKEN}", "Accept": "application/vnd.github+json"}
-        sha = None
-        res = requests.get(api_url, headers=headers, timeout=15)
-        if res.status_code == 200:
-            sha = res.json().get("sha")
-        with open(filename, "rb") as f:
-            content_b64 = base64.b64encode(f.read()).decode("utf-8")
-        body = {"message": message, "content": content_b64}
-        if sha:
-            body["sha"] = sha
-        requests.put(api_url, headers=headers, json=body, timeout=15)
-    except Exception:
-        pass
+    api_url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{filename}"
+    headers = {"Authorization": f"Bearer {GITHUB_TOKEN}", "Accept": "application/vnd.github+json"}
+    with open(filename, "rb") as f:
+        content_b64 = base64.b64encode(f.read()).decode("utf-8")
+
+    for attempt in range(3):
+        try:
+            sha = None
+            res = requests.get(api_url, headers=headers, timeout=15)
+            if res.status_code == 200:
+                sha = res.json().get("sha")
+            body = {"message": message, "content": content_b64}
+            if sha:
+                body["sha"] = sha
+            put_res = requests.put(api_url, headers=headers, json=body, timeout=15)
+            if put_res.status_code in (200, 201):
+                _github_sync_status["last_success_at"] = time.time()
+                _github_sync_status["last_error"] = None
+                _github_sync_status["consecutive_failures"] = 0
+                return
+            if put_res.status_code == 409 and attempt < 2:
+                continue  # başka bir süreç araya girdi - sha'yı yeniden al ve tekrar dene
+            _github_sync_status["last_error"] = f"{filename} GitHub'a yazılamadı (HTTP {put_res.status_code}): {put_res.text[:200]}"
+            _github_sync_status["consecutive_failures"] += 1
+            return
+        except Exception as e:
+            if attempt < 2:
+                continue
+            _github_sync_status["last_error"] = f"{filename} GitHub senkronizasyon hatası: {e}"
+            _github_sync_status["consecutive_failures"] += 1
 
 
 def _load_json_list_from_disk(filename: str) -> list:
