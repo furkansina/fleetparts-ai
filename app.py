@@ -844,14 +844,41 @@ def fix_glued_oem_codes(_: str = Depends(require_admin)):
     bozuk 'ORP 4011 Test Aparatı Dişi...' kaydı da oluştu - aynı ürün iki kez, biri bozuk kodla).
     Bu hem kataloğu şişiriyor hem de metin/kod aramasında (find_by_text, match_agent) gereksiz
     belirsizlik yaratıyordu (ör. '101042' araması 16 yarı-çakışan aday görüp hiçbirini seçemiyordu).
-    Temiz eşdeğeri (gerçek kodu) zaten kataloğun başka bir yerinde varsa bozuk kopya silinir; tek
-    kopyaysa (temiz eşdeğeri yoksa) kodu onarılır (isim kısmı koddan ayrılır). İdempotent - tekrar
-    çağrılırsa düzeltilecek bir şey kalmadıysa hiçbir şeyi değiştirmez, boş sonuç döner."""
+
+    DÜZELTİLDİ (aynı gün, ikinci geçiş): bu uç noktanın İLK sürümü 'isim koddan ayrılır' mantığını
+    kör bir şekilde uyguluyordu - bazı durumlarda (ör. 'PCM - G06 12 x 1,5' / '... 14 x 1,5' / ...
+    16 x 1,5') 'isim' aslında çöp değil, GERÇEK bir ayırt edici (ölçü) bilgisiydi; onu koddan
+    sökmek FARKLI ürünleri (farklı ölçüler) AYNI kısaltılmış koda ('PCM - G06') düşürüp YENİ bir
+    çakışma yarattı - canlıda 8 grup, 36 kayıt etkilendi, hemen fark edilip burada düzeltildi.
+    Artık iki adımlı: önce hangi 'true_code'ların BİRDEN FAZLA farklı kayıtta ortaya çıkacağı
+    hesaplanır - bu durumda isim/ölçü GERÇEKTEN ayırt edici demektir, o kayıtlara DOKUNULMAZ
+    (ne silinir ne kodu kısaltılır). Sadece true_code'u TEK bir kayıtta ortaya çıkan (gerçekten
+    gereksiz/çöp isim eklenmiş) kayıtlar onarılır/silinir. Ayrıca bu ikinci geçiş, ilk sürümün
+    yanlışlıkla çakıştırdığı 36 kaydı da (id alanı hiç dokunulmadığı için hâlâ orijinal/doğru
+    değerini taşıyor) otomatik olarak eski haline getirir - id'leri hâlâ benzersiz olduğu için
+    oem'i id ile eşitlemek güvenli bir geri alma sağlar. İdempotent."""
     with CATALOG_WRITE_LOCK:
         catalog = load_catalog()
-        clean_oems = {str(i.get("oem", "")).strip() for i in catalog}
-        to_delete_idx = []
-        repaired = []
+        original_oems = {str(i.get("oem", "")).strip() for i in catalog if i.get("oem")}
+
+        # Geri alma: onceki (hatali) calismanin caktirdigi kayitlari tespit et - oem'i baska
+        # kayit(lar)la birebir ayni AMA id'si hala farkli/daha bilgili (id, oem'in dogal bir
+        # uzantisi). Bu durumda id zaten hicbir zaman bozulmamisti, oem'i id'ye esitlemek guvenli.
+        from collections import Counter
+        oem_counts = Counter(str(i.get("oem", "")).strip() for i in catalog if i.get("oem"))
+        reverted = []
+        for item in catalog:
+            oem = str(item.get("oem", "")).strip()
+            iid = str(item.get("id", "")).strip()
+            if oem and oem_counts.get(oem, 0) > 1 and oem != "OEM-BELİRSİZ" and iid and iid != oem and iid.startswith(oem):
+                reverted.append({"id": iid, "eski_kod": oem, "yeni_kod": iid})
+                item["oem"] = iid
+
+        # Ana gecis: 'isim, oem'in icinde geciyor' seklindeki bozuk kayitlari bul, ama SADECE
+        # true_code baska hicbir farkli kayitta tekrar etmiyorsa (yani gercekten gereksiz/cop
+        # bir isim ekiyse) dokun - aksi halde farkli urunleri ayni koda dusurup yeni bir
+        # cakisma yaratirdik (bkz. yukaridaki not).
+        malformed = []
         for idx, item in enumerate(catalog):
             name = str(item.get("name", "")).strip()
             oem = str(item.get("oem", "")).strip()
@@ -859,15 +886,23 @@ def fix_glued_oem_codes(_: str = Depends(require_admin)):
                 continue
             pos = oem.find(name)
             true_code = oem[:pos].strip()
-            if not true_code:
-                continue  # isim oem'in en basinda degil - farkli/beklenmeyen bir durum, dokunma
-            if true_code in clean_oems and true_code != oem:
+            if true_code:
+                malformed.append((idx, oem, true_code))
+
+        true_code_counts = Counter(tc for _, _, tc in malformed)
+        to_delete_idx = []
+        repaired = []
+        for idx, oem, true_code in malformed:
+            if true_code_counts[true_code] > 1:
+                continue  # birden fazla FARKLI kayit ayni koda duserdi - dokunma, isim ayirt edici
+            if true_code in original_oems and true_code != oem:
                 to_delete_idx.append(idx)
             else:
-                item["oem"] = true_code
-                repaired.append({"id": item.get("id"), "eski_kod": oem, "yeni_kod": true_code})
-        if not to_delete_idx and not repaired:
-            return {"status": "success", "silinen": 0, "onarilan": 0, "kalan_toplam": len(catalog), "message": "Düzeltilecek bozuk kayıt bulunamadı."}
+                catalog[idx]["oem"] = true_code
+                repaired.append({"id": catalog[idx].get("id"), "eski_kod": oem, "yeni_kod": true_code})
+
+        if not to_delete_idx and not repaired and not reverted:
+            return {"status": "success", "silinen": 0, "onarilan": 0, "geri_alinan": 0, "kalan_toplam": len(catalog), "message": "Düzeltilecek bozuk kayıt bulunamadı."}
         delete_set = set(to_delete_idx)
         deleted_info = [{"id": catalog[i].get("id"), "oem": catalog[i].get("oem")} for i in to_delete_idx]
         new_catalog = [item for i, item in enumerate(catalog) if i not in delete_set]
@@ -879,8 +914,10 @@ def fix_glued_oem_codes(_: str = Depends(require_admin)):
         "status": "success",
         "silinen": len(deleted_info),
         "onarilan": len(repaired),
+        "geri_alinan": len(reverted),
         "silinen_detay": deleted_info[:30],
         "onarilan_detay": repaired[:30],
+        "geri_alinan_detay": reverted[:30],
         "kalan_toplam": len(new_catalog),
     }
 
