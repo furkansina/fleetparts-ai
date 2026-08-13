@@ -4543,5 +4543,100 @@
         "relevance_score": 20,
         "score_reasoning": "Merkez şube otomobil yedek parça. Perakende odaklı, ağır vasıta ile ilgisi yok.",
         "classified_at": "2026-08-13T07:46:06.166037+00:00"
+    },
+    "gplaces_ChIJYYLGHYkvsxQRWhQq-EH8ijc": {
+        "relevance_score": 60,
+        "score_reasoning": "İsminde 'Oto Yedek Parça' geçiyor, bu toptan alım potansiyeli gösterir. Ancak 'Çıkma Parça' vurgusu motorlu taşıt odaklı olabilir ve ağır vasıta spesifiği belirtilmemiştir.",
+        "classified_at": "2026-08-13T07:46:30.456468+00:00"
+    },
+    "gplaces_ChIJGVMkvnAlsxQR__Za7db_X-o": {
+        "relevance_score": 10,
+        "score_reasoning": "İsminde 'Tamiri' ve 'EYÜP USTA' geçmesi, bu firmanın öncelikle bir servis/tamirci olduğunu gösterir. Hedef kitlemiz toptancılar veya filo sahipleridir, bağımsız tamirciler hedef dışındadır.",
+        "classified_at": "2026-08-13T07:46:30.456468+00:00"
+    },
+    "gplaces_ChIJXZm4Q27VgEAR3iLx-GE7RoU": {
+        "relevance_score": 40,
+        "score_reasoning": "Safkan 'Otomobil Yedek Parça Mağazası' kategorisinde ve isminde ağır vasıta belirtimi yok. Muhtemelen binek araç odaklıdır.",
+        "classified_at": "2026-08-13T07:46:30.456468+00:00"
+    },
+    "gplaces_ChIJJ7Ee943VgEAR3dPt8_iNDMo": {
+        "relevance_score": 30,
+        "score_reasoning": "İsminde 'Japon & Kore' vurgusu, genellikle binek otomobil yedek parça marketlerini işaret eder. Ağır vasıta markaları (MAN, Volvo, DAF vb.) genellikle Avrupa kökenlidir.",
+        "classified_at": "2026-08-13T07:46:30.456468+00:00"
+    },
+    "gplaces_ChIJUaRZVqUqh0ARogiiTinBxt8": {
+        "relevance_score": 40,
+        "score_reasoning": "İsminde 'Ticaret' geçmesi toptan potansiyeli taşır ancak kategori 'Otomobil Yedek Parça Mağazası'dır. Spesifik ağır vasıta belirtimi olmadığı için ortalama skorda kalır.",
+        "classified_at": "2026-08-13T07:46:30.456468+00:00"
+    },
+    "gplaces_ChIJQTcBSWIrh0ARQMrvCeA9l_M": {
+        "relevance_score": 40,
+        "score_reasoning": "Genel 'Otomobil Yedek Parça Mağazası' kategorisinde. Ağır vasıta spesifiği bulunmamaktadır.",
+        "classified_at": "2026-08-13T07:46:30.456468+00:00"
+    },
+    "gplaces_ChIJF8FO2GPVgEARORRwVt7stHY": {
+        "relevance_score": 40,
+        "score_reasoning": "Bölgesel parçacı ('ÇORUM-PAR') olsa da kategori kesinlikle 'Otomobil' üzerine kuruludur.",
+        "classified_at": "2026-08-13T07:46:30.456468+00:00"
+    },
+    "gplaces_ChIJIamXhRXVgEARs9M04av_tYg": {
+        "relevance_score": 20,
+        "score_reasoning": "İsminde 'ford' açıkça belirtilmiş. Ford hem binek hem ticari araç üreticisi olsa da ' Oto Yedek Parça' genelitesi ve küçük işletme yapısı muhtemelen binek araç servisleri veya bireysel alıcılara hitap etmektedir.",
+        "classified_at": "2026-08-13T07:46:30.456468+00:00"
+    },
+    "gplaces_ChIJbd9--ETVgEAR_KAr4CliIsk": {
+        "relevance_score": 30,
+        "score_reasoning": "Japon ve Avrupa parça dediği için binek araç yelpazesinde olduğu anlaşılmaktadır. Ağır vasıta için özel bölüm olup olmadığı bilinmemektedir.",
+        "classified_at": "2026-08-13T07:46:30.456468+00:00"
+    },
+    "gplaces_ChIJuxYYIqUqh0ARrmaOtTP0x1Y": {
+        "relevance_score": 95,
+        "score_reasoning": "İsminde BMC, ASKAM, MERCEDES, HINO, ISUZU, MİTSUBİSHİ, IVECO gibi ağır vasıta (kamyon/tır) ve iş makineleri markaları açıkça listelenmiştir. Bu bir ağır vasıta yedek parça toptancısı veya perakendecisidir. Hedef kitle ile tam uyumludur.",
+        "classified_at": "2026-08-13T07:46:30.456468+00:00"
+    },
+    "gplaces_ChIJlQpJFBjVgEARSNvgoTAfNvI": {
+        "relevance_score": 10,
+        "score_reasoning": "İsminde 'TRAKTÖR' geçmektedir. Traktör, tarım aracıdır ve ağır vasıta (kamyon/tır) yedek parça satıcısı ile doğrudan ilişkisi zayıftır. Farklı bir niş piyasa hedeflenmektedir.",
+        "classified_at": "2026-08-13T07:46:30.456468+00:00"
+    },
+    "gplaces_ChIJB7AlSkfVgEAR49yT7JeqGpc": {
+        "relevance_score": 85,
+        "score_reasoning": "Kategori 'Kamyon Bayii' olarak geçmektedir. Tümosan (Renault Trucks) bayisi olması durumunda hem filo bakım hem de yedek parça tedarik zincirinde anahtar bir noktadadır. Yüksek uygunluk.",
+        "classified_at": "2026-08-13T07:46:30.456468+00:00"
+    },
+    "gplaces_ChIJWY047forh0AR03qw6dgtx_s": {
+        "relevance_score": 20,
+        "score_reasoning": "Kategori 'Araç Bakım ve Onarımı'. Servis odaklıdır, toptan yedek parça satıcısı profilinden ziyade hizmet veren bir atölye profilindedir.",
+        "classified_at": "2026-08-13T07:46:30.456468+00:00"
+    },
+    "gplaces_ChIJ7yWsbTTVgEARW3SX-bvptfA": {
+        "relevance_score": 80,
+        "score_reasoning": "İsminde 'DORSE YEDEK PARÇA VE FREN SİSTEMLERİ' geçmesi, firmanın kara taşımacılığı (TIR/Remork) sektörüne hizmet ettiğini net bir şekilde gösterir. Hedef kitle ile uyumludur.",
+        "classified_at": "2026-08-13T07:46:30.456468+00:00"
+    },
+    "gplaces_ChIJh5xdND_VgEAR33tLVwvJkwc": {
+        "relevance_score": 80,
+        "score_reasoning": "İsminde 'DAMPER DORSE' geçmesi, firmanın kamyonet, kamyon ve römork takımlarına yönelik yedek parça/depo aksesuarı satışı yaptığını gösterir. Ağır vasıta ekosistemi içindedir.",
+        "classified_at": "2026-08-13T07:46:30.456468+00:00"
+    },
+    "gplaces_ChIJ-8WGNMK1xRQROQZjtY5dOBM": {
+        "relevance_score": 40,
+        "score_reasoning": "Kategori 'Otomobil Yedek Parça Mağazası'. Ağır vasıta spesifikasyonu isimde veya kategoride belirtilmemiştir.",
+        "classified_at": "2026-08-13T07:46:30.456468+00:00"
+    },
+    "gplaces_ChIJr_fV-Hy1xRQRQJKWakpzFzo": {
+        "relevance_score": 40,
+        "score_reasoning": "Kategori 'Otomobil Yedek Parça Mağazası'. Ağır vasıta spesifiği yoktur.",
+        "classified_at": "2026-08-13T07:46:30.456468+00:00"
+    },
+    "gplaces_ChIJGZq0CAq1xRQRDlj0GwIlySQ": {
+        "relevance_score": 40,
+        "score_reasoning": "Kategori 'Otomobil Yedek Parça Mağazası'. Ağır vasıta spesifiği yoktur.",
+        "classified_at": "2026-08-13T07:46:30.456468+00:00"
+    },
+    "gplaces_ChIJr6--i4u1xRQR7R0ivN9ustA": {
+        "relevance_score": 40,
+        "score_reasoning": "Kategori 'Otomobil Yedek Parça Mağazası'. Ağır vasıta spesifiği yoktur.",
+        "classified_at": "2026-08-13T07:46:30.456468+00:00"
     }
 }
