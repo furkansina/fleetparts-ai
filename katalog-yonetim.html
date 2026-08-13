@@ -423,13 +423,14 @@
     // Katalog yedeklemesi (GitHub'a gönderme) sessizce bozulursa, Render'ın diski her yeniden
     // deploy'da sıfırlandığı için o güne kadarki TÜM ilerleme kaybolabilir - kimse fark etmeden.
     // Üst üste 3+ başarısızlıkta burada net bir uyarı gösteriliyor ki fark edilsin.
-    function renderBackupWarning(status) {
+    function renderBackupWarning(statuses) {
         const el = document.getElementById('backupWarning');
         if (!el) return;
-        if (!status || status.consecutive_failures < 3) { el.innerHTML = ''; return; }
-        el.innerHTML = `<div class="card err"><div class="card-title">⚠️ Katalog Yedeklemesi Bozuk</div>
-            <div>Katalog GitHub'a son ${status.consecutive_failures} denemedir yedeklenemiyor. Sunucu yeniden başlarsa (ki zaman zaman kendiliğinden oluyor) o ana kadarki yeni eklenen ürünler kaybolabilir.
-            ${status.last_error ? `<br><span style="color:#888; font-size:12.5px;">Sebep: ${esc(status.last_error)}</span>` : ''}</div></div>`;
+        const problems = statuses.filter(s => s.status && s.status.consecutive_failures >= 3);
+        if (problems.length === 0) { el.innerHTML = ''; return; }
+        el.innerHTML = problems.map(p => `<div class="card err"><div class="card-title">⚠️ ${p.label} Yedeklemesi Bozuk</div>
+            <div>${p.label} GitHub'a son ${p.status.consecutive_failures} denemedir yedeklenemiyor. Sunucu yeniden başlarsa (ki zaman zaman kendiliğinden oluyor) o ana kadarki yeni veriler kaybolabilir.
+            ${p.status.last_error ? `<br><span style="color:#888; font-size:12.5px;">Sebep: ${esc(p.status.last_error)}</span>` : ''}</div></div>`).join('');
     }
 
     async function loadUsageBadge() {
@@ -439,7 +440,11 @@
             const el = document.getElementById('usageBadge');
             const thirdBadge = (u.customer2 && u.customer2.call_count > 0) ? ` &nbsp;·&nbsp; ${poolBadgeHtml('Müşteri Arama (Yedek)', u.customer2)}` : '';
             el.innerHTML = `⚡ ${poolBadgeHtml('Müşteri Arama', u.customer)} &nbsp;·&nbsp; ${poolBadgeHtml('Katalog Tarama', u.bulk)}${thirdBadge}`;
-            renderBackupWarning(u.backup_status);
+            renderBackupWarning([
+                { label: 'Katalog', status: u.backup_status },
+                { label: 'Kişi Listesi', status: u.contacts_backup_status },
+                { label: 'Lead Verileri', status: u.lead_store_backup_status },
+            ]);
         } catch (err) { /* sessizce geç, kritik değil */ }
     }
     loadUsageBadge();
