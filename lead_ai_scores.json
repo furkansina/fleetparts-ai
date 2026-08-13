@@ -3073,5 +3073,75 @@
         "relevance_score": 40,
         "score_reasoning": "GÜZEL OTOMOTİV YEDEK PARÇA olarak oto yedek parça satıcısı ancak ağır vasıta uzmanlığı yok",
         "classified_at": "2026-08-13T06:02:47.322484+00:00"
+    },
+    "gplaces_ChIJJTZK5o0TMxURnELJy-ROt7w": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız tamirci/servis olduğu için hedef dışı",
+        "classified_at": "2026-08-13T06:03:00.421079+00:00"
+    },
+    "gplaces_ChIJs_qn-PURMxURTxkGIofBnnM": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız tamirci/servis olduğu için hedef dışı",
+        "classified_at": "2026-08-13T06:03:00.421079+00:00"
+    },
+    "gplaces_ChIJsXg-0r0VMxURHoR7bRzQ274": {
+        "relevance_score": 80,
+        "score_reasoning": "Nakliye/lojistik firması olduğu için hedef kitleye uygun",
+        "classified_at": "2026-08-13T06:03:00.421079+00:00"
+    },
+    "gplaces_ChIJC67PyrURMxURyipeVUphfgM": {
+        "relevance_score": 80,
+        "score_reasoning": "",
+        "classified_at": "2026-08-13T06:03:00.421079+00:00"
+    },
+    "gplaces_ChIJAfzMdFSlMxURmdd18jVj9WU": {
+        "relevance_score": 80,
+        "score_reasoning": "Nakliye/lojistik firması olduğu için hedef kitleye uygun",
+        "classified_at": "2026-08-13T06:03:00.421079+00:00"
+    },
+    "gplaces_ChIJ_-RRUfQTMxURRWOsUompZiw": {
+        "relevance_score": 80,
+        "score_reasoning": "Nakliye/lojistik firması olduğu için hedef kitleye uygun",
+        "classified_at": "2026-08-13T06:03:00.421079+00:00"
+    },
+    "gplaces_ChIJmxvKoK0TMxURb3BYbBY2Q6E": {
+        "relevance_score": 80,
+        "score_reasoning": "Nakliye/lojistik firması olduğu için hedef kitleye uygun",
+        "classified_at": "2026-08-13T06:03:00.421079+00:00"
+    },
+    "gplaces_ChIJS_Y09-jpKRUR0VxSLh3gBOc": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız tamirci/servis olduğu için hedef dışı",
+        "classified_at": "2026-08-13T06:03:00.421079+00:00"
+    },
+    "gplaces_ChIJa8Hqw9bnKRURj4P0-FJecJY": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız tamirci/servis olduğu için hedef dışı",
+        "classified_at": "2026-08-13T06:03:00.421079+00:00"
+    },
+    "gplaces_ChIJ3RmXruHnKRURga6feeuWk9E": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız tamirci/servis olduğu için hedef dışı",
+        "classified_at": "2026-08-13T06:03:00.421079+00:00"
+    },
+    "gplaces_ChIJAfA5IeVrhYgR9lbC47FGJmk": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız tamirci/servis olduğu için hedef dışı",
+        "classified_at": "2026-08-13T06:03:00.421079+00:00"
+    },
+    "gplaces_ChIJrYylb8jpKRURCOxkFnaqt2E": {
+        "relevance_score": 20,
+        "score_reasoning": "Araç bakım ve onarımı hizmeti sunduğu için kısmen hedef kitleye uygun",
+        "classified_at": "2026-08-13T06:03:00.421079+00:00"
+    },
+    "gplaces_ChIJ8RGnmKgRMxURziSSjNBGxjY": {
+        "relevance_score": 40,
+        "score_reasoning": "Üretici olduğu için kısmen hedef kitleye uygun",
+        "classified_at": "2026-08-13T06:03:00.421079+00:00"
+    },
+    "gplaces_ChIJyVRma_vnKRUR-eqEDmw8jYU": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız tamirci/servis olduğu için hedef dışı",
+        "classified_at": "2026-08-13T06:03:00.421079+00:00"
     }
 }
