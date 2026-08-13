@@ -10,6 +10,7 @@ import threading
 import unicodedata
 import uuid
 from datetime import datetime, timezone
+from collections import Counter
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import requests
 import fitz  # PyMuPDF - PDF sayfalarını görsele çevirmek için
@@ -23,6 +24,7 @@ import lead_store
 import outreach
 import usage_tracker
 import whatsapp_business_api
+import missed_search_log
 from lead_dedupe import is_mobile_phone, turkish_lower, turkish_fold
 
 app = FastAPI(title="FleetParts AI - Universal Heavy Duty Master Engine")
@@ -2287,7 +2289,32 @@ def get_usage():
     # kendi senkronizasyon durumunu tutuyor (2026-08-13'te eklendi - önceden bu üç dosyanın
     # yazma hataları sadece konsola print ediliyordu, hiçbir yerde görünmüyordu).
     result["lead_store_backup_status"] = dict(lead_store._github_sync_status)
+    result["missed_search_backup_status"] = dict(missed_search_log._github_sync_status)
     return result
+
+@app.get("/missed-searches-data")
+def get_missed_searches_data(_: str = Depends(require_admin)):
+    """Katalogda karşılığı bulunamamış aramaların özetini döndürür - 'hangi ürüne gerçek
+    talep var ama biz satmıyoruz' sorusuna cevap vermek için (2026-08-13'te eklendi)."""
+    items = missed_search_log.load_missed_searches()
+    counter = Counter()
+    examples = {}
+    for it in items:
+        key = (it.get("category") or it.get("query_text") or "").strip()
+        if not key:
+            continue
+        key_norm = turkish_lower(key)
+        counter[key_norm] += 1
+        examples.setdefault(key_norm, key)
+    top = [
+        {"label": examples.get(k, k), "count": c}
+        for k, c in counter.most_common(50)
+    ]
+    return {
+        "total_missed": len(items),
+        "top_categories": top,
+        "recent": list(reversed(items[-30:])),
+    }
 
 @app.get("/leads-data")
 def get_leads_data(_: str = Depends(require_admin)):
@@ -2930,6 +2957,20 @@ def process_part(
             # Fotoğraf yok: OEM kodu veya parça adına göre doğrudan katalog araması
             vision_res = {"note": "Fotoğrafsız metin araması yapıldı.", "query": query}
             matched_prod = find_by_text(query)
+
+        # "Kaçırılan talep" kaydı (2026-08-13'te eklendi): kataloğun gerçekten karşılayamadığı
+        # bir arama olduğunda (veri çakışması/boş katalog gibi sistem durumları DEĞİL, gerçek
+        # "bu ürün yok" durumu) kaydediyoruz - hangi ürünlere talep var ama stoğumuzda yok
+        # sorusuna ileride veriyle cevap vermek için. Müşteri kimliği/telefonu tutulmuyor.
+        if matched_prod.get("id") == "NOT_IN_CATALOG" and matched_prod.get("name") == "Katalog Dışı / Eşleşme Sağlanamadı":
+            if file:
+                missed_search_log.log_missed_search(
+                    "photo",
+                    vision_res.get("exact_name_classification") or vision_res.get("universal_category") or "",
+                    vision_res.get("universal_category", ""),
+                )
+            else:
+                missed_search_log.log_missed_search("text", query, "")
 
         return {
             "status": "success",
