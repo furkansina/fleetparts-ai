@@ -13,11 +13,7 @@
     "call_count": 0
   },
   "leads_ai": {
-    "total_tokens": 8489,
-    "call_count": 3
-  },
-  "leads_ai_bulk": {
-    "total_tokens": 0,
-    "call_count": 0
+    "total_tokens": 5771,
+    "call_count": 2
   }
 }
