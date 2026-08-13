@@ -178,7 +178,6 @@
                 <div class="catalog-grid" style="margin-top:10px;">${candidates.map(catalogItemCardHtml).join('')}</div>
             `;
         } else if (isMatched) {
-            const stock = matched_product.stock ?? 0;
             const brandRow = matched_product.brand ? `<li><span class="k">Marka</span><span class="v">${esc(matched_product.brand)}</span></li>` : '';
             // Fiyat kataloğundan (varsa) - müşteriye satış öncesi net bilgi vermek için, boşsa
             // hiç satır gösterme (yanlış/uydurma bir "fiyat yok" mesajı yerine sessizce atlanır).
@@ -204,7 +203,7 @@
                     <li><span class="k">OEM Kodu</span><span class="v"><span class="badge badge-oem">${esc(matched_product.oem)}</span></span></li>
                     ${brandRow}
                     ${priceRow}
-                    <li><span class="k">Stok</span><span class="v"><span class="badge badge-stock ${stock == 0 ? 'zero' : ''}">${esc(stock)} adet</span></span></li>
+                    <li><span class="k">Stok</span><span class="v">${stockBadgeHtml(matched_product.stock)}</span></li>
                     ${sourceRow}
                     ${scoreRow}
                 </ul>
@@ -234,6 +233,20 @@
         `;
     }
 
+    // BUG (2026-08-13'te tespit edildi): stok alanı gerçek envanter verisi taşımıyordu - Excel'de
+    // hiç stok sütunu yoktu (kod sabit "1" yazıyordu), PDF taramasında da AI'a "sadece açıkça
+    // yazılıysa doldur" kuralı hiç verilmemişti (marka/fiyat için verilmişti). Sonuç: kataloğun
+    // %98'inde "1 adet" görünüyordu - gerçek stok değil, müşteriyi yanıltan sahte bir sayı. Ayrıca
+    // eski kod `stock ?? 0` ile "bilinmiyor"u "0/tükendi" (kırmızı, yanlış) gösteriyordu. Artık
+    // stok gerçekten bilinmiyorsa (null/undefined) nötr "Stokta" rozeti gösteriliyor - ne uydurma
+    // bir sayı ne de yanlış "tükendi" uyarısı.
+    function stockBadgeHtml(stock) {
+        if (stock === null || stock === undefined || stock === '') {
+            return `<span class="badge badge-stock">Stokta</span>`;
+        }
+        return `<span class="badge badge-stock ${stock == 0 ? 'zero' : ''}">${esc(stock)} adet</span>`;
+    }
+
     function sourceFilesHtml(item) {
         const sources = (item.source_files && item.source_files.length) ? item.source_files : (item.source_file ? [item.source_file] : []);
         if (!sources.length) return '';
@@ -251,7 +264,7 @@
             <div class="catalog-item">
                 ${thumbHtml}
                 <h4>${esc(item.name)}</h4>
-                <div><span class="badge badge-oem">${esc(item.oem)}</span> <span class="badge badge-stock ${(item.stock ?? 0) == 0 ? 'zero' : ''}">${esc(item.stock ?? 0)} adet</span>${item.price ? ` <span class="badge badge-price">${esc(item.price)}</span>` : ''}</div>
+                <div><span class="badge badge-oem">${esc(item.oem)}</span> ${stockBadgeHtml(item.stock)}${item.price ? ` <span class="badge badge-price">${esc(item.price)}</span>` : ''}</div>
                 <div style="margin-top:6px; color:#555; font-size:13px;">${esc(item.brand || '')}</div>
                 <div class="specs">${esc(item.specs || '')}</div>
                 ${sourceFilesHtml(item)}
