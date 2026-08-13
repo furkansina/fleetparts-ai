@@ -2573,5 +2573,100 @@
         "relevance_score": 80,
         "score_reasoning": "Oto yedek parça mağazası, oto yedek parça toptancılarına ürün satışı için uygun",
         "classified_at": "2026-08-13T05:57:15.260824+00:00"
+    },
+    "sanayisitesi_konya_karakayalilar-cikma-yedek-parcalari-konya": {
+        "relevance_score": 20,
+        "score_reasoning": "Sanayi sitesinde faaliyet gösteren bir cıkma yedek parçaları mağazası, ancak ağır vasıta yedek parçası satıcısı olmayabilir.",
+        "classified_at": "2026-08-13T05:57:58.959456+00:00"
+    },
+    "gplaces_ChIJSZaxwKQjcUARxP_9Fcscl2w": {
+        "relevance_score": 40,
+        "score_reasoning": "Oto yedek parça mağazası, ancak ağır vasıta yedek parçası satıcısı olmayabilir.",
+        "classified_at": "2026-08-13T05:57:58.959456+00:00"
+    },
+    "gplaces_ChIJ2xaOho1J0xQR742FCRCRXFE": {
+        "relevance_score": 60,
+        "score_reasoning": "Oto yedek parça mağazası ve isminde ağır vasıta yedek parçası geçiyor, jedoch ağır vasıta yedek parçası satıcısı olmayabilir.",
+        "classified_at": "2026-08-13T05:57:58.959456+00:00"
+    },
+    "gplaces_ChIJe8_s2LKzzBQRkkzKlGf-pLk": {
+        "relevance_score": 10,
+        "score_reasoning": "Alışveriş merkezi ve isminde TIR yedek parçası geçiyor, ancak bu mağazanın ağır vasıta yedek parçası satıcısı olduğu garantili değil.",
+        "classified_at": "2026-08-13T05:57:58.959456+00:00"
+    },
+    "gplaces_ChIJ55aZPKdbtRQRhJDBAiAHGTQ": {
+        "relevance_score": 30,
+        "score_reasoning": "Hizmetler kategorisinde ve isminde treyler bakım onarım servisi geçiyor, ancak ağır vasıta yedek parçası satıcısı olmayabilir.",
+        "classified_at": "2026-08-13T05:57:58.959456+00:00"
+    },
+    "gplaces_ChIJdUVvWQm_KBURZBD-itXI3Lw": {
+        "relevance_score": 50,
+        "score_reasoning": "Araç bakım ve onarımı kategorisinde ve isminde treyler tamir geçiyor, ancak ağır vasıta yedek parçası satıcısı olmayabilir.",
+        "classified_at": "2026-08-13T05:57:58.959456+00:00"
+    },
+    "gplaces_ChIJdUUjUgDZyhQR9n1QOW18yyY": {
+        "relevance_score": 40,
+        "score_reasoning": "Araç bakım ve onarımı kategorisinde ve isminde dorse treyler servisi geçiyor, ancak ağır vasıta yedek parçası satıcısı olmayabilir.",
+        "classified_at": "2026-08-13T05:57:58.959456+00:00"
+    },
+    "gplaces_ChIJjVQg1QcvaEAR1BW0Ie2S75o": {
+        "relevance_score": 20,
+        "score_reasoning": "Araç bakım ve onarımı kategorisinde ve isminde yetkili servis geçiyor, ancak ağır vasıta yedek parçası satıcısı olmayabilir.",
+        "classified_at": "2026-08-13T05:57:58.959456+00:00"
+    },
+    "gplaces_ChIJx8s80rsx0xQR1wh7SNk94zU": {
+        "relevance_score": 10,
+        "score_reasoning": "Araç bakım ve onarımı kategorisinde, ancak dorse tamircisi ağır vasıta yedek parçası satıcısı olmayabilir.",
+        "classified_at": "2026-08-13T05:57:58.959456+00:00"
+    },
+    "gplaces_ChIJcfc1rjZP0xQRJ5mSiemro_w": {
+        "relevance_score": 80,
+        "score_reasoning": "Mağaza kategorisinde ve isminde treyler geçiyor, ağır vasıta yedek parçası satıcısı olabilir.",
+        "classified_at": "2026-08-13T05:57:58.959456+00:00"
+    },
+    "gplaces_ChIJrYyPdK2zzBQR5xDg1b8G-ng": {
+        "relevance_score": 70,
+        "score_reasoning": "Otomobil yedek parça mağazası kategorisinde ve isminde dorse tamir imalat servisi geçiyor, ağır vasıta yedek parçası satıcısı olabilir.",
+        "classified_at": "2026-08-13T05:57:58.959456+00:00"
+    },
+    "gplaces_ChIJI0JyE-UgDUARwwvUWoV-94I": {
+        "relevance_score": 30,
+        "score_reasoning": "Otomobil yedek parça mağazası, ancak oto gaz ve oto yedek parçası satıcısı olmayabilir.",
+        "classified_at": "2026-08-13T05:57:58.959456+00:00"
+    },
+    "gplaces_ChIJDeU4GEs5DUARdSeZDScTeF8": {
+        "relevance_score": 40,
+        "score_reasoning": "Otomobil yedek parça mağazası, ancak ağır vasıta yedek parçası satıcısı olmayabilir.",
+        "classified_at": "2026-08-13T05:57:58.959456+00:00"
+    },
+    "gplaces_ChIJOQeWHPwhDUAR6io9fXF4VUo": {
+        "relevance_score": 50,
+        "score_reasoning": "Otomobil yedek parça mağazası, ancak ağır vasıta yedek parçası satıcısı olabilir.",
+        "classified_at": "2026-08-13T05:57:58.959456+00:00"
+    },
+    "gplaces_ChIJIQvDzcYzDUAR0hHjpmZHsH0": {
+        "relevance_score": 40,
+        "score_reasoning": "Otomobil yedek parça mağazası, ancak ağır vasıta yedek parçası satıcısı olmayabilir.",
+        "classified_at": "2026-08-13T05:57:58.959456+00:00"
+    },
+    "gplaces_ChIJtxIwUSs5DUARKC1STq_HRLI": {
+        "relevance_score": 40,
+        "score_reasoning": "Otomobil yedek parça mağazası, ancak ağır vasıta yedek parçası satıcısı olmayabilir.",
+        "classified_at": "2026-08-13T05:57:58.959456+00:00"
+    },
+    "gplaces_ChIJ-RuXV9o5DUARs2KhUgpCzVM": {
+        "relevance_score": 90,
+        "score_reasoning": "Otomobil yedek parça mağazası ve isminde ağır vasıta yedek parçası geçiyor, ağır vasıta yedek parçası satıcısı olabilir.",
+        "classified_at": "2026-08-13T05:57:58.959456+00:00"
+    },
+    "gplaces_ChIJpWxz6JSP0BQRmo9lvYz02RM": {
+        "relevance_score": 80,
+        "score_reasoning": "Üretici kategorisinde ve isminde treyler geçiyor, ağır vasıta yedek parçası satıcısı olabilir.",
+        "classified_at": "2026-08-13T05:57:58.959456+00:00"
+    },
+    "gplaces_ChIJNdlGCeeFb0ARzVcqRQ9ytaU": {
+        "relevance_score": 50,
+        "score_reasoning": "Otomobil yedek parça mağazası, ancak ağır vasıta yedek parçası satıcısı olabilir.",
+        "classified_at": "2026-08-13T05:57:58.959456+00:00"
     }
 }
