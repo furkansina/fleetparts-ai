@@ -66,12 +66,12 @@ _MAX_PAGES = 3  # Places API (New) sayfa başı en fazla 20 sonuç veriyor, topl
 # Cloud'un kendi kota/bütçe ayarlarına GÜVENMEK YETMEZ, kullanıcı onları hiç kurmayı unutabilir
 # veya yanlış yapılandırabilir). Bu modül, Google'a ne kadar istek atacağını Google Cloud
 # tarafındaki AYARLARDAN BAĞIMSIZ olarak kodun KENDİSİNDE sınırlıyor - kod içinde sabit, aşılamaz
-# bir tavan. Teorik tavan 81 il x 12 sorgu x 3 sayfa = 2916 istek (~93 USD) olsa da, gerçekte
-# küçük illerde çoğu sorgu 1 sayfada (ya da hiç sonuçsuz) biteceği için gerçek harcama muhtemelen
-# çok daha düşük olacak. Yine de, bir hata durumunda bile harcamanın ASLA Google'ın $200 aylık
-# ücretsiz kredisine yaklaşmamasını garanti etmek için 5000 isteklik (~160 USD, $40 pay bırakan)
-# kesin bir tavan konuldu - run bu sınıra ulaşırsa kalan iller/sorgular sessizce atlanır, sıradaki
-# haftalık taramada devam eder (leads.json'a o ana kadar bulunanlar zaten kaydedilmiş olur, kayıp olmaz).
+# bir tavan. Bir hata durumunda bile harcamanın kontrolsüz büyümemesini garanti eder - run bu
+# sınıra ulaşırsa kalan iller/sorgular sessizce atlanır, sıradaki haftalık taramada devam eder
+# (leads.json'a o ana kadar bulunanlar zaten kaydedilmiş olur, kayıp olmaz). GÜNCEL SAYI İÇİN
+# (kaç istek, kaç dolar) sadece aşağıdaki sabite ve yanındaki yoruma bakılmalı - burada AYRICA
+# tekrarlanmıyor ki ikisi birbirinden kopup yanlış bir güvence vermesin (bir kod denetiminde tam
+# bu şekilde eski/yanlış bir sayının burada unutulduğu tespit edilip düzeltildi).
 _MAX_REQUESTS_PER_RUN = 8700  # ~8700 x $0.032 ≈ $278,4 - kullanicinin acikca istedigi 280$ sinirinin altinda, kesin tavan
 _request_count = 0
 
@@ -118,7 +118,14 @@ def _to_raw(place: dict) -> dict:
         "site_id": f"gplaces_{place.get('id', '')}",
         "name": name,
         "shop_type": "directory",
-        "category_label": place.get("primaryTypeDisplayName", {}).get("text", "Oto Yedek Parça") if isinstance(place.get("primaryTypeDisplayName"), dict) else "Oto Yedek Parça",
+        # BUG (2026-08-13'te bir kod denetiminde tespit edildi): Google bir işletme için tip
+        # bilgisi DÖNDÜRMEDİĞİNDE eskiden burası "Oto Yedek Parça" diye UYDURUYORDU - bu da
+        # lead_scoring.py'deki has_parts_signal kontrolünü (category_label içinde "parça" arıyor)
+        # yanlışlıkla tetikleyip "kanıtsız rehber kaydı için düşük taban" sertleştirmesini (2026-08-11'de
+        # eklenmişti) tam da bu kaynak için geçersiz kılıyordu - tipi bilinmeyen bir işletme, gerçek
+        # bir sinyal yokken sanki doğrulanmış "parça" kategorisindeymiş gibi yüksek skor alıyordu.
+        # Artık tip yoksa boş string bırakılıyor - skorlama gerçek sinyal eksikliğini doğru görüyor.
+        "category_label": place.get("primaryTypeDisplayName", {}).get("text", "") if isinstance(place.get("primaryTypeDisplayName"), dict) else "",
         "phone": place.get("nationalPhoneNumber") or place.get("internationalPhoneNumber") or "",
         "website": "",
         "address": place.get("formattedAddress", ""),
