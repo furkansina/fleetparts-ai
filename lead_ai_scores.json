@@ -4354,99 +4354,104 @@
         "score_reasoning": "Kategori 'Otomobil Yedek Parça Mağazası'. Otomobil odaklı, ağır vasıta ile ilgisi yok.",
         "classified_at": "2026-08-13T07:36:01.243909+00:00"
     },
-    "gplaces_ChIJ9TM11il1nUARTiFkHRTCWp0": {
-        "relevance_score": 60,
-        "score_reasoning": "İsimde 'Yedek Parça' geçmesi toptan satış potansiyeli taşısa da, kategori 'Araç Bakım ve Onarımı' olarak tanımlanmış. Bu genellikle servis odaklı işletmelerdir. Küçük ölçekli toptancı olma ihtimali var ancak belirsizlik yüksek.",
-        "classified_at": "2026-08-13T07:37:13.972833+00:00"
-    },
-    "gplaces_ChIJ8Wop9A7VgEARmW7LL_SFmVA": {
-        "relevance_score": 20,
-        "score_reasoning": "Kategori 'Otomobil Yedek Parça Mağazası'. Hedef kitle ağır vasıta olduğu için küçük araç parçacısı olan bu firma hedef dışı.",
-        "classified_at": "2026-08-13T07:37:13.972833+00:00"
-    },
-    "gplaces_ChIJXZm4Q27VgEAR3iLx-GE7RoU": {
-        "relevance_score": 20,
-        "score_reasoning": "Kategori 'Otomobil Yedek Parça Mağazası'. Hedef kitle ağır vasıta olduğu için küçük araç parçacısı olan bu firma hedef dışı.",
-        "classified_at": "2026-08-13T07:37:13.972833+00:00"
-    },
-    "gplaces_ChIJJ7Ee943VgEAR3dPt8_iNDMo": {
+    "gplaces_ChIJO2ifFdhTp0ARPU1hyPrsq_s": {
         "relevance_score": 15,
-        "score_reasoning": "İsminde 'Japon & Kore' geçiyor ve ağırlıklı olarak hafif ticari veya binek araç markalarını işaret ediyor. Kategori de otomobil yönlü. Hedef dışı.",
-        "classified_at": "2026-08-13T07:37:13.972833+00:00"
+        "score_reasoning": "İsminde 'Özel Yedek Parça' ifadesi var ancak kategori 'Araç Bakım ve Onarımı' ve muhtemelen hafif araç odaklı. Hedef dışı (servis/tamirci ihtimali yüksek).",
+        "classified_at": "2026-08-13T07:38:15.297682+00:00"
     },
-    "gplaces_ChIJQTcBSWIrh0ARQMrvCeA9l_M": {
+    "gplaces_ChIJa1J8_pdTp0ARNEq1gA34m7g": {
         "relevance_score": 20,
-        "score_reasoning": "Kategori 'Otomobil Yedek Parça Mağazası'. Hedef kitle ağır vasıta olduğu için küçük araç parçacısı olan bu firma hedef dışı.",
-        "classified_at": "2026-08-13T07:37:13.972833+00:00"
+        "score_reasoning": "Genel otomotiv/yedek parça satıcısı olabilir ancak 'Elit Otomotiv' ismi ufak çaplı bir servis veya hafif araç parçası satıcısı çağrıştırıyor. Belirsiz, düşük potansiyel.",
+        "classified_at": "2026-08-13T07:38:15.297682+00:00"
     },
-    "gplaces_ChIJF8FO2GPVgEARORRwVt7stHY": {
-        "relevance_score": 20,
-        "score_reasoning": "Kategori 'Otomobil Yedek Parça Mağazası'. Hedef kitle ağır vasıta olduğu için küçük araç parçacısı olan bu firma hedef dışı.",
-        "classified_at": "2026-08-13T07:37:13.972833+00:00"
-    },
-    "gplaces_ChIJIamXhRXVgEARs9M04av_tYg": {
-        "relevance_score": 10,
-        "score_reasoning": "İsminde 'Ford' geçiyor. Ford ağırlıklı satış genellikle binek veya hafif ticari araçlara odaklanır. Kategori de otomobil. Hedef dışı.",
-        "classified_at": "2026-08-13T07:37:13.972833+00:00"
-    },
-    "gplaces_ChIJbd9--ETVgEAR_KAr4CliIsk": {
-        "relevance_score": 20,
-        "score_reasoning": "Kategori 'Otomobil Yedek Parça Mağazası'. Hedef kitle ağır vasıta olduğu için küçük araç parçacısı olan bu firma hedef dışı.",
-        "classified_at": "2026-08-13T07:37:13.972833+00:00"
-    },
-    "gplaces_ChIJuxYYIqUqh0ARrmaOtTP0x1Y": {
-        "relevance_score": 95,
-        "score_reasoning": "İsminde BMC, Askam, Mercedes, Hino, Isuzu, Mitsubishi, Iveco gibi ağır vasıta markaları açıkça belirtilmiş. Bu profil, ağır vasıta yedek parça toptancısı veya çok güçlü bir perakendecidir. Hedef kitleyle tam uyumlu.",
-        "classified_at": "2026-08-13T07:37:13.972833+00:00"
-    },
-    "gplaces_ChIJlQpJFBjVgEARSNvgoTAfNvI": {
-        "relevance_score": 10,
-        "score_reasoning": "İsminde 'Traktör' geçiyor. Traktör parçası, ağır vasıta (kamyon/tir) parçasından farklı bir niş sektorüdür ve hedef kitleye uygun değildir.",
-        "classified_at": "2026-08-13T07:37:13.972833+00:00"
-    },
-    "gplaces_ChIJB7AlSkfVgEAR49yT7JeqGpc": {
-        "relevance_score": 85,
-        "score_reasoning": "Kategori 'Kamyon Bayii'. Kamyon bayileri thường hem servis hem de ağır yedek parça satışı yapar ve toptan alım yapma ihtimali yüksektir. Hedef kitleye uygundur.",
-        "classified_at": "2026-08-13T07:37:13.972833+00:00"
-    },
-    "gplaces_ChIJWY047forh0AR03qw6dgtx_s": {
+    "gplaces_ChIJh9LiQ8O7tBQRiXpj8uU86jA": {
         "relevance_score": 30,
-        "score_reasoning": "Kategori 'Araç Bakım ve Onarımı'. Garaj/Servis olduğu için toptan alıcıdan çok son kullanıcı odaklıdır. Ancak filo arabalarını barındıran servislerde alım yapabilme ihtimali düşük düzeyde vardır.",
-        "classified_at": "2026-08-13T07:37:13.972833+00:00"
+        "score_reasoning": "Kategori 'Otomobil Yedek Parça Mağazası'. Otomil parçacılığı ağır vasıta (TIR/Kamyon) ile doğrudan örtüşmeyebilir. Hedef kitle sınırında ama riskli.",
+        "classified_at": "2026-08-13T07:38:15.297682+00:00"
     },
-    "gplaces_ChIJ7yWsbTTVgEARW3SX-bvptfA": {
+    "gplaces_ChIJOXLJvZCltBQRjl9PLC53pt4": {
+        "relevance_score": 10,
+        "score_reasoning": "Isim açıkça VW, Audi, Seat, Skoda (hafif araç/groep) odaklı. Ağır vasıta hedef kitlesiyle uyumsuz.",
+        "classified_at": "2026-08-13T07:38:15.297682+00:00"
+    },
+    "gplaces_ChIJRZ7Ea8JTp0ARYliJiKwkbVw": {
+        "relevance_score": 10,
+        "score_reasoning": "Akü ve Otomil yedek parça. Hafif araç odaklı, ağır vasıta toptan ciro hedefine uymuyor.",
+        "classified_at": "2026-08-13T07:38:15.297682+00:00"
+    },
+    "gplaces_ChIJZ8-FochVp0ARNkliUhPNynM": {
+        "relevance_score": 85,
+        "score_reasoning": "İsminde 'Nakliye', 'Tır Garajı' geçiyor. Kategori 'Oto Yedek Parça'. Bu, muhtemelen camii filo sahibi bir nakliye firması veya TIR odaklı bir parça/tamir yeri. Yüksek hedef uygunluğu.",
+        "classified_at": "2026-08-13T07:38:15.297682+00:00"
+    },
+    "gplaces_ChIJAdwPyKK7tBQRT5_MXwVAf7M": {
+        "relevance_score": 80,
+        "score_reasoning": "İsminde 'Man Mercedes' (ağır vasıta markaları) ve 'Yedek Parça' geçiyor. Her ne kadar kategori servis olsa da, ağır vasıta yedek parça satışı yapan veya ihtiyaç duyan ana hedef kitleye girer.",
+        "classified_at": "2026-08-13T07:38:15.297682+00:00"
+    },
+    "gplaces_ChIJVSsbfYovsxQRbau92dhGH2c": {
+        "relevance_score": 25,
+        "score_reasoning": "Kategori 'Otomobil Yedek Parça'. Sadece otomobil odaklı olduğu için ağır vasıta toptan satışına düşük ilgi beklentisi.",
+        "classified_at": "2026-08-13T07:38:15.297682+00:00"
+    },
+    "gplaces_ChIJr4vTWmgvsxQRUlLS7G75SjA": {
+        "relevance_score": 35,
+        "score_reasoning": "'Depo Yedek Parça' ismi toptan/depoculuk hissi verebilir ancak kategori 'Otomobil'. Otomobil toptancıları olabilir ama ağır vasıta odaklı değil. Orta-düşük potansiyel.",
+        "classified_at": "2026-08-13T07:38:15.297682+00:00"
+    },
+    "gplaces_ChIJYYLGHYkvsxQRWhQq-EH8ijc": {
+        "relevance_score": 20,
+        "score_reasoning": "Ototo ve Çıkma parça, kategori 'Bakım ve Onarımı'. Muhtemelen küçük ölçekli bir servis/çıkan parçaçı. Hedef dışı.",
+        "classified_at": "2026-08-13T07:38:15.297682+00:00"
+    },
+    "gplaces_ChIJzU-BNH8vsxQRmuqn3dQNDsk": {
+        "relevance_score": 20,
+        "score_reasoning": "Kategori 'Otomobil Yedek Parça'. Genel otomobil parçacısı, ağır vasıta ile ilgisi düşük.",
+        "classified_at": "2026-08-13T07:38:15.297682+00:00"
+    },
+    "gplaces_ChIJ4ehy2-cvsxQRNVjaiMQgdhk": {
+        "relevance_score": 15,
+        "score_reasoning": "Çıkma parça ve şanzıman tamiri (otomobil). Hedef kitle (toptan satıcı/filo) ile uyumsuz.",
+        "classified_at": "2026-08-13T07:38:15.297682+00:00"
+    },
+    "gplaces_ChIJOylNYz8lsxQROV-aSHknSVQ": {
+        "relevance_score": 25,
+        "score_reasoning": "Kategori 'Otomobil Yedek Parça'. Hafif araç odaklı.",
+        "classified_at": "2026-08-13T07:38:15.297682+00:00"
+    },
+    "gplaces_ChIJtygS3lcvsxQRr0e7VEL08iI": {
+        "relevance_score": 25,
+        "score_reasoning": "Kategori 'Otomobil Yedek Parça'. Hafif araç odaklı.",
+        "classified_at": "2026-08-13T07:38:15.297682+00:00"
+    },
+    "gplaces_ChIJa4cybDwvsxQR3o9oExbsIp4": {
+        "relevance_score": 50,
+        "score_reasoning": "İsim 'Traktör', Kategori 'Kamyon Bayii'. Traktör ağır vasıta için gibidir ancak 'Traktör' özel bir nişdir. Kamyon bayii kategorisi kamyon alkolisiyle örtüşebilir. Orta potansiyel.",
+        "classified_at": "2026-08-13T07:38:15.297682+00:00"
+    },
+    "gplaces_ChIJmwBWa4YPsxQR4TeJ_V_pOmQ": {
+        "relevance_score": 40,
+        "score_reasoning": "'Repar Oto' ve 'Yedek Parça'. Kategori 'Bakım ve Onarımı'. 'Repar' kelimesi bazen ağır araçlara da atıfta bulunabilir ama çoğunlukla otomobil servisidir. Orta-düşük.",
+        "classified_at": "2026-08-13T07:38:15.297682+00:00"
+    },
+    "gplaces_ChIJGVMkvnAlsxQR__Za7db_X-o": {
         "relevance_score": 75,
-        "score_reasoning": "İsminde 'Dorse Yedek Parça' geçiyor. Dorse (römork), ağır vasıta lojistiğinin bir parçasıdır. Bu firma ağır vasıta ekosisteminde yer alır ve toptan tedarikçi ile çalışabilir.",
-        "classified_at": "2026-08-13T07:37:13.972833+00:00"
+        "score_reasoning": "İsminde açıkça 'TIR KAMYON TAMİRİ VE YEDEK PARÇACI' geçiyor. Kategori 'Bakım ve Onarımı'. Direkt olarak ağır vasıta sektöründe hizmet veren/parça alan bir işletme. Yüksek hedef uygunluğu.",
+        "classified_at": "2026-08-13T07:38:15.297682+00:00"
     },
-    "gplaces_ChIJh5xdND_VgEAR33tLVwvJkwc": {
-        "relevance_score": 65,
-        "score_reasoning": "İsminde 'Damper Dorse' geçiyor. Damper tipi römork prodüktörleri veya satıcıları, yedek parça ihtiyacı karşılamak için toptancılarla işbirliği yapabilir. Potansiyel hedef, ancak doğrudan parçacı olmayabilir.",
-        "classified_at": "2026-08-13T07:37:13.972833+00:00"
+    "gplaces_ChIJOalw4NovsxQRYSPOC2fOl8A": {
+        "relevance_score": 90,
+        "score_reasoning": "İsim 'A. Y. T LOJİSTİK', Kategori 'Taşımacılık Hizmeti'. Direkt olarak filo sahibi bir nakliye/lojistik firması. Ağır vasıta yedek parça tüketimi yüksek olan ana hedef kitle (B2B kullanıcı).",
+        "classified_at": "2026-08-13T07:38:15.297682+00:00"
     },
-    "gplaces_ChIJ-8WGNMK1xRQROQZjtY5dOBM": {
-        "relevance_score": 20,
-        "score_reasoning": "Kategori 'Otomobil Yedek Parça Mağazası'. Hedef kitle ağır vasıta olduğu için küçük araç parçacısı olan bu firma hedef dışı.",
-        "classified_at": "2026-08-13T07:37:13.972833+00:00"
+    "gplaces_ChIJ7y05clYvsxQRKRhIsyWu68Y": {
+        "relevance_score": 30,
+        "score_reasoning": "İsim 'LOJİSTİK İNŞAAT', Kategori 'Hizmetler'. Cari bir lojistik firması olabilir ancak kategori çok genel (Hizmetler) ve adı insaatı da içeriyor. Doğrudan lojistik filoları hedefleyen diğer leadlerden daha belirsiz. Orta-düşük potansiyel.",
+        "classified_at": "2026-08-13T07:38:15.297682+00:00"
     },
-    "gplaces_ChIJr_fV-Hy1xRQRQJKWakpzFzo": {
-        "relevance_score": 20,
-        "score_reasoning": "Kategori 'Otomobil Yedek Parça Mağazası'. Hedef kitle ağır vasıta olduğu için küçük araç parçacısı olan bu firma hedef dışı.",
-        "classified_at": "2026-08-13T07:37:13.972833+00:00"
-    },
-    "gplaces_ChIJGZq0CAq1xRQRDlj0GwIlySQ": {
-        "relevance_score": 20,
-        "score_reasoning": "Kategori 'Otomobil Yedek Parça Mağazası'. Hedef kitle ağır vasıta olduğu için küçük araç parçacısı olan bu firma hedef dışı.",
-        "classified_at": "2026-08-13T07:37:13.972833+00:00"
-    },
-    "gplaces_ChIJr6--i4u1xRQR7R0ivN9ustA": {
-        "relevance_score": 20,
-        "score_reasoning": "Kategori 'Otomobil Yedek Parça Mağazası'. Hedef kitle ağır vasıta olduğu için küçük araç parçacısı olan bu firma hedef dışı.",
-        "classified_at": "2026-08-13T07:37:13.972833+00:00"
-    },
-    "gplaces_ChIJawSZ0N21xRQRbMHy98nHAb4": {
-        "relevance_score": 20,
-        "score_reasoning": "Kategori 'Otomobil Yedek Parça Mağazası' ve isminde 'Servis' geçiyor. Hafif araç odaklı bir işletme olduğu için hedef dışı.",
-        "classified_at": "2026-08-13T07:37:13.972833+00:00"
+    "gplaces_ChIJU67I9eyfnUARPtGj4Xjw8qk": {
+        "relevance_score": 25,
+        "score_reasoning": "Kategori 'Otomobil Yedek Parça'. Otomobil odaklı, ağır vasıta ile ilgisi düşük.",
+        "classified_at": "2026-08-13T07:38:15.297682+00:00"
     }
 }
