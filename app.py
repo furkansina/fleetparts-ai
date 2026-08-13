@@ -2678,14 +2678,43 @@ def remove_contact(phone: str = Form(...), _: str = Depends(require_admin)):
 
 @app.post("/broadcast-generate")
 def generate_broadcast(_: str = Depends(require_admin)):
-    """Groq ile dönüşümlü (statik olmayan) bir taslak mesaj önerir - kullanıcı gönderim öncesi düzenleyebilir."""
+    """Groq ile dönüşümlü (statik olmayan) bir taslak mesaj önerir - kullanıcı gönderim öncesi düzenleyebilir.
+
+    BUG (2026-08-13'te tespit edildi): bu prompt kataloğa HİÇ bakmıyordu - Groq'a sadece genel
+    "ağır vasıta yedek parça sektörü" bağlamı verilip serbest bırakılıyordu, o da gerçekçi ama
+    UYDURMA kategoriler/indirimler üretiyordu (örn. gerçek kataloğumuz sadece KAPORTA/gövde
+    parçası - çamurluk, tampon, ayna braketi, rüzgarlık - içerirken taslak "Tekerlek ve Fren
+    sistemlerinde %15 indirim" gibi hiç satmadığımız ürünler için uydurma bir kampanya yazmıştı).
+    Bunu bir müşteriye göndermek yanlış/var olmayan bir ürün vaat edip güven kaybettirirdi - tıpkı
+    aynı gün yaşanan forklift/vinç kategori uyumsuzluğu gibi aynı hata sınıfı. Artık kataloğdan
+    gerçek bir örneklem (rastgele 20 ürün adı) prompt'a veriliyor, AI SADECE bu örneklemde görünen
+    gerçek ürün/kategori adlarına atıfta bulunabiliyor ve asla somut bir indirim yüzdesi/kampanya
+    uydurmuyor (gerçekten aktif bir kampanya yoksa)."""
     import random
     angle = random.choice(outreach.BROADCAST_ANGLES)
+    catalog = load_catalog()
+    sample_names = [item.get("name", "") for item in random.sample(catalog, min(20, len(catalog))) if item.get("name")] if catalog else []
+    catalog_context = "\n".join(f"- {n}" for n in sample_names) or "(katalog örneklemi alınamadı)"
     prompt = f"""
     Sen ağır vasıta yedek parça sektöründe faaliyet gösteren kurumsal bir işletmenin WhatsApp içerik asistanısın.
     Görev: {angle}
-    Kısa (en fazla 4-5 cümle), samimi ama profesyonel, WhatsApp'a doğrudan yapıştırılabilir formatta yaz.
-    Fiyat listesi gibi durağan/kuru bir mesaj OLMASIN, gerçek bir insan yazmış gibi hissettirsin.
+
+    GERÇEK KATALOĞUMUZDAN rastgele bir örneklem (işletmenin GERÇEKTEN sattığı ürün türlerini
+    anlaman için - bunlar dışında bir ürün TÜRÜ/KATEGORİSİ İCAT ETME, ör. örneklemde hiç fren/
+    tekerlek/akü yoksa bunlardan bahsetme):
+    {catalog_context}
+
+    KURALLAR:
+    1. Yukarıdaki örneklemde GÖRÜNEN ürün türlerine (ör. kaporta/gövde parçaları, çamurluk,
+       tampon, ayna braketi gibi ne varsa) genel olarak atıfta bulunabilirsin, ama tek tek ürün
+       adı/kod uydurma.
+    2. KESİNLİKLE somut bir indirim yüzdesi, kampanya adı veya "sınırlı stok" gibi doğrulanamayan
+       bir iddia UYDURMA - gerçekten aktif bir kampanya bilgisi verilmediği sürece sadece genel
+       bir hatırlatma/bilgilendirme mesajı yaz (ör. "geniş kaporta parça stoğumuz var, ihtiyacınız
+       olan parçayı sorun" gibi - abartılı satış diliyle değil).
+    3. Kısa (en fazla 4-5 cümle), samimi ama profesyonel, WhatsApp'a doğrudan yapıştırılabilir
+       formatta yaz. Durağan/kuru bir fiyat listesi gibi olmasın, gerçek bir insan yazmış gibi
+       hissettirsin.
     """
     try:
         draft = call_groq_api(prompt, pool="bulk")  # admin-only taslak, canlı müşteri aramasıyla aynı kotayı paylaşmasın
