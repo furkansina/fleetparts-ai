@@ -920,14 +920,13 @@ def read_root():
 
 @app.get("/katalog", response_class=HTMLResponse)
 def read_katalog():
-    """Herkese açık, giriş gerektirmeyen katalog vitrini - soğuk lead'lerin kendi
-    WhatsApp'larından ilk temas kurabileceği (opt-in) sayfa."""
-    try:
-        with open("katalog.html", "r", encoding="utf-8") as f:
-            html = f.read()
-        return html.replace("__BUSINESS_WHATSAPP_NUMBER__", BUSINESS_WHATSAPP_NUMBER)
-    except Exception:
-        return "<h2>Katalog sayfası bulunamadı</h2>"
+    """BUG (2026-08-13'te kullanıcı isteğiyle birleştirildi): eskiden ayrı, sadece-gözatma
+    amaçlı bir katalog.html sayfasıydı - kullanıcı "4 sayfaya gerek yok, arama ile katalogu
+    birleştir, bir daha ayırma" dedi. Artık arama + tüm katalog gözatma TEK sayfada
+    (index.html) birleşik - bu uç nokta SADECE eski /katalog bağlantılarının (ör. daha önce
+    gönderilmiş WhatsApp mesajlarındaki linkler) kırılmaması için aynı birleşik sayfayı
+    döndürüyor, ayrı bir dosyası yok."""
+    return read_root()
 
 @app.get("/get-catalog")
 def get_catalog_endpoint():
