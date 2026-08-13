@@ -2868,5 +2868,105 @@
         "relevance_score": 80,
         "score_reasoning": "Treyler ve dorse hizmeti sunması lojistik firmalarına hitap ediyor.",
         "classified_at": "2026-08-13T06:07:27.878893+00:00"
+    },
+    "gplaces_ChIJ2xWSVADFg0ARyVwmwFmFBIU": {
+        "relevance_score": 20,
+        "score_reasoning": "Bağımsız tamirci/servis olduğu için düşük skor",
+        "classified_at": "2026-08-13T06:08:13.877478+00:00"
+    },
+    "gplaces_ChIJ5RPntm7RLxUR2anF4QvVYy0": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça toptancısı/satıcısı olduğu için yüksek skor",
+        "classified_at": "2026-08-13T06:08:13.877478+00:00"
+    },
+    "gplaces_ChIJMewrs1vRLxURBVgI-1Zr6Xc": {
+        "relevance_score": 40,
+        "score_reasoning": "Motosiklet yedek parça mağazası olduğu için orta skor",
+        "classified_at": "2026-08-13T06:08:13.877478+00:00"
+    },
+    "gplaces_ChIJVVrFzTvOLxURVJpXTUdLb6Y": {
+        "relevance_score": 60,
+        "score_reasoning": "Lojistik firması olduğu için orta yüksek skor",
+        "classified_at": "2026-08-13T06:08:13.877478+00:00"
+    },
+    "gplaces_ChIJs0ftdgfPLxUR75kXwQqYC_0": {
+        "relevance_score": 60,
+        "score_reasoning": "Lojistik firması olduğu için orta yüksek skor",
+        "classified_at": "2026-08-13T06:08:13.877478+00:00"
+    },
+    "gplaces_ChIJ10Z2FbflMRURzzy0cxr6udw": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça toptancısı/satıcısı olduğu için yüksek skor",
+        "classified_at": "2026-08-13T06:08:13.877478+00:00"
+    },
+    "gplaces_ChIJocc3CMuDbEARtNgXYGX1Tb4": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça toptancısı/satıcısı olduğu için yüksek skor",
+        "classified_at": "2026-08-13T06:08:13.877478+00:00"
+    },
+    "gplaces_ChIJXZzJlEGDbEARWvkkAISRXB8": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça toptancısı/satıcısı olduğu için yüksek skor",
+        "classified_at": "2026-08-13T06:08:13.877478+00:00"
+    },
+    "gplaces_ChIJmV9fGOODbEARCjrMUlyZaJo": {
+        "relevance_score": 20,
+        "score_reasoning": "Bağımsız tamirci/servis olduğu için düşük skor",
+        "classified_at": "2026-08-13T06:08:13.877478+00:00"
+    },
+    "gplaces_ChIJue5t9JeDbEARKihnP1NYPvo": {
+        "relevance_score": 60,
+        "score_reasoning": "Lojistik firması olduğu için orta yüksek skor",
+        "classified_at": "2026-08-13T06:08:13.877478+00:00"
+    },
+    "gplaces_ChIJA5xRolW3FEARU-HrPR3pUL0": {
+        "relevance_score": 60,
+        "score_reasoning": "Lojistik firması olduğu için orta yüksek skor",
+        "classified_at": "2026-08-13T06:08:13.877478+00:00"
+    },
+    "gplaces_ChIJfWjshYwNcEARxhMsNjpxJ3U": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça toptancısı/satıcısı olduğu için yüksek skor",
+        "classified_at": "2026-08-13T06:08:13.877478+00:00"
+    },
+    "gplaces_ChIJmetAvvINcEARR2d-ZI9kxFo": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça toptancısı/satıcısı olduğu için yüksek skor",
+        "classified_at": "2026-08-13T06:08:13.877478+00:00"
+    },
+    "gplaces_ChIJXWQ7pqYNcEARDTOuJ0dG0es": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça toptancısı/satıcısı olduğu için yüksek skor",
+        "classified_at": "2026-08-13T06:08:13.877478+00:00"
+    },
+    "gplaces_ChIJ8Tn7goINcEAREmox_nTIOwo": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça toptancısı/satıcısı olduğu için yüksek skor",
+        "classified_at": "2026-08-13T06:08:13.877478+00:00"
+    },
+    "gplaces_ChIJ6zIHHDgNcEARz592o4TozZ8": {
+        "relevance_score": 40,
+        "score_reasoning": "Taşımacılık hizmeti sunuyor ancak oto yedek parça ile ilgili değil",
+        "classified_at": "2026-08-13T06:08:13.877478+00:00"
+    },
+    "gplaces_ChIJTc08g8l1cEAR-7kXRnfxToo": {
+        "relevance_score": 0,
+        "score_reasoning": "Hizmetler kategorisinde ancak oto yedek parça ile ilgili değil",
+        "classified_at": "2026-08-13T06:08:13.877478+00:00"
+    },
+    "gplaces_ChIJW3h3k46TDAER95r26EIb3FQ": {
+        "relevance_score": 60,
+        "score_reasoning": "Lojistik firması olduğu için orta yüksek skor",
+        "classified_at": "2026-08-13T06:08:13.877478+00:00"
+    },
+    "gplaces_ChIJPVPo_MwNcEAR1RmAfya3KUA": {
+        "relevance_score": 60,
+        "score_reasoning": "Lojistik firması olduğu için orta yüksek skor",
+        "classified_at": "2026-08-13T06:08:13.877478+00:00"
+    },
+    "gplaces_ChIJRxuUMkNzm0ARJT_tWjYqlZQ": {
+        "relevance_score": 40,
+        "score_reasoning": "Otomobil yedek parça mağazası ancak bağımsız tamirci/servis olduğu için orta skor",
+        "classified_at": "2026-08-13T06:08:13.877478+00:00"
     }
 }
