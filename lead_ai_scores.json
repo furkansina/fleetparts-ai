@@ -4068,5 +4068,90 @@
         "relevance_score": 20,
         "score_reasoning": "Kategori 'Otomobil Yedek Parça Mağazası' ve isim 'Japon Kore'. Binek araç odaklı özel parça satıcısı. Ağır vasıta değil.",
         "classified_at": "2026-08-13T07:30:32.997636+00:00"
+    },
+    "gplaces_ChIJDeYG_Wo_nUARMyRTMj8Hd6Y": {
+        "relevance_score": 85,
+        "score_reasoning": "Firma adı 'Nakliye Hizmetleri' ve sektör 'Taşımacilik' olarak belirtilmiş. Kendi filosu olan bir nakliye şirketi olduğu için ağır vasıta yedek parca ihtiyaci yakin bir olasiliktir.",
+        "classified_at": "2026-08-13T07:30:57.314407+00:00"
+    },
+    "gplaces_ChIJryj7-i1v1hQRojveE43bzfc": {
+        "relevance_score": 0,
+        "score_reasoning": "Adinda 'BMW MERCEDES' yer aliyor ki bu hafif ticari veya binek arac markalaridir. Agir vasita (kamyon/TIR) degildir.",
+        "classified_at": "2026-08-13T07:30:57.314407+00:00"
+    },
+    "gplaces_ChIJD1fzMY1x1hQR5ijCG3aZbQ8": {
+        "relevance_score": 95,
+        "score_reasoning": "Firma adi 'AGIR VASITA YEDEK PARCA' olarak net belirlenmis. Hedef kitle ile tam uyumlu.",
+        "classified_at": "2026-08-13T07:30:57.314407+00:00"
+    },
+    "gplaces_ChIJLTL4LPJv1hQRwDbn-pyK4_M": {
+        "relevance_score": 90,
+        "score_reasoning": "Adinda 'KAMYON TIR YEDEK PARCA' ifadeleri var. Agir vasita yedek parca satan bir toptan/perakende potansiyeli var.",
+        "classified_at": "2026-08-13T07:30:57.314407+00:00"
+    },
+    "gplaces_ChIJS-zLI9Bv1hQRUtlROkasvKk": {
+        "relevance_score": 40,
+        "score_reasoning": "Adinda 'Mercedes Yedek Parca' var. Mercedes hem hafif hem agir sektorde var fakat 'Mercedes SPARES' genelde hafif ticari/Binek odakli ya da spesifik marka bayilisi olabilir. Orta potansiyel, riskli.",
+        "classified_at": "2026-08-13T07:30:57.314407+00:00"
+    },
+    "gplaces_ChIJi2Row0Fv1hQRHAHkpflFT-4": {
+        "relevance_score": 95,
+        "score_reasoning": "Firma adi 'AGIR VASITA YEDEK PARCA' olarak acik belli etmis. Hedef kile ile tam uyumlu.",
+        "classified_at": "2026-08-13T07:30:57.314407+00:00"
+    },
+    "gplaces_ChIJRXGRMZxx1hQR3uvf_UlDwlE": {
+        "relevance_score": 90,
+        "score_reasoning": "Adinda 'ford agir vasita yedek parca' ibaresi mevcut. Ford (Cargo/Transit vs) agir vasita segmentinde yer alir.",
+        "classified_at": "2026-08-13T07:30:57.314407+00:00"
+    },
+    "gplaces_ChIJ8RPi-Cxv1hQRhOyz3flgSUA": {
+        "relevance_score": 20,
+        "score_reasoning": "Sadece 'Yedek Parca' yaziyor, agresif vasita olmadigi belirsiz. Genelde bu tip isletmeler hafif/arac odakli veya kucuk perakendecidir. Düsuk potansiyel.",
+        "classified_at": "2026-08-13T07:30:57.314407+00:00"
+    },
+    "gplaces_ChIJvfebdvxv1hQR6Y9V5CFj5-U": {
+        "relevance_score": 90,
+        "score_reasoning": "Adindan sonra parantez icerisinde '(AGR VASITA)' ibaresi var. Acikca agir vasita yedek parca satmaktadir.",
+        "classified_at": "2026-08-13T07:30:57.314407+00:00"
+    },
+    "gplaces_ChIJJ97g19Nx1hQRarKnrWrr4k8": {
+        "relevance_score": 50,
+        "score_reasoning": "Adinda 'TREYLER SASE' var. Treyler parcalari çalisabilirler. Orta derece uyumlu, nisan pazar birimlerinin.",
+        "classified_at": "2026-08-13T07:30:57.314407+00:00"
+    },
+    "gplaces_ChIJSWSXHt5v1hQRJy2kt80VJwU": {
+        "relevance_score": 50,
+        "score_reasoning": "Adindan sonra 'DAMPER TREYLER' var. Treyler parçalari yukarisi olabilir, orta potansiyel.",
+        "classified_at": "2026-08-13T07:30:57.314407+00:00"
+    },
+    "gplaces_ChIJS0MwA4xv1hQROi7lzOsOOao": {
+        "relevance_score": 40,
+        "score_reasoning": "Adindan sonra 'Dorse' var. Doğrudan yedek parça satıcılığından ziyade kiralama/satış işi olabilir, yedek parça ihtiyacı dolaylıdır.",
+        "classified_at": "2026-08-13T07:30:57.314407+00:00"
+    },
+    "gplaces_ChIJyUQ__ZpvKhURAXHqICBV2jo": {
+        "relevance_score": 40,
+        "score_reasoning": "Adindan sonra 'Dorse' var. Doğrudan yedek parça satıcılığından ziyade kiralama/satış işi olabilir, yedek parça ihtiyacı dolaylıdır.",
+        "classified_at": "2026-08-13T07:30:57.314407+00:00"
+    },
+    "gplaces_ChIJ9-rnJABv1hQRu1utSjTqHN4": {
+        "relevance_score": 10,
+        "score_reasoning": "Adindan sonra 'YETKİLİ SERVİS' ibareidir. Bu bir tamir/onarim isidir ve toptan alici degil, hedef disi.",
+        "classified_at": "2026-08-13T07:30:57.314407+00:00"
+    },
+    "gplaces_ChIJtQdmjHZv1hQRNHlVzEPQRSo": {
+        "relevance_score": 50,
+        "score_reasoning": "Adindan sonra 'SASE DORSE' vardir. Treyler/sase parcalari satiyorlarsa ilgisel potansiyele sahip olabilirler.",
+        "classified_at": "2026-08-13T07:30:57.314407+00:00"
+    },
+    "gplaces_ChIJITUEFlRv1hQRQNc7QsSAQR0": {
+        "relevance_score": 70,
+        "score_reasoning": "Adindan sonra 'Lojistik Hizmetleri' vardir. Kendi filolarini korumak icin agir vasita yedek parca alimlerinde bulunuyor olabilir. Orta-yüksek potansiyele sahiptir.",
+        "classified_at": "2026-08-13T07:30:57.314407+00:00"
+    },
+    "gplaces_ChIJZYCi-C1x1hQR5Z2P3OksgHY": {
+        "relevance_score": 85,
+        "score_reasoning": "Firma adi 'Nakliyat Lojistik' ve sektör 'Taşımacilik Hizmeti'. Kendi filolarina sahiplojistik firmasi oldugu icin agir vasita yedek parca ihtiyaci yakin bir kandidattir.",
+        "classified_at": "2026-08-13T07:30:57.314407+00:00"
     }
 }
