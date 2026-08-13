@@ -1,29 +1,5 @@
 [
   {
-    "id": "FRN-001",
-    "oem": "1505234",
-    "name": "Disk Fren Balatası Heavy",
-    "brand": "Orijinal Kalite",
-    "specs": "Döküm arka plaka, 247x110mm, çift kulaklı bağlantı noktası, kalınlık 25mm, aşınma sensör yuvalı.",
-    "stock": 45
-  },
-  {
-    "id": "VLF-102",
-    "oem": "4324102227",
-    "name": "Hava Kurutucu Dağıtıcı Valf (4 Yollu)",
-    "brand": "Wabco Tipi",
-    "specs": "Alüminyum döküm gövde, 4 adet M22 hava basınç portu, alt kısımda 7 pin elektronik soket, silindirik üst hazne.",
-    "stock": 15
-  },
-  {
-    "id": "FLT-303",
-    "oem": "21707134",
-    "name": "Ana Yakıt ve Su Ayırıcı Filtre",
-    "brand": "FleetGuard",
-    "specs": "Silindirik kağıt filtre elemanı, üst conta çapı 90mm, tahliye musluklu metal dış gövde.",
-    "stock": 60
-  },
-  {
     "id": "PRC-4729",
     "oem": "OEM-BELİRSİZ",
     "name": "DEPO KAPAĞI 80mm GALVANİZLİ KİLİTSİZ",
