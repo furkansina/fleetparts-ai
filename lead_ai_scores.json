@@ -2474,294 +2474,104 @@
         "score_reasoning": "Tamamen farklı bir iş alanı, bu hedef müşteriler için uygun değil",
         "classified_at": "2026-08-11T11:50:09.896332+00:00"
     },
-    "sanayisitesi_denizli_uslu-kardesler-oto-hurda-yedek-parca-denizli": {
-        "relevance_score": 70,
-        "score_reasoning": "Oto hurda ve yedek parça işi yapıyor, ağır vasıta yedek parça satışı için uygun",
-        "classified_at": "2026-08-13T05:57:15.260824+00:00"
-    },
-    "gplaces_ChIJW5vf6Gydb0ARGeaGco7uvM4": {
-        "relevance_score": 80,
-        "score_reasoning": "Otomobil yedek parça mağazası,oto yedek parça toptancılarına ürün satışı için uygun",
-        "classified_at": "2026-08-13T05:57:15.260824+00:00"
-    },
-    "gplaces_ChIJByEbcQDlMRURVlCW3FQ49oI": {
-        "relevance_score": 20,
-        "score_reasoning": "Treyler tamir bakım onarım servisi, ağır vasıta yedek parça satışı için az uygun",
-        "classified_at": "2026-08-13T05:57:15.260824+00:00"
-    },
-    "gplaces_ChIJ9bDwlDPTekARHONK4msHNDQ": {
-        "relevance_score": 40,
-        "score_reasoning": "Araç bakım ve onarımı servisi, bağımsız tamirci olduğu için az uygun",
-        "classified_at": "2026-08-13T05:57:15.260824+00:00"
-    },
-    "gplaces_ChIJk-VKZHfNekAR35pcAm3GZtI": {
-        "relevance_score": 80,
-        "score_reasoning": "Otomobil yedek parça mağazası, oto yedek parça toptancılarına ürün satışı için uygun",
-        "classified_at": "2026-08-13T05:57:15.260824+00:00"
-    },
-    "gplaces_ChIJvy5PIZpLZUARFXxvKYMDUQA": {
-        "relevance_score": 80,
-        "score_reasoning": "Otomobil yedek parça mağazası, oto yedek parça toptancılarına ürün satışı için uygun",
-        "classified_at": "2026-08-13T05:57:15.260824+00:00"
-    },
-    "gplaces_ChIJORsnno1LZUARffC1wPqR7hs": {
-        "relevance_score": 40,
-        "score_reasoning": "Araç bakım ve onarımı servisi, bağımsız tamirci olduğu için az uygun",
-        "classified_at": "2026-08-13T05:57:15.260824+00:00"
-    },
-    "gplaces_ChIJB20wipm7yhQRe5aICvXctKc": {
-        "relevance_score": 80,
-        "score_reasoning": "Otomobil yedek parça mağazası, oto yedek parça toptancılarına ürün satışı için uygun",
-        "classified_at": "2026-08-13T05:57:15.260824+00:00"
-    },
-    "gplaces_ChIJ6TBv3Ojfh0ARV2f2infh_CM": {
-        "relevance_score": 60,
-        "score_reasoning": "Otomotiv servisi, ağır vasıta yedek parça satışı için uygun",
-        "classified_at": "2026-08-13T05:57:15.260824+00:00"
-    },
-    "gplaces_ChIJORjpsezPc0ARg2phFRkdK_Y": {
-        "relevance_score": 80,
-        "score_reasoning": "Otomobil yedek parça mağazası, oto yedek parça toptancılarına ürün satışı için uygun",
-        "classified_at": "2026-08-13T05:57:15.260824+00:00"
-    },
-    "gplaces_ChIJ58sAPgDPc0ARBcWYudnryAg": {
-        "relevance_score": 80,
-        "score_reasoning": "Oto yedek parça mağazası, oto yedek parça toptancılarına ürün satışı için uygun",
-        "classified_at": "2026-08-13T05:57:15.260824+00:00"
-    },
-    "gplaces_ChIJ6VeyWXvpckAR17RIn1O34XM": {
-        "relevance_score": 80,
-        "score_reasoning": "Otomotiv yedek parça mağazası, oto yedek parça toptancılarına ürün satışı için uygun",
-        "classified_at": "2026-08-13T05:57:15.260824+00:00"
-    },
-    "gplaces_ChIJhwVgAS_pckARUOL599PCYds": {
-        "relevance_score": 80,
-        "score_reasoning": "Otomotiv yedek parça mağazası, oto yedek parça toptancılarına ürün satışı için uygun",
-        "classified_at": "2026-08-13T05:57:15.260824+00:00"
-    },
-    "gplaces_ChIJw_ChgazockARge0BqCEhxFE": {
-        "relevance_score": 80,
-        "score_reasoning": "Oto yedek parça mağazası, oto yedek parça toptancılarına ürün satışı için uygun",
-        "classified_at": "2026-08-13T05:57:15.260824+00:00"
-    },
-    "gplaces_ChIJHVvCj6nockAR2ym2mRpI8Ak": {
-        "relevance_score": 60,
-        "score_reasoning": "Araç bakım ve onarımı servisi, ağır vasıta yedek parça satışı için uygun",
-        "classified_at": "2026-08-13T05:57:15.260824+00:00"
-    },
-    "gplaces_ChIJL2MgqG1pbUAR_bErsVCBC0k": {
-        "relevance_score": 80,
-        "score_reasoning": "Oto yedek parça mağazası, oto yedek parça toptancılarına ürün satışı için uygun",
-        "classified_at": "2026-08-13T05:57:15.260824+00:00"
-    },
-    "gplaces_ChIJeUg3yLqP0BQRh8w3Gzcc6N4": {
-        "relevance_score": 90,
-        "score_reasoning": "Tır ve kamyon yedek parça mağazası, ağır vasıta yedek parça satışı için çok uygun",
-        "classified_at": "2026-08-13T05:57:15.260824+00:00"
-    },
-    "gplaces_ChIJtSQzHJDvckARhZH6yxF-vsI": {
-        "relevance_score": 30,
-        "score_reasoning": "Nakliye firması, ağır vasıta yedek parça satışı için az uygun",
-        "classified_at": "2026-08-13T05:57:15.260824+00:00"
-    },
-    "gplaces_ChIJ3whNivvvckARrB16rObGGR4": {
-        "relevance_score": 60,
-        "score_reasoning": "Filo firması, ağır vasıta yedek parça satışı için uygun",
-        "classified_at": "2026-08-13T05:57:15.260824+00:00"
-    },
-    "gplaces_ChIJwRx8fkmHDEARSRVHL055KHE": {
-        "relevance_score": 80,
-        "score_reasoning": "Oto yedek parça mağazası, oto yedek parça toptancılarına ürün satışı için uygun",
-        "classified_at": "2026-08-13T05:57:15.260824+00:00"
-    },
     "sanayisitesi_konya_karakayalilar-cikma-yedek-parcalari-konya": {
-        "relevance_score": 20,
-        "score_reasoning": "Sanayi sitesinde faaliyet gösteren bir cıkma yedek parçaları mağazası, ancak ağır vasıta yedek parçası satıcısı olmayabilir.",
-        "classified_at": "2026-08-13T05:57:58.959456+00:00"
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız tamirci/servis olduğu için hedef dışı",
+        "classified_at": "2026-08-13T05:58:44.479792+00:00"
+    },
+    "sanayisitesi_denizli_uslu-kardesler-oto-hurda-yedek-parca-denizli": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız tamirci/servis olduğu için hedef dışı",
+        "classified_at": "2026-08-13T05:58:44.479792+00:00"
     },
     "gplaces_ChIJSZaxwKQjcUARxP_9Fcscl2w": {
-        "relevance_score": 40,
-        "score_reasoning": "Oto yedek parça mağazası, ancak ağır vasıta yedek parçası satıcısı olmayabilir.",
-        "classified_at": "2026-08-13T05:57:58.959456+00:00"
+        "relevance_score": 0,
+        "score_reasoning": "Oto yedek parça mağazası, ağır vasıta odaklı olmadığı için hedef dışı",
+        "classified_at": "2026-08-13T05:58:44.479792+00:00"
     },
     "gplaces_ChIJ2xaOho1J0xQR742FCRCRXFE": {
-        "relevance_score": 60,
-        "score_reasoning": "Oto yedek parça mağazası ve isminde ağır vasıta yedek parçası geçiyor, jedoch ağır vasıta yedek parçası satıcısı olmayabilir.",
-        "classified_at": "2026-08-13T05:57:58.959456+00:00"
+        "relevance_score": 0,
+        "score_reasoning": "Oto yedek parça mağazası, ağır vasıta odaklı olmadığı için hedef dışı",
+        "classified_at": "2026-08-13T05:58:44.479792+00:00"
     },
     "gplaces_ChIJe8_s2LKzzBQRkkzKlGf-pLk": {
-        "relevance_score": 10,
-        "score_reasoning": "Alışveriş merkezi ve isminde TIR yedek parçası geçiyor, ancak bu mağazanın ağır vasıta yedek parçası satıcısı olduğu garantili değil.",
-        "classified_at": "2026-08-13T05:57:58.959456+00:00"
+        "relevance_score": 80,
+        "score_reasoning": "TIR yedek parça satışı yapıyor, ağır vasıta yedek parça toptancılarına uygun",
+        "classified_at": "2026-08-13T05:58:44.479792+00:00"
     },
     "gplaces_ChIJ55aZPKdbtRQRhJDBAiAHGTQ": {
-        "relevance_score": 30,
-        "score_reasoning": "Hizmetler kategorisinde ve isminde treyler bakım onarım servisi geçiyor, ancak ağır vasıta yedek parçası satıcısı olmayabilir.",
-        "classified_at": "2026-08-13T05:57:58.959456+00:00"
+        "relevance_score": 0,
+        "score_reasoning": "Servis hizmeti veriyor, yedek parça satışı yapmıyor",
+        "classified_at": "2026-08-13T05:58:44.479792+00:00"
     },
     "gplaces_ChIJdUVvWQm_KBURZBD-itXI3Lw": {
-        "relevance_score": 50,
-        "score_reasoning": "Araç bakım ve onarımı kategorisinde ve isminde treyler tamir geçiyor, ancak ağır vasıta yedek parçası satıcısı olmayabilir.",
-        "classified_at": "2026-08-13T05:57:58.959456+00:00"
+        "relevance_score": 0,
+        "score_reasoning": "Servis hizmeti veriyor, yedek parça satışı yapmıyor",
+        "classified_at": "2026-08-13T05:58:44.479792+00:00"
     },
     "gplaces_ChIJdUUjUgDZyhQR9n1QOW18yyY": {
-        "relevance_score": 40,
-        "score_reasoning": "Araç bakım ve onarımı kategorisinde ve isminde dorse treyler servisi geçiyor, ancak ağır vasıta yedek parçası satıcısı olmayabilir.",
-        "classified_at": "2026-08-13T05:57:58.959456+00:00"
+        "relevance_score": 0,
+        "score_reasoning": "Servis hizmeti veriyor, yedek parça satışı yapmıyor",
+        "classified_at": "2026-08-13T05:58:44.479792+00:00"
     },
     "gplaces_ChIJjVQg1QcvaEAR1BW0Ie2S75o": {
-        "relevance_score": 20,
-        "score_reasoning": "Araç bakım ve onarımı kategorisinde ve isminde yetkili servis geçiyor, ancak ağır vasıta yedek parçası satıcısı olmayabilir.",
-        "classified_at": "2026-08-13T05:57:58.959456+00:00"
+        "relevance_score": 0,
+        "score_reasoning": "Yetkili servis, bağımsız tamirci/servis olduğu için hedef dışı",
+        "classified_at": "2026-08-13T05:58:44.479792+00:00"
     },
     "gplaces_ChIJx8s80rsx0xQR1wh7SNk94zU": {
-        "relevance_score": 10,
-        "score_reasoning": "Araç bakım ve onarımı kategorisinde, ancak dorse tamircisi ağır vasıta yedek parçası satıcısı olmayabilir.",
-        "classified_at": "2026-08-13T05:57:58.959456+00:00"
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız tamirci/servis olduğu için hedef dışı",
+        "classified_at": "2026-08-13T05:58:44.479792+00:00"
     },
     "gplaces_ChIJcfc1rjZP0xQRJ5mSiemro_w": {
-        "relevance_score": 80,
-        "score_reasoning": "Mağaza kategorisinde ve isminde treyler geçiyor, ağır vasıta yedek parçası satıcısı olabilir.",
-        "classified_at": "2026-08-13T05:57:58.959456+00:00"
+        "relevance_score": 0,
+        "score_reasoning": "Mağaza kategorisi belirsiz, hedef outside",
+        "classified_at": "2026-08-13T05:58:44.479792+00:00"
     },
     "gplaces_ChIJrYyPdK2zzBQR5xDg1b8G-ng": {
-        "relevance_score": 70,
-        "score_reasoning": "Otomobil yedek parça mağazası kategorisinde ve isminde dorse tamir imalat servisi geçiyor, ağır vasıta yedek parçası satıcısı olabilir.",
-        "classified_at": "2026-08-13T05:57:58.959456+00:00"
+        "relevance_score": 0,
+        "score_reasoning": "Dorse tamir ve imalat servisi, yedek parça satışı yok",
+        "classified_at": "2026-08-13T05:58:44.479792+00:00"
     },
     "gplaces_ChIJI0JyE-UgDUARwwvUWoV-94I": {
-        "relevance_score": 30,
-        "score_reasoning": "Otomobil yedek parça mağazası, ancak oto gaz ve oto yedek parçası satıcısı olmayabilir.",
-        "classified_at": "2026-08-13T05:57:58.959456+00:00"
+        "relevance_score": 0,
+        "score_reasoning": "Oto yedek parça mağazası, ağır vasıta odaklı olmadığı için hedef dışı",
+        "classified_at": "2026-08-13T05:58:44.479792+00:00"
     },
     "gplaces_ChIJDeU4GEs5DUARdSeZDScTeF8": {
-        "relevance_score": 40,
-        "score_reasoning": "Otomobil yedek parça mağazası, ancak ağır vasıta yedek parçası satıcısı olmayabilir.",
-        "classified_at": "2026-08-13T05:57:58.959456+00:00"
+        "relevance_score": 0,
+        "score_reasoning": "Oto yedek parça mağazası, ağır vasıta odaklı olmadığı için hedef dışı",
+        "classified_at": "2026-08-13T05:58:44.479792+00:00"
     },
     "gplaces_ChIJOQeWHPwhDUAR6io9fXF4VUo": {
-        "relevance_score": 50,
-        "score_reasoning": "Otomobil yedek parça mağazası, ancak ağır vasıta yedek parçası satıcısı olabilir.",
-        "classified_at": "2026-08-13T05:57:58.959456+00:00"
+        "relevance_score": 0,
+        "score_reasoning": "Oto yedek parça mağazası, ağır vasıta odaklı olmadığı için hedef dışı",
+        "classified_at": "2026-08-13T05:58:44.479792+00:00"
     },
     "gplaces_ChIJIQvDzcYzDUAR0hHjpmZHsH0": {
-        "relevance_score": 40,
-        "score_reasoning": "Otomobil yedek parça mağazası, ancak ağır vasıta yedek parçası satıcısı olmayabilir.",
-        "classified_at": "2026-08-13T05:57:58.959456+00:00"
+        "relevance_score": 0,
+        "score_reasoning": "Oto yedek parça mağazası, ağır vasıta odaklı olmadığını için hedef dışı",
+        "classified_at": "2026-08-13T05:58:44.479792+00:00"
     },
     "gplaces_ChIJtxIwUSs5DUARKC1STq_HRLI": {
-        "relevance_score": 40,
-        "score_reasoning": "Otomobil yedek parça mağazası, ancak ağır vasıta yedek parçası satıcısı olmayabilir.",
-        "classified_at": "2026-08-13T05:57:58.959456+00:00"
+        "relevance_score": 0,
+        "score_reasoning": "Oto yedek parça mağazası, ağır vasıta odaklı olmadığı için hedef dışı",
+        "classified_at": "2026-08-13T05:58:44.479792+00:00"
     },
     "gplaces_ChIJ-RuXV9o5DUARs2KhUgpCzVM": {
         "relevance_score": 90,
-        "score_reasoning": "Otomobil yedek parça mağazası ve isminde ağır vasıta yedek parçası geçiyor, ağır vasıta yedek parçası satıcısı olabilir.",
-        "classified_at": "2026-08-13T05:57:58.959456+00:00"
+        "score_reasoning": "Ağır vasıta yedek parça satışı yapıyor, toptan satışa uygun",
+        "classified_at": "2026-08-13T05:58:44.479792+00:00"
     },
     "gplaces_ChIJpWxz6JSP0BQRmo9lvYz02RM": {
-        "relevance_score": 80,
-        "score_reasoning": "Üretici kategorisinde ve isminde treyler geçiyor, ağır vasıta yedek parçası satıcısı olabilir.",
-        "classified_at": "2026-08-13T05:57:58.959456+00:00"
+        "relevance_score": 70,
+        "score_reasoning": "Treyler üretimi yapıyor, yedek parça satışı için uygun olabilir",
+        "classified_at": "2026-08-13T05:58:44.479792+00:00"
     },
     "gplaces_ChIJNdlGCeeFb0ARzVcqRQ9ytaU": {
-        "relevance_score": 50,
-        "score_reasoning": "Otomobil yedek parça mağazası, ancak ağır vasıta yedek parçası satıcısı olabilir.",
-        "classified_at": "2026-08-13T05:57:58.959456+00:00"
-    },
-    "gplaces_ChIJEbge-9W9D0ARRI_RbIhrbUg": {
-        "relevance_score": 90,
-        "score_reasoning": "Ağır vasıta yedek parça satışı yapıyor",
-        "classified_at": "2026-08-13T05:58:17.456043+00:00"
-    },
-    "gplaces_ChIJ8RXvVo0ha0ARiOBtn4Fl1dw": {
-        "relevance_score": 20,
-        "score_reasoning": "Otomobil yedek parça mağazası, ağır vasıta değil",
-        "classified_at": "2026-08-13T05:58:17.456043+00:00"
-    },
-    "gplaces_ChIJTSY2c16HDEARgHLZXvQQ5Wo": {
-        "relevance_score": 20,
-        "score_reasoning": "Otomobil yedek parça mağazası, ağır vasıta değil",
-        "classified_at": "2026-08-13T05:58:17.456043+00:00"
-    },
-    "gplaces_ChIJS8xNZgCHDEARiwxWIgnPWAs": {
-        "relevance_score": 20,
-        "score_reasoning": "Otomobil yedek parça mağazası, ağır vasıta değil",
-        "classified_at": "2026-08-13T05:58:17.456043+00:00"
-    },
-    "gplaces_ChIJp215OG2PKBURGmUr3hxOK5E": {
-        "relevance_score": 20,
-        "score_reasoning": "Otomobil yedek parça mağazası, ağır vasıta değil",
-        "classified_at": "2026-08-13T05:58:17.456043+00:00"
-    },
-    "gplaces_ChIJVR_rIOAgyxQRo1-Xwa0rMyQ": {
-        "relevance_score": 10,
-        "score_reasoning": "Üretici, yedek parça satışı yapmıyor",
-        "classified_at": "2026-08-13T05:58:17.456043+00:00"
-    },
-    "gplaces_ChIJ1dtl2fjnLRURn-cOpas_VVM": {
-        "relevance_score": 10,
-        "score_reasoning": "Hizmetler, yedek parça satışı yapmıyor",
-        "classified_at": "2026-08-13T05:58:17.456043+00:00"
-    },
-    "gplaces_ChIJNVwzgK4ga0ARdioWMiLNTD0": {
-        "relevance_score": 20,
-        "score_reasoning": "Otomobil yedek parça mağazası, ağır vasıta değil",
-        "classified_at": "2026-08-13T05:58:17.456043+00:00"
-    },
-    "gplaces_ChIJo0voDokha0ARsh0iSbGTPfg": {
-        "relevance_score": 20,
-        "score_reasoning": "Otomobil yedek parça mağazası, ağır vasıta değil",
-        "classified_at": "2026-08-13T05:58:17.456043+00:00"
-    },
-    "gplaces_ChIJNflIja4ga0ARIaXZchOsQec": {
-        "relevance_score": 30,
-        "score_reasoning": "Araç bakım ve onarımı, lojistik hizmeti de veriyor",
-        "classified_at": "2026-08-13T05:58:17.456043+00:00"
-    },
-    "gplaces_ChIJS1AXfgAha0ARpWCnxiUATFY": {
-        "relevance_score": 10,
-        "score_reasoning": "Hizmetler, yedek parça satışı yapmıyor",
-        "classified_at": "2026-08-13T05:58:17.456043+00:00"
-    },
-    "gplaces_ChIJn_GpqFUha0ARtT9M6sBz6sM": {
-        "relevance_score": 40,
-        "score_reasoning": "Taşımacılık hizmeti, ağır vasıta yedek parça potansiyeli var",
-        "classified_at": "2026-08-13T05:58:17.456043+00:00"
-    },
-    "gplaces_ChIJ_X5cNeIha0AR6b0LGJRWn-U": {
-        "relevance_score": 50,
-        "score_reasoning": "Uluslararası taşımacılık, ağır vasıta yedek parça potansiyeli var",
-        "classified_at": "2026-08-13T05:58:17.456043+00:00"
-    },
-    "gplaces_ChIJC0JfE8Eha0ARsswhZiQmvSw": {
-        "relevance_score": 50,
-        "score_reasoning": "Lojistik, ağır vasıta yedek parça potansiyeli var",
-        "classified_at": "2026-08-13T05:58:17.456043+00:00"
-    },
-    "gplaces_ChIJqc6a6dd1TKsR8HTzQ8rpUfE": {
-        "relevance_score": 60,
-        "score_reasoning": "Lojistik ve tır parkı, ağır vasıta yedek parça potansiyeli var",
-        "classified_at": "2026-08-13T05:58:17.456043+00:00"
-    },
-    "gplaces_ChIJN-y4q6IBD0ARIdbN7-oR37c": {
-        "relevance_score": 20,
-        "score_reasoning": "Otomobil yedek parça mağazası, ağır vasıta değil",
-        "classified_at": "2026-08-13T05:58:17.456043+00:00"
-    },
-    "gplaces_ChIJ9SGZY9sBD0ARejjiVjm0X0o": {
-        "relevance_score": 30,
-        "score_reasoning": "Araç bakım ve onarımı, lojistik hizmeti de veriyor",
-        "classified_at": "2026-08-13T05:58:17.456043+00:00"
-    },
-    "gplaces_ChIJkTPiUugBD0AR88O4TVg2cR8": {
-        "relevance_score": 20,
-        "score_reasoning": "Otomobil yedek parça mağazası, ağır vasıta değil",
-        "classified_at": "2026-08-13T05:58:17.456043+00:00"
-    },
-    "gplaces_ChIJPfUtT6S_D0ARyfyoqPq_FvU": {
-        "relevance_score": 20,
-        "score_reasoning": "Otomobil yedek parça mağazası, ağır vasıta değil",
-        "classified_at": "2026-08-13T05:58:17.456043+00:00"
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız tamirci/servis olduğu için hedef dışı",
+        "classified_at": "2026-08-13T05:58:44.479792+00:00"
     }
 }
