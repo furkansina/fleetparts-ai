@@ -3673,5 +3673,105 @@
         "relevance_score": 20,
         "score_reasoning": "Kategori 'Araç Bakım ve Onarımı' ve isimde 'Tır Servisi' var. Doğrudan bir servis yeri olduğu için parça satıcısı/toptancı değil, hizmet alanıdır. Hedef dışı.",
         "classified_at": "2026-08-13T07:18:46.210225+00:00"
+    },
+    "gplaces_ChIJF4Lwn5C_Z0AR6Tpiyrq7ltI": {
+        "relevance_score": 0,
+        "score_reasoning": "Kategori 'Devlet Dairesi' olup hedef kitle (nakliye/lojistik veya yedek parça satıcısı) dışındadır.",
+        "classified_at": "2026-08-13T07:19:14.196291+00:00"
+    },
+    "gplaces_ChIJu1EfgDR3aEARucA6KPjogOY": {
+        "relevance_score": 0,
+        "score_reasoning": "Kategori 'Genel İnşaat İşleri Firması'dır. İnşaat mühendisliği firmafır; filo sahibi olup olmadığı bilinmese de ana çalışma alanı taşımacılık değil, inşattır.",
+        "classified_at": "2026-08-13T07:19:14.196291+00:00"
+    },
+    "gplaces_ChIJ27sMdkq_Z0ARns18AyF3WdM": {
+        "relevance_score": 95,
+        "score_reasoning": "İsminde 'Lojistik' geçiyor, kategori 'Oto Yedek Parça' olarak belirtilmiş. Hem filo sahibi lojistik firma hem de potansiyel tedarikçi/dikey entegre yapı olabilir. Ağır vasıta lojistiği ile doğrudan ilgilidir.",
+        "classified_at": "2026-08-13T07:19:14.196291+00:00"
+    },
+    "gplaces_ChIJ-10Y3CtxgEARo8g_RsncDkI": {
+        "relevance_score": 40,
+        "score_reasoning": "Yedek parça toptancısı/satıcısı olabilir ancak isminde 'Otomobil' ve kategori 'Otomobil Yedek Parça Mağazası' olduğundan, ağırlık hafif ticari amaçlı araçlara devıyor. Ağır vasıta (ağır ticari) odaklı olmadığı için skor düşük.",
+        "classified_at": "2026-08-13T07:19:14.196291+00:00"
+    },
+    "gplaces_ChIJQVdhquBxgEAR2jDgbynwhug": {
+        "relevance_score": 40,
+        "score_reasoning": "Kategori 'Otomobil Yedek Parça Mağazası'. Hafif ticari amaçlı araç odaklı. Ağır vasıta (kamyon/TIR) özelinde bilgi yok, genel yedek parça satıcısı olma ihtimali var ancak odaktan uzak.",
+        "classified_at": "2026-08-13T07:19:14.196291+00:00"
+    },
+    "gplaces_ChIJv04akWNxgEARJOhemScTebU": {
+        "relevance_score": 40,
+        "score_reasoning": "Kategori 'Otomobil Yedek Parça Mağazası'. Hafif ticari araç odaklı. Ağır vasıta toptancı profili taşıma ihtimali düşük.",
+        "classified_at": "2026-08-13T07:19:14.196291+00:00"
+    },
+    "gplaces_ChIJx7qykXyif0AR8Uwi8avLgKY": {
+        "relevance_score": 40,
+        "score_reasoning": "Kategori 'Otomobil Yedek Parça Mağazası'. Hafif ticari araç odaklı. Ağır vasıta toptancı profili taşıma ihtimali düşük.",
+        "classified_at": "2026-08-13T07:19:14.196291+00:00"
+    },
+    "gplaces_ChIJl6X21ezTf0ARr-Ti1gsJ6aQ": {
+        "relevance_score": 30,
+        "score_reasoning": "Kategori 'Otomobil Yedek Parça Mağazası' ve isimde 'Çıkma Yedek Parça' var. Çıkma parçalar genelde esnaf ve araca özel ihtiyaçlar için satılır, ağırlık hafif/sanayi aracındadır. Toptan ağır vasıta potansiyeli çok düşük.",
+        "classified_at": "2026-08-13T07:19:14.196291+00:00"
+    },
+    "gplaces_ChIJcVChLKDTf0AR0YlmUPwjCqs": {
+        "relevance_score": 0,
+        "score_reasoning": "Kategori 'Araç Bakım ve Onarımı' ve isimde 'Servis/Tamir' var. Hedef kriterlere göre bağımsız tamirci/servis hedef dışıdır.",
+        "classified_at": "2026-08-13T07:19:14.196291+00:00"
+    },
+    "gplaces_ChIJM7eY5CTTf0ARzD_GHYCnVcc": {
+        "relevance_score": 85,
+        "score_reasoning": "İsimde açıkça 'Ağır Vasıta Yedek Parça' geçmektedir. Kategori 'Otomobil Yedek Parça' olarak hatalı etiketlenmiş olsa da, isim ağır vasıta odaklı olduğunu netleştirir. Hedef kitlenin tamamıdır (toptancılara satan perakendeci/on-perakendeci).",
+        "classified_at": "2026-08-13T07:19:14.196291+00:00"
+    },
+    "gplaces_ChIJV1LKCAzTf0ARmtmyPZ9RwwQ": {
+        "relevance_score": 40,
+        "score_reasoning": "Kategori 'Otomobil Yedek Parça Mağazası'. Hafif ticari araç odaklı. Ağır vasıta toptancı profili taşıma ihtimali düşük.",
+        "classified_at": "2026-08-13T07:19:14.196291+00:00"
+    },
+    "gplaces_ChIJG4eSy2YtKmURg7ntGHFAUcs": {
+        "relevance_score": 0,
+        "score_reasoning": "Kategori 'Toptancı' ancak isim 'Toptan Sebze & Meyve Gıda' içeriyor. Sektör tamamen alakasız.",
+        "classified_at": "2026-08-13T07:19:14.196291+00:00"
+    },
+    "gplaces_ChIJG6g9pfn7yhQRV0XNOQNPlu4": {
+        "relevance_score": 40,
+        "score_reasoning": "Kategori 'Otomobil Yedek Parça Mağazası'. Hafif ticari araç odaklı. Ağır vasıta toptancı profili taşıma ihtimali düşük.",
+        "classified_at": "2026-08-13T07:19:14.196291+00:00"
+    },
+    "gplaces_ChIJP260vfz6yhQRLOtQVpr8tns": {
+        "relevance_score": 40,
+        "score_reasoning": "Kategori 'Otomobil Yedek Parça Mağazası'. Hafif ticari araç odaklı. Ağır vasıta toptancı profili taşıma ihtimali düşük.",
+        "classified_at": "2026-08-13T07:19:14.196291+00:00"
+    },
+    "gplaces_ChIJX6Cs2sP7yhQR9pASjkZYzSM": {
+        "relevance_score": 40,
+        "score_reasoning": "İsimde Fiat, Peugeot, Renault gibi binek ve hafif ticari markaları listeliyor. Kategori 'Otomobil Yedek Parça'. Ağır vasıta odaklı değil.",
+        "classified_at": "2026-08-13T07:19:14.196291+00:00"
+    },
+    "gplaces_ChIJbxaBzjX7yhQR3hacVpoxKUI": {
+        "relevance_score": 40,
+        "score_reasoning": "Kategori 'Otomobil Yedek Parça Mağazası'. Hafif ticari araç odaklı. Ağır vasıta toptancı profili taşıma ihtimali düşük.",
+        "classified_at": "2026-08-13T07:19:14.196291+00:00"
+    },
+    "gplaces_ChIJv1VJyHj7yhQReo2Z1ismI5U": {
+        "relevance_score": 40,
+        "score_reasoning": "İsimde Opel, Peugeot, Citroen gibi binek/hafif ticari odaklı markalar var. Kategori 'Otomobil Yedek Parça'. Ağır vasıta odaklı değil.",
+        "classified_at": "2026-08-13T07:19:14.196291+00:00"
+    },
+    "gplaces_ChIJ36xkt-_7yhQR8bxOogxbeNg": {
+        "relevance_score": 40,
+        "score_reasoning": "İsimde 'Ford Yedek Parça' ve kategori 'Otomobil Yedek Parça'. Genellikle binek/hafif ticari odaklıdır. Ağır vasıta (Ford kamyon/cargo hariç) odaklı değildir.",
+        "classified_at": "2026-08-13T07:19:14.196291+00:00"
+    },
+    "gplaces_ChIJr8M8CHD7yhQRc0ApgW0b0Ck": {
+        "relevance_score": 40,
+        "score_reasoning": "İsimde Ford, Peugeot gibi markalar ve kategori 'Otomobil Yedek Parça'. Hafif ticari araç odaklı. Ağır vasıta toptancı profili taşıma ihtimali düşük.",
+        "classified_at": "2026-08-13T07:19:14.196291+00:00"
+    },
+    "gplaces_ChIJHbdG8KP7yhQR3qryrIzXWzM": {
+        "relevance_score": 40,
+        "score_reasoning": "İsimde VW, Skoda, Seat, Audi gibi binek markaları listeliyor. Kategori 'Otomobil Yedek Parça'. Ağır vasıta odaklı değil.",
+        "classified_at": "2026-08-13T07:19:14.196291+00:00"
     }
 }
