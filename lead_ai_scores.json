@@ -4553,5 +4553,105 @@
         "relevance_score": 40,
         "score_reasoning": "Online genel yedek parça perakendesi. B2B toptan ziyade B2C odaklı algılanır, ancak büyük bir depo olabilir. Kesinlikle ağır vasıta spesifik değil, genel perakende olduğu için skor düşük-tam ortada.",
         "classified_at": "2026-08-13T07:42:04.698038+00:00"
+    },
+    "gplaces_ChIJO2ifFdhTp0ARPU1hyPrsq_s": {
+        "relevance_score": 20,
+        "score_reasoning": "İsme göre yedek parça satıcısı olsa da 'Özel Yedek Parça' vurgusu genellikle hafif tescilli otomobilleri işaret eder. Hedef kitle ağır vasıta olmalıdır.",
+        "classified_at": "2026-08-13T07:42:38.180789+00:00"
+    },
+    "gplaces_ChIJa1J8_pdTp0ARNEq1gA34m7g": {
+        "relevance_score": 20,
+        "score_reasoning": "Genel otomotiv yedek parça mağazası. Ağır vasıta (TIR/Kamyon) uzmanlığı isimde veya kategoride belirtilmemiştır.",
+        "classified_at": "2026-08-13T07:42:38.180789+00:00"
+    },
+    "gplaces_ChIJh9LiQ8O7tBQRiXpj8uU86jA": {
+        "relevance_score": 10,
+        "score_reasoning": "Kategori 'Otomobil' olarak geçiyor. Ağır vasıta ile ilgisi zayıf görünüyor.",
+        "classified_at": "2026-08-13T07:42:38.180789+00:00"
+    },
+    "gplaces_ChIJOXLJvZCltBQRjl9PLC53pt4": {
+        "relevance_score": 10,
+        "score_reasoning": "İsimde VW, Audi, Seat, Skoda markaları belirtilmiş. Hafif ticari/otomobil odaklıdır, ağır vasıta değil.",
+        "classified_at": "2026-08-13T07:42:38.180789+00:00"
+    },
+    "gplaces_ChIJRZ7Ea8JTp0ARYliJiKwkbVw": {
+        "relevance_score": 10,
+        "score_reasoning": "Kategori 'Otomobil Yedek Parça Mağazası'. Akü ve genel parçacılık ağır vasıta toptan profilinden ziyade perakende/servis odaklıdır.",
+        "classified_at": "2026-08-13T07:42:38.180789+00:00"
+    },
+    "gplaces_ChIJZ8-FochVp0ARNkliUhPNynM": {
+        "relevance_score": 90,
+        "score_reasoning": "İsimde 'Kahraman Nakliye / Tır Garajı' geçiyor. Bu, kendi filosu olan lojistik firması veya ağır vasıta odaklı büyük bir servis/parça kombinasyonu olduğunu gösterir. Hedef kitleye tam uyumlu (Hedef 1 veya Hedef 2 arası).",
+        "classified_at": "2026-08-13T07:42:38.180789+00:00"
+    },
+    "gplaces_ChIJAdwPyKK7tBQRT5_MXwVAf7M": {
+        "relevance_score": 80,
+        "score_reasoning": "İsimde 'MAN Mercedes' başlıkları açıkça belirtilmiş. Ağır vasıta (kamyon) yedek parça ve bakım merkezidir. Hedef kitleye uygundur.",
+        "classified_at": "2026-08-13T07:42:38.180789+00:00"
+    },
+    "gplaces_ChIJVSsbfYovsxQRbau92dhGH2c": {
+        "relevance_score": 20,
+        "score_reasoning": "Genel otomobil yedek parça mağazası. Ağır vasıta uzmanlığı bulunmuyor.",
+        "classified_at": "2026-08-13T07:42:38.180789+00:00"
+    },
+    "gplaces_ChIJr4vTWmgvsxQRUlLS7G75SjA": {
+        "relevance_score": 30,
+        "score_reasoning": "'Depo' ismi toptan potansiyeli taşısa da kategori 'Otomobil' olarak geçiyor. Ağır vasıta olmadığı sürece düşük öncelik.",
+        "classified_at": "2026-08-13T07:42:38.180789+00:00"
+    },
+    "gplaces_ChIJYYLGHYkvsxQRWhQq-EH8ijc": {
+        "relevance_score": 20,
+        "score_reasoning": "Çıkma parça ve genel yedek parça. Otomobil odaklı, ağır vasıta değildir.",
+        "classified_at": "2026-08-13T07:42:38.180789+00:00"
+    },
+    "gplaces_ChIJzU-BNH8vsxQRmuqn3dQNDsk": {
+        "relevance_score": 10,
+        "score_reasoning": "Garage ismi ve otomobil kategorisi. Ağır vasıta ile ilgisi yok.",
+        "classified_at": "2026-08-13T07:42:38.180789+00:00"
+    },
+    "gplaces_ChIJ4ehy2-cvsxQRNVjaiMQgdhk": {
+        "relevance_score": 20,
+        "score_reasoning": "Çıkma parça ve şanzıman tamiri. Genellikle hafif ticari/otomobil odaklı çalışır.",
+        "classified_at": "2026-08-13T07:42:38.180789+00:00"
+    },
+    "gplaces_ChIJOylNYz8lsxQROV-aSHknSVQ": {
+        "relevance_score": 10,
+        "score_reasoning": "Ozon Oto Yedek Parça, genel otomobil kategorisinde.",
+        "classified_at": "2026-08-13T07:42:38.180789+00:00"
+    },
+    "gplaces_ChIJtygS3lcvsxQRr0e7VEL08iI": {
+        "relevance_score": 10,
+        "score_reasoning": "Çinar Oto Yedek Parça, genel otomobil kategorisinde.",
+        "classified_at": "2026-08-13T07:42:38.180789+00:00"
+    },
+    "gplaces_ChIJa4cybDwvsxQR3o9oExbsIp4": {
+        "relevance_score": 30,
+        "score_reasoning": "İsimde 'Traktör' var. Tarım ağırlıklı endistrisi parçacılık, kamyon/TIR ağırlıklı ağır vasıta piyasası ile örtüşebilir ancak tam hedef kitlesi (yol taşımacılığı) değil.",
+        "classified_at": "2026-08-13T07:42:38.180789+00:00"
+    },
+    "gplaces_ChIJmwBWa4YPsxQR4TeJ_V_pOmQ": {
+        "relevance_score": 20,
+        "score_reasoning": "Genel otomotiv yedek parça. Ağır vasıta spesifikasyonu yok.",
+        "classified_at": "2026-08-13T07:42:38.180789+00:00"
+    },
+    "gplaces_ChIJGVMkvnAlsxQR__Za7db_X-o": {
+        "relevance_score": 20,
+        "score_reasoning": "İsimde 'TIR KAMYON' geçiyor ancak kategori 'Araç Bakım ve Onarımı' (Tamir). Başlıca gelir kaynağı işçilik/servis olduğu için parça satıcısı değil, parça alıcısı (servis) profili daha baskın. Hedef kitle 'parça satıcıları' olduğu için düşük skor.",
+        "classified_at": "2026-08-13T07:42:38.180789+00:00"
+    },
+    "gplaces_ChIJOalw4NovsxQRYSPOC2fOl8A": {
+        "relevance_score": 85,
+        "score_reasoning": "A. Y. T LOJİSTİK. Kategori 'Taşımacılık Hizmeti'. Kendi filosu olan nakliye/lojistik firmasıdır. Hedef kitle tanımına (Hedef 2) tam uygundur.",
+        "classified_at": "2026-08-13T07:42:38.180789+00:00"
+    },
+    "gplaces_ChIJ7y05clYvsxQRKRhIsyWu68Y": {
+        "relevance_score": 95,
+        "score_reasoning": "ARES ATA LOJİSTİK İNŞAAT. Lojistik ve inşaat iş makineleri filosu bulunması muhtemeldir. Hedef kitle tanımına (Hedef 2) tam uygundur.",
+        "classified_at": "2026-08-13T07:42:38.180789+00:00"
+    },
+    "gplaces_ChIJU67I9eyfnUARPtGj4Xjw8qk": {
+        "relevance_score": 10,
+        "score_reasoning": "Kategori 'Otomobil Yedek Parça Mağazası'. Ağır vasıta değil.",
+        "classified_at": "2026-08-13T07:42:38.180789+00:00"
     }
 }
