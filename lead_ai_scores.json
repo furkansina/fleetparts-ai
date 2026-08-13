@@ -4058,5 +4058,105 @@
         "relevance_score": 30,
         "score_reasoning": "Otomobil yedek parça mağazası. Ağır vasıta spesifik değil. Hedef dışı.",
         "classified_at": "2026-08-13T07:27:46.895742+00:00"
+    },
+    "gplaces_ChIJfYhaI29v1hQRIkYwUWXzfe4": {
+        "relevance_score": 10,
+        "score_reasoning": "İsmi ve kategorisi kişisel otomobil odaklıdır. Akü bayiliği olsa da ağır vasıta toptancılığı veya filosu olduğuna dair güçlü bir işaret yoktur.",
+        "classified_at": "2026-08-13T07:28:16.086336+00:00"
+    },
+    "gplaces_ChIJVWwBUU1v1hQR3KvegjvuhkQ": {
+        "relevance_score": 10,
+        "score_reasoning": "Otomobil yedek parça mağazası kategorisinde ve ismi geneldir. Ağır vasıta veya filo yönetimi ile bağlantısı bulunmamaktadır.",
+        "classified_at": "2026-08-13T07:28:16.086336+00:00"
+    },
+    "gplaces_ChIJi5_2-q1v1hQRrkC0YL1tLxY": {
+        "relevance_score": 10,
+        "score_reasoning": "Japon/Kore otomobil yedek parça çeşidi satıldığından ağır vasıta Segmenti ile uyumsuzdur.",
+        "classified_at": "2026-08-13T07:28:16.086336+00:00"
+    },
+    "gplaces_ChIJryj7-i1v1hQRojveE43bzfc": {
+        "relevance_score": 15,
+        "score_reasoning": "Mercedes ve BMW gibi premium otomobil markalarına odaklanmıştır.尽管 Mercedes ağır vasıta da üretir, bu bağlamda genellikle binek otomobile işaret eder ve ağırlık orani düşüktür.",
+        "classified_at": "2026-08-13T07:28:16.086336+00:00"
+    },
+    "gplaces_ChIJD1fzMY1x1hQR5ijCG3aZbQ8": {
+        "relevance_score": 85,
+        "score_reasoning": "İsmi açıkça 'AĞIR VASITA YEDEK PARÇA' belirtmektedir. Toptan satış yapılabilecek en yüksek potansiyele sahip hedeflerden biridir.",
+        "classified_at": "2026-08-13T07:28:16.086336+00:00"
+    },
+    "gplaces_ChIJy_9EqUtv1hQRkWzUIFFJXcM": {
+        "relevance_score": 5,
+        "score_reasoning": "Servis ve bakım odaklıdır. 'Bağımsız tamirci/servis' kategorisine girdiği için hedef dışındadır.",
+        "classified_at": "2026-08-13T07:28:16.086336+00:00"
+    },
+    "gplaces_ChIJ-dV68p5x1hQRwAgTwH-2bEo": {
+        "relevance_score": 10,
+        "score_reasoning": "Varta akü ve oto elektrik/parça satışı yapan sıradan bir işletmedir. Ağır vasıta belirtmez.",
+        "classified_at": "2026-08-13T07:28:16.086336+00:00"
+    },
+    "gplaces_ChIJLTL4LPJv1hQRwDbn-pyK4_M": {
+        "relevance_score": 85,
+        "score_reasoning": "İsmi 'KAMYON TIR YEDEK PARÇA' olarak çok açık bir şekilde ağır vasıta segmentine odaklanmıştır. İdeal bir toptan alıcı potansiyelidir.",
+        "classified_at": "2026-08-13T07:28:16.086336+00:00"
+    },
+    "gplaces_ChIJS-zLI9Bv1hQRUtlROkasvKk": {
+        "relevance_score": 65,
+        "score_reasoning": "Mercedes yedek parça sattığını belirtiyor. 'Cargo' ibaresi kargo taşımacılığı filo parçalarını da kapsayabilir, ancak tamamen binek otomobil de olabilir. Orta-seviye potansiyel var.",
+        "classified_at": "2026-08-13T07:28:16.086336+00:00"
+    },
+    "gplaces_ChIJi2Row0Fv1hQRHAHkpflFT-4": {
+        "relevance_score": 85,
+        "score_reasoning": "İsmi açıkça 'AĞIR VASITA YEDEK PARÇA' içermektedir. Hedef kitle ile tam uyumludur.",
+        "classified_at": "2026-08-13T07:28:16.086336+00:00"
+    },
+    "gplaces_ChIJRXGRMZxx1hQR3uvf_UlDwlE": {
+        "relevance_score": 85,
+        "score_reasoning": "Ford markasına odaklanan 'AĞIR VASITA YEDEK PARÇA' satıcısıdır. Çok spesifik ve yüksek skorlu bir hedef.",
+        "classified_at": "2026-08-13T07:28:16.086336+00:00"
+    },
+    "gplaces_ChIJV0fLNlBx1hQR6oDrgF_6F9Y": {
+        "relevance_score": 15,
+        "score_reasoning": "TIR ve Otobüs servisi yaptığı açık ancak 'servis (Usta)' etiketi, bağımsız tamirci/servis kategorisine girmesine neden olur. Hedef dışıdır.",
+        "classified_at": "2026-08-13T07:28:16.086336+00:00"
+    },
+    "gplaces_ChIJ8RPi-Cxv1hQRhOyz3flgSUA": {
+        "relevance_score": 10,
+        "score_reasoning": "Genel yedek parça mağazası. Ağır vasıta spesifikasyonu veya filo işareti yoktur.",
+        "classified_at": "2026-08-13T07:28:16.086336+00:00"
+    },
+    "gplaces_ChIJvfebdvxv1hQR6Y9V5CFj5-U": {
+        "relevance_score": 85,
+        "score_reasoning": "İsmi parantez içinde açıkça '(AĞIR VASITA)' ibaresini barındırmaktadır. Doğrudan hedef kitlededir.",
+        "classified_at": "2026-08-13T07:28:16.086336+00:00"
+    },
+    "gplaces_ChIJJ97g19Nx1hQRarKnrWrr4k8": {
+        "relevance_score": 40,
+        "score_reasoning": "Treyler ve şase ile uğraşmaktadır. Bu parçalar ağır vasıta ekosisteminde olsa da genellikle gövde/treyler üreticisi/remize şirketi olarak kabul edilebilir. Yedek parça toptancılığından ziyade aksesuar/gövde odaklı olabilir. Düşük-Orta potansiyel.",
+        "classified_at": "2026-08-13T07:28:16.086336+00:00"
+    },
+    "gplaces_ChIJSWSXHt5v1hQRJy2kt80VJwU": {
+        "relevance_score": 30,
+        "score_reasoning": "Damper ve treyler sanayi şirketidir. Üretim/İmalat odaklı olabilir. Yedek parça toptancılığından ziyade kasa üretimi olabilir. Düşük potansiyel.",
+        "classified_at": "2026-08-13T07:28:16.086336+00:00"
+    },
+    "gplaces_ChIJS0MwA4xv1hQROi7lzOsOOao": {
+        "relevance_score": 30,
+        "score_reasoning": "Dorse işçiliği yapan bir yerdir. Treyler/dorse dünyası ağır vasıta ile ilgili olsa da, daha çok imalat/bakım/remize odaklıdır. Makine ana yedek parçası alıcılığından ziyade gövde parçası ihtiyacı olabilir.",
+        "classified_at": "2026-08-13T07:28:16.086336+00:00"
+    },
+    "gplaces_ChIJyUQ__ZpvKhURAXHqICBV2jo": {
+        "relevance_score": 30,
+        "score_reasoning": "Otomotiv/Öğretici Dorse ismi, treyler ve gövde işleriyle uğraştığını gösterir. Ağır vasıta ile ilişkili ancak ana motor/kavrama vb. parça toptancısı olmaktan ziyade treyler hizmetidir.",
+        "classified_at": "2026-08-13T07:28:16.086336+00:00"
+    },
+    "gplaces_ChIJ9-rnJABv1hQRu1utSjTqHN4": {
+        "relevance_score": 5,
+        "score_reasoning": "Yetkili servis statüsündedir. 'Bağımsız tamirci/servis' hariç tutma kuralına uyar. Hedef dışıdır.",
+        "classified_at": "2026-08-13T07:28:16.086336+00:00"
+    },
+    "gplaces_ChIJtQdmjHZv1hQRNHlVzEPQRSo": {
+        "relevance_score": 30,
+        "score_reasoning": "Şase ve dorse üreticisi/remizecidir. Treyler/dorse grupları ağır vasıta ile bağlantılıdır ancak genellikle gövde ve takı parçalarıyla ilgilenirler, ana mekanik yedek parça toptancıları gibi değildir.",
+        "classified_at": "2026-08-13T07:28:16.086336+00:00"
     }
 }
