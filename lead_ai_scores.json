@@ -3073,5 +3073,105 @@
         "relevance_score": 70,
         "score_reasoning": "Otomobil yedek parça mağazası, oto yedek parça toptancısı olabilir",
         "classified_at": "2026-08-13T06:09:16.076464+00:00"
+    },
+    "gplaces_ChIJJTZK5o0TMxURnELJy-ROt7w": {
+        "relevance_score": 20,
+        "score_reasoning": "Bağımsız bir otomobil yedek parça mağazası, hedef outside",
+        "classified_at": "2026-08-13T06:09:23.670877+00:00"
+    },
+    "gplaces_ChIJs_qn-PURMxURTxkGIofBnnM": {
+        "relevance_score": 20,
+        "score_reasoning": "Bağımsız bir otomobil yedek parça mağazası, hedef outside",
+        "classified_at": "2026-08-13T06:09:23.670877+00:00"
+    },
+    "gplaces_ChIJ8RGnmKgRMxURziSSjNBGxjY": {
+        "relevance_score": 0,
+        "score_reasoning": "Alakasız kategori (Üretici)",
+        "classified_at": "2026-08-13T06:09:23.670877+00:00"
+    },
+    "gplaces_ChIJSXg-0r0VMxURHoR7bRzQ274": {
+        "relevance_score": 80,
+        "score_reasoning": "Taşımacılık hizmeti veren bir firma, kendi filosu olabilir",
+        "classified_at": "2026-08-13T06:09:23.670877+00:00"
+    },
+    "gplaces_ChIJC67PyrURMxURyipeVUphfgM": {
+        "relevance_score": 80,
+        "score_reasoning": "Taşımacılık hizmeti veren bir firma, kendi filosu olabilir",
+        "classified_at": "2026-08-13T06:09:23.670877+00:00"
+    },
+    "gplaces_ChIJAfzMdFSlMxURmdd18jVj9WU": {
+        "relevance_score": 60,
+        "score_reasoning": "Lojistik ve nakliye çözümleri sunan bir firma, ancak oto yedek parça kategorisinde",
+        "classified_at": "2026-08-13T06:09:23.670877+00:00"
+    },
+    "gplaces_ChIJ_-RRUfQTMxURRWOsUompZiw": {
+        "relevance_score": 40,
+        "score_reasoning": "Lojistik ve mühendislik hizmeti sunan bir firma, ancak oto yedek parça kategorisinde",
+        "classified_at": "2026-08-13T06:09:23.670877+00:00"
+    },
+    "gplaces_ChIJmxvKoK0TMxURb3BYbBY2Q6E": {
+        "relevance_score": 70,
+        "score_reasoning": "Filo olan bir firma, ancak oto yedek parça kategorisinde",
+        "classified_at": "2026-08-13T06:09:23.670877+00:00"
+    },
+    "gplaces_ChIJS_Y09-jpKRUR0VxSLh3gBOc": {
+        "relevance_score": 20,
+        "score_reasoning": "Bağımsız bir otomobil yedek parça mağazası, hedef outside",
+        "classified_at": "2026-08-13T06:09:23.670877+00:00"
+    },
+    "gplaces_ChIJa8Hqw9bnKRURj4P0-FJecJY": {
+        "relevance_score": 20,
+        "score_reasoning": "Bağımsız bir otomobil yedek parça mağazası, hedef outside",
+        "classified_at": "2026-08-13T06:09:23.670877+00:00"
+    },
+    "gplaces_ChIJyVRma_vnKRUR-eqEDmw8jYU": {
+        "relevance_score": 20,
+        "score_reasoning": "Bağımsız bir otomobil yedek parça mağazası, hedef outside",
+        "classified_at": "2026-08-13T06:09:23.670877+00:00"
+    },
+    "gplaces_ChIJ08vj9YXpKRURp46e6ofSI-8": {
+        "relevance_score": 20,
+        "score_reasoning": "Bağımsız bir otomobil yedek parça mağazası, hedef outside",
+        "classified_at": "2026-08-13T06:09:23.670877+00:00"
+    },
+    "gplaces_ChIJN2F6VhXpKRURTRX8vlEnrQU": {
+        "relevance_score": 20,
+        "score_reasoning": "Bağımsız bir otomobil yedek parça mağazası, hedef outside",
+        "classified_at": "2026-08-13T06:09:23.670877+00:00"
+    },
+    "gplaces_ChIJw6h4c-PnKRURLBuw5c8628w": {
+        "relevance_score": 20,
+        "score_reasoning": "Bağımsız bir otomobil yedek parça mağazası, hedef outside",
+        "classified_at": "2026-08-13T06:09:23.670877+00:00"
+    },
+    "gplaces_ChIJ9_DPoePnKRURvP0hLRlBttc": {
+        "relevance_score": 20,
+        "score_reasoning": "Bağımsız bir otomobil yedek parça mağazası, hedef outside",
+        "classified_at": "2026-08-13T06:09:23.670877+00:00"
+    },
+    "gplaces_ChIJN873JF7pKRURXE-AdNr9hXc": {
+        "relevance_score": 20,
+        "score_reasoning": "Bağımsız bir otomobil yedek parça mağazası, hedef outside",
+        "classified_at": "2026-08-13T06:09:23.670877+00:00"
+    },
+    "gplaces_ChIJ3yHAyw3pKRURAhpTEQvT1qA": {
+        "relevance_score": 20,
+        "score_reasoning": "Bağımsız bir otomobil yedek parça mağazası, hedef outside",
+        "classified_at": "2026-08-13T06:09:23.670877+00:00"
+    },
+    "gplaces_ChIJ3RmXruHnKRURga6feeuWk9E": {
+        "relevance_score": 20,
+        "score_reasoning": "Bağımsız bir otomobil yedek parça mağazası, hedef outside",
+        "classified_at": "2026-08-13T06:09:23.670877+00:00"
+    },
+    "gplaces_ChIJAfA5IeVrhYgR9lbC47FGJmk": {
+        "relevance_score": 20,
+        "score_reasoning": "Bağımsız bir otomobil yedek parça mağazası, hedef outside",
+        "classified_at": "2026-08-13T06:09:23.670877+00:00"
+    },
+    "gplaces_ChIJrYylb8jpKRURCOxkFnaqt2E": {
+        "relevance_score": 10,
+        "score_reasoning": "Araç bakım ve onarım hizmeti sunan bir firma, hedef outside",
+        "classified_at": "2026-08-13T06:09:23.670877+00:00"
     }
 }
