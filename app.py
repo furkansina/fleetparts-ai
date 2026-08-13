@@ -2232,6 +2232,10 @@ def get_usage():
     # outreach._sync_to_github docstring'i) - aynı 3+ üst üste başarısızlık uyarısı burada da
     # görünsün diye katalog durumunun yanına ekleniyor.
     result["contacts_backup_status"] = dict(outreach._github_sync_status)
+    # lead_store.py (lead durumları, AI netleştirme skorları, ürün bazlı skorlar) da aynı desenle
+    # kendi senkronizasyon durumunu tutuyor (2026-08-13'te eklendi - önceden bu üç dosyanın
+    # yazma hataları sadece konsola print ediliyordu, hiçbir yerde görünmüyordu).
+    result["lead_store_backup_status"] = dict(lead_store._github_sync_status)
     return result
 
 @app.get("/leads-data")
@@ -2535,13 +2539,22 @@ def classify_leads_for_product(
     product_key = _slugify_product_key(product_description)
     leads = lead_store.load_leads()
     reviews = lead_store.load_lead_reviews()
+    ai_scores = lead_store.load_lead_ai_scores()
     product_scores = lead_store.load_lead_product_scores()
     existing = product_scores.get(product_key, {}).get("scores", {})
+
+    # relevance_score burada leads.json'daki HAM (kural bazlı, ör. bağımsız tamirciler için 15
+    # tavanlı) skor değil, /leads-data ile AYNI şekilde varsa AI netleştirmesinin güncellediği skor
+    # kullanılmalı - aksi halde AI'ın "aslında iyi hedef" dediği ama kural motorunun düşük
+    # puanladığı lead'ler bu ürün bazlı değerlendirmeye hiç girmiyordu (2026-08-13'te tespit edildi).
+    def _effective_relevance(l):
+        ai = ai_scores.get(l.get("lead_id"))
+        return ai["relevance_score"] if ai else (l.get("relevance_score") or 0)
 
     candidates = [
         l for l in leads
         if l.get("lead_id") not in existing
-        and (l.get("relevance_score") or 0) > 15  # bağımsız tamirciler en fazla 15 alabiliyor (score_lead'deki tavan) - o tavanı da içeri almamak için sıkı eşitsizlik
+        and _effective_relevance(l) > 15  # bağımsız tamirciler en fazla 15 alabiliyor (score_lead'deki tavan) - o tavanı da içeri almamak için sıkı eşitsizlik
         and reviews.get(l.get("lead_id"), {}).get("status") != "reddedildi"
         and (not province or l.get("province") == province)
     ]
