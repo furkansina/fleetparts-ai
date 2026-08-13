@@ -1,5 +1,6 @@
 import os
 import re
+import random
 import shutil
 import json
 import base64
@@ -615,7 +616,26 @@ def _select_search_candidates(catalog: list, keywords: list, exact_codes: set = 
     # bkz. find_by_text'teki turkish_fold notu - aynı diyakritik-duyarlılık sorunu bu aday
     # ön-seçiminde de vardı: burada 0 aday bulunursa AI'a hiçbir doğru aday hiç gösterilmez,
     # kelime eşleşmeli bir ürün gerçekten var olsa bile "NOT_IN_CATALOG" ile sonuçlanırdı.
-    words = [turkish_lower(w) for w in keywords if w and len(w) > 2]
+    #
+    # BUG (2026-08-13'te canlı fotoğraf testiyle yakalandı): 'keywords' vision_agent'ten gelen
+    # "Kabin Alt Kaporta Parçası / Yan Aynalığı Depremi / Alt Şasi Kapagı" gibi ÇOK KELİMELİ TAM
+    # CÜMLELERDİ - ama burada tek tek kelimelere hiç BÖLÜNMÜYORDU, tüm cümle TEK bir "kelime"
+    # olarak katalog metniyle birebir alt-dizge eşleşmesi aranıyordu. Gerçekte hiçbir katalog
+    # ürününün adı/specs'i bu kadar uzun bir cümleyi birebir içermediği için hits HEMEN HEMEN HER
+    # ZAMAN 0 çıkıyordu - yani neredeyse HER fotoğraf araması aşağıdaki "aday yok" dalına düşüp
+    # kataloğun İLK 30 kaydıyla (o an hangileri sıradaysa) karşılaştırılıyordu; gerçek eşleşen
+    # ürün kataloğun başka bir yerindeyse AI'a HİÇ gösterilmiyordu. Artık cümleler kelimelere
+    # bölünüyor (boşluk/eğik çizgi ayracı), tek karakterli/anlamsız parçacıklar (2 karakterden
+    # kısa) eleniyor.
+    raw_words = []
+    for kw in keywords:
+        if not kw:
+            continue
+        for part in re.split(r"[\s/,;()\-]+", str(kw)):
+            part = part.strip()
+            if len(part) > 2:
+                raw_words.append(part)
+    words = [turkish_lower(w) for w in raw_words]
     folded_words = [turkish_fold(w) for w in words]
     scored = []
     for item in rest:
@@ -634,7 +654,13 @@ def _select_search_candidates(catalog: list, keywords: list, exact_codes: set = 
         # Ne kod eşleşmesi ne anahtar kelime örtüşmesi oldu - körü körüne göndermemek için
         # yine de bir örneklem gönder, LLM'in "hiçbir aday yoktu" deyip NOT_IN_CATALOG demesi
         # boş prompt göndermekten daha güvenli/tutarlı.
-        candidates = catalog[:max_candidates]
+        # BUG (2026-08-13): eskiden burası hep catalog[:max_candidates] - yani kataloğun HEP AYNI
+        # sabit ilk N kaydı - döndürüyordu. Kelime eşleşmesi bulunamayan HER arama (nadiren de
+        # olsa artık yukarıdaki tokenize düzeltmesiyle olabilir) kataloğun geri kalanını HİÇ
+        # görmüyordu. random.sample ile her seferinde farklı, kataloğun geneline yayılan bir
+        # örneklem gönderiliyor - en azından AI'nin "hiçbiri uymuyor" kararı gerçek bir çeşitliliğe
+        # bakarak veriliyor.
+        candidates = random.sample(catalog, min(max_candidates, len(catalog)))
     return candidates
 
 
@@ -2737,7 +2763,6 @@ def generate_broadcast(_: str = Depends(require_admin)):
     gerçek bir örneklem (rastgele 20 ürün adı) prompt'a veriliyor, AI SADECE bu örneklemde görünen
     gerçek ürün/kategori adlarına atıfta bulunabiliyor ve asla somut bir indirim yüzdesi/kampanya
     uydurmuyor (gerçekten aktif bir kampanya yoksa)."""
-    import random
     angle = random.choice(outreach.BROADCAST_ANGLES)
     catalog = load_catalog()
     sample_names = [item.get("name", "") for item in random.sample(catalog, min(20, len(catalog))) if item.get("name")] if catalog else []
