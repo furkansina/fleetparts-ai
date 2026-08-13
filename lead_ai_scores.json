@@ -3068,5 +3068,45 @@
         "relevance_score": 0,
         "score_reasoning": "Motosiklet yedek parça satıcısı olduğu için alakasız sektör olarak değerlendirilir.",
         "classified_at": "2026-08-13T06:08:20.576447+00:00"
+    },
+    "gplaces_ChIJd7y-z6cRMxURAlRSWxlQzZ4": {
+        "relevance_score": 0,
+        "score_reasoning": "Hedef kitle oto yedek parça toptancıları/satıcıları ve kendi filosu olan nakliye/lojistik firmaları iken, bu firma bağımsız bir oto yedek parça mağazası",
+        "classified_at": "2026-08-13T06:08:31.181123+00:00"
+    },
+    "gplaces_ChIJJTZK5o0TMxURnELJy-ROt7w": {
+        "relevance_score": 0,
+        "score_reasoning": "Hedef kitle oto yedek parça toptancıları/satıcıları ve kendi filosu olan nakliye/lojistik firmaları iken, bu firma bağımsız bir oto yedek parça mağazası",
+        "classified_at": "2026-08-13T06:08:31.181123+00:00"
+    },
+    "gplaces_ChIJs_qn-PURMxURTxkGIofBnnM": {
+        "relevance_score": 0,
+        "score_reasoning": "Hedef kitle oto yedek parça toptancıları/satıcıları ve kendi filosu olan nakliye/lojistik firmaları iken, bu firma bağımsız bir oto yedek parça mağazası",
+        "classified_at": "2026-08-13T06:08:31.181123+00:00"
+    },
+    "gplaces_ChI8RGnmKgRMxURziSSjNBGxjY": {
+        "relevance_score": 0,
+        "score_reasoning": "Hedef kitle oto yedek parça toptancıları/satıcıları ve kendi filosu olan nakliye/lojistik firmaları iken, bu firma bir üretici",
+        "classified_at": "2026-08-13T06:08:31.181123+00:00"
+    },
+    "gplaces_ChIJSXg-0r0VMxURHoR7bRzQ274": {
+        "relevance_score": 80,
+        "score_reasoning": "Bu firma bir nakliye firması ve kendi filosuna sahip olabilir, dolayısıyla hedef kitle içerisinde olabilir",
+        "classified_at": "2026-08-13T06:08:31.181123+00:00"
+    },
+    "gplaces_ChIJC67PyrURMxURyipeVUphfgM": {
+        "relevance_score": 80,
+        "score_reasoning": "Bu firma bir lojistik ve nakliyat firması ve kendi filosuna sahip olabilir, dolayısıyla hedef kitle içerisinde olabilir",
+        "classified_at": "2026-08-13T06:08:31.181123+00:00"
+    },
+    "gplaces_ChIJAfzMdFSlMxURmdd18jVj9WU": {
+        "relevance_score": 0,
+        "score_reasoning": "Hedef kitle oto yedek parça toptancıları/satıcıları ve kendi filosu olan nakliye/lojistik firmaları iken, bu firmanın kategori olarak oto yedek parça olmasına rağmen lojistik ve nakliye çözümleri sunuyor",
+        "classified_at": "2026-08-13T06:08:31.181123+00:00"
+    },
+    "gplaces_ChIJ_-RRUfQTMxURRWOsUompZiw": {
+        "relevance_score": 0,
+        "score_reasoning": "Hedef kitle oto yedek parça toptancıları/satıcıları ve kendi filosu olan nakliye/lojistik firmaları iken, bu firmanın kategori olarak oto yedek parça olmasına rağmen lojistik ve mühendislik hizmeti sunuyor",
+        "classified_at": "2026-08-13T06:08:31.181123+00:00"
     }
 }
