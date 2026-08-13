@@ -15,6 +15,10 @@
         button { background-color: #d9534f; color: white; font-weight: bold; cursor: pointer; border: none; margin-top: 15px; }
         button:hover { background-color: #c9302c; }
 
+        .whatsapp-cta { display: block; background: #25D366; color: white; text-align: center; font-weight: bold; font-size: 17px; padding: 16px; border-radius: 10px; text-decoration: none; margin-bottom: 24px; box-shadow: 0 4px 10px rgba(37,211,102,0.3); }
+        .whatsapp-cta:hover { background: #1ebe57; }
+        .whatsapp-cta .sub { display: block; font-weight: normal; font-size: 13px; margin-top: 4px; opacity: 0.9; }
+
         /* ---- Sonuç kartları ---- */
         #output { min-height: 40px; }
         .placeholder { color: #888; font-style: italic; }
@@ -58,6 +62,7 @@
         .catalog-item h4 { margin: 0 0 6px 0; font-size: 15.5px; }
         .catalog-item .specs { color: #666; font-size: 13px; margin-top: 6px; }
         #catalogSearch { font-size: 14px; }
+        #catalogCount { color: #888; font-size: 12.5px; }
         .btn-del { width: auto; padding: 6px 12px; margin: 0; font-size: 13px; background: transparent; color: #d9534f; border: 1px solid #f0c0be; border-radius: 4px; cursor: pointer; }
         .btn-del:hover { background: #fdf3f2; }
     </style>
@@ -66,9 +71,13 @@
 
 <div class="container">
     <h1>FleetParts AI 🚚</h1>
-    <div style="text-align:center; margin-bottom:14px;"><a href="/katalog" style="color:#337ab7; font-size:13.5px; text-decoration:none;">📦 Tüm kataloğu gözat →</a></div>
     <div id="backupWarning"></div>
     <div id="usageBadge" style="text-align:center; font-size:12px; color:#888; margin-bottom:14px;"></div>
+
+    <a class="whatsapp-cta" id="waButton" href="#" target="_blank">
+        💬 WhatsApp'tan Bize Yazın
+        <span class="sub">Aradığınız parçanın fotoğrafını veya kodunu gönderin, hemen dönüş yapalım</span>
+    </a>
 
     <div class="section">
         <h3>Parça Fotoğrafı İncele & Katalogda Bul</h3>
@@ -86,6 +95,13 @@
     <div class="section">
         <h3>Sonuçlar</h3>
         <div id="output"><span class="placeholder">İşlem bekleniyor...</span></div>
+    </div>
+
+    <div class="section">
+        <h3>📦 Tüm Kataloğu Gözat</h3>
+        <input id="catalogSearch" type="text" placeholder="🔎 İsim, OEM kodu veya markaya göre ara..." style="display:none;" oninput="renderFilteredCatalog(this.value)">
+        <span id="catalogCount" style="display:none;"></span>
+        <div id="catalogList" class="placeholder">Katalog yükleniyor...</div>
     </div>
 </div>
 
@@ -109,6 +125,22 @@
 
     function esc(s) {
         return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    }
+
+    // 2026-08-13: kullanıcı isteği üzerine ayrı bir "/katalog" sayfası artık yok - arama ve tüm
+    // katalog gözatma TEK sayfada birleştirildi (önceden index.html sadece arama, katalog.html
+    // sadece gözatma yapıyordu - iki ayrı sayfa arasında gidip gelmek gereksizdi). WhatsApp CTA'sı
+    // da hem üstte kalıcı bir buton olarak hem de her arama sonucunda o ürüne özel bir buton olarak
+    // İKİ yerde birden var - "sadece göz atmak isteyen" ile "belirli bir parça bulan" farklı
+    // ihtiyaçlara hizmet ediyor.
+    function setupWhatsAppButton() {
+        const btn = document.getElementById('waButton');
+        if (!WA_NUMBER || WA_NUMBER.indexOf('__') === 0) {
+            btn.style.display = 'none';
+            return;
+        }
+        const text = encodeURIComponent('Merhaba, ürün kataloğunuzu inceliyordum, bir parça hakkında bilgi almak istiyorum.');
+        btn.href = `https://wa.me/${WA_NUMBER}?text=${text}`;
     }
 
     function showLoading(msg) {
@@ -158,16 +190,6 @@
             const evidenceHtml = matched_product.match_evidence ? `<div class="evidence-box"><span class="evidence-label">🔎 Doğrulama</span>${esc(matched_product.match_evidence)}</div>` : '';
             // Ürünün geldiği gerçek katalog sayfasının görseli - varsa (2026-08-11'de eklendi,
             // her katalog ürününde olmayabilir, ör. çok eski/görselsiz taranmış kayıtlar).
-            // NOT (2026-08-12, gerçek kullanımda tespit edildi): bu, ürünün TEK BAŞINA fotoğrafı
-            // değil - kaynak kataloglarda (Asaska/GÖÇMEN/ORPASAN) bir sayfada birden fazla ürün
-            // ortak bir görsel/tabloyu paylaşıyor (her ürünün sayfadaki konumunu ayrı ayrı kırpmak
-            // için konum verisi yok). Müşteri "yanlış ürün mü eşleşti" diye yanılmasın diye altına
-            // açıklayıcı bir not eklendi.
-            // BUG (2026-08-12, gerçek kullanımda tespit edildi): 340px'e küçültülen sayfa görseli
-            // (çoğu zaman yoğun, çok ürünlü bir tablo/diyagram) OKUNAKSIZ çıkıyordu - metin
-            // seçilemiyordu. Artık hem varsayılan boyut büyütüldü (520px) hem de görsel tıklanabilir
-            // - yeni sekmede TAM ÇÖZÜNÜRLÜKTE açılır, orada tarayıcı/telefonun kendi yakınlaştırma
-            // özelliğiyle rahatça okunabilir.
             const pageImgUrl = matched_product.source_page_image ? `/catalog-page-image/${encodeURIComponent(matched_product.source_page_image)}` : '';
             const imageHtml = matched_product.source_page_image
                 ? `<a href="${pageImgUrl}" target="_blank" title="Büyütmek için tıkla">
@@ -235,6 +257,41 @@
                 ${sourceFilesHtml(item)}
             </div>
         `;
+    }
+
+    // ---------- Tüm Kataloğu Gözat (2026-08-13: katalog.html'den birleştirildi) ----------
+    let allCatalogItems = [];
+
+    function renderFilteredCatalog(filterText) {
+        const q = (filterText || '').trim().toLocaleLowerCase('tr-TR');
+        const filtered = !q ? allCatalogItems : allCatalogItems.filter(item => {
+            const sources = (item.source_files && item.source_files.length) ? item.source_files.join(' ') : (item.source_file || '');
+            const hay = `${item.name || ''} ${item.oem || ''} ${item.brand || ''} ${item.specs || ''} ${sources}`.toLocaleLowerCase('tr-TR');
+            return hay.includes(q);
+        });
+        const countEl = document.getElementById('catalogCount');
+        countEl.textContent = q ? `${filtered.length} / ${allCatalogItems.length} parça` : `${allCatalogItems.length} parça`;
+        const el = document.getElementById('catalogList');
+        el.innerHTML = filtered.length ? filtered.map(catalogItemCardHtml).join('') : '<div class="placeholder">Aramayla eşleşen ürün yok.</div>';
+    }
+    window.renderFilteredCatalog = renderFilteredCatalog;
+
+    async function loadFullCatalog() {
+        try {
+            const data = await fetchJson('/get-catalog');
+            allCatalogItems = data.catalog || [];
+            const el = document.getElementById('catalogList');
+            if (allCatalogItems.length === 0) {
+                el.innerHTML = '<div class="placeholder">Katalog yakında eklenecek.</div>';
+                return;
+            }
+            el.className = 'catalog-grid';
+            document.getElementById('catalogSearch').style.display = 'block';
+            document.getElementById('catalogCount').style.display = 'block';
+            renderFilteredCatalog('');
+        } catch (err) {
+            document.getElementById('catalogList').innerHTML = '<div class="placeholder">Katalog yüklenemedi.</div>';
+        }
     }
 
     // Render'ın ücretsiz sunucusu birkaç dakika boş kalınca uykuya dalıyor; ilk istek onu
@@ -345,7 +402,10 @@
             renderBackupWarning(u.backup_status);
         } catch (err) { /* sessizce geç, kritik değil */ }
     }
+
+    setupWhatsAppButton();
     loadUsageBadge();
+    loadFullCatalog();
 </script>
 
 </body>
