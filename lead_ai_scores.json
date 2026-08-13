@@ -3973,5 +3973,100 @@
         "relevance_score": 20,
         "score_reasoning": "Genel 'Otomobil Yedek Parça Mağazası' kategorisinde. Ağır vasıta veya toptan sinyal yok.",
         "classified_at": "2026-08-13T07:30:09.136575+00:00"
+    },
+    "gplaces_ChIJXY4j43E_nUARxKIs-OmZseo": {
+        "relevance_score": 85,
+        "score_reasoning": "İsmi ('KOÇ ÇIKMA YEDEK PARÇA') açıkça ağır vasıta (Koç/TİS) odaklı olduğunu ve 'çıkma' (ikinci el) parça ticareti yaptığını gösteriyor. Toptan satıcının doğrudan hedef kitlesi olan parça satıcılarındandır.",
+        "classified_at": "2026-08-13T07:30:32.997636+00:00"
+    },
+    "gplaces_ChIJ5fX8JD0_nUARQyjZkNenJ9k": {
+        "relevance_score": 30,
+        "score_reasoning": "İsmi 'Ahmet Usta' ve kategori 'Araç Bakım ve Onarımı'. Bu profil genellikle bireysel tamirci/servis işlettirenleri işaret eder. Hedef dışı kalır.",
+        "classified_at": "2026-08-13T07:30:32.997636+00:00"
+    },
+    "gplaces_ChIJ7Wj5wo05nUARKBmKQlI6MF0": {
+        "relevance_score": 30,
+        "score_reasoning": "Oto elektrik ve genel servis odaklı görünüyor. Bireysel servis/kulübecilik ihtimali yüksek. Hedef dışı.",
+        "classified_at": "2026-08-13T07:30:32.997636+00:00"
+    },
+    "gplaces_ChIJV7yLfMIsnUAR-cc_p_n_iJE": {
+        "relevance_score": 40,
+        "score_reasoning": "Kategori 'Otomobil Yedek Parça Mağazası'. İsimde ağır vasıta belirticisi yok. Muhtemelen binek araç odaklı perakende/büyük toptandır. Nötr/Alakasız.",
+        "classified_at": "2026-08-13T07:30:32.997636+00:00"
+    },
+    "gplaces_ChIJQe_5OMzVgkAR6yDYxoEmFpg": {
+        "relevance_score": 75,
+        "score_reasoning": "İsmi 'Tır Kamyon Dorse' içeriyor. Ancak 'Tamir Bakım Fren Servisi' vurgusu ağır olduğu için muhtemelen servis öncelikli, parça satışı ikincil birimlerdir. Yine de ağır vasıta ekosistemindedir.",
+        "classified_at": "2026-08-13T07:30:32.997636+00:00"
+    },
+    "gplaces_ChIJ2cQCkNA_nUARM-pLwcqdZvY": {
+        "relevance_score": 70,
+        "score_reasoning": "İsmi 'Kamyon özel servis yedek parça'. Ağır vasıta odaklıdır. Servis ve parça karışımı bir yapıdadır. Potansiyel müşteri olabilir ancak servis payı yüksek.",
+        "classified_at": "2026-08-13T07:30:32.997636+00:00"
+    },
+    "gplaces_ChIJS5YnrBE_nUARuPstGx7vpNc": {
+        "relevance_score": 20,
+        "score_reasoning": "Kategori 'Üretici' ve isim 'Haşimoğlu Dorse'. Kamyon/Dorse üreticisi veya imalatçısı. Parça satıcısı değil, üretici olduğu için doğrudan hedef kitle dışıdır (Farklı satıcı segmenti).",
+        "classified_at": "2026-08-13T07:30:32.997636+00:00"
+    },
+    "gplaces_ChIJ0V5MM-6fnUARN_7vNlOqVGU": {
+        "relevance_score": 10,
+        "score_reasoning": "Doğrudan kurye, nakliye ve taşımacılık hizmeti veren bir firmanın adıdır. Yedek parça satıcısı veya büyük filo işletmecisi değildir.",
+        "classified_at": "2026-08-13T07:30:32.997636+00:00"
+    },
+    "gplaces_ChIJH90B4lg_nUARx4n84VGdxDg": {
+        "relevance_score": 80,
+        "score_reasoning": "İsmi 'Lojistik' içeriyor olsa da Google kategorisi 'Oto Yedek Parça' olarak işaretlenmiş. Bu çelişki, firma isim değişikliği yapmış veya ana_activities değişmiş olabilir. Kategori öncelikli alındığında ağır vasıta parçacısı ihtimali yüksek bir toptancı.",
+        "classified_at": "2026-08-13T07:30:32.997636+00:00"
+    },
+    "gplaces_ChIJdyl25ws_nUARzXoXRwVysLw": {
+        "relevance_score": 80,
+        "score_reasoning": "Yukarıdaki ile aynı durum. İsimde 'Lojistik' geçiyor ancak kategori 'Oto Yedek Parça'. Büyük ihtimalle lojistik filosu bulunan ve aynı zamanda parça ticareti yapan veya ismi uygun olmaktan kurtarılmış bir parça satıcısı.",
+        "classified_at": "2026-08-13T07:30:32.997636+00:00"
+    },
+    "gplaces_ChIJF7dvp-Q_nUARV6jTohAnnyo": {
+        "relevance_score": 40,
+        "score_reasoning": "İsmi 'BKT International Lojistik' ve kategori 'Taşımacılık Hizmeti'. Bu firma muhtemelen bir lojistik/nakliye firmasıdır. Eğer büyük bir filosu varsa hedef kitle olabilir, ancak kategori bunu onaylamıyor, taşımacılık diyor. Low confidence.",
+        "classified_at": "2026-08-13T07:30:32.997636+00:00"
+    },
+    "gplaces_ChIJIVBFxsc_nUARU59BCauVQQc": {
+        "relevance_score": 80,
+        "score_reasoning": "İsimde 'Transport' var ama kategori 'Oto Yedek Parça'. Yine 'Bahtiyar Lojistik' ve 'Derebey Lojistik' örneklerindeki gibi, Google kategorisi hakim alınarak değerlendirildiğinde yedek parça satıcısı (muhtemelen ağır vasıta ağırlıklı) kabul edilebilir.",
+        "classified_at": "2026-08-13T07:30:32.997636+00:00"
+    },
+    "gplaces_ChIJPaBLO8Q_nUARDvMg--XGbEA": {
+        "relevance_score": 80,
+        "score_reasoning": "İsim 'Beynak Lojistik', Kategori 'Oto Yedek Parça'. İsim-kategori uyumsuzluğu var ancak kategori 'Yedek Parça' olduğu için ve lojistik firmaların genelde ağır vasıta filosu olması/hazır parça ihtiyacı olması açısından hedef kitle içinde kabul edilir.",
+        "classified_at": "2026-08-13T07:30:32.997636+00:00"
+    },
+    "gplaces_ChIJy3BuGp5v1hQRe5Upp-f5Lf0": {
+        "relevance_score": 20,
+        "score_reasoning": "Kategori 'Otomobil Yedek Parça Mağazası'. Aksaray'da genel binek araç odaklı bir perakende/büyük esnaf. Ağır vasıta odaklıtığı belirtilmemiş.",
+        "classified_at": "2026-08-13T07:30:32.997636+00:00"
+    },
+    "gplaces_ChIJ3bNyTLZv1hQRhoFv25R0eZU": {
+        "relevance_score": 20,
+        "score_reasoning": "Kategori 'Otomobil Yedek Parça Mağazası'. Genel binek araç odaklı.",
+        "classified_at": "2026-08-13T07:30:32.997636+00:00"
+    },
+    "gplaces_ChIJt4zsxm5x1hQRUwt2wXLGPuE": {
+        "relevance_score": 20,
+        "score_reasoning": "Kategori 'Otomobil Yedek Parça Mağazası'. Genel binek araç odaklı.",
+        "classified_at": "2026-08-13T07:30:32.997636+00:00"
+    },
+    "gplaces_ChIJfYhaI29v1hQRIkYwUWXzfe4": {
+        "relevance_score": 15,
+        "score_reasoning": "Akü bayisi ve oto elektrik servis odaklı. 'Geçgel Otomotiv' ismi genel, ancak 'Akü' vurgusu ağır. Ağır vasıta parça toptancısı olma ihtimali düşük.",
+        "classified_at": "2026-08-13T07:30:32.997636+00:00"
+    },
+    "gplaces_ChIJVWwBUU1v1hQR3KvegjvuhkQ": {
+        "relevance_score": 20,
+        "score_reasoning": "Kategori 'Otomobil Yedek Parça Mağazası'. Genel binek araç odaklı.",
+        "classified_at": "2026-08-13T07:30:32.997636+00:00"
+    },
+    "gplaces_ChIJi5_2-q1v1hQRrkC0YL1tLxY": {
+        "relevance_score": 20,
+        "score_reasoning": "Kategori 'Otomobil Yedek Parça Mağazası' ve isim 'Japon Kore'. Binek araç odaklı özel parça satıcısı. Ağır vasıta değil.",
+        "classified_at": "2026-08-13T07:30:32.997636+00:00"
     }
 }
