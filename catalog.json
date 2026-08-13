@@ -18293,24 +18293,6 @@
     ]
   },
   {
-    "id": "PRC-23f342",
-    "oem": "OEM",
-    "name": "AÇIKLAMA",
-    "brand": "",
-    "specs": "",
-    "price": "",
-    "stock": 1,
-    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1882)",
-    "source_files": [
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1029)",
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1699)",
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1871)",
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1882)",
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 301)",
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 502)"
-    ]
-  },
-  {
     "id": "PRC-fc997d",
     "oem": "5010578248",
     "name": "PREMIUM V2-3 ÖN ÜST PANJUR",
@@ -20424,87 +20406,6 @@
     "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 436)",
     "source_files": [
       "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 436)"
-    ]
-  },
-  {
-    "id": "PRC-6fca66",
-    "oem": "KABİN",
-    "name": "7482647541",
-    "brand": "",
-    "specs": "",
-    "price": "",
-    "stock": 1,
-    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 438)",
-    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir438.png",
-    "source_files": [
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 437)",
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 438)"
-    ]
-  },
-  {
-    "id": "PRC-41c347",
-    "oem": "ALTI",
-    "name": "7482647541",
-    "brand": "",
-    "specs": "",
-    "price": "",
-    "stock": 1,
-    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 438)",
-    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir438.png",
-    "source_files": [
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 437)",
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 438)"
-    ]
-  },
-  {
-    "id": "PRC-49a69c",
-    "oem": "EVO",
-    "name": "7482647541",
-    "brand": "",
-    "specs": "",
-    "price": "",
-    "stock": 1,
-    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 438)",
-    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir438.png",
-    "source_files": [
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 437)",
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 438)"
-    ]
-  },
-  {
-    "id": "PRC-24530e",
-    "oem": "LH",
-    "name": "5801586269",
-    "brand": "",
-    "specs": "",
-    "price": "",
-    "stock": 1,
-    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1779)",
-    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1779.png",
-    "source_files": [
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1774)",
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1776)",
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1778)",
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1779)",
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 437)"
-    ]
-  },
-  {
-    "id": "PRC-88e804",
-    "oem": "RH",
-    "name": "5801586268",
-    "brand": "",
-    "specs": "",
-    "price": "",
-    "stock": 1,
-    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1780)",
-    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1780.png",
-    "source_files": [
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1773)",
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1775)",
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1777)",
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1780)",
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 438)"
     ]
   },
   {
@@ -42742,164 +42643,6 @@
     ]
   },
   {
-    "id": "PRC-ee6ba1",
-    "oem": "KAPI",
-    "name": "504052935",
-    "brand": "",
-    "specs": "",
-    "price": "",
-    "stock": 1,
-    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1774)",
-    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1774.png",
-    "source_files": [
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1773)",
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1774)"
-    ]
-  },
-  {
-    "id": "PRC-70e2fa",
-    "oem": "KOLU",
-    "name": "504052935",
-    "brand": "",
-    "specs": "",
-    "price": "",
-    "stock": 1,
-    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1774)",
-    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1774.png",
-    "source_files": [
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1773)",
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1774)"
-    ]
-  },
-  {
-    "id": "PRC-756ec4",
-    "oem": "STRALİS",
-    "name": "504042187",
-    "brand": "",
-    "specs": "",
-    "price": "",
-    "stock": 1,
-    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1778)",
-    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1778.png",
-    "source_files": [
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1773)",
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1774)",
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1775)",
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1776)",
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1777)",
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1778)"
-    ]
-  },
-  {
-    "id": "PRC-47d271",
-    "oem": "CAM",
-    "name": "5801321875",
-    "brand": "",
-    "specs": "",
-    "price": "",
-    "stock": 1,
-    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1776)",
-    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1776.png",
-    "source_files": [
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1775)",
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1776)"
-    ]
-  },
-  {
-    "id": "PRC-5ab3c4",
-    "oem": "KRİKOSU",
-    "name": "5801321875",
-    "brand": "",
-    "specs": "",
-    "price": "",
-    "stock": 1,
-    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1776)",
-    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1776.png",
-    "source_files": [
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1775)",
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1776)"
-    ]
-  },
-  {
-    "id": "PRC-a8d77a",
-    "oem": "MOTORLU",
-    "name": "5801321875",
-    "brand": "",
-    "specs": "",
-    "price": "",
-    "stock": 1,
-    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1776)",
-    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1776.png",
-    "source_files": [
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1775)",
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1776)"
-    ]
-  },
-  {
-    "id": "PRC-e2b8cd",
-    "oem": "FAR",
-    "name": "5801586268",
-    "brand": "",
-    "specs": "",
-    "price": "",
-    "stock": 1,
-    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1780)",
-    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1780.png",
-    "source_files": [
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1777)",
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1778)",
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1779)",
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1780)"
-    ]
-  },
-  {
-    "id": "PRC-e062b0",
-    "oem": "YAN",
-    "name": "504042187",
-    "brand": "",
-    "specs": "",
-    "price": "",
-    "stock": 1,
-    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1778)",
-    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1778.png",
-    "source_files": [
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1777)",
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1778)"
-    ]
-  },
-  {
-    "id": "PRC-827c05",
-    "oem": "KAPAK",
-    "name": "5801586268",
-    "brand": "",
-    "specs": "",
-    "price": "",
-    "stock": 1,
-    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1780)",
-    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1780.png",
-    "source_files": [
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1777)",
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1778)",
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1779)",
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1780)"
-    ]
-  },
-  {
-    "id": "PRC-28312e",
-    "oem": "YIKAMA",
-    "name": "5801586268",
-    "brand": "",
-    "specs": "",
-    "price": "",
-    "stock": 1,
-    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1780)",
-    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1780.png",
-    "source_files": [
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1779)",
-      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1780)"
-    ]
-  },
-  {
     "id": "PRC-e265cc",
     "oem": "504187506",
     "name": "TAMPON KAPAĞI SAĞ",
@@ -44447,5 +44190,159 @@
       "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1839)"
     ],
     "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1839.png"
+  },
+  {
+    "id": "PRC-74826475",
+    "oem": "7482647540",
+    "name": "KABİN ALTI EVO LH",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 437, sütunlar düzeltildi)",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 437, sütunlar düzeltildi)"
+    ],
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir437_duzeltildi.png"
+  },
+  {
+    "id": "PRC-74826475-2",
+    "oem": "7482647541",
+    "name": "KABİN ALTI EVO RH",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 438, sütunlar düzeltildi)",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 438, sütunlar düzeltildi)"
+    ],
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir438_duzeltildi.png"
+  },
+  {
+    "id": "PRC-50405293",
+    "oem": "504052936",
+    "name": "KAPI KOLU STRALİS RH",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1773, sütunlar düzeltildi)",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1773, sütunlar düzeltildi)"
+    ],
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1773_duzeltildi.png"
+  },
+  {
+    "id": "PRC-50405293-2",
+    "oem": "504052935",
+    "name": "KAPI KOLU STRALİS LH",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1774, sütunlar düzeltildi)",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1774, sütunlar düzeltildi)"
+    ],
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1774_duzeltildi.png"
+  },
+  {
+    "id": "PRC-58013218",
+    "oem": "5801321873",
+    "name": "CAM KRİKOSU STRALİS MOTORLU RH",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1775, sütunlar düzeltildi)",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1775, sütunlar düzeltildi)"
+    ],
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1775_duzeltildi.png"
+  },
+  {
+    "id": "PRC-50404098",
+    "oem": "504040988",
+    "name": "CAM KRİKOSU STRALİS MOTORLU RH",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1775, sütunlar düzeltildi)",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1775, sütunlar düzeltildi)"
+    ],
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1775_duzeltildi.png"
+  },
+  {
+    "id": "PRC-58013218-2",
+    "oem": "5801321875",
+    "name": "CAM KRİKOSU STRALİS MOTORLU LH",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1776, sütunlar düzeltildi)",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1776, sütunlar düzeltildi)"
+    ],
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1776_duzeltildi.png"
+  },
+  {
+    "id": "PRC-50404218",
+    "oem": "504042188",
+    "name": "FAR YAN KAPAK STRALİS RH",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1777, sütunlar düzeltildi)",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1777, sütunlar düzeltildi)"
+    ],
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1777_duzeltildi.png"
+  },
+  {
+    "id": "PRC-50404218-2",
+    "oem": "504042187",
+    "name": "FAR YAN KAPAK STRALİS LH",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1778, sütunlar düzeltildi)",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1778, sütunlar düzeltildi)"
+    ],
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1778_duzeltildi.png"
+  },
+  {
+    "id": "PRC-58015862",
+    "oem": "5801586269",
+    "name": "FAR YIKAMA KAPAK LH",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1779, sütunlar düzeltildi)",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1779, sütunlar düzeltildi)"
+    ],
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1779_duzeltildi.png"
+  },
+  {
+    "id": "PRC-58015862-2",
+    "oem": "5801586268",
+    "name": "FAR YIKAMA KAPAK RH",
+    "brand": "",
+    "specs": "",
+    "price": "",
+    "stock": 1,
+    "source_file": "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1780, sütunlar düzeltildi)",
+    "source_files": [
+      "GÖÇMEN AĞIR VASITA KAPORTA (1).xlsx (satır 1780, sütunlar düzeltildi)"
+    ],
+    "source_page_image": "GÖÇMEN_AĞIR_VASITA_KAPORTA__1_.xlsx_satir1780_duzeltildi.png"
   }
 ]
