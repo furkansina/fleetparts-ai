@@ -4453,5 +4453,105 @@
         "relevance_score": 25,
         "score_reasoning": "Kategori 'Otomobil Yedek Parça'. Otomobil odaklı, ağır vasıta ile ilgisi düşük.",
         "classified_at": "2026-08-13T07:38:15.297682+00:00"
+    },
+    "gplaces_ChIJ_VPJLzOfnUARvGed2smZ6Vg": {
+        "relevance_score": 60,
+        "score_reasoning": "Isim ve kategori 'Otomobil' vurgusu yapıyor (Hedef Dışı riski var). Ancak Düzce gibi ağır vasıta yoğunluğundaki bir ilde 'Oto Yedek Parça' satanların genellikle kamyon/TIR parçası da sattığı öngörülür. Belirsizlik nedeniyle orta skor.",
+        "classified_at": "2026-08-13T07:38:39.492488+00:00"
+    },
+    "gplaces_ChIJ9TM11il1nUARTiFkHRTCWp0": {
+        "relevance_score": 40,
+        "score_reasoning": "Kategori 'Araç Bakım ve Onarımı' (Servis). Hedef kitle tanımına göre bağımsız tamirciler/servisler hedef DIŞI belirtilmiştir.",
+        "classified_at": "2026-08-13T07:38:39.492488+00:00"
+    },
+    "gplaces_ChIJSYRe3EqfnUARhkFGDQ3g0Yw": {
+        "relevance_score": 0,
+        "score_reasoning": "Isim ve kategori 'Otomobil' odaklı görünse de, 'Oto Yedek Parça' ticaretinde çoklu segment satışı standarttır. Yedek parça toptancısı olma potansiyeli vardır.",
+        "classified_at": "2026-08-13T07:38:39.492488+00:00"
+    },
+    "gplaces_ChIJ955Jc0qfnUARU28Ly-xr-0w": {
+        "relevance_score": 65,
+        "score_reasoning": "Düzce lokasyonu ağır vasıta ticareti için güçlü bir merkezdir. 'Otomotiv' ifadesi genel tanımlama olarak kullanılıyor olabilir, yüksek ihtimalle ağır vasıta parçası içermektedir.",
+        "classified_at": "2026-08-13T07:38:39.492488+00:00"
+    },
+    "gplaces_ChIJ7W0pHfOfnUARrNTefBDh26Q": {
+        "relevance_score": 60,
+        "score_reasoning": "Sadece 'Otomobil' kategorisi var. Ancak toptan satış yapabilecek bir 'Oto Satıcı' profili. Riskli ama potansiyelli.",
+        "classified_at": "2026-08-13T07:38:39.492488+00:00"
+    },
+    "gplaces_ChIJu3tGKZifnUAR9hxcyndkpC8": {
+        "relevance_score": 60,
+        "score_reasoning": "Otomobil kategorisi ağır vasıta dışı kalsa da, fiziki bir yedek parça dükkanı olduğu için toptan alım gibi davranış sergileyebilir.",
+        "classified_at": "2026-08-13T07:38:39.492488+00:00"
+    },
+    "gplaces_ChIJ-wL8FJ-fnUARVbhoc2ki8Og": {
+        "relevance_score": 60,
+        "score_reasoning": "Netoto gibi büyük bir markanın alt etiketi olabilir. Otomobil odaklı görünüyor ancak genel oto sektörü içinde değerlendirilir.",
+        "classified_at": "2026-08-13T07:38:39.492488+00:00"
+    },
+    "gplaces_ChIJax7XZ-mfnUARNkyNa77W8zo": {
+        "relevance_score": 60,
+        "score_reasoning": "Başak Otomotiv. Isımsal olarak otomobil dükkanı gibi duruyor ancak Düzce lokasyonu ağır vasıta talebini destekliyor.",
+        "classified_at": "2026-08-13T07:38:39.492488+00:00"
+    },
+    "gplaces_ChIJlzW6o5mfnUARaSuXOCGgdGg": {
+        "relevance_score": 75,
+        "score_reasoning": "Isim içinde 'Ltd. Şti.' geçmesi, bu firmanın daha kurumsal, büyük hacimli ve muhtemelen toptan satış veya filo bakımı yaptığına işaret eder. Kurumsal yapı ağır vasıta ile daha uyumludur.",
+        "classified_at": "2026-08-13T07:38:39.492488+00:00"
+    },
+    "gplaces_ChIJF387cJufnUARee6gQIykzBk": {
+        "relevance_score": 75,
+        "score_reasoning": "Limit Şirket (Ltd. Şti.) oluşu, otomobil dükkanlarındaki bireysel işletmelerden farkının olabileceğini ve daha geniş yelpazede (belki ağır vasıta dahil) çalıştığını gösterir.",
+        "classified_at": "2026-08-13T07:38:39.492488+00:00"
+    },
+    "gplaces_ChIJ0xf6uhCfnUARmO46wy0NnnA": {
+        "relevance_score": 98,
+        "score_reasoning": "Isminde açıkça 'Ağır Vasıta' ve 'Mercedes' (kamyon/TIR markası) geçiyor. Doğrudan hedef kitle (Ağır vasıta yedek parça satıcısı).",
+        "classified_at": "2026-08-13T07:38:39.492488+00:00"
+    },
+    "gplaces_ChIJ6WJZNv91nUARmQWumGYqo1A": {
+        "relevance_score": 95,
+        "score_reasoning": "Isminde 'Kamyon' kategorisi ve New Holland/Massey Ferguson (tarım/lojistik iş makineleri) markaları geçiyor. İş makinesi ve ağır vasıta yedek parça satıcısıdır.",
+        "classified_at": "2026-08-13T07:38:39.492488+00:00"
+    },
+    "gplaces_ChIJl9paCy1JyRQRUcPrD7d1Yrw": {
+        "relevance_score": 50,
+        "score_reasoning": "Otomobil ve Akü odaklı. Kütahya lokasyonu ağır vasıta açısından Düzce kadar uygun olmayabilir. Otomobil odaklılığı ağır skor.",
+        "classified_at": "2026-08-13T07:38:39.492488+00:00"
+    },
+    "gplaces_ChIJ-y6QWwBHyRQRyV6hi9tzDi0": {
+        "relevance_score": 60,
+        "score_reasoning": "Genel Oto Yedek Parça. Belirsiz. Otomobil olma ihtimali yüksek ancak tamamen aylık değildir.",
+        "classified_at": "2026-08-13T07:38:39.492488+00:00"
+    },
+    "gplaces_ChIJPwUZI3ZIyRQRBaYFHbxlLag": {
+        "relevance_score": 45,
+        "score_reasoning": "Isimde 'Servisi' kelimesi geçiyor. Hedef kitle tanımı gereği servisler/tamirciler hedef DIŞI olarak tanımlanmış.",
+        "classified_at": "2026-08-13T07:38:39.492488+00:00"
+    },
+    "gplaces_ChIJJ_4FAN1HyRQRur3V0pX9bS8": {
+        "relevance_score": 60,
+        "score_reasoning": "Standard oto yedek parça dükkanı. Otomobil odaklı ancak potansiyel toptancı.",
+        "classified_at": "2026-08-13T07:38:39.492488+00:00"
+    },
+    "gplaces_ChIJw09Ig_xHyRQRzJ2LtHrQxXM": {
+        "relevance_score": 60,
+        "score_reasoning": "Standard oto yedek parça dükkanı.",
+        "classified_at": "2026-08-13T07:38:39.492488+00:00"
+    },
+    "gplaces_ChIJ01b1OQBHyRQRqWP-zIiWfoU": {
+        "relevance_score": 45,
+        "score_reasoning": "İsimde 'Servis' geçiyor. Hedef kitle dışı (Tamirci/Servis).",
+        "classified_at": "2026-08-13T07:38:39.492488+00:00"
+    },
+    "gplaces_ChIJfRlvN99HyRQRnc8tIEivc-A": {
+        "relevance_score": 30,
+        "score_reasoning": "İsimde 'Servis Motor Ustası' açıkça geçiyor. Hedef kitle dışı.",
+        "classified_at": "2026-08-13T07:38:39.492488+00:00"
+    },
+    "gplaces_ChIJH06OUEwLyRQR9E9jaRl5pto": {
+        "relevance_score": 60,
+        "score_reasoning": "Standard oto yedek parça dükkanı.",
+        "classified_at": "2026-08-13T07:38:39.492488+00:00"
     }
 }
