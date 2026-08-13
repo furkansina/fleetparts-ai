@@ -4353,5 +4353,105 @@
         "relevance_score": 30,
         "score_reasoning": "Kategori 'Otomobil Yedek Parça Mağazası'. Otomobil odaklı, ağır vasıta ile ilgisi yok.",
         "classified_at": "2026-08-13T07:36:01.243909+00:00"
+    },
+    "gplaces_ChIJO2ifFdhTp0ARPU1hyPrsq_s": {
+        "relevance_score": 15,
+        "score_reasoning": "İsimde 'Özel' ifadesi ağır vasıta parçası ihtimalini güçlese de kategori 'Araç Bakım ve Onarımı' olarak geçiyor. Genellikle servisler müşteri değil tedarikçi kaynağıdır.",
+        "classified_at": "2026-08-13T07:36:26.950247+00:00"
+    },
+    "gplaces_ChIJa1J8_pdTp0ARNEq1gA34m7g": {
+        "relevance_score": 10,
+        "score_reasoning": "Kategori 'Araç Bakım ve Onarımı'. İsimde ağırlık belirtisi yok. Büyük ihtimalle hafif araç servisi veya karışıktır. Hedef dışı.",
+        "classified_at": "2026-08-13T07:36:26.950247+00:00"
+    },
+    "gplaces_ChIJh9LiQ8O7tBQRiXpj8uU86jA": {
+        "relevance_score": 0,
+        "score_reasoning": "Kategori 'Otomobil Yedek Parça Mağazası'. Temel olarak binek araç pazarına odaklanmış görünüyor, ağır vasıta hedefine uymuyor.",
+        "classified_at": "2026-08-13T07:36:26.950247+00:00"
+    },
+    "gplaces_ChIJOXLJvZCltBQRjl9PLC53pt4": {
+        "relevance_score": 0,
+        "score_reasoning": "İsimde 'Vw Audi Seat Skoda' (volkswagen grubu binek araçlar) geçiyor. Hedef kitle ağır vasıta olduğu bu firma kesinlikle hedef dışıdır.",
+        "classified_at": "2026-08-13T07:36:26.950247+00:00"
+    },
+    "gplaces_ChIJRZ7Ea8JTp0ARYliJiKwkbVw": {
+        "relevance_score": 0,
+        "score_reasoning": "İsimde 'Akü' ve kategori 'Otomobil' belirtilmiş. Binek ve hafif ticari araçlara yönelik, ağır vasıta toptancısı değil.",
+        "classified_at": "2026-08-13T07:36:26.950247+00:00"
+    },
+    "gplaces_ChIJZ8-FochVp0ARNkliUhPNynM": {
+        "relevance_score": 65,
+        "score_reasoning": "İsimde 'Tır Garajı' geçiyor ve kategori 'Oto Yedek Parça'. Kendi filosu olan ve yedek parça satışı yapan veya yoğun tedarik ihtiyaç duyan bir firma olabilir. 'Nakliye' kısmı kuluçkulu lojistik firması ihtimalini doğurur.",
+        "classified_at": "2026-08-13T07:36:26.950247+00:00"
+    },
+    "gplaces_ChIJAdwPyKK7tBQRT5_MXwVAf7M": {
+        "relevance_score": 20,
+        "score_reasoning": "İsimde 'Man Mercedes' (ağır vasıta markaları) geçiyor ancak kategori 'Araç Bakım ve Onarımı' ve 'Servisi' vurgusu mevcut. Daha çok tımar/onarım müessesesi gibi duruyor, toptan satıcı profili zayıf.",
+        "classified_at": "2026-08-13T07:36:26.950247+00:00"
+    },
+    "gplaces_ChIJVSsbfYovsxQRbau92dhGH2c": {
+        "relevance_score": 0,
+        "score_reasoning": "Kategori 'Otomobil Yedek Parça Mağazası'. İsimde ağır vasıta belirtisi yok. Binek araç odaklı.",
+        "classified_at": "2026-08-13T07:36:26.950247+00:00"
+    },
+    "gplaces_ChIJr4vTWmgvsxQRUlLS7G75SjA": {
+        "relevance_score": 0,
+        "score_reasoning": "Kategori 'Otomobil Yedek Parça Mağazası'. Genel bir isim ve kategori. Ağır vasıta odaklılığı belirsiz, riskli bir lead.",
+        "classified_at": "2026-08-13T07:36:26.950247+00:00"
+    },
+    "gplaces_ChIJYYLGHYkvsxQRWhQq-EH8ijc": {
+        "relevance_score": 10,
+        "score_reasoning": "Kategori 'Araç Bakım ve Onarımı'. İsimde 'Çıkma Parça' var. Genellikle binek/hafif araç çıkma parçasına odaklanır. Ağır vasıta toptancılığından ziyade servis yan ürünüdür.",
+        "classified_at": "2026-08-13T07:36:26.950247+00:00"
+    },
+    "gplaces_ChIJzU-BNH8vsxQRmuqn3dQNDsk": {
+        "relevance_score": 0,
+        "score_reasoning": "Kategori 'Otomobil Yedek Parça Mağazası'. Standart binek araç yedek parçacısı.",
+        "classified_at": "2026-08-13T07:36:26.950247+00:00"
+    },
+    "gplaces_ChIJ4ehy2-cvsxQRNVjaiMQgdhk": {
+        "relevance_score": 5,
+        "score_reasoning": "Kategori 'Otomobil', isimde 'Şanzıman Tamiri'. Binek/hafif araç odaklı tamir ve çıkma işi. Ağır vasıta toptancılığı için uygun değil.",
+        "classified_at": "2026-08-13T07:36:26.950247+00:00"
+    },
+    "gplaces_ChIJOylNYz8lsxQROV-aSHknSVQ": {
+        "relevance_score": 0,
+        "score_reasoning": "Kategori 'Otomobil Yedek Parça Mağazası'. Genel binek araç odaklı mağaza.",
+        "classified_at": "2026-08-13T07:36:26.950247+00:00"
+    },
+    "gplaces_ChIJtygS3lcvsxQRr0e7VEL08iI": {
+        "relevance_score": 0,
+        "score_reasoning": "Kategori 'Otomobil Yedek Parça Mağazası'. İsimde özel bir segment belirten (ağır vasıta) anahtar kelime yok.",
+        "classified_at": "2026-08-13T07:36:26.950247+00:00"
+    },
+    "gplaces_ChIJa4cybDwvsxQR3o9oExbsIp4": {
+        "relevance_score": 0,
+        "score_reasoning": "İsimde 'Traktör' geçiyor. Tarım makineleri yedek parçası, ağır vasıta (kamyon/TIR) yedek parçasından farklı bir niş pazardır ve genellikle farklı tedarik zincirlerine sahiptir.",
+        "classified_at": "2026-08-13T07:36:26.950247+00:00"
+    },
+    "gplaces_ChIJmwBWa4YPsxQR4TeJ_V_pOmQ": {
+        "relevance_score": 15,
+        "score_reasoning": "Kategori 'Araç Bakım ve Onarımı'. 'Repar Oto' ismi tamir yönünde. Toptan satış odaklılığı düşük, operasyonel bakım odaklı.",
+        "classified_at": "2026-08-13T07:36:26.950247+00:00"
+    },
+    "gplaces_ChIJGVMkvnAlsxQR__Za7db_X-o": {
+        "relevance_score": 25,
+        "score_reasoning": "İsimde 'Tır Kamyon' geçiyor ancak ana vurgu 'Tamiri ve Servisi'. Kategori de 'Araç Bakım ve Onarımı'. Parça satışı ikincil bir hizmet olabilir ancak firma tipi servistir, toptancısı değildir.",
+        "classified_at": "2026-08-13T07:36:26.950247+00:00"
+    },
+    "gplaces_ChIJOalw4NovsxQRYSPOC2fOl8A": {
+        "relevance_score": 75,
+        "score_reasoning": "Kategori 'Taşımacılık Hizmeti' ve isimde 'Lojistik'. Kendi filosu olan nakliye firmaları, ağır vasıta yedek parçası konusunda bütünlüklü ve düzenli alıcı profiline sahiptir. Hedef kitleye uyar.",
+        "classified_at": "2026-08-13T07:36:26.950247+00:00"
+    },
+    "gplaces_ChIJ7y05clYvsxQRKRhIsyWu68Y": {
+        "relevance_score": 55,
+        "score_reasoning": "Kategori 'Hizmetler' ama isimde 'Lojistik İnşaat' geçiyor. İnşaat ve lojistik firmaları genellikle özel iş makineleri ve kamyon filolarına sahiptir. Potansiyel alıcıdır.",
+        "classified_at": "2026-08-13T07:36:26.950247+00:00"
+    },
+    "gplaces_ChIJU67I9eyfnUARPtGj4Xjw8qk": {
+        "relevance_score": 0,
+        "score_reasoning": "Kategori 'Otomobil Yedek Parça Mağazası'. Düzce merkezli büyük bir mağaza gibi görünse de ana hedefi otomobillerdir.",
+        "classified_at": "2026-08-13T07:36:26.950247+00:00"
     }
 }
