@@ -3373,5 +3373,105 @@
         "relevance_score": 80,
         "score_reasoning": "Lojistik hizmetleri, hedef müşteri grubuna uygun",
         "classified_at": "2026-08-13T06:10:06.506062+00:00"
+    },
+    "gplaces_ChIJK4kpE99z1RQRanEK3lTkYpA": {
+        "relevance_score": 0,
+        "score_reasoning": "Bağımsız tamirci/servis olduğu için hedef dışı",
+        "classified_at": "2026-08-13T06:10:34.596594+00:00"
+    },
+    "gplaces_ChIJVyxeBs_t2RQRAn2tONjGCas": {
+        "relevance_score": 80,
+        "score_reasoning": "Oto yedek parça ve lojistik hizmeti sunduğu için uygun",
+        "classified_at": "2026-08-13T06:10:34.596594+00:00"
+    },
+    "gplaces_ChIJ28Bo3xuN2RQRWWPM3_B6u3k": {
+        "relevance_score": 80,
+        "score_reasoning": "Lojistik hizmeti sunduğu için uygun",
+        "classified_at": "2026-08-13T06:10:34.596594+00:00"
+    },
+    "gplaces_ChIJc9ScSgCN2RQRHTFPTGd_y18": {
+        "relevance_score": 80,
+        "score_reasoning": "Lojistik hizmeti sunduğu için uygun",
+        "classified_at": "2026-08-13T06:10:34.596594+00:00"
+    },
+    "gplaces_ChIJu6maaQyN2RQR6-QI2iVhDIM": {
+        "relevance_score": 80,
+        "score_reasoning": "Lojistik hizmeti sunduğu için uygun",
+        "classified_at": "2026-08-13T06:10:34.596594+00:00"
+    },
+    "gplaces_ChIJrZQAvyON2RQR8-R60S0_1-A": {
+        "relevance_score": 40,
+        "score_reasoning": "Otomobil yedek parça mağazası olduğu için kısmen uygun",
+        "classified_at": "2026-08-13T06:10:34.596594+00:00"
+    },
+    "gplaces_ChIJqy96zLb7hEAR_kxkqlci1J0": {
+        "relevance_score": 20,
+        "score_reasoning": "Otomobil yedek parça mağazası olduğu için az uygun",
+        "classified_at": "2026-08-13T06:10:34.596594+00:00"
+    },
+    "gplaces_ChIJl0qnag36hEAR1YM_3o2ZgtE": {
+        "relevance_score": 20,
+        "score_reasoning": "Otomobil yedek parça mağazası olduğu için az uygun",
+        "classified_at": "2026-08-13T06:10:34.596594+00:00"
+    },
+    "gplaces_ChIJJS6yWIlD7hEAR6KbxPWn_MAY": {
+        "relevance_score": 20,
+        "score_reasoning": "Otomobil yedek parça mağazası olduğu için az uygun",
+        "classified_at": "2026-08-13T06:10:34.596594+00:00"
+    },
+    "gplaces_ChIJYwknq5P7hEARaUKo_U9-Xpw": {
+        "relevance_score": 40,
+        "score_reasoning": "Araç bakım ve onarım hizmeti sunduğu için kısmen uygun",
+        "classified_at": "2026-08-13T06:10:34.596594+00:00"
+    },
+    "gplaces_ChIJtQ4QX6_7hEARDVLszmx66xA": {
+        "relevance_score": 20,
+        "score_reasoning": "Otomobil yedek parça mağazası olduğu için az uygun",
+        "classified_at": "2026-08-13T06:10:34.596594+00:00"
+    },
+    "gplaces_ChIJg3PLvO_7hEARWMfJcgj-FdE": {
+        "relevance_score": 60,
+        "score_reasoning": "Kamyon bayii ve yetkili servisi olduğu için uygun",
+        "classified_at": "2026-08-13T06:10:34.596594+00:00"
+    },
+    "gplaces_ChIJ13NfOUNJhEARM_WI3HxVkNQ": {
+        "relevance_score": 40,
+        "score_reasoning": "Araç bakım ve onarım hizmeti sunduğu için kısmen uygun",
+        "classified_at": "2026-08-13T06:10:34.596594+00:00"
+    },
+    "gplaces_ChIJke1-U5n7hEARqb3IoToPn0w": {
+        "relevance_score": 40,
+        "score_reasoning": "Araç bakım ve onarım hizmeti sunduğu için kısmen uygun",
+        "classified_at": "2026-08-13T06:10:34.596594+00:00"
+    },
+    "gplaces_ChIJKb5MQrv7hEARcZSwjvgy0EY": {
+        "relevance_score": 60,
+        "score_reasoning": "Lojistik hizmeti sunduğu için uygun",
+        "classified_at": "2026-08-13T06:10:34.596594+00:00"
+    },
+    "gplaces_ChIJue8oSf76hEARuBzMOeQMhwU": {
+        "relevance_score": 60,
+        "score_reasoning": "Lojistik hizmeti sunduğu için uygun",
+        "classified_at": "2026-08-13T06:10:34.596594+00:00"
+    },
+    "gplaces_ChIJbYH-ccH7hEARDmzbZEe4Gog": {
+        "relevance_score": 0,
+        "score_reasoning": "Hizmetler kategorisinde olmakla birlikte lojistik veya oto yedek parça hizmeti sunmadığı için hedef dışı",
+        "classified_at": "2026-08-13T06:10:34.596594+00:00"
+    },
+    "gplaces_ChIJxVFkamT7hEARhQ9bSP8u6EA": {
+        "relevance_score": 20,
+        "score_reasoning": "Otomobil yedek parça mağazası olduğu için az uygun",
+        "classified_at": "2026-08-13T06:10:34.596594+00:00"
+    },
+    "gplaces_ChIJc6awZBvfgUARzgKUZA05VE8": {
+        "relevance_score": 20,
+        "score_reasoning": "Otomobil yedek parça mağazası olduğu için az uygun",
+        "classified_at": "2026-08-13T06:10:34.596594+00:00"
+    },
+    "gplaces_ChIJL-k69yjfgUARaBDnjXHNixk": {
+        "relevance_score": 20,
+        "score_reasoning": "Otomobil yedek parça mağazası olduğu için az uygun",
+        "classified_at": "2026-08-13T06:10:34.596594+00:00"
     }
 }
