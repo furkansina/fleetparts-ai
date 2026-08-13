@@ -1,12 +1,12 @@
 {
   "date": "2026-08-13",
   "customer": {
-    "total_tokens": 16472,
+    "total_tokens": 15939,
     "call_count": 5
   },
   "bulk": {
-    "total_tokens": 21563,
-    "call_count": 7
+    "total_tokens": 18092,
+    "call_count": 6
   },
   "customer2": {
     "total_tokens": 0,
