@@ -69,6 +69,7 @@
 <div class="container">
     <h1>Lead İnceleme 🔎</h1>
     <p class="subtitle">Keşfedilen firmalar — otomatik mesaj gönderilmez, bu bir arama/ziyaret listesidir.</p>
+    <div id="backupWarning"></div>
     <div id="usageBadge" style="text-align:center; font-size:12px; color:#888; margin-bottom:14px;"></div>
 
     <div class="toolbar">
@@ -710,6 +711,22 @@
         return `${label}: <b style="color:${color}">%${pool.percent_used}</b> (${pool.total_tokens.toLocaleString('tr-TR')} / 200.000 token)`;
     }
 
+    // lead_reviews.json/lead_ai_scores.json/lead_product_scores.json (bu sayfadaki durum
+    // güncellemeleri, AI netleştirme sonuçları) ve outreach.json (WhatsApp kişi listesi) GitHub'a
+    // yedeklenemezse, Render'ın diski her yeniden deploy'da sıfırlandığı için o güne kadarki TÜM
+    // ilerleme sessizce kaybolabilir. Üst üste 3+ başarısızlıkta burada net bir uyarı gösteriliyor.
+    function renderBackupWarning(statuses) {
+        const el = document.getElementById('backupWarning');
+        if (!el) return;
+        const problems = statuses.filter(s => s.status && s.status.consecutive_failures >= 3);
+        if (problems.length === 0) { el.innerHTML = ''; return; }
+        el.innerHTML = problems.map(p => `
+            <div style="background:#f8d7da; border:1px solid #d9534f; border-radius:6px; padding:10px 14px; margin-bottom:10px; font-size:13.5px;">
+                <b>⚠️ ${p.label} GitHub'a Yedeklenemiyor</b> — son ${p.status.consecutive_failures} denemedir başarısız. Sunucu yeniden başlarsa o ana kadarki yeni veriler kaybolabilir.
+                ${p.status.last_error ? `<br><span style="color:#721c24; font-size:12px;">Sebep: ${esc(p.status.last_error)}</span>` : ''}
+            </div>`).join('');
+    }
+
     async function loadUsageBadge() {
         try {
             const res = await fetch('/usage');
@@ -718,6 +735,10 @@
             // Müşteri arama ve katalog taraması (toplu işlem) ayrı hesap/kota kullanır - karışmasınlar diye ayrı gösteriliyor
             const thirdBadge = (u.customer2 && u.customer2.call_count > 0) ? ` &nbsp;·&nbsp; ${poolBadgeHtml('Müşteri Arama (Yedek)', u.customer2)}` : '';
             el.innerHTML = `⚡ ${poolBadgeHtml('Müşteri Arama', u.customer)} &nbsp;·&nbsp; ${poolBadgeHtml('Katalog Tarama', u.bulk)}${thirdBadge}`;
+            renderBackupWarning([
+                { label: 'Lead Verileri', status: u.lead_store_backup_status },
+                { label: 'Kişi Listesi', status: u.contacts_backup_status },
+            ]);
         } catch (err) { /* sessizce geç, kritik değil */ }
     }
 
