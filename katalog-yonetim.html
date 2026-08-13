@@ -33,6 +33,12 @@
         .badge-stock.zero { background: #f8d7da; color: #721c24; }
         .badge-price { background: #fff3cd; color: #856404; font-weight: bold; }
 
+        .kv-list { list-style: none; margin: 10px 0; padding: 0; }
+        .kv-list li { padding: 6px 0; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; gap: 10px; }
+        .kv-list li:last-child { border-bottom: none; }
+        .kv-list .k { color: #666; }
+        .kv-list .v { font-weight: 600; text-align: right; }
+
         .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; margin-top: 10px; }
         .catalog-item { background: white; border: 1px solid #e2e2e2; border-radius: 8px; padding: 14px; box-shadow: 0 2px 4px rgba(0,0,0,0.04); }
         .catalog-item h4 { margin: 0 0 6px 0; font-size: 15.5px; }
@@ -75,6 +81,17 @@
     <div class="section">
         <h3>Yüklenmiş Kataloglar</h3>
         <div id="catalogSourcesList"><span class="placeholder">Yükleniyor...</span></div>
+    </div>
+
+    <div class="section">
+        <h3>🔍 Kaçırılan Talepler</h3>
+        <div style="color:#666; font-size:13px; margin-bottom:8px;">
+            Bir müşteri (fotoğrafla ya da yazarak) bir parça sorduğunda katalogda karşılığı
+            bulunamazsa burada kaydedilir - hiçbir kimlik/telefon tutulmaz, sadece ne arandığı.
+            Aynı ürün tekrar tekrar soruluyorsa, bu kataloğa eklenmesi gereken bir ürün olabilir.
+        </div>
+        <button class="btn-blue" onclick="loadMissedSearches()">Kaçırılan Talepleri Göster</button>
+        <div id="missedSearchesOutput" style="margin-top:12px;"></div>
     </div>
 
     <div class="section">
@@ -406,6 +423,33 @@
         renderUploadResult(result);
     });
 
+    async function loadMissedSearches() {
+        const el = document.getElementById('missedSearchesOutput');
+        el.innerHTML = '<div class="loading">Yükleniyor<span class="dots"></span></div>';
+        try {
+            const data = await fetchJson('/missed-searches-data');
+            if (!data.total_missed) {
+                el.innerHTML = '<div class="placeholder">Henüz kaydedilmiş kaçırılan talep yok.</div>';
+                return;
+            }
+            const topHtml = data.top_categories.length ? `
+                <div style="font-weight:bold; margin-bottom:6px;">En çok sorulup bulunamayanlar:</div>
+                <ul class="kv-list">
+                    ${data.top_categories.map(t => `<li><span class="k">${esc(t.label)}</span><span class="v">${t.count} kez</span></li>`).join('')}
+                </ul>
+            ` : '';
+            const recentHtml = data.recent.length ? `
+                <div style="font-weight:bold; margin:14px 0 6px;">Son aramalar:</div>
+                <ul class="kv-list">
+                    ${data.recent.map(r => `<li><span class="k">${r.search_type === 'photo' ? '📷' : '⌨️'} ${esc(r.query_text)}</span><span class="v" style="font-size:11px; color:#999;">${esc((r.timestamp || '').slice(0, 16).replace('T', ' '))}</span></li>`).join('')}
+                </ul>
+            ` : '';
+            el.innerHTML = `<div class="card"><div class="card-title">Toplam ${data.total_missed} kaçırılan arama</div>${topHtml}${recentHtml}</div>`;
+        } catch (err) {
+            el.innerHTML = `<div class="card err">${esc(err.message || String(err))}</div>`;
+        }
+    }
+
     function poolBadgeHtml(label, pool) {
         if (!pool) return '';
         // real_remaining_tokens (varsa) Groq'un GERÇEK kalan kotası - kendi tahminimiz (budget/
@@ -444,6 +488,7 @@
                 { label: 'Katalog', status: u.backup_status },
                 { label: 'Kişi Listesi', status: u.contacts_backup_status },
                 { label: 'Lead Verileri', status: u.lead_store_backup_status },
+                { label: 'Kaçırılan Talepler', status: u.missed_search_backup_status },
             ]);
         } catch (err) { /* sessizce geç, kritik değil */ }
     }
