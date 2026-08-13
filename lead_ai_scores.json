@@ -3773,5 +3773,105 @@
         "relevance_score": 30,
         "score_reasoning": "VW, Skoda, Seat, Audi gibi binek araç markalarına odaklıdır. Ağır vasıta odağı yoktur.",
         "classified_at": "2026-08-13T07:24:46.753168+00:00"
+    },
+    "gplaces_ChIJ451Ny8n7yhQRTUSHQIph4OU": {
+        "relevance_score": 20,
+        "score_reasoning": "\"Otomotiv Yedek Parça\" kategorisi hafif vasıta odaklıdır. Adında ağır vasıta belirtici (TIR, ağır vasıta, filial vb.) bulunmamaktadır.",
+        "classified_at": "2026-08-13T07:25:10.010415+00:00"
+    },
+    "gplaces_ChIJM5D7HmP7yhQRxMfevHbC5aI": {
+        "relevance_score": 20,
+        "score_reasoning": "\"Otomotiv Yedek Parça\" kategorisi hafif vasıta odaklıdır. FORDEXTRA ismi genellikle otomobil sektörüne benzemektedir.",
+        "classified_at": "2026-08-13T07:25:10.010415+00:00"
+    },
+    "gplaces_ChIJQWnoFuf7yhQRe_HQbAomRNY": {
+        "relevance_score": 20,
+        "score_reasoning": "\"Otomotiv Yedek Parça\" kategorisi hafif vasıta odaklıdır. Alışılmış bir otomobil parçacısı yapısıdır.",
+        "classified_at": "2026-08-13T07:25:10.010415+00:00"
+    },
+    "gplaces_ChIJ1xrRFeP6yhQRPUFgx-2SMFE": {
+        "relevance_score": 10,
+        "score_reasoning": "Opel/Chevrolet özel parçacısıdır. Ağır vasıta (kamyon/TIR) ile ilgisi yoktur, hedef dışıdır.",
+        "classified_at": "2026-08-13T07:25:10.010415+00:00"
+    },
+    "gplaces_ChIJbTnz6oPFkYsRSZoozLreGds": {
+        "relevance_score": 10,
+        "score_reasoning": "Audi/Skoda/Seat/VW (VAG grubu) özel parçacısıdır. Ağır vasıta ile ilgisi yoktur, hedef dışıdır.",
+        "classified_at": "2026-08-13T07:25:10.010415+00:00"
+    },
+    "gplaces_ChIJdY7nh6cWyhQR71A81E1ic4Q": {
+        "relevance_score": 20,
+        "score_reasoning": "\"Otomotiv Yedek Parça\" kategorisi hafif vasıta odaklıdır. ASR Otomotiv genelde otomobil odaklıdır.",
+        "classified_at": "2026-08-13T07:25:10.010415+00:00"
+    },
+    "gplaces_ChIJZbHl0nN3SwwRWbl3KSrwm88": {
+        "relevance_score": 30,
+        "score_reasoning": "Kategori \"Hizmetler\" ve isim \"Dorse\" içeriyor. Dorse üreticisi veya satıcısı olabilir, doğrudan ağır vasıta parçası toptancısı olmayabilir ancak filo yönetimi veya yedek parça ihtiyacı olabilir. Düşük potansiyel.",
+        "classified_at": "2026-08-13T07:25:10.010415+00:00"
+    },
+    "gplaces_ChIJK_q4HgDjyhQRwdimzrMOl_k": {
+        "relevance_score": 45,
+        "score_reasoning": "Nakliye firmasıdır. Kendi filosu (kamyonlar) olabilir. Doğrudan alıcı profilindedir ancak toptancı değil, son kullanıcı/filo operatörüdir. Orta potansiyel.",
+        "classified_at": "2026-08-13T07:25:10.010415+00:00"
+    },
+    "gplaces_ChIJm1TXwM_7yhQRd77aDQdgrIY": {
+        "relevance_score": 35,
+        "score_reasoning": "Kurye hizmeti olarak geçer. Muhtemelen motosiklet veya hafif ticari araç filosu vardır. Ağır vasıta TIR filosu olma ihtimali düşüktür.",
+        "classified_at": "2026-08-13T07:25:10.010415+00:00"
+    },
+    "gplaces_ChIJB9iDkkFlZkARfQbhNkGnVGk": {
+        "relevance_score": 20,
+        "score_reasoning": "\"Otomotiv Yedek Parça\" kategorisi hafif vasıta odaklıdır. Rize lokasyonu ağır vasıta trafiği açısından düşük potansiyel sahiptir.",
+        "classified_at": "2026-08-13T07:25:10.010415+00:00"
+    },
+    "gplaces_ChIJN-btDM97ZkARWV1vaGqsJ8M": {
+        "relevance_score": 10,
+        "score_reasoning": "Renault/Dacia özel servis ve parçasıdır. Otomobil odaklıdır, ağır vasıta ile ilgisi yoktur.",
+        "classified_at": "2026-08-13T07:25:10.010415+00:00"
+    },
+    "gplaces_ChIJDfdtEDB7ZkAR_dPLtuNB_fU": {
+        "relevance_score": 20,
+        "score_reasoning": "\"Otomotiv Yedek Parça\" kategorisi hafif vasıta odaklıdır. Genel amaçlı otomobil parçacısıdır.",
+        "classified_at": "2026-08-13T07:25:10.010415+00:00"
+    },
+    "gplaces_ChIJvVScKHa_Z0ARVWxR5_pdDdY": {
+        "relevance_score": 20,
+        "score_reasoning": "\"Otomobil Yedek Parça\" olarak etiketlenmiştir. Hafif vasıta odaklıdır.",
+        "classified_at": "2026-08-13T07:25:10.010415+00:00"
+    },
+    "gplaces_ChIJO-QR6EFlZkAR-XNU6eslEpg": {
+        "relevance_score": 5,
+        "score_reasoning": "Dekorasyon (otoban, iç mekan) odaklıdır. Parça satışı ana odağı değildir ve ağır vasıta ile alakası yoktur.",
+        "classified_at": "2026-08-13T07:25:10.010415+00:00"
+    },
+    "gplaces_ChIJe4VDoUFlZkARgCFBj9AlX1g": {
+        "relevance_score": 10,
+        "score_reasoning": "Renault/Dacia özel servis ve parçasıdır. Otomobil odaklıdır, ağır vasıta ile ilgisi yoktur.",
+        "classified_at": "2026-08-13T07:25:10.010415+00:00"
+    },
+    "gplaces_ChIJtXTeJa97ZkARgpQUisvGGfs": {
+        "relevance_score": 85,
+        "score_reasoning": "İsminde \"TIR AKSESUAR\" ve \"DORSE\" geçmektedir. Doğrudan ağır vasıta sektöründe ve ilgili parça/aksesuar satışı yapan bir iş yeridir. Yüksek potansiyel.",
+        "classified_at": "2026-08-13T07:25:10.010415+00:00"
+    },
+    "gplaces_ChIJFVk2eXVlZkARn4NsEL7tux4": {
+        "relevance_score": 45,
+        "score_reasoning": "Taşımacılık firmasıdır. Kendi filosu (kamyonlar) olabilir. Doğrudan alıcı profilindedir ancak toptancı değil, son kullanıcı/filo operatörüdür.",
+        "classified_at": "2026-08-13T07:25:10.010415+00:00"
+    },
+    "gplaces_ChIJq6qq2ul6ZkARSSGsxn3ambg": {
+        "relevance_score": 30,
+        "score_reasoning": "Kategorisi \"Oto Yedek Parça\" ama adı \"Piramit Lojistik\". Hem taşımacılık hem parçacılık yapabilirler veya isim yanıltıcıdır. Karışık profil, düşük orta potansiyel.",
+        "classified_at": "2026-08-13T07:25:10.010415+00:00"
+    },
+    "gplaces_ChIJqeA00b9_yBQRd2Sd2lOv-P0": {
+        "relevance_score": 20,
+        "score_reasoning": "\"Otomotiv Yedek Parça\" kategorisi hafif vasıta odaklıdır. Uşak lokasyonunda genel amaçlı otomobil parçacısıdır.",
+        "classified_at": "2026-08-13T07:25:10.010415+00:00"
+    },
+    "gplaces_ChIJXb3O0o5_yBQRv-gXnt029Qk": {
+        "relevance_score": 10,
+        "score_reasoning": "Japon (otybil) yedek parça ve madeni yağçıdır. Ağır vasıta parçası satışı ana odakları değildir.",
+        "classified_at": "2026-08-13T07:25:10.010415+00:00"
     }
 }
