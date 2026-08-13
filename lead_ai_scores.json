@@ -3178,5 +3178,105 @@
         "relevance_score": 20,
         "score_reasoning": "Araç bakım ve onarım hizmeti sunan bir firmanın ağır vasıta yedek parça toptancısı olması muhtemel görülmediği için düşük skor verildi",
         "classified_at": "2026-08-13T06:06:38.093344+00:00"
+    },
+    "gplaces_ChIJ8RGnmKgRMxURziSSjNBGxjY": {
+        "relevance_score": 80,
+        "score_reasoning": "Firma ismi ve kategorisi itibariyle oto yedek parça üretimi yapıyor gibi görünüyor, bu nedenle ağır vasıta yedek parça toptan satıcısı ile ilgisi olabilir",
+        "classified_at": "2026-08-13T06:06:44.894954+00:00"
+    },
+    "gplaces_ChIJRzdUrPHoKRUR6eoMoFiA7xA": {
+        "relevance_score": 20,
+        "score_reasoning": "Firma araba servisi ve yedek parça satışı yapıyor, ancak ağır vasıta yedek parçaları ile ilgili bir bilgi yok",
+        "classified_at": "2026-08-13T06:06:44.894954+00:00"
+    },
+    "gplaces_ChIJy-KVFYbpKRURboVSK4rk9UE": {
+        "relevance_score": 40,
+        "score_reasoning": "Firma treyler ve damper ile ilgili çalışıyor, ancak oto yedek parça toptancılığı ile ilgili明确 bir bilgi yok",
+        "classified_at": "2026-08-13T06:06:44.894954+00:00"
+    },
+    "gplaces_ChIJhxVD47gtnUARCUP7VJOiGgA": {
+        "relevance_score": 30,
+        "score_reasoning": "Firma dorse tamir ve bakım servisi yapıyor, ancak ağır vasıta yedek parça satışı ile ilgili bir bilgi yok",
+        "classified_at": "2026-08-13T06:06:44.894954+00:00"
+    },
+    "gplaces_ChIJ074kBgDnKRURDm-Ox_jbEFw": {
+        "relevance_score": 60,
+        "score_reasoning": "Firma nakliye ve lojistik hizmeti veriyor, bu nedenle kendi filosuna sahip olabilir ve ağır vasıta yedek parça alma ihtimali var",
+        "classified_at": "2026-08-13T06:06:44.894954+00:00"
+    },
+    "gplaces_ChIJnWDhE0_pKRURlw1JH5qzMCg": {
+        "relevance_score": 10,
+        "score_reasoning": "Firma lojistik hizmeti veriyor, ancakoto yedek parça satışı ile ilgili bir bilgi yok ve ağır vasıta yedek parça alma ihtimali düşük görünüyor",
+        "classified_at": "2026-08-13T06:06:44.894954+00:00"
+    },
+    "gplaces_ChIJG_W2YVDpKRURuynKuFHIc_U": {
+        "relevance_score": 10,
+        "score_reasoning": "Firma oto kurtarma ve yol yardımı hizmeti veriyor, ancakoto yedek parça satışı ile ilgili bir bilgi yok ve ağır vasıta yedek parça alma ihtimali düşük görünüyor",
+        "classified_at": "2026-08-13T06:06:44.894954+00:00"
+    },
+    "gplaces_ChIJJeFzZddVg0ARmBhps1Ltii0": {
+        "relevance_score": 70,
+        "score_reasoning": "Firma oto yedek parça satışı yapıyor, bu nedenle ağır vasıta yedek parça toptan satıcısı ile ilgisi olabilir",
+        "classified_at": "2026-08-13T06:06:44.894954+00:00"
+    },
+    "gplaces_ChIJr8cXqhpTg0ARAeVnx1AlQ2w": {
+        "relevance_score": 70,
+        "score_reasoning": "Firma oto yedek parça satışı yapıyor, bu nedenle ağır vasıta yedek parça toptan satıcısı ile ilgisi olabilir",
+        "classified_at": "2026-08-13T06:06:44.894954+00:00"
+    },
+    "gplaces_ChIJ76jHs7SsnEARUj0bSLiA1uo": {
+        "relevance_score": 40,
+        "score_reasoning": "Firma araç bakım ve onarımı hizmeti veriyor, ancakoto yedek parça satışı ile ilgili bir bilgi yok",
+        "classified_at": "2026-08-13T06:06:44.894954+00:00"
+    },
+    "gplaces_ChIJ22vcwSqrnEARBIvJgWQZvaA": {
+        "relevance_score": 20,
+        "score_reasoning": "Firma arabaservis ve yedek parça satışı yapıyor, ancak ağır vasıta yedek parçaları ile ilgili bir bilgi yok",
+        "classified_at": "2026-08-13T06:06:44.894954+00:00"
+    },
+    "gplaces_ChIJ7ztPeudVg0ARVOQjZN7hPjg": {
+        "relevance_score": 60,
+        "score_reasoning": "Firma nakliye hizmeti veriyor, bu nedenle kendi filosuna sahip olabilir ve ağır vasıta yedek parça alma ihtimali var",
+        "classified_at": "2026-08-13T06:06:44.894954+00:00"
+    },
+    "gplaces_ChIJDYq2GAKrnEARQQGWkQBhIf8": {
+        "relevance_score": 50,
+        "score_reasoning": "Firma nakliye hizmeti veriyor, ancak firmaların büyük kısmı tır veya kamyon filosu ile değil, diğer araç tipleri ile çalışıyor",
+        "classified_at": "2026-08-13T06:06:44.894954+00:00"
+    },
+    "gplaces_ChIJIwOEtDCtnEAR5BOnrqFf5aQ": {
+        "relevance_score": 80,
+        "score_reasoning": "Firma lojistik satış hizmeti veriyor ve oto yedek parça satışı yapıyor, bu nedenle ağır vasıta yedek parça toptan satıcısı ile ilgisi olabilir",
+        "classified_at": "2026-08-13T06:06:44.894954+00:00"
+    },
+    "gplaces_ChIJHWCySxytnEARyWU0HwGnauc": {
+        "relevance_score": 50,
+        "score_reasoning": "Firma lojistik hizmeti veriyor, ancakoto yedek parça satışı ile ilgili bir bilgi yok",
+        "classified_at": "2026-08-13T06:06:44.894954+00:00"
+    },
+    "gplaces_ChIJuWsuT9asnEARO8givgVTxf4": {
+        "relevance_score": 10,
+        "score_reasoning": "Firma gıda lojistiği hizmeti veriyor, bu nedenle oto yedek parça satışı ile ilgisi yok",
+        "classified_at": "2026-08-13T06:06:44.894954+00:00"
+    },
+    "gplaces_ChIJcVFHbp9Tg0AR0qwT1MuWBow": {
+        "relevance_score": 50,
+        "score_reasoning": "Firma lojistik hizmeti veriyor, ancakoto yedek parça satışı ile ilgili bir bilgi yok",
+        "classified_at": "2026-08-13T06:06:44.894954+00:00"
+    },
+    "gplaces_ChIJrYvomf1y1RQRAzqr_tmDNHA": {
+        "relevance_score": 70,
+        "score_reasoning": "Firma oto yedek parça satışı yapıyor, bu nedenle ağır vasıta yedek parça toptan satıcısı ile ilgisi olabilir",
+        "classified_at": "2026-08-13T06:06:44.894954+00:00"
+    },
+    "gplaces_ChIJr2o58hJz1RQRaUxq1X_UNe0": {
+        "relevance_score": 70,
+        "score_reasoning": "Firma oto yedek parça satışı yapıyor, bu nedenle ağır vasıta yedek parça toptan satıcısı ile ilgisi olabilir",
+        "classified_at": "2026-08-13T06:06:44.894954+00:00"
+    },
+    "gplaces_ChIJ02OmSnBz1RQRRY1D6tSbrYY": {
+        "relevance_score": 70,
+        "score_reasoning": "Firma oto yedek parça satışı yapıyor, bu nedenle ağır vasıta yedek parça toptan satıcısı ile ilgisi olabilir",
+        "classified_at": "2026-08-13T06:06:44.894954+00:00"
     }
 }
