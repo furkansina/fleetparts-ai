@@ -2773,5 +2773,105 @@
         "relevance_score": 0,
         "score_reasoning": "Treyler ve dorse firması, hedef kitleyle ilgili görünmüyor",
         "classified_at": "2026-08-13T06:01:04.614620+00:00"
+    },
+    "gplaces_ChIJPfUtT6S_D0ARyfyoqPq_FvU": {
+        "relevance_score": 60,
+        "score_reasoning": "Otomobil yedek parça mağazası kategorisinde, ancak ağır vasıta yedek parça satışı yapıp yapmadığı belirsiz.",
+        "classified_at": "2026-08-13T06:01:42.119723+00:00"
+    },
+    "gplaces_ChIJc3TTEe6fnUAR3gzXNcfR9Vc": {
+        "relevance_score": 20,
+        "score_reasoning": "Araç bakım ve onarımı kategorisinde, ağır vasıta yedek parça satışı yapma olasılığı düşük.",
+        "classified_at": "2026-08-13T06:01:42.119723+00:00"
+    },
+    "gplaces_ChIJe23gacGOaUARQUcliQ4C9CI": {
+        "relevance_score": 50,
+        "score_reasoning": "Otomobil yedek parça mağazası kategorisinde, ancak ağır vasıta yedek parça satışı yapıp yapmadığı belirsiz.",
+        "classified_at": "2026-08-13T06:01:42.119723+00:00"
+    },
+    "gplaces_ChIJEZu98CWFaUARxQhAflzaj_Q": {
+        "relevance_score": 50,
+        "score_reasoning": "Otomobil yedek parça mağazası kategorisinde, ancak ağır vasıta yedek parça satışı yapıp yapmadığı belirsiz.",
+        "classified_at": "2026-08-13T06:01:42.119723+00:00"
+    },
+    "gplaces_ChIJMbrIhpSFaUAROWIgQyuVaMg": {
+        "relevance_score": 80,
+        "score_reasoning": "Tır, kamyon ve otobüs servisi kategorisinde, ağır vasıta yedek parça satışı yapma olasılığı yüksek.",
+        "classified_at": "2026-08-13T06:01:42.119723+00:00"
+    },
+    "gplaces_ChIJj6t6wOSPaUARBWk-zOdX9po": {
+        "relevance_score": 70,
+        "score_reasoning": "Oto yedek parça kategorisinde, ayrıca nakliye/lojistik firması olabilir, ağır vasıta yedek parça satışı yapma olasılığı var.",
+        "classified_at": "2026-08-13T06:01:42.119723+00:00"
+    },
+    "gplaces_ChIJ4dpcLynFg0ARHB7Ua0WQOng": {
+        "relevance_score": 60,
+        "score_reasoning": "Otomobil yedek parça mağazası kategorisinde, ancak ağır vasıta yedek parça satışı yapıp yapmadığı belirsiz.",
+        "classified_at": "2026-08-13T06:01:42.119723+00:00"
+    },
+    "gplaces_ChIJlZdxNhufg0ARFiFsnOPfbAo": {
+        "relevance_score": 50,
+        "score_reasoning": "Otomobil yedek parça mağazası kategorisinde, ancak ağır vasıta yedek parça satışı yapıp yapmadığı belirsiz.",
+        "classified_at": "2026-08-13T06:01:42.119723+00:00"
+    },
+    "gplaces_ChIJWY4Sq64Rg0AR_j_fsstRJgg": {
+        "relevance_score": 40,
+        "score_reasoning": "Araç bakım ve onarımı kategorisinde, ağır vasıta yedek parça satışı yapma olasılığı düşük.",
+        "classified_at": "2026-08-13T06:01:42.119723+00:00"
+    },
+    "gplaces_ChIJu2MS-roRg0ARgu0_EYxO198": {
+        "relevance_score": 50,
+        "score_reasoning": "Otomobil yedek parça mağazası kategorisinde, ancak ağır vasıta yedek parça satışı yapıp yapmadığı belirsiz.",
+        "classified_at": "2026-08-13T06:01:42.119723+00:00"
+    },
+    "gplaces_ChIJ2xWSVADFg0ARyVwmwFmFBIU": {
+        "relevance_score": 40,
+        "score_reasoning": "Araç bakım ve onarımı kategorisinde, ağır vasıta yedek parça satışı yapma olasılığı düşük.",
+        "classified_at": "2026-08-13T06:01:42.119723+00:00"
+    },
+    "gplaces_ChIJRcM_eiWduRQRFKXwk085KdY": {
+        "relevance_score": 80,
+        "score_reasoning": "Tır, dorse, treyler tamir servisi kategorisinde, ağır vasıta yedek parça satışı yapma olasılığı yüksek.",
+        "classified_at": "2026-08-13T06:01:42.119723+00:00"
+    },
+    "gplaces_ChIJ37QmWGCzzBQRLEo-csfC25E": {
+        "relevance_score": 80,
+        "score_reasoning": "Dorse, tır tamir servisi kategorisinde, ağır vasıta yedek parça satışı yapma olasılığı yüksek.",
+        "classified_at": "2026-08-13T06:01:42.119723+00:00"
+    },
+    "gplaces_ChIJ5_XcX9fFg0AR0jlPH2ouEyo": {
+        "relevance_score": 90,
+        "score_reasoning": "Çankırı oto ağır vasıta, webasto, kamyon, tır, otobüs tamiri yapacağından ağır vasıta yedek parça satışı yapma olasılığı çok yüksek.",
+        "classified_at": "2026-08-13T06:01:42.119723+00:00"
+    },
+    "gplaces_ChIJ40KAFXafg0ARfPrAOCJnAxU": {
+        "relevance_score": 40,
+        "score_reasoning": "Araç bakım ve onarımı kategorisinde, ağır vasıta yedek parça satışı yapma olasılığı düşük.",
+        "classified_at": "2026-08-13T06:01:42.119723+00:00"
+    },
+    "gplaces_ChIJMWMAFg2FyxQRxcAvqJRUKfg": {
+        "relevance_score": 50,
+        "score_reasoning": "Otomobil yedek parça mağazası kategorisinde, ancak ağır vasıta yedek parça satışı yapıp yapmadığı belirsiz.",
+        "classified_at": "2026-08-13T06:01:42.119723+00:00"
+    },
+    "gplaces_ChIJmeoxmf2FyxQRkQx3rS4OvxY": {
+        "relevance_score": 50,
+        "score_reasoning": "Otomobil yedek parça mağazası kategorisinde, ancak ağır vasıta yedek parça satışı yapıp yapmadığı belirsiz.",
+        "classified_at": "2026-08-13T06:01:42.119723+00:00"
+    },
+    "gplaces_ChIJ0wL-GoXRLxURc-Hz5E_2Lqs": {
+        "relevance_score": 50,
+        "score_reasoning": "Otomobil yedek parça mağazası kategorisinde, ancak ağır vasıta yedek parça satışı yapıp yapmadığı belirsiz.",
+        "classified_at": "2026-08-13T06:01:42.119723+00:00"
+    },
+    "gplaces_ChIJ36sm6NfRLxURYQLWCK-UIQc": {
+        "relevance_score": 50,
+        "score_reasoning": "Otomobil yedek parça mağazası kategorisinde, ancak ağır vasıta yedek parça satışı yapıp yapmadığı belirsiz.",
+        "classified_at": "2026-08-13T06:01:42.119723+00:00"
+    },
+    "gplaces_ChIJ1Thd743RLxURLCEqN7hy_Ko": {
+        "relevance_score": 40,
+        "score_reasoning": "Otomobil yedek parça mağazası kategorisinde, ancak ağır vasıta yedek parça satışı yapıp yapmadığı belirsiz ve daha çok akü satışı yapıyor gibi görünüyor.",
+        "classified_at": "2026-08-13T06:01:42.119723+00:00"
     }
 }
