@@ -102,6 +102,16 @@ def save_lead_reviews(reviews: dict):
         json.dump(reviews, f, ensure_ascii=False, indent=4)
 
 
+# BUG (2026-08-13'te bir kod denetiminde tespit edildi): app.py'deki catalog.json senkronizasyonu
+# ve outreach.py'deki kişi listesi/broadcast log senkronizasyonu kendi _github_sync_status'una
+# sahipken (ve /usage uç noktasında görünür kılınırken), bu üç dosyanın (lead_reviews,
+# lead_ai_scores, lead_product_scores) senkronizasyon hataları SADECE print() ile konsola
+# yazılıyordu - hiçbir yerde görünür değildi. GitHub token süresi dolarsa/kalıcı bir 409 olursa,
+# yüzlerce lead durum güncellemesi/AI netleştirmesi sadece Render'ın geçici diskinde kalır, bir
+# sonraki deploy'da sessizce kaybolur, kimse fark edemez. Artık aynı desenle görünür kılınıyor.
+_github_sync_status = {"last_error": None, "last_success_at": None, "consecutive_failures": 0}
+
+
 def _sync_json_file_to_github(filename: str, message: str):
     """Verilen dosyayı GitHub'a yedekler; Render diski her deploy'da sıfırlandığı için
     kalıcılık böyle sağlanır (catalog.json ile aynı desen).
@@ -114,6 +124,8 @@ def _sync_json_file_to_github(filename: str, message: str):
     veri kaybına yol açabiliyordu (2026-08-11'de ürün bazlı sınıflandırmada bu şüpheyle tespit
     edildi). Artık 409'da sha'yı yeniden alıp PUT'u birkaç kez tekrar dener."""
     if not GITHUB_TOKEN or not GITHUB_REPO:
+        _github_sync_status["last_error"] = "GITHUB_TOKEN veya GITHUB_REPO tanımlı değil - yedekleme hiç aktif değil."
+        _github_sync_status["consecutive_failures"] += 1
         return
     api_url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{filename}"
     headers = {"Authorization": f"Bearer {GITHUB_TOKEN}", "Accept": "application/vnd.github+json"}
@@ -131,10 +143,15 @@ def _sync_json_file_to_github(filename: str, message: str):
                 body["sha"] = sha
             put_res = requests.put(api_url, headers=headers, json=body, timeout=15)
             if put_res.status_code in (200, 201):
+                _github_sync_status["last_success_at"] = time.time()
+                _github_sync_status["last_error"] = None
+                _github_sync_status["consecutive_failures"] = 0
                 return
             if put_res.status_code == 409 and attempt < 2:
                 continue  # baska bir surec araya girdi - sha'yi yeniden al ve tekrar dene
             print(f"  [lead_store] {filename} GitHub'a yazilamadi (HTTP {put_res.status_code}): {put_res.text[:200]}")
+            _github_sync_status["last_error"] = f"{filename} GitHub'a yazılamadı (HTTP {put_res.status_code}): {put_res.text[:200]}"
+            _github_sync_status["consecutive_failures"] += 1
             return
         except Exception as e:
             print(f"  [lead_store] {filename} GitHub senkronizasyon hatasi (deneme {attempt+1}/3): {e}")
