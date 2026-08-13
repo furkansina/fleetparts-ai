@@ -550,30 +550,39 @@ def call_groq_json(prompt: str, image_path: str = None, use_secondary_model: boo
 # ---------------------------------------------------------
 def vision_agent(image_path: str) -> dict:
     prompt = """
-    Sen ağır vasıta, tır, kamyon, iş makinesi ve otobüslere ait KÜRESEL ÇAPTAKİ TÜM YEDEK PARÇALARI (Fren, Havalı Sistem, Filtreler, Süspansiyon, Sensörler, Dişliler, Valfler, Pompalar vb.) kusursuz tanıyan evrensel bir yapay zeka mühendisisin.
+    Sen ağır vasıta, tır, kamyon, iş makinesi ve otobüslere ait KÜRESEL ÇAPTAKİ TÜM YEDEK PARÇALARI
+    kusursuz tanıyan evrensel bir yapay zeka mühendisisin. Katalogdaki ürünlerin BÜYÜK ÇOĞUNLUĞU
+    KAPORTA/GÖVDE parçaları (çamurluk, tampon, panjur, panjur ızgarası, rüzgarlık, ayna/ayna
+    braketi, basamak/basamak demiri, güneşlik, kapı/kapı eki/kapı kolu, marşpiyel, far/stop/sinyal
+    lambası ve yuvası/çerçevesi, kabin altı/kabin eki, akü kapağı gibi çoğu zaman DÜZ, PARLAK VEYA
+    MAT PLASTİK/SAÇ/METAL, İÇİNDE HİÇ VEYA ÇOK AZ dişli/pin/rekor/elektronik bağlantı barındıran
+    parçalar) - Fren/Hava Sistemi/Filtre/Süspansiyon/Valf/Pompa gibi mekanik parçalar da katalogda
+    var ama AZINLIKTA. BU ÇOK ÖNEMLİ: sade, düz, "boş" görünen bir plastik/saç panel/kapak/braket
+    de PEKALA GERÇEK bir kaporta parçasıdır - sadece dişli/pim/elektronik bağlantı yok diye
+    "parça değil" SANMA, bu tür kaporta parçalarının çoğunda zaten böyle özellikler bulunmaz.
 
-    ÖNCE ŞUNU KONTROL ET: Görselde gerçekten ağır vasıta/kamyon/otobüs/iş makinesi yedek parçası var mı? Görsel bulanık, alakasız (insan, hayvan, belge, ekran görüntüsü, iç mekan vb.) veya boşsa, ya da hiçbir teknik parça özelliği ayırt edilemiyorsa 'is_part_detected' alanını false yap ve diğer alanları boş/null bırak - ASLA görselde olmayan bir parça uydurma.
+    ÖNCE ŞUNU KONTROL ET: Görselde gerçekten ağır vasıta/kamyon/otobüs/iş makinesi yedek parçası var mı? Görsel bulanık, alakasız (insan, hayvan, belge, ekran görüntüsü, iç mekan vb.) veya tamamen boşsa 'is_part_detected' alanını false yap ve diğer alanları boş/null bırak - ASLA görselde olmayan bir parça uydurma. AMA yukarıdaki kaporta/gövde parçası örneklerine benzeyen (basit geometrili, az detaylı) bir nesne görüyorsan bunu KESİNLİKLE "alakasız/anlaşılmaz" diye reddetme - bu tam olarak beklenen görünüm.
 
     Görselde gerçek bir parça varsa, parça ne kadar kirli, paslı, yağlı veya kötü açıyla çekilmiş olursa olsun odaklan ve şu teknik verileri çıkar:
 
     1. OCR Optik Karakter Taraması: Parça üzerindeki döküm yazılarını, OEM numaralarını, silik etiketleri ve seri numaralarını harf harf oku. KARIŞABİLECEK KARAKTERLERE ÖZELLİKLE DİKKAT ET: 0 (sıfır) ile O (harf), 1 (bir) ile I/l (harf), 8 ile B, 5 ile S sık karışır - döküm derinliği, yazı tipi ve çevredeki diğer karakterlerin deseninden hangisi olduğuna dikkatlice karar ver. Bir kod net okunamıyor/yarısı silikse, o kodu ocr_extracted_codes'a EKLEME (yanlış kod eklemek hiç kod eklememekten daha kötüdür).
-    2. Topolojik Mühendislik Haritası: Parçanın rekorlarını, dişli hatve yapılarını, cıvata/montaj delik sayısını, elektrik pin/soketlerini detaylı say.
-    3. Geometrik Sınıflandırma: Parçanın ana kategorisini (Örn: Fren Sistemleri, Hava Valfleri, Filtrasyon, Hidrolik vb.) ve tam adını belirle.
+    2. Topolojik Mühendislik Haritası: Parçanın rekorlarını, dişli hatve yapılarını, cıvata/montaj delik sayısını, elektrik pin/soketlerini detaylı say - bir kaporta/gövde parçasında bunların çoğu/tamamı GERÇEKTEN YOK olabilir, bu alanları boş/"yok" yazmak tamamen normaldir, uydurma bağlantı ekleme.
+    3. Geometrik Sınıflandırma: Parçanın ana kategorisini (Örn: Kaporta/Gövde, Aydınlatma, Ayna, Basamak, Fren Sistemleri, Hava Valfleri, Filtrasyon, Hidrolik vb.) ve tam adını belirle. Sağ/sol (RH/LH, SAĞ/SOL) ayrımı görebiliyorsan MUTLAKA belirt - kaporta parçalarında bu ayrım kritik.
 
     Çıktıyı SADECE ve kesinlikle şu JSON formatında ver:
     {
       "is_part_detected": true,
-      "universal_category": "Fren / Hava Sistemi / Filtre / Süspansiyon / Diğer",
-      "exact_name_classification": "Parçanın Sektörel Net Adı",
+      "universal_category": "Kaporta/Gövde / Aydınlatma / Ayna / Basamak / Fren Sistemleri / Hava Sistemi / Filtre / Süspansiyon / Diğer",
+      "exact_name_classification": "Parçanın Sektörel Net Adı (varsa SAĞ/SOL belirterek)",
       "ocr_extracted_codes": ["Kod1", "Kod2", "Net okunamayan/şüpheli kod yoksa boş liste"],
       "topology_map": {
-        "ports_or_threads": "Rekor, boru veya dişli bağlantı detayları ve sayıları",
-        "electrical_pins_or_sockets": "Elektronik soket, pin veya sensör uçları",
+        "ports_or_threads": "Rekor, boru veya dişli bağlantı detayları ve sayıları - kaporta parçasında genelde yok, o zaman boş bırak",
+        "electrical_pins_or_sockets": "Elektronik soket, pin veya sensör uçları - kaporta parçasında genelde yok, o zaman boş bırak",
         "mounting_holes_and_flanges": "Civata delikleri, kulaklar veya flanş yapısı"
       },
       "geometry_and_material": "Malzeme cinsi (Alüminyum döküm, sac, plastik, balata materyali vb.) ve fiziksel form"
     }
-    Görselde parça tespit edilemediyse SADECE şunu döndür: {"is_part_detected": false}
+    Görselde HİÇBİR nesne/parça yoksa (tamamen boş/alakasız görsel) SADECE şunu döndür: {"is_part_detected": false}
     """
     try:
         return call_groq_json(prompt, image_path)
