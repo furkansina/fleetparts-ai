@@ -3958,5 +3958,105 @@
         "relevance_score": 0,
         "score_reasoning": "Bolu'da, genel otomobili yedek parça. Ağır vasıta odaklılığı yok.",
         "classified_at": "2026-08-13T07:27:23.431452+00:00"
+    },
+    "gplaces_ChIJzz0UNBI_nUARENT7DW00gZI": {
+        "relevance_score": 15,
+        "score_reasoning": "Bağımsız bir oto servis ancak isimde 'ağır vasıta/kamyon' vurgusu yok. Hedef dışı kategori.",
+        "classified_at": "2026-08-13T07:27:46.895742+00:00"
+    },
+    "gplaces_ChIJ_ddoeSM_nUAR28DtrdeXvT8": {
+        "relevance_score": 45,
+        "score_reasoning": "İsimde 'Oto Çıkma Yedek Parça' var ancak kategori 'Kurumsal Ofis' (muhtemelen virgül eksikliği var). İsim genel otomobili işaret ediyor, ağır vasıta-specific değil. Orta seviye potansiyel.",
+        "classified_at": "2026-08-13T07:27:46.895742+00:00"
+    },
+    "gplaces_ChIJQZQIlw8_nUARZOY2bJnuzaI": {
+        "relevance_score": 40,
+        "score_reasoning": "Genel oto yedek parça mağazası. İsimde ağır vasıta belirteci yok. Toptan satıcı potansiyeli düşük.",
+        "classified_at": "2026-08-13T07:27:46.895742+00:00"
+    },
+    "gplaces_ChIJXY4j43E_nUARxKIs-OmZseo": {
+        "relevance_score": 45,
+        "score_reasoning": "Bolu Koç Çıkma Yedek Parça. Koç/Makina olarak algılanabilir veya marka ismi. Kamyon/kamyonet parçaları satabilir. Hedefe kısmen uygun.",
+        "classified_at": "2026-08-13T07:27:46.895742+00:00"
+    },
+    "gplaces_ChIJ5fX8JD0_nUARQyjZkNenJ9k": {
+        "relevance_score": 15,
+        "score_reasoning": "Küçük ölçekli bağımsız oto servis. Hedef kitle dışı.",
+        "classified_at": "2026-08-13T07:27:46.895742+00:00"
+    },
+    "gplaces_ChIJ7Wj5wo05nUARKBmKQlI6MF0": {
+        "relevance_score": 20,
+        "score_reasoning": "Oto elektrik ve parça servisi. İsimde ağır vasıta ifadesi yok. Muhtemelen binek araç odaklı.",
+        "classified_at": "2026-08-13T07:27:46.895742+00:00"
+    },
+    "gplaces_ChIJV7yLfMIsnUAR-cc_p_n_iJE": {
+        "relevance_score": 35,
+        "score_reasoning": "Otomobil yedek parça mağazası. Genel pazarlama potansiyeli var ama ağır vasıta spesifik değil.",
+        "classified_at": "2026-08-13T07:27:46.895742+00:00"
+    },
+    "gplaces_ChIJQe_5OMzVgkAR6yDYxoEmFpg": {
+        "relevance_score": 90,
+        "score_reasoning": "İsimde 'Dizel', 'Tır', 'Kamyon', 'Dorse' geçiyor. Ağır vasıta yedek parça satıcısı. Hedef kitleye uyumluluk çok yüksek.",
+        "classified_at": "2026-08-13T07:27:46.895742+00:00"
+    },
+    "gplaces_ChIJ2cQCkNA_nUARM-pLwcqdZvY": {
+        "relevance_score": 85,
+        "score_reasoning": "İsimde 'Kamyon Özel Servis' geçiyor. Ağır vasıta odaklı bir işletme. Hedef kitleye uyumluluk yüksek.",
+        "classified_at": "2026-08-13T07:27:46.895742+00:00"
+    },
+    "gplaces_ChIJS5YnrBE_nUARuPstGx7vpNc": {
+        "relevance_score": 25,
+        "score_reasoning": "Dorse üreticisi veya nakliye firması. Yedek parça satıcısı değil. Hedef dışı ancak sektör ilişkili.",
+        "classified_at": "2026-08-13T07:27:46.895742+00:00"
+    },
+    "gplaces_ChIJ0V5MM-6fnUARN_7vNlOqVGU": {
+        "relevance_score": 5,
+        "score_reasoning": "TreylerMarket. Treyler parçası satabilir ancak kategori sadece 'Mağaza'. Ağır vasıta (lastik, motor, vites) parçasından ziyade ekipment parçasıdır. Düşük öncelik.",
+        "classified_at": "2026-08-13T07:27:46.895742+00:00"
+    },
+    "gplaces_ChIJDeYG_Wo_nUARMyRTMj8Hd6Y": {
+        "relevance_score": 30,
+        "score_reasoning": "Nakliye firması olabilir. Ancak kategori 'Oto Yedek Parça' olarak tanımlanmış. Eğer toptan satıcıysa hedef içindedir. Belirsizlik nedeniyle orta skor.",
+        "classified_at": "2026-08-13T07:27:46.895742+00:00"
+    },
+    "gplaces_ChIJH90B4lg_nUARx4n84VGdxDg": {
+        "relevance_score": 50,
+        "score_reasoning": "Lojistik firması ismine karşın kategori 'Oto Yedek Parça'. Kayıt hatası olabilir veya parça satan bir lojistik firmasıdır. Belirsizlik nedeniyle orta skor.",
+        "classified_at": "2026-08-13T07:27:46.895742+00:00"
+    },
+    "gplaces_ChIJdyl25ws_nUARzXoXRwVysLw": {
+        "relevance_score": 50,
+        "score_reasoning": "Lojistik firması ismine karşın kategori 'Oto Yedek Parça'. Kayıt hatası olabilir veya parça satan bir lojistik firmasıdır. Belirsizlik nedeniyle orta skor.",
+        "classified_at": "2026-08-13T07:27:46.895742+00:00"
+    },
+    "gplaces_ChIJF7dvp-Q_nUARV6jTohAnnyo": {
+        "relevance_score": 30,
+        "score_reasoning": "Kategori 'Taşımacılık Hizmeti'. Filoları olabilir ancak yedek parça satıcısı değildir. Hedef dışı.",
+        "classified_at": "2026-08-13T07:27:46.895742+00:00"
+    },
+    "gplaces_ChIJIVBFxsc_nUARU59BCauVQQc": {
+        "relevance_score": 50,
+        "score_reasoning": "Lojistik firması ismine karşın kategori 'Oto Yedek Parça'. Kayıt hatası olabilir veya parça satan bir lojistik firmasıdır. Belirsizlik nedeniyle orta skor.",
+        "classified_at": "2026-08-13T07:27:46.895742+00:00"
+    },
+    "gplaces_ChIJPaBLO8Q_nUARDvMg--XGbEA": {
+        "relevance_score": 50,
+        "score_reasoning": "Lojistik firması ismine karşın kategori 'Oto Yedek Parça'. Kayıt hatası olabilir veya parça satan bir lojistik firmasıdır. Belirsizlik nedeniyle orta skor.",
+        "classified_at": "2026-08-13T07:27:46.895742+00:00"
+    },
+    "gplaces_ChIJy3BuGp5v1hQRe5Upp-f5Lf0": {
+        "relevance_score": 30,
+        "score_reasoning": "Otomobil yedek parça mağazası. Ağır vasıta spesifik değil. Hedef dışı.",
+        "classified_at": "2026-08-13T07:27:46.895742+00:00"
+    },
+    "gplaces_ChIJ3bNyTLZv1hQRhoFv25R0eZU": {
+        "relevance_score": 30,
+        "score_reasoning": "Otomobil yedek parça mağazası. Ağır vasıta spesifik değil. Hedef dışı.",
+        "classified_at": "2026-08-13T07:27:46.895742+00:00"
+    },
+    "gplaces_ChIJt4zsxm5x1hQRUwt2wXLGPuE": {
+        "relevance_score": 30,
+        "score_reasoning": "Otomobil yedek parça mağazası. Ağır vasıta spesifik değil. Hedef dışı.",
+        "classified_at": "2026-08-13T07:27:46.895742+00:00"
     }
 }
