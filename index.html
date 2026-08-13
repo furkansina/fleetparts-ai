@@ -217,7 +217,18 @@
                 contactHtml = `<a href="https://wa.me/${WA_NUMBER}?text=${waText}" target="_blank" style="display:block; text-align:center; background:#25D366; color:white; font-weight:bold; padding:12px; border-radius:6px; text-decoration:none; margin-top:12px;">💬 Bu Parça İçin WhatsApp'tan Yazın</a>`;
             }
         } else {
-            kvHtml = `<div class="evidence-box">${esc(matched_product && matched_product.match_reason || 'Eşleşme bulunamadı.')}</div>`;
+            // "Belki bunu arıyorsundur" (2026-08-13'te eklendi): kesin eşleşme bulunamadığında
+            // eskiden müşteri çıplak "Katalogda Yok" görüyordu, AI'nin bildiği en yakın adaylar
+            // hiç gösterilmiyordu. Artık varsa (suggested_candidates), kesin eşleşme OLMADIĞI net
+            // biçimde belirtilerek öneri olarak sunuluyor.
+            const suggested = (matched_product && matched_product.suggested_candidates) || [];
+            const suggestedHtml = suggested.length ? `
+                <div style="margin-top:14px;">
+                    <div style="font-weight:bold; font-size:14px; margin-bottom:8px;">🤔 Belki bunu arıyorsundur (kesin eşleşme değil, en yakın ${suggested.length} öneri):</div>
+                    <div class="catalog-grid">${suggested.map(catalogItemCardHtml).join('')}</div>
+                </div>
+            ` : '';
+            kvHtml = `<div class="evidence-box">${esc(matched_product && matched_product.match_reason || 'Eşleşme bulunamadı.')}</div>${suggestedHtml}`;
         }
 
         out.innerHTML = `
