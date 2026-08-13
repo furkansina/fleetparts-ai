@@ -3273,5 +3273,100 @@
         "relevance_score": 40,
         "score_reasoning": "Otomobil yedek parça mağazası kategorisinde ve ağır vasıta yedek parça sektörüne kısmen uygun görünüyor",
         "classified_at": "2026-08-13T06:00:39.279061+00:00"
+    },
+    "gplaces_ChIJU2YnRfuT2RQRppYtdl8V2o": {
+        "relevance_score": 20,
+        "score_reasoning": "Otomobil yedek parça mağazası, ağır vasıta değil",
+        "classified_at": "2026-08-13T06:00:46.879976+00:00"
+    },
+    "gplaces_ChIJ11eYzLVz1RQRM6FstZv_S5E": {
+        "relevance_score": 70,
+        "score_reasoning": "Nakliye firması, ağır vasıta ile ilgili olabilir",
+        "classified_at": "2026-08-13T06:00:46.879976+00:00"
+    },
+    "gplaces_ChIJc-wIuhyN2RQRtz_nNbIhoqc": {
+        "relevance_score": 10,
+        "score_reasoning": "Otomobil yedek parça mağazası, ağır vasıta değil",
+        "classified_at": "2026-08-13T06:00:46.879976+00:00"
+    },
+    "gplaces_ChIJf8JLgDdz1RQR2E7CqjoAJ-E": {
+        "relevance_score": 10,
+        "score_reasoning": "Otomobil yedek parça mağazası, ağır vasıta değil",
+        "classified_at": "2026-08-13T06:00:46.879976+00:00"
+    },
+    "gplaces_ChIJf37CmhVz1RQRcHhAVRHEx9Y": {
+        "relevance_score": 60,
+        "score_reasoning": "Tır ve dorse ile ilgili hizmet, ağır vasıta ile ilgili olabilir",
+        "classified_at": "2026-08-13T06:00:46.879976+00:00"
+    },
+    "gplaces_ChIJH-672KSN2RQR7Y-1oRwru0I": {
+        "relevance_score": 10,
+        "score_reasoning": "Otomobil yedek parça mağazası, ağır vasıta değil",
+        "classified_at": "2026-08-13T06:00:46.879976+00:00"
+    },
+    "gplaces_ChIJJPVHqqVdz1RQRSkrffyhrtMg": {
+        "relevance_score": 10,
+        "score_reasoning": "Otomobil yedek parça mağazası, ağır vasıta değil",
+        "classified_at": "2026-08-13T06:00:46.879976+00:00"
+    },
+    "gplaces_ChIJJSz0gxlz1RQRHTJxkune1pY": {
+        "relevance_score": 10,
+        "score_reasoning": "Otomobil yedek parça mağazası, ağır vasıta değil",
+        "classified_at": "2026-08-13T06:00:46.879976+00:00"
+    },
+    "gplaces_ChIJRW-Fudtz1RQRveSxYMJc0NI": {
+        "relevance_score": 10,
+        "score_reasoning": "Otomobil yedek parça mağazası, ağır vasıta değil",
+        "classified_at": "2026-08-13T06:00:46.879976+00:00"
+    },
+    "gplaces_ChIJRzqMIf5z1RQR-Uy0kHVHtaE": {
+        "relevance_score": 10,
+        "score_reasoning": "Otomobil yedek parça mağazası, ağır vasıta değil",
+        "classified_at": "2026-08-13T06:00:46.879976+00:00"
+    },
+    "gplaces_ChIJSSz0gxlz1RQRHTJxkune1pY": {
+        "relevance_score": 10,
+        "score_reasoning": "Otomobil yedek parça mağazası, ağır vasıta değil",
+        "classified_at": "2026-08-13T06:00:46.879976+00:00"
+    },
+    "gplaces_ChIJT9gg-EZz1RQRb3yJr_11Mp0": {
+        "relevance_score": 10,
+        "score_reasoning": "Otomobil yedek parça mağazası, ağır vasıta değil",
+        "classified_at": "2026-08-13T06:00:46.879976+00:00"
+    },
+    "gplaces_ChIJV95nU5lz1RQRRPJrDYGQ8q0": {
+        "relevance_score": 10,
+        "score_reasoning": "Otomobil yedek parça mağazası, ağır vasıta değil",
+        "classified_at": "2026-08-13T06:00:46.879976+00:00"
+    },
+    "gplaces_ChIJX95nU5lz1RQRRPJrDYGQ8q0": {
+        "relevance_score": 10,
+        "score_reasoning": "Otomobil yedek parça mağazası, ağır vasıta değil",
+        "classified_at": "2026-08-13T06:00:46.879976+00:00"
+    },
+    "gplaces_ChIJY8WwIf5z1RQR3nT9qtorYQ0": {
+        "relevance_score": 10,
+        "score_reasoning": "Otomobil yedek parça mağazası, ağır vasıta değil",
+        "classified_at": "2026-08-13T06:00:46.879976+00:00"
+    },
+    "gplaces_ChIJZ9gg-EZz1RQRb3yJr_11Mp0": {
+        "relevance_score": 10,
+        "score_reasoning": "Otomobil yedek parça mağazası, ağır vasıta değil",
+        "classified_at": "2026-08-13T06:00:46.879976+00:00"
+    },
+    "gplaces_ChIJsY-uA9qN2RQRhFuMSbaicDE": {
+        "relevance_score": 80,
+        "score_reasoning": "Kamyon, tır servisi ve yedek parça, ağır vasıta ile ilgili",
+        "classified_at": "2026-08-13T06:00:46.879976+00:00"
+    },
+    "gplaces_ChIJVefElm6N2RQRYV3aAFTYseM": {
+        "relevance_score": 10,
+        "score_reasoning": "Otomobil yedek parça mağazası, ağır vasıta değil",
+        "classified_at": "2026-08-13T06:00:46.879976+00:00"
+    },
+    "gplaces_ChIJvWPFJnON2RQRV_aiAUMWtCo": {
+        "relevance_score": 10,
+        "score_reasoning": "Otomobil yedek parça mağazası, ağır vasıta değil",
+        "classified_at": "2026-08-13T06:00:46.879976+00:00"
     }
 }
