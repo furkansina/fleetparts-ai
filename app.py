@@ -719,13 +719,15 @@ def match_agent(vision_data: dict) -> dict:
     2. TOPOLOJİK UYUM: Kod okunamadıysa; parça kategorisi, rekor/delik sayıları ve fiziksel özellikleri katalogdaki ürünlerin 'specs' bilgileriyle kıyaslanır. Uyum oranı hesaplanır.
     3. BELİRSİZLİK: Katalogda birden fazla ürün taranan parçaya benzer derecede uygunsa (aralarında net bir ayrım yapılamıyorsa), bunu kesin bir eşleşme gibi SUNMA - güven skorunu 60'ın altında tut, decision_logic'te hangi ürünler arasında belirsizlik olduğunu belirt VE bu adayların 'id' değerlerinin TAMAMINI 'ambiguous_candidate_ids' listesine yaz (2-6 aday arası, en olası olanlardan başlayarak) - müşteri kendi seçebilsin diye, sen tek bir tahminde bulunmak zorunda değilsin.
     4. Eşleşme skoru %70'in altındaysa (ambiguous_candidate_ids boşsa) kesinlikle yanlış parça riskine girilmez ve 'NOT_IN_CATALOG' döndürülür.
+    5. YAKIN ÖNERİ: Kesin eşleşme bulamasan (NOT_IN_CATALOG olsa) BİLE, yukarıdaki aday listesinden kategori/topoloji/malzeme açısından EN ÇOK BENZEYEN en fazla 4 ürünün id'sini 'closest_candidate_ids' listesine yaz - bunlar kesin eşleşme İDDİASI DEĞİL, müşteriye "kesin değil ama belki bunlardan biridir" diye öneri olarak gösterilecek. Adaylar arasında makul hiçbir benzerlik yoksa (tamamen alakasız kategoriler) boş bırak.
 
     Çıktı SADECE şu JSON yapısında olmalıdır:
     {{
       "matched_id": "katalog_id_yada_NOT_IN_CATALOG",
       "match_accuracy_score": 92,
       "decision_logic": "Neden eşleştiğine dair net teknik mühendislik kanıtı",
-      "ambiguous_candidate_ids": []
+      "ambiguous_candidate_ids": [],
+      "closest_candidate_ids": []
     }}
     """
     try:
@@ -734,6 +736,7 @@ def match_agent(vision_data: dict) -> dict:
         score = int(result.get("match_accuracy_score", 0))
         decision = result.get("decision_logic", "")
         ambiguous_ids = result.get("ambiguous_candidate_ids") or []
+        closest_ids = result.get("closest_candidate_ids") or []
 
         if matched_id and matched_id != "NOT_IN_CATALOG" and score >= 70:
             matches = [item for item in catalog if str(item.get("id")) == str(matched_id)]
@@ -765,11 +768,22 @@ def match_agent(vision_data: dict) -> dict:
                     "candidates": _candidates_payload(amb_matches),
                 }
 
-        return {
+        # ÖNERİ (2026-08-13'te kullanıcı isteğiyle eklendi, "belki bunu arıyorsundur" özelliği):
+        # kesin eşleşme bulunamadığında eskiden müşteri çıplak "Katalogda Yok" görüyordu - oysa AI'a
+        # gönderilen aday listesi zaten fiziksel olarak en yakın ürünleri biliyordu, bu bilgi hiç
+        # kullanılmadan çöpe atılıyordu. Artık AI'nin işaretlediği en yakın adaylar (kesin eşleşme
+        # DEĞİL, sadece öneri) müşteriye gösteriliyor - hiç sonuçsuz kalmak yerine en azından yakın
+        # bir başlangıç noktası sunuluyor.
+        result_payload = {
             "id": "NOT_IN_CATALOG",
             "name": "Katalog Dışı / Eşleşme Sağlanamadı",
             "match_reason": f"Benzerlik skoru (%{score}) yeterli eşik değerinin altında kaldı. Kanıt: {decision}"
         }
+        if closest_ids:
+            closest_matches = [item for item in catalog if str(item.get("id")) in {str(c) for c in closest_ids}]
+            if closest_matches:
+                result_payload["suggested_candidates"] = _candidates_payload(closest_matches[:4])
+        return result_payload
     except Exception as e:
         raise Exception(f"Eşleştirme Motoru Hatası: {str(e)}")
 
@@ -905,12 +919,14 @@ def find_by_text(query: str) -> dict:
     2. Kod uyuşmuyorsa, metindeki marka/parça adı katalogdaki 'name', 'brand' ve 'specs' alanlarıyla anlam olarak kıyaslanır - bu tür isim/açıklama bazlı eşleşmeler net ve tek bir aday varsa yüksek güven alabilir.
     3. BELİRSİZLİK: Katalogda birden fazla ürün yazılan metne benzer derecede uygunsa, kesin bir eşleşme gibi sunma - güven skorunu 60'ın altında tut ve decision_logic'te belirsizliği belirt.
     4. Eşleşme skoru %70'in altındaysa kesinlikle yanlış parça riskine girilmez ve 'NOT_IN_CATALOG' döndürülür.
+    5. YAKIN ÖNERİ: Kesin eşleşme bulamasan (NOT_IN_CATALOG olsa) BİLE, yukarıdaki aday listesinden yazılan metne EN ÇOK BENZEYEN en fazla 4 ürünün id'sini 'closest_candidate_ids' listesine yaz - kesin eşleşme İDDİASI DEĞİL, "kesin değil ama belki bunlardan biridir" diye öneri olarak gösterilecek. Makul hiçbir benzerlik yoksa boş bırak.
 
     Çıktı SADECE şu JSON yapısında olmalıdır:
     {{
       "matched_id": "katalog_id_yada_NOT_IN_CATALOG",
       "match_accuracy_score": 92,
-      "decision_logic": "Neden eşleştiğine dair net teknik mühendislik kanıtı"
+      "decision_logic": "Neden eşleştiğine dair net teknik mühendislik kanıtı",
+      "closest_candidate_ids": []
     }}
     """
     try:
@@ -918,6 +934,7 @@ def find_by_text(query: str) -> dict:
         matched_id = result.get("matched_id")
         score = int(result.get("match_accuracy_score", 0))
         decision = result.get("decision_logic", "")
+        closest_ids = result.get("closest_candidate_ids") or []
 
         if matched_id and matched_id != "NOT_IN_CATALOG" and score >= 70:
             matches = [item for item in catalog if str(item.get("id")) == str(matched_id)]
@@ -933,11 +950,19 @@ def find_by_text(query: str) -> dict:
                 item_copy["match_evidence"] = decision
                 return item_copy
 
-        return {
+        # bkz. match_agent'teki aynı 2026-08-13 notu ("belki bunu arıyorsundur") - metin
+        # aramasında da AI'nin işaretlediği en yakın adaylar artık çöpe atılmıyor, öneri olarak
+        # sunuluyor.
+        result_payload = {
             "id": "NOT_IN_CATALOG",
             "name": "Katalog Dışı / Eşleşme Sağlanamadı",
             "match_reason": f"Benzerlik skoru (%{score}) yeterli eşik değerinin altında kaldı. Kanıt: {decision}"
         }
+        if closest_ids:
+            closest_matches = [item for item in catalog if str(item.get("id")) in {str(c) for c in closest_ids}]
+            if closest_matches:
+                result_payload["suggested_candidates"] = _candidates_payload(closest_matches[:4])
+        return result_payload
     except Exception as e:
         raise Exception(f"Metin Arama Motoru Hatası: {str(e)}")
 
