@@ -2376,6 +2376,25 @@ CLASSIFY_SCORE_MAX = 60
 _RISKY_SELF_REPORTED_SHOP_TYPES = {"directory", "tyres"}
 
 
+def _call_groq_for_lead_classification(prompt: str) -> list:
+    """Lead netleştirme/ürün-uygunluk sınıflandırması için Groq'a JSON dizi isteği atar.
+    ÖNCE özel llama (leads_ai) hesap zincirini dener - müşteriye hiç gösterilmeyen bu iç işler
+    için ayrılmış, qwen'in müşteri kotasına dokunmayan yol. Zincirdeki TÜM hesapların günlük
+    kotası aynı anda dolarsa (2026-08-13'te canlıda gerçekten yaşandı - bizim tahmin ettiğimiz
+    100K token'lık günlük bütçeye rağmen Groq'un gerçek günlük limiti çok daha düşük çıktı,
+    sadece birkaç parti sonra tıkandı ve saatler boyunca açılmadı), qwen'in 'bulk' havuzuna
+    (bugün neredeyse hiç kullanılmamış, boşta duran kapasite) düşülür - bu çıktı SADECE admin'in
+    /leads sayfasında gördüğü bir iç değerlendirme notu, müşteriye hiç gitmediği için qwen'in
+    Türkçe metne nadiren yabancı kelime karıştırma riski burada kabul edilebilir bir ödün (bu
+    risk SADECE müşteriye giden metinlerde - satış mesajı, ürün eşleştirme - kritik)."""
+    try:
+        return call_groq_json_array(prompt, use_secondary_model=True)
+    except Exception as e:
+        if "kotası" in str(e) and "doldu" in str(e):
+            return call_groq_json_array(prompt, pool="bulk", max_output_tokens=6000)
+        raise
+
+
 def _needs_ai_review(lead: dict, ai_scores: dict) -> bool:
     """Modül seviyesinde (closure değil) tutuluyor ki hem endpoint içinde hem izole testlerde
     aynı fonksiyon çağrılabilsin - davranış ile test edilen şey birebir aynı olsun diye."""
@@ -2436,7 +2455,7 @@ def classify_ambiguous_leads(_: str = Depends(require_admin)):
     ]
     """
     try:
-        results = call_groq_json_array(prompt, use_secondary_model=True)  # iç kullanım, müşteriye gösterilmez
+        results = _call_groq_for_lead_classification(prompt)  # iç kullanım, müşteriye gösterilmez
         # Kilit, YALNIZCA asıl oku-değiştir-yaz döngüsünü korur - yukarıdaki yavaş Groq çağrısı
         # kilit DIŞINDA (usage_tracker.record_usage'da bulunup düzeltilen "kilidi ağ çağrısı
         # boyunca tutma" hatasıyla aynı sınıf sorunu burada baştan itibaren önlemek için). Kilit
@@ -2551,7 +2570,7 @@ def classify_leads_for_product(
     ]
     """
     try:
-        results = call_groq_json_array(prompt, use_secondary_model=True)  # iç kullanım, ayrı (llama) kota
+        results = _call_groq_for_lead_classification(prompt)  # iç kullanım, ayrı (llama) kota, tukenirse qwen/bulk'a duser
         # bkz. classify_ambiguous_leads'teki aynı düzeltme notu: kilit sadece oku-değiştir-yaz
         # döngüsünü korur, yavaş Groq çağrısı kilit dışında kalır; product_scores burada tekrar
         # taze okunuyor.
