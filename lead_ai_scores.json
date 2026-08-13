@@ -4203,5 +4203,105 @@
         "relevance_score": 10,
         "score_reasoning": "Araba kiralama şirketi. Muhtemelen hafif ticari veya binek araç filosu var. Ağır vasita (TIR/Kamyon) operatörü olma ihtimali çok düşük. Hedef dışı.",
         "classified_at": "2026-08-13T07:34:14.011632+00:00"
+    },
+    "gplaces_ChIJI1E8M6MtxBQRElvVPqZHhN4": {
+        "relevance_score": 60,
+        "score_reasoning": "Oto yedek parça mağazası olduğu için potansiyel toptan alıcıdır, ancak 'Otomobil' odaklı ismi ağır vasıta ihtiyacını zayıflatır.",
+        "classified_at": "2026-08-13T07:34:38.321804+00:00"
+    },
+    "gplaces_ChIJTeusOtwtxBQRj5XHLuVt2EI": {
+        "relevance_score": 60,
+        "score_reasoning": "Genel bir oto yedek parça satıcısıdır. Ağır vasıta parçası satışı olup olmadığı bilinmemekle birlikte temel hedef kitleye (yatayistributor/perakendeci) dahildir.",
+        "classified_at": "2026-08-13T07:34:38.321804+00:00"
+    },
+    "gplaces_ChIJ8XXMQwktxBQRUNXEmoZR8oo": {
+        "relevance_score": 20,
+        "score_reasoning": "Hedef dışı. Servis, bakım ve tamir odaklıdır; ana faaliyeti perakende satış veya büyük filo işletmeciliği değildir.",
+        "classified_at": "2026-08-13T07:34:38.321804+00:00"
+    },
+    "gplaces_ChIJAxjZc9BAxBQRKNfPKejcKZU": {
+        "relevance_score": 60,
+        "score_reasoning": "Oto yedek parça mağazası statüsünde olup yedek parça perakendecisi/toptancısı potansiyeli taşır.",
+        "classified_at": "2026-08-13T07:34:38.321804+00:00"
+    },
+    "gplaces_ChIJ6UYQcwktxBQRG3KH6FAcusI": {
+        "relevance_score": 40,
+        "score_reasoning": "Sadece 'Ford' üzerinden gidildiğinden geçici araçlar (otomobil) odaklıdır. Bu marka ağır vasıta filolarında çoğunlukta değildir.",
+        "classified_at": "2026-08-13T07:34:38.321804+00:00"
+    },
+    "gplaces_ChIJJYZFdcktxBQRIqQvNpLmXvg": {
+        "relevance_score": 20,
+        "score_reasoning": "Hedef dışı. Elektrik, klima ve tamir hizmetleri ön plandadır, ana iş kolu yedek parça ticareti değil servistir.",
+        "classified_at": "2026-08-13T07:34:38.321804+00:00"
+    },
+    "gplaces_ChIJu9NNRQBBxBQRCdBUo8tecIE": {
+        "relevance_score": 90,
+        "score_reasoning": "Çok yüksek uygunluk. Dormu/dorse tamiri ve alım-satımı, doğrudan ağır vasıta operasyonlarına ve büyük fiylo yönetimine işaret eder; ana hedef kitedir.",
+        "classified_at": "2026-08-13T07:34:38.321804+00:00"
+    },
+    "gplaces_ChIJsZrGVwAtxBQRzUqpUpSxugU": {
+        "relevance_score": 30,
+        "score_reasoning": "Kamyon-Otobüs söylemi ağır vasıtalı olmasına rağmen kategori 'Tamir'dir. Servis statüsü nedeniyle hedef dışı sınıfta değerlendirilir.",
+        "classified_at": "2026-08-13T07:34:38.321804+00:00"
+    },
+    "gplaces_ChIJ3b8zYAktxBQRGtZzriaHDVg": {
+        "relevance_score": 45,
+        "score_reasoning": "İsminde 'Motor İş' olması ağır vasıta motor parçalarını çağrıştırabilir ancak kategori 'Bakım ve Onarımı' olduğu için servis önceliklidir.",
+        "classified_at": "2026-08-13T07:34:38.321804+00:00"
+    },
+    "gplaces_ChIJk5_YmZ-3fUAR3_LRamHu1Iw": {
+        "relevance_score": 60,
+        "score_reasoning": "Oto yedek parça mağazasıdır. Perakende satış yaptığı için toptan tedarikçiye potansiyel alıcıdır.",
+        "classified_at": "2026-08-13T07:34:38.321804+00:00"
+    },
+    "gplaces_ChIJaYbRrmy3fUAR8mMITvY8ml4": {
+        "relevance_score": 60,
+        "score_reasoning": "Oto yedek parça perakendecisidir. Toptan satıcı için standart bir B2B müşteri adayıdır.",
+        "classified_at": "2026-08-13T07:34:38.321804+00:00"
+    },
+    "gplaces_ChIJt5g1fLy3fUARFqRpLZdBSUc": {
+        "relevance_score": 60,
+        "score_reasoning": "Oto yedek parça mağazası kategorisindedir. Satış odaklı olduğu için uygun bir potansiyel müşteridir.",
+        "classified_at": "2026-08-13T07:34:38.321804+00:00"
+    },
+    "gplaces_ChIJSXazwPW3fUARVjnKugcz50c": {
+        "relevance_score": 65,
+        "score_reasoning": "Yedek parça ve madeni yağ satışı bir arada olduğu için filo yöneticileri veya diğer yedek parçacılar için daha geniş bir tedarikçi potansiyeli vardır.",
+        "classified_at": "2026-08-13T07:34:38.321804+00:00"
+    },
+    "gplaces_ChIJlTzZWPW3fUARYgDsli8M5IQ": {
+        "relevance_score": 60,
+        "score_reasoning": "Oto yedek parça mağazası statüsünde olup yedek parça perakende/ticareti amacıyan bir B2B müşteri adayının profiline uyar.",
+        "classified_at": "2026-08-13T07:34:38.321804+00:00"
+    },
+    "gplaces_ChIJVX2clay3fUAR4yP94ykKkcU": {
+        "relevance_score": 40,
+        "score_reasoning": "Garaj (servis) öncelikli, yedek parça ikincil. Genellikle servislerde talaas talebi periyodik ve perakende odaklıdır, büyük toptan alımlar için düşük potansiyel.",
+        "classified_at": "2026-08-13T07:34:38.321804+00:00"
+    },
+    "gplaces_ChIJGXbisz63fUAREOgdDZdyqpo": {
+        "relevance_score": 60,
+        "score_reasoning": "Oto yedek parça mağazasıdır. Perakende satıcılık faaliyetleri nedeniyle toptan tedarikçi için uygun bir hedef kitedir.",
+        "classified_at": "2026-08-13T07:34:38.321804+00:00"
+    },
+    "gplaces_ChIJZSOydgy3fUARLZ2c2FCtHb8": {
+        "relevance_score": 60,
+        "score_reasoning": "Oto Yedek Parça kategorisindedir. Ticari amaçlı satış yaptığı varsayılarak toptan alıcı potansiyeli taşır.",
+        "classified_at": "2026-08-13T07:34:38.321804+00:00"
+    },
+    "gplaces_ChIJO8VNDZK3fUAROYRvPzTqdBU": {
+        "relevance_score": 85,
+        "score_reasoning": "Yüksek uygunluk. İsmi Traktör (iş makinesi/kırsal ağır vasıta) üzerine olup kategori 'Kamyon Bayii' olarak işaretlenmiş. Doçrudan ağır vasıta/iş makinesi yedek parçası ile ilgilenen nadir профиylere sahip bir iş yeridir.",
+        "classified_at": "2026-08-13T07:34:38.321804+00:00"
+    },
+    "gplaces_ChIJVQAN2JHzfEARtkMZa4XN5Os": {
+        "relevance_score": 20,
+        "score_reasoning": "Hedef dışı. Yol yardım ve çekici hizmeti + bakım/onarım. Servis odaklıdır, yedek parça toptancılığı değil.",
+        "classified_at": "2026-08-13T07:34:38.321804+00:00"
+    },
+    "gplaces_ChIJ0-nuWhO3fUARSBrfP1gYBNk": {
+        "relevance_score": 50,
+        "score_reasoning": "Orta uygunluk. İsmi Traktör yedek parçası (ağır vasıta) olduğunu gösterse de kategori 'Otomobil Yedek Parça Mağazası' olarak geçiyor. Karışık profil, ancak isim hedef kitleye (ağır vasıta) daha yakın.",
+        "classified_at": "2026-08-13T07:34:38.321804+00:00"
     }
 }
