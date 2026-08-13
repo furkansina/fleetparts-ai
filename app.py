@@ -1154,6 +1154,12 @@ TAHMİN ETME veya UYDURMA. Görselde/katalogda hiçbir marka adı yazmıyorsa ya
 'brand' alanını kesinlikle boş string ("") bırak - yanlış marka bilgisi vermek boş bırakmaktan
 çok daha kötüdür.
 
+STOK KURALI (ÇOK ÖNEMLİ - 2026-08-13'te eklendi): 'stock' alanına SADECE sayfada AÇIKÇA YAZILI
+OLARAK görünen bir stok/adet sayısı varsa (ör. tabloda "Stok: 12" veya "Adet: 5" gibi bir sütun)
+o sayıyı yaz. Sayfada hiçbir stok bilgisi yazmıyorsa 'stock' alanını kesinlikle null bırak -
+ASLA bir sayı UYDURMA veya TAHMİN ETME (müşteriye "1 adet kaldı" gibi yanlış/uydurma bir stok
+bilgisi göstermek, hiç göstermemekten çok daha kötüdür - tıpkı marka kuralındaki gibi).
+
 SADECE şu JSON yapısında bir DİZİ (array) döndür, başka hiçbir şey yazma:
 [
     {
@@ -1163,7 +1169,7 @@ SADECE şu JSON yapısında bir DİZİ (array) döndür, başka hiçbir şey yaz
         "brand": "SADECE görselde açıkça yazılı olan üretici/marka adı - yoksa/emin değilsen kesinlikle boş string",
         "specs": "Ölçüler, bağlantı tipi, malzeme ve diğer teknik detaylar",
         "price": "Görselde/katalogda AÇIKÇA yazılı fiyat varsa (ör. '₺150,00' veya '150 TL') aynen yaz - yoksa/emin değilsen kesinlikle boş string, ASLA fiyat uydurma",
-        "stock": 25
+        "stock": "SADECE sayfada açıkça yazılı bir stok/adet sayısı varsa o sayı - yoksa/emin değilsen kesinlikle null, ASLA stok uydurma"
     }
 ]
 """
@@ -1199,7 +1205,7 @@ SADECE şu JSON yapısında bir DİZİ döndür, başka hiçbir şey yazma:
         "brand": "SADECE metinde açıkça yazılı üretici/marka adı - yoksa/emin değilsen kesinlikle boş string",
         "specs": "Ölçüler, bağlantı tipi, malzeme ve diğer teknik detaylar",
         "price": "Metinde açıkça yazılı fiyat varsa aynen yaz - yoksa kesinlikle boş string, ASLA fiyat uydurma",
-        "stock": 1
+        "stock": "SADECE metinde açıkça yazılı bir stok/adet sayısı varsa o sayı - yoksa/emin değilsen kesinlikle null, ASLA stok uydurma"
     }}
 ]
 """
@@ -1476,7 +1482,7 @@ def _try_extract_text_table(page_words: list, min_rows: int = 4, min_coverage: f
             "brand": "",
             "specs": "",
             "price": x["price"] or "",
-            "stock": 1,
+            "stock": None,  # bu tablo çıkarımı gerçek stok bilgisi taşımıyor - uydurmak yerine (2026-08-13'te düzeltildi) boş bırakılır
         })
     return result or None
 
@@ -1727,7 +1733,7 @@ def _scan_excel_catalog(filename: str, file_path: str, on_page_done=None) -> lis
                     "brand": "",
                     "specs": "",
                     "price": "",
-                    "stock": 1,
+                    "stock": None,  # Excel'de stok sutunu yok - uydurmak yerine (2026-08-13'te duzeltildi) bos birakilir
                     "source_file": row_label,
                 }
                 if image_name:
