@@ -4153,5 +4153,105 @@
         "relevance_score": 85,
         "score_reasoning": "Firma adi 'Nakliyat Lojistik' ve sektör 'Taşımacilik Hizmeti'. Kendi filolarina sahiplojistik firmasi oldugu icin agir vasita yedek parca ihtiyaci yakin bir kandidattir.",
         "classified_at": "2026-08-13T07:30:57.314407+00:00"
+    },
+    "gplaces_ChIJy_9EqUtv1hQRkWzUIFFJXcM": {
+        "relevance_score": 15,
+        "score_reasoning": "Bu firma bağımsız bir servis/tamircidir. Hedef kitle dışındadır (hedef: toptancılar veya filo sahipleri), ancak ağır vasıta fren sistemleri üzerine uzmanlaşmış olma ihtimali düşük ihtimalli bir erişim fırsatı sunar.",
+        "classified_at": "2026-08-13T07:31:23.545043+00:00"
+    },
+    "gplaces_ChIJ-dV68p5x1hQRwAgTwH-2bEo": {
+        "relevance_score": 10,
+        "score_reasoning": "Bağımsız bir yedek parça satıcısı ve servistir. İsimde 'Bayi' geçse de genel konumu 'Araç Bakım ve Onarımı'. Hedef dışı bir B2C/B2B servis profile sahiptir.",
+        "classified_at": "2026-08-13T07:31:23.545043+00:00"
+    },
+    "gplaces_ChIJV0fLNlBx1hQR6oDrgF_6F9Y": {
+        "relevance_score": 15,
+        "score_reasoning": "Ağır vasıta (TIR/Otobüs) servisi olduğu için hedef sektörle ilgilidir, ancak firma tanımı 'Servis/Satıcı' karışık görünmektedir. Büyük ihtimalle bağımsız tamircidir, bu yüzden hedef dışıdır ancak sektörü doğru olduğu için düşük skor alabilir.",
+        "classified_at": "2026-08-13T07:31:23.545043+00:00"
+    },
+    "gplaces_ChIJW7Nsnlxx1hQRzyxRsvIcqTo": {
+        "relevance_score": 0,
+        "score_reasoning": "Tarım, gübre ve yem sektöründedir. Otomotiv veya ağır vasıta yedek parça ile alakası yoktur. Tamamen hedef dışıdır.",
+        "classified_at": "2026-08-13T07:31:23.545043+00:00"
+    },
+    "gplaces_ChIJt-J2-4lx1hQRoZ0kYYmM9Gw": {
+        "relevance_score": 75,
+        "score_reasoning": "Lojistik firması ofisidir. Lojistik firmaları genellikle kendi filolarını (kamyon/tir) işletirler. Bu da 'kendi filosu olan nakliye/lojistik firmaları' hedef kitesine doğrudan uyar. Yüksek potansiyeldir.",
+        "classified_at": "2026-08-13T07:31:23.545043+00:00"
+    },
+    "gplaces_ChIJRb9sIANx1hQR2Mx_R93OJg0": {
+        "relevance_score": 85,
+        "score_reasoning": "",
+        "classified_at": "2026-08-13T07:31:23.545043+00:00"
+    },
+    "gplaces_ChIJ9db7V8Zv1hQRrCpDKlou4M8": {
+        "relevance_score": 15,
+        "score_reasoning": "Ağır vasıta servisi olduğu için sektörel olarak yakındır ancak hizmet verici bir servis/technic profile sahiptir. Hedef kitle (toptancı veya filo sahibi) ile tam olarak örtüşmez, ancak malzeme tedarikçisi aranmasında hedef dışı bilinmelidir.",
+        "classified_at": "2026-08-13T07:31:23.545043+00:00"
+    },
+    "gplaces_ChIJFRMQlgZx1hQR8jy6r6w3D84": {
+        "relevance_score": 10,
+        "score_reasoning": "Hidrolik ve direksiyon tamiri yapan bağımsız bir servistir. Hedef kitle dışındadır (toptancı/filo değil, tamirci).",
+        "classified_at": "2026-08-13T07:31:23.545043+00:00"
+    },
+    "gplaces_ChIJafzGXcpv1hQRoPC_HOmG200": {
+        "relevance_score": 10,
+        "score_reasoning": "Direksiyon/hidrolik tamiri ve yedek parça satışı yapan bağımsız servis/mağaza. Hedef kitle (büyük toptancı veya filo operatörü) ile örtüşmez.",
+        "classified_at": "2026-08-13T07:31:23.545043+00:00"
+    },
+    "gplaces_ChIJt1hOf91x1hQR-E8MBkBt0Nc": {
+        "relevance_score": 60,
+        "score_reasoning": "Kiralama şirketi olduğu için filo sahibi olabilirler. Ancak 'Araba Kiralama' usually passenger cars (kuşak otomobiller) anlamına gelir. Ağır vasıta olup olmadığı belirsizdir. Eğer hafif araç filosu ise hedef dışıdır, ağır vasıta kiralaması yapıyorsa hedef içi olur. Dikkatlil değerlendirilmeli, orta skor.",
+        "classified_at": "2026-08-13T07:31:23.545043+00:00"
+    },
+    "gplaces_ChIJI1E8M6MtxBQRElvVPqZHhN4": {
+        "relevance_score": 50,
+        "score_reasoning": "'Otomobil Yedek Parça Mağazası' kategorisinde. Bu genellikle hafif ticari/aracılık (otomobil) parçaları satan perakende mağazalarıdır. Ağır vasıta (TIR/Kamyon) odaklı olmadığı sürece hedef dışıdır. Ancak 'oto yedek parça toptancılarına' yönelik satıcı profili olabilir, ancak ürün gamı (ağır vasıta) belirsiz. Orta-düşük skor.",
+        "classified_at": "2026-08-13T07:31:23.545043+00:00"
+    },
+    "gplaces_ChIJTeusOtwtxBQRj5XHLuVt2EI": {
+        "relevance_score": 50,
+        "score_reasoning": "Yukarıdaki gibi, otomobil yedek parça mağazası. Ağır vasıta yedek parça satıcısı veya toptancısı olup olmadığı bilinmiyor. Genel oto parça satıcısı olarak kabul edildiğinde, hedef kitleye (oto yedek parça toptancıları/satıcıları) yakın olabilir ama ürün gamı sorunu var. Orta-düşük skor.",
+        "classified_at": "2026-08-13T07:31:23.545043+00:00"
+    },
+    "gplaces_ChIJ8XXMQwktxBQRUNXEmoZR8oo": {
+        "relevance_score": 5,
+        "score_reasoning": "Yağ, akü, filtre ve silecek satışı yapan bağımsız servis/tamirhane. Hedef kitle dışındadır.",
+        "classified_at": "2026-08-13T07:31:23.545043+00:00"
+    },
+    "gplaces_ChIJAxjZc9BAxBQRKNfPKejcKZU": {
+        "relevance_score": 50,
+        "score_reasoning": "Otomobil yedek parça mağazası. Benzer şekilde, ağır vasıta odaklı değilse hedef dışıdır. Ancak genel oto parça ticareti yapan bir dağıtıcı/mağaza olabilir. Ürün gamı netleşene kadar orta-düşük skor.",
+        "classified_at": "2026-08-13T07:31:23.545043+00:00"
+    },
+    "gplaces_ChIJ6UYQcwktxBQRG3KH6FAcusI": {
+        "relevance_score": 50,
+        "score_reasoning": "Ford marka özel otomobil yedek parçası satıcıdır. Ağır vasıta/marke değilse hedef dışıdır. Marka odaklı perakendeci olması, toptan ağır vasıta satıcısı profiliyle farklıdır.",
+        "classified_at": "2026-08-13T07:31:23.545043+00:00"
+    },
+    "gplaces_ChIJJYZFdcktxBQRIqQvNpLmXvg": {
+        "relevance_score": 10,
+        "score_reasoning": "Oto elektrikli klima ve yedek parça servisidir. Bağımsız Servis tamircisidir. Hedef kitle dışıdır.",
+        "classified_at": "2026-08-13T07:31:23.545043+00:00"
+    },
+    "gplaces_ChIJu9NNRQBBxBQRCdBUo8tecIE": {
+        "relevance_score": 20,
+        "score_reasoning": "Dorse tamiri, alım satım. Nakliye sektörüyle ilgili ve depo/tasarım aracını işleten bir firma olabilir. Ancak 'tamir ve alım satım' odaklı diye, hem servis hem de ticari araç kiralama/satım yapabilir, filo sahibi değilse hedef dışıdır. Dorsesi olan firmalar nakliye firması olabilir, ama bu firma dorse ile çalışıyor diye kamyon filosu olmayabilir. Orta-düşük.",
+        "classified_at": "2026-08-13T07:31:23.545043+00:00"
+    },
+    "gplaces_ChIJsZrGVwAtxBQRzUqpUpSxugU": {
+        "relevance_score": 15,
+        "score_reasoning": "Kamyon ve otobüs tamiri yapan bağımsız servistir. Hedef kitle (toptancı/filo) değil, hizmet verici tamircidir. Hedef dışıdır.",
+        "classified_at": "2026-08-13T07:31:23.545043+00:00"
+    },
+    "gplaces_ChIJ3b8zYAktxBQRGtZzriaHDVg": {
+        "relevance_score": 15,
+        "score_reasoning": "Motor iş yedek parça, ancak kategori 'Araç Bakım ve Onarımı'. Büyük ihtimalle bağımsız bir servis veya küçük bir yedek parça deposu. Toptan ağır vasıta satıcısı profili içermiyor. Düşük skor.",
+        "classified_at": "2026-08-13T07:31:23.545043+00:00"
+    },
+    "gplaces_ChIJk5_YmZ-3fUAR3_LRamHu1Iw": {
+        "relevance_score": 50,
+        "score_reasoning": "Otomotiv yedek parça mağazası. Diğeri gibi, ağır vasıta olup olmadığı bilinmiyor. Hafif araç parça satıcısı ise hedef dışıdır. Genel yedek parça satıcısı olarak potansiyel var ama ürün gamı meselesi var.",
+        "classified_at": "2026-08-13T07:31:23.545043+00:00"
     }
 }
