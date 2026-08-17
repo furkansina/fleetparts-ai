@@ -1,13 +1,19 @@
 {
-  "total_requests": 4112,
-  "total_spend_estimate": 131.58,
+  "total_requests": 5084,
+  "total_spend_estimate": 162.68,
   "province_last_scanned": {},
   "history": [
     {
       "date": "2026-08-12..2026-08-17 (tohumlama oncesi, workflow loglarindan geriye donuk hesaplandi)",
       "requests": 4112,
       "spend_estimate": 131.58
+    },
+    {
+      "date": "2026-08-17T09:37:50+00:00",
+      "requests": 972,
+      "spend_estimate": 31.1,
+      "note": "workflow_dispatch son cekim - workflow'un kendi loglarindan MANUEL duzeltildi (senkron o an calismiyordu)"
     }
   ],
-  "note": "2026-08-17: kullanici istegiyle son cekim icin il sogumasi temizlendi - bu SON Google Places kosusu, sonrasinda API anahtari kaldirilacak."
+  "note": "2026-08-17: GITHUB_TOKEN/GITHUB_REPO eksikligi duzeltildi, bu koşunun harcamasi log'dan dogrulanip manuel eklendi."
 }
