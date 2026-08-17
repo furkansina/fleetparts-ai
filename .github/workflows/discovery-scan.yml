@@ -37,6 +37,17 @@ jobs:
           # is_configured() kontrolü bu yüzden hep False dönüyordu, Google Places hiç çalışmadı
           # (ücret de oluşmadı, ama beklenen sonuç da gelmedi). Artık doğru şekilde bağlandı.
           GOOGLE_PLACES_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
+          # BUG (2026-08-17'de GERÇEK PARA RİSKİYLE tespit edildi): lead_sources_google_places.py
+          # kümülatif harcamayı (TÜM koşular toplamı, kullanıcının 250$ tavanı) GitHub'a yedeklemek
+          # için GITHUB_TOKEN/GITHUB_REPO okuyor - ama bu adıma hiç aktarılmıyordu. Sonuç: her koşu
+          # kendi harcamasını hesaplıyor ama KALICI OLARAK KAYDEDEMİYORDU - "GITHUB_TOKEN/GITHUB_REPO
+          # yok" uyarısıyla sessizce diskte (bu runner yok olunca kaybolan) kalıyordu. Bir sonraki
+          # koşu hep ESKİ (düşük) toplamı görüp GERÇEKTE ÇOK DAHA FAZLA harcanmışken tavanın hâlâ
+          # uzakta olduğunu sanabilir, kullanıcının 250$/280$ tavanını fiilen aşabilirdi. Diğer
+          # adımlardaki git push zaten actions/checkout'un otomatik GITHUB_TOKEN'ını kullanıyor -
+          # aynı token burada da (repo içeriğine yazma izniyle) kullanılabilir.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPO: ${{ github.repository }}
 
       - name: Değişiklikleri commit et
         if: always()
