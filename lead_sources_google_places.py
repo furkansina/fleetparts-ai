@@ -88,7 +88,7 @@ _request_count = 0
 # altına düşerse (güvenlik payı bırakarak) bu modül YENİ İSTEK ATMAYI TAMAMEN REDDEDİYOR - süreç
 # yeniden başlasa bile. Ayrıca aynı ili her hafta yeniden taramanın israfını önlemek için, bir il
 # en fazla _PROVINCE_COOLDOWN_DAYS günde bir yeniden taranıyor (büyükşehir dahil).
-_CUMULATIVE_HARD_CAP_USD = 260.0  # kullanıcının 280$ tavanının altında, ~20$ güvenlik payı
+_CUMULATIVE_HARD_CAP_USD = 250.0  # 2026-08-17'de kullanıcının kendi açık isteğiyle 250$'a çekildi (kartı/API'yi bu son çekimden sonra tamamen kapatacak)
 _PROVINCE_COOLDOWN_DAYS = 21  # bir il en fazla 3 haftada bir yeniden taranır (aynı firmaları tekrar tekrar aramamak için)
 _BUDGET_STATE_FILE = "google_places_budget.json"
 _COST_PER_REQUEST = 0.032
