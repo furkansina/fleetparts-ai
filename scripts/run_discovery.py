@@ -18,7 +18,7 @@ from lead_sources_find_com_tr import search_all as search_find_com_tr
 from lead_sources_izto import search_all as search_izto
 import lead_sources_google_places
 from lead_scoring import score_lead
-from lead_dedupe import dedupe_key, sanitize_phone
+from lead_dedupe import dedupe_key, sanitize_phone, is_mobile_phone
 
 LEADS_FILE = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "leads.json")
 # BU TARAMANIN kendi bulduklarının AYRI, canlı-güncellenen kaydı (2026-08-11'de eklendi - bkz.
@@ -76,10 +76,21 @@ def load_existing_leads():
 
 def _add_results(results, source, id_field, province_field, existing_keys, seen_this_run, new_leads, batch_id):
     """Il döngüsüne bağlı olmayan (tek seferlik) kaynaklar için ortak ekleme/dedupe mantığı -
-    sanayi_sitesi, sanayisitesi_platform, find_com_tr, google_places hepsi aynı şekli izliyor."""
+    sanayi_sitesi, sanayisitesi_platform, find_com_tr, google_places hepsi aynı şekli izliyor.
+
+    BUG (2026-08-17'de tespit edildi): kullanıcı 2026-08-13'te "whatsapp numarası olmayanları da
+    sil" dedi, o gün ELLE bir temizlik scripti çalıştırıp 28.041 sabit-hat/telefonsuz kaydı
+    sildim - ama bu SADECE o anki veriyi temizledi, kaynak koddaki asıl boşluğu kapatmadı. Sonuç:
+    bir sonraki haftalık otomatik tarama (2026-08-17) aynı sorunu yeniden üretti - 24.744 yeni
+    kayıttan sadece bir kısmı gerçekten mobil/WhatsApp uyumluydu, geri kalanı (telefonsuz veya
+    sabit hat) yine havuza karıştı. Artık bu filtre KAYNAKTA uygulanıyor - WhatsApp'tan
+    ulaşılamayan bir kayıt leads.json'a hiç girmiyor, her hafta yeniden temizlik yapmaya gerek
+    kalmıyor."""
     added = 0
     for raw in results:
         raw["phone"] = sanitize_phone(raw.get("phone", ""))
+        if not is_mobile_phone(raw["phone"]):
+            continue
         key = dedupe_key(raw["name"], raw.get("phone", ""))
         if key in existing_keys or key in seen_this_run:
             continue
@@ -148,6 +159,10 @@ def run_osm_and_directory_phase(provinces_to_scan, workers, existing_keys, seen_
             with lock:
                 for origin, raw in tagged_results:
                     raw["phone"] = sanitize_phone(raw.get("phone", ""))
+                    # bkz. _add_results'taki 2026-08-17 notu - WhatsApp'tan ulaşılamayan (telefonsuz/
+                    # sabit hat) kayıtlar kaynakta elenir, her hafta yeniden temizlik gerekmez.
+                    if not is_mobile_phone(raw["phone"]):
+                        continue
                     key = dedupe_key(raw["name"], raw.get("phone", ""))
                     if key in existing_keys or key in seen_this_run:
                         continue
