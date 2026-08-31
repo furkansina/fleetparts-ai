@@ -11029,5 +11029,19 @@
         "company": "Analiz Filo Servis",
         "opted_in_at": null,
         "source": "lead_discovery"
+    },
+    {
+        "name": "Nakliyat",
+        "phone": "05325130373",
+        "company": "Nakliyat",
+        "opted_in_at": null,
+        "source": "lead_discovery"
+    },
+    {
+        "name": "Narin Evden Eve Nakliyat",
+        "phone": "05395747713",
+        "company": "Narin Evden Eve Nakliyat",
+        "opted_in_at": null,
+        "source": "lead_discovery"
     }
 ]
